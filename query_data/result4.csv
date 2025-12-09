@@ -1,11 +1,11 @@
-ticker,name,roe_percent,roa_percent
-HD,"The Home Depot, Inc.",1450.48,19.79
-HD,"The Home Depot, Inc.",1095.07,22.38
-HD,"The Home Depot, Inc.",222.98,15.40
-MA,"Mastercard Incorporated",198.52,26.78
-AAPL,"Apple Inc.",196.96,28.29
-AAPL,"Apple Inc.",164.59,25.68
-MA,"Mastercard Incorporated",161.57,26.37
-MA,"Mastercard Incorporated",157.67,25.64
-AAPL,"Apple Inc.",156.08,27.51
-AAPL,"Apple Inc.",151.91,31.18
+ticker,name,report_date,roe_percent,roa_percent
+HD,"The Home Depot, Inc.",2025-01-31,222.98,15.40
+MA,"Mastercard Incorporated",2024-12-31,198.52,26.78
+AAPL,"Apple Inc.",2025-09-30,151.91,31.18
+NVDA,"NVIDIA Corporation",2025-01-31,91.87,65.30
+V,"Visa Inc.",2025-09-30,52.91,20.13
+KO,"The Coca-Cola Company",2024-12-31,42.77,10.57
+ADBE,"Adobe Inc.",2024-11-30,39.42,18.39
+NFLX,"Netflix, Inc.",2024-12-31,35.21,16.24
+META,"Meta Platforms, Inc.",2024-12-31,34.14,22.59
+GOOGL,"Alphabet Inc.",2024-12-31,30.80,22.24

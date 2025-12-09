@@ -1,33 +1,9 @@
-name,industry,debt_to_equity,current_ratio,interest_coverage_ratio
-"The Home Depot, Inc.","Home Improvement Retail",72.3046,1.3525,11.1626
-"The Home Depot, Inc.","Home Improvement Retail",47.9405,1.4051,14.8664
-"The Home Depot, Inc.","Home Improvement Retail",13.4758,1.1054,9.2745
-"JPMorgan Chase & Co.","Banks - Diversified",11.7277,NULL,NULL
-"JPMorgan Chase & Co.","Banks - Diversified",11.5397,NULL,NULL
-"JPMorgan Chase & Co.","Banks - Diversified",10.8196,NULL,NULL
-"Bank of America Corporation","Banks - Diversified",10.7360,NULL,NULL
-"JPMorgan Chase & Co.","Banks - Diversified",10.6105,NULL,NULL
-"Bank of America Corporation","Banks - Diversified",10.1691,NULL,NULL
-"Bank of America Corporation","Banks - Diversified",10.0351,NULL,NULL
-"Bank of America Corporation","Banks - Diversified",9.9041,NULL,NULL
-"Mastercard Incorporated","Credit Services",6.4096,1.0262,25.2740
-"Apple Inc.","Consumer Electronics",5.9615,0.8794,40.7496
-"Apple Inc.","Consumer Electronics",5.4088,0.8673,NULL
-"Mastercard Incorporated","Credit Services",5.1361,1.1718,27.0106
-"Mastercard Incorporated","Credit Services",5.1163,1.1658,25.4435
-"Apple Inc.","Consumer Electronics",4.6735,0.9880,29.0620
-"Mastercard Incorporated","Credit Services",4.1380,1.2877,23.7285
-"Apple Inc.","Consumer Electronics",3.8722,0.8933,NULL
-"The Coca-Cola Company","Beverages - Non-Alcoholic",3.0216,1.1301,6.9123
-"PayPal Holdings, Inc.","Credit Services",2.9972,1.2629,15.0864
-"The Coca-Cola Company","Beverages - Non-Alcoholic",2.9843,1.0296,8.4674
-"PayPal Holdings, Inc.","Credit Services",2.9032,1.2910,14.2478
-"PayPal Holdings, Inc.","Credit Services",2.8781,1.2759,13.3026
-"The Coca-Cola Company","Beverages - Non-Alcoholic",2.7769,1.1454,13.6531
-"The Coca-Cola Company","Beverages - Non-Alcoholic",2.7070,1.1341,8.5776
-"PayPal Holdings, Inc.","Credit Services",2.4889,1.2218,18.6379
-"Amazon.com, Inc.","Internet Retail",2.1681,0.9446,5.1745
-"UnitedHealth Group Incorporated","Healthcare Plans",2.1119,0.8266,8.2660
-"Walmart Inc.","Discount Stores",2.0759,0.8206,9.5996
-"UnitedHealth Group Incorporated","Healthcare Plans",2.0490,0.7740,13.5923
-"Amazon.com, Inc.","Internet Retail",2.0421,1.1358,13.7529
+name,industry,debt_to_equity,current_ratio,interest_coverage_ratio,report_date
+"The Home Depot, Inc.","Home Improvement Retail",13.4758,1.1054,9.2745,2025-01-31
+"JPMorgan Chase & Co.","Banks - Diversified",10.6105,NULL,NULL,2024-12-31
+"Bank of America Corporation","Banks - Diversified",10.0351,NULL,NULL,2024-12-31
+"Mastercard Incorporated","Credit Services",6.4096,1.0262,25.2740,2024-12-31
+"Apple Inc.","Consumer Electronics",3.8722,0.8933,NULL,2025-09-30
+"PayPal Holdings, Inc.","Credit Services",2.9972,1.2629,15.0864,2024-12-31
+"The Coca-Cola Company","Beverages - Non-Alcoholic",2.9843,1.0296,8.4674,2024-12-31
+"UnitedHealth Group Incorporated","Healthcare Plans",2.1119,0.8266,8.2660,2024-12-31

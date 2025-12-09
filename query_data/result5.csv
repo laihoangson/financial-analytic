@@ -1,7 +1,7 @@
-sector,company_count,avg_net_margin_percent,avg_roe_percent
-"Financial Services",23,34.83,49.99
-Technology,17,32.06,72.94
-"Communication Services",18,19.90,22.34
-Healthcare,9,15.99,26.64
-"Consumer Defensive",14,14.66,30.08
-"Consumer Cyclical",15,9.22,161.49
+sector,company_count,avg_net_margin_percent,avg_roe_percent,latest_report_date
+Technology,4,36.19,78.21,2025-09-30
+"Financial Services",5,34.01,59.58,2025-09-30
+"Communication Services",4,25.50,27.86,2025-09-30
+"Consumer Defensive",3,14.80,31.61,2025-06-30
+Healthcare,2,9.72,17.62,2024-12-31
+"Consumer Cyclical",3,8.62,84.49,2025-01-31

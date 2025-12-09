@@ -7,52 +7,83 @@ USE financial_analytics;
 -- SECTION 1: FUNDAMENTAL ANALYSIS 
 -- =======================================================
 
--- 1. Top 10 Companies by Revenue 
+-- 1. Top 10 Companies by Revenue (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.revenue IS NOT NULL AND f1.revenue > 0
+)
 SELECT 
     c.name, 
     c.sector, 
     f.report_date, 
     FORMAT(f.revenue, 0) as revenue, 
     FORMAT(f.net_income, 0) as net_income
-FROM financial_statements f
+FROM LatestFinancials f
 JOIN companies c ON f.ticker = c.ticker
+WHERE f.rn = 1
 ORDER BY f.revenue DESC
 LIMIT 10;
 
--- 2. Profitability Leaders: Highest Net Profit Margin 
--- Formula: (Net Income / Revenue) * 100
+-- 2. Profitability Leaders: Highest Net Profit Margin (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.revenue > 0
+)
 SELECT 
     c.ticker, 
     c.name, 
     f.report_date,
     ROUND(f.net_margin * 100, 2) as net_margin_percent,
     ROUND(f.gross_margin * 100, 2) as gross_margin_percent
-FROM financial_statements f
+FROM LatestFinancials f
 JOIN companies c ON f.ticker = c.ticker
-WHERE f.revenue > 0 -- Avoid division by zero
+WHERE f.rn = 1
 ORDER BY f.net_margin DESC
 LIMIT 10;
 
--- 3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)
+-- 3. Financial Health: Companies with High Debt Risk (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.debt_to_equity IS NOT NULL
+)
 SELECT 
     c.name, 
     c.industry, 
     f.debt_to_equity,
     f.current_ratio,
-    f.interest_coverage_ratio
-FROM financial_statements f
+    f.interest_coverage_ratio,
+    f.report_date
+FROM LatestFinancials f
 JOIN companies c ON f.ticker = c.ticker
-WHERE f.debt_to_equity > 2
+WHERE f.rn = 1 AND f.debt_to_equity > 2
 ORDER BY f.debt_to_equity DESC;
 
--- 4. Efficient Operations: Best Return on Equity (ROE) & ROA
+-- 4. Efficient Operations: Best Return on Equity (ROE) & ROA (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.roe IS NOT NULL
+)
 SELECT 
     c.ticker,
     c.name,
+    f.report_date,
     ROUND(f.roe * 100, 2) as roe_percent,
     ROUND(f.roa * 100, 2) as roa_percent
-FROM financial_statements f
+FROM LatestFinancials f
 JOIN companies c ON f.ticker = c.ticker
+WHERE f.rn = 1
 ORDER BY f.roe DESC
 LIMIT 10;
 
@@ -60,15 +91,33 @@ LIMIT 10;
 -- SECTION 2: SECTOR ANALYSIS 
 -- =======================================================
 
--- 5. Average Profit Margin by Sector
+-- 5. Average Profit Margin by Sector (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.revenue > 0
+),
+LatestCompanyData AS (
+    SELECT 
+        c.sector,
+        f.ticker,
+        f.net_margin,
+        f.roe,
+        f.report_date
+    FROM LatestFinancials f
+    JOIN companies c ON f.ticker = c.ticker
+    WHERE f.rn = 1
+)
 SELECT 
-    c.sector,
-    COUNT(c.ticker) as company_count,
-    ROUND(AVG(f.net_margin) * 100, 2) as avg_net_margin_percent,
-    ROUND(AVG(f.roe) * 100, 2) as avg_roe_percent
-FROM companies c
-JOIN financial_statements f ON c.ticker = f.ticker
-GROUP BY c.sector
+    sector,
+    COUNT(DISTINCT ticker) as company_count,
+    ROUND(AVG(net_margin) * 100, 2) as avg_net_margin_percent,
+    ROUND(AVG(roe) * 100, 2) as avg_roe_percent,
+    MAX(report_date) as latest_report_date
+FROM LatestCompanyData
+GROUP BY sector
 ORDER BY avg_net_margin_percent DESC;
 
 -- =======================================================

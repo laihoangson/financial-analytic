@@ -1040,213 +1040,268 @@ CREATE TABLE IF NOT EXISTS financial_statements (
         </div>
     </div>
     
-    <div class="section" id="fundamental">
-        <h3>SECTION 1: FUNDAMENTAL ANALYSIS</h3>
-        
-        <div class="query-description">
-            <p><strong>1. Top 10 Companies by Revenue</strong></p>
-            <p>This query identifies the top 10 companies based on revenue, joining company information with financial statements data.</p>
-            <p>Key metrics displayed:</p>
-            <ul>
-                <li>Company name and sector</li>
-                <li>Report date</li>
-                <li>Revenue and net income (formatted with thousand separators)</li>
-            </ul>
-        </div>
-        
-        <div class="code-header-bar">
-            <div class="code-title">SQL Query 1</div>
-            <button class="copy-btn" data-target="query1-code">Copy</button>
-        </div>
-        <pre><code class="language-sql" id="query1-code">-- 1. Top 10 Companies by Revenue 
+<div class="section" id="fundamental">
+    <h3>SECTION 1: FUNDAMENTAL ANALYSIS</h3>
+    
+    <div class="query-description">
+        <p><strong>1. Top 10 Companies by Revenue (Most Recent Year)</strong></p>
+        <p>This query identifies the top 10 companies based on revenue using their most recent financial year data.</p>
+        <p>Key metrics displayed:</p>
+        <ul>
+            <li>Company name and sector</li>
+            <li>Report date (most recent fiscal year)</li>
+            <li>Revenue and net income (formatted with thousand separators)</li>
+        </ul>
+        <p><em>Note: Only the latest financial statement for each company is considered.</em></p>
+    </div>
+    
+    <div class="code-header-bar">
+        <div class="code-title">SQL Query 1</div>
+        <button class="copy-btn" data-target="query1-code">Copy</button>
+    </div>
+    <pre><code class="language-sql" id="query1-code">-- 1. Top 10 Companies by Revenue (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.revenue IS NOT NULL AND f1.revenue > 0
+)
 SELECT 
     c.name, 
     c.sector, 
     f.report_date, 
     FORMAT(f.revenue, 0) as revenue, 
     FORMAT(f.net_income, 0) as net_income
-FROM financial_statements f
+FROM LatestFinancials f
 JOIN companies c ON f.ticker = c.ticker
+WHERE f.rn = 1
 ORDER BY f.revenue DESC
 LIMIT 10;</code></pre>
-        
-        <div class="query-controls">
-            <div class="query-status" id="status-query1"></div>
-            <button class="query-btn" data-query="1">
-                <i class="fas fa-play"></i> Run Query 1
-            </button>
+    
+    <div class="query-controls">
+        <div class="query-status" id="status-query1"></div>
+        <button class="query-btn" data-query="1">
+            <i class="fas fa-play"></i> Run Query 1
+        </button>
+    </div>
+    
+    <div class="query-result-container" id="result-query1">
+        <div class="result-header">
+            <h4><i class="fas fa-table"></i> Query 1 Results: Top 10 Companies by Revenue (Most Recent Year)</h4>
+            <button class="close-result" data-target="query1">×</button>
         </div>
-        
-        <div class="query-result-container" id="result-query1">
-            <div class="result-header">
-                <h4><i class="fas fa-table"></i> Query 1 Results: Top 10 Companies by Revenue</h4>
-                <button class="close-result" data-target="query1">×</button>
-            </div>
-            <div class="result-content">
-                <!-- Results will be loaded here -->
-            </div>
+        <div class="result-content">
+            <!-- Results will be loaded here -->
         </div>
-        
-        <div class="query-description">
-            <p><strong>2. Profitability Leaders: Highest Net Profit Margin</strong></p>
-            <p>Identifies companies with the highest net profit margin, calculated as (Net Income / Revenue) × 100.</p>
-            <p>Includes both net margin and gross margin percentages.</p>
-        </div>
-        
-        <div class="code-header-bar">
-            <div class="code-title">SQL Query 2</div>
-            <button class="copy-btn" data-target="query2-code">Copy</button>
-        </div>
-        <pre><code class="language-sql" id="query2-code">-- 2. Profitability Leaders: Highest Net Profit Margin 
--- Formula: (Net Income / Revenue) * 100
+    </div>
+    
+    <div class="query-description">
+        <p><strong>2. Profitability Leaders: Highest Net Profit Margin (Most Recent Year)</strong></p>
+        <p>Identifies companies with the highest net profit margin using their most recent financial year data.</p>
+        <p>Formula: (Net Income / Revenue) × 100</p>
+        <p>Includes both net margin and gross margin percentages for comprehensive analysis.</p>
+        <p><em>Note: Only the latest financial statement for each company is considered.</em></p>
+    </div>
+    
+    <div class="code-header-bar">
+        <div class="code-title">SQL Query 2</div>
+        <button class="copy-btn" data-target="query2-code">Copy</button>
+    </div>
+    <pre><code class="language-sql" id="query2-code">-- 2. Profitability Leaders: Highest Net Profit Margin (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.revenue > 0
+)
 SELECT 
     c.ticker, 
     c.name, 
     f.report_date,
     ROUND(f.net_margin * 100, 2) as net_margin_percent,
     ROUND(f.gross_margin * 100, 2) as gross_margin_percent
-FROM financial_statements f
+FROM LatestFinancials f
 JOIN companies c ON f.ticker = c.ticker
-WHERE f.revenue > 0 -- Avoid division by zero
+WHERE f.rn = 1
 ORDER BY f.net_margin DESC
 LIMIT 10;</code></pre>
-        
-        <div class="query-controls">
-            <div class="query-status" id="status-query2"></div>
-            <button class="query-btn" data-query="2">
-                <i class="fas fa-play"></i> Run Query 2
-            </button>
+    
+    <div class="query-controls">
+        <div class="query-status" id="status-query2"></div>
+        <button class="query-btn" data-query="2">
+            <i class="fas fa-play"></i> Run Query 2
+        </button>
+    </div>
+    
+    <div class="query-result-container" id="result-query2">
+        <div class="result-header">
+            <h4><i class="fas fa-chart-line"></i> Query 2 Results: Highest Net Profit Margin (Most Recent Year)</h4>
+            <button class="close-result" data-target="query2">×</button>
         </div>
-        
-        <div class="query-result-container" id="result-query2">
-            <div class="result-header">
-                <h4><i class="fas fa-chart-line"></i> Query 2 Results: Highest Net Profit Margin</h4>
-                <button class="close-result" data-target="query2">×</button>
-            </div>
-            <div class="result-content">
-                <!-- Results will be loaded here -->
-            </div>
+        <div class="result-content">
+            <!-- Results will be loaded here -->
         </div>
-        
-        <div class="query-description">
-            <p><strong>3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)</strong></p>
-            <p>Highlights companies with potentially risky debt levels (Debt-to-Equity ratio > 2).</p>
-            <p>Also shows current ratio and interest coverage ratio for further analysis of financial health.</p>
-        </div>
-        
-        <div class="code-header-bar">
-            <div class="code-title">SQL Query 3</div>
-            <button class="copy-btn" data-target="query3-code">Copy</button>
-        </div>
-        <pre><code class="language-sql" id="query3-code">-- 3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)
+    </div>
+    
+    <div class="query-description">
+        <p><strong>3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2) - Most Recent Year</strong></p>
+        <p>Highlights companies with potentially risky debt levels (Debt-to-Equity ratio > 2) using their most recent financial data.</p>
+        <p>Also shows current ratio and interest coverage ratio for further analysis of financial health.</p>
+        <p><em>Note: Only the latest financial statement for each company is considered.</em></p>
+    </div>
+    
+    <div class="code-header-bar">
+        <div class="code-title">SQL Query 3</div>
+        <button class="copy-btn" data-target="query3-code">Copy</button>
+    </div>
+    <pre><code class="language-sql" id="query3-code">-- 3. Financial Health: Companies with High Debt Risk (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.debt_to_equity IS NOT NULL
+)
 SELECT 
     c.name, 
     c.industry, 
     f.debt_to_equity,
     f.current_ratio,
-    f.interest_coverage_ratio
-FROM financial_statements f
+    f.interest_coverage_ratio,
+    f.report_date
+FROM LatestFinancials f
 JOIN companies c ON f.ticker = c.ticker
-WHERE f.debt_to_equity > 2
+WHERE f.rn = 1 AND f.debt_to_equity > 2
 ORDER BY f.debt_to_equity DESC;</code></pre>
-        
-        <div class="query-controls">
-            <div class="query-status" id="status-query3"></div>
-            <button class="query-btn" data-query="3">
-                <i class="fas fa-play"></i> Run Query 3
-            </button>
+    
+    <div class="query-controls">
+        <div class="query-status" id="status-query3"></div>
+        <button class="query-btn" data-query="3">
+            <i class="fas fa-play"></i> Run Query 3
+        </button>
+    </div>
+    
+    <div class="query-result-container" id="result-query3">
+        <div class="result-header">
+            <h4><i class="fas fa-exclamation-triangle"></i> Query 3 Results: High Debt Risk Companies (Most Recent Year)</h4>
+            <button class="close-result" data-target="query3">×</button>
         </div>
-        
-        <div class="query-result-container" id="result-query3">
-            <div class="result-header">
-                <h4><i class="fas fa-exclamation-triangle"></i> Query 3 Results: High Debt Risk Companies</h4>
-                <button class="close-result" data-target="query3">×</button>
-            </div>
-            <div class="result-content">
-                <!-- Results will be loaded here -->
-            </div>
-        </div>
-        
-        <div class="query-description">
-            <p><strong>4. Efficient Operations: Best Return on Equity (ROE) & ROA</strong></p>
-            <p>Ranks companies by Return on Equity (ROE), showing the top 10 performers.</p>
-            <p>Also includes Return on Assets (ROA) for comparison of asset utilization efficiency.</p>
-        </div>
-        
-        <div class="code-header-bar">
-            <div class="code-title">SQL Query 4</div>
-            <button class="copy-btn" data-target="query4-code">Copy</button>
-        </div>
-        <pre><code class="language-sql" id="query4-code">-- 4. Efficient Operations: Best Return on Equity (ROE) & ROA
-SELECT 
-    c.ticker,
-    c.name,
-    ROUND(f.roe * 100, 2) as roe_percent,
-    ROUND(f.roa * 100, 2) as roa_percent
-FROM financial_statements f
-JOIN companies c ON f.ticker = c.ticker
-ORDER BY f.roe DESC
-LIMIT 10;</code></pre>
-        
-        <div class="query-controls">
-            <div class="query-status" id="status-query4"></div>
-            <button class="query-btn" data-query="4">
-                <i class="fas fa-play"></i> Run Query 4
-            </button>
-        </div>
-        
-        <div class="query-result-container" id="result-query4">
-            <div class="result-header">
-                <h4><i class="fas fa-tachometer-alt"></i> Query 4 Results: Best ROE & ROA</h4>
-                <button class="close-result" data-target="query4">×</button>
-            </div>
-            <div class="result-content">
-                <!-- Results will be loaded here -->
-            </div>
+        <div class="result-content">
+            <!-- Results will be loaded here -->
         </div>
     </div>
     
-    <div class="section" id="sector">
-        <h3>SECTION 2: SECTOR ANALYSIS</h3>
-        
-        <div class="query-description">
-            <p><strong>5. Average Profit Margin by Sector</strong></p>
-            <p>Aggregates financial metrics at the sector level to compare industry performance.</p>
-            <p>Shows average net margin and ROE for each sector, along with the number of companies in each sector.</p>
-        </div>
-        
-        <div class="code-header-bar">
-            <div class="code-title">SQL Query 5</div>
-            <button class="copy-btn" data-target="query5-code">Copy</button>
-        </div>
-        <pre><code class="language-sql" id="query5-code">-- 5. Average Profit Margin by Sector
+    <div class="query-description">
+        <p><strong>4. Efficient Operations: Best Return on Equity (ROE) & ROA (Most Recent Year)</strong></p>
+        <p>Ranks companies by Return on Equity (ROE) using their most recent financial year data, showing the top 10 performers.</p>
+        <p>Also includes Return on Assets (ROA) for comparison of asset utilization efficiency.</p>
+        <p><em>Note: Only the latest financial statement for each company is considered.</em></p>
+    </div>
+    
+    <div class="code-header-bar">
+        <div class="code-title">SQL Query 4</div>
+        <button class="copy-btn" data-target="query4-code">Copy</button>
+    </div>
+    <pre><code class="language-sql" id="query4-code">-- 4. Efficient Operations: Best Return on Equity (ROE) & ROA (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.roe IS NOT NULL
+)
 SELECT 
-    c.sector,
-    COUNT(c.ticker) as company_count,
-    ROUND(AVG(f.net_margin) * 100, 2) as avg_net_margin_percent,
-    ROUND(AVG(f.roe) * 100, 2) as avg_roe_percent
-FROM companies c
-JOIN financial_statements f ON c.ticker = f.ticker
-GROUP BY c.sector
-ORDER BY avg_net_margin_percent DESC;</code></pre>
-        
-        <div class="query-controls">
-            <div class="query-status" id="status-query5"></div>
-            <button class="query-btn" data-query="5">
-                <i class="fas fa-play"></i> Run Query 5
-            </button>
+    c.ticker,
+    c.name,
+    f.report_date,
+    ROUND(f.roe * 100, 2) as roe_percent,
+    ROUND(f.roa * 100, 2) as roa_percent
+FROM LatestFinancials f
+JOIN companies c ON f.ticker = c.ticker
+WHERE f.rn = 1
+ORDER BY f.roe DESC
+LIMIT 10;</code></pre>
+    
+    <div class="query-controls">
+        <div class="query-status" id="status-query4"></div>
+        <button class="query-btn" data-query="4">
+            <i class="fas fa-play"></i> Run Query 4
+        </button>
+    </div>
+    
+    <div class="query-result-container" id="result-query4">
+        <div class="result-header">
+            <h4><i class="fas fa-tachometer-alt"></i> Query 4 Results: Best ROE & ROA (Most Recent Year)</h4>
+            <button class="close-result" data-target="query4">×</button>
         </div>
-        
-        <div class="query-result-container" id="result-query5">
-            <div class="result-header">
-                <h4><i class="fas fa-industry"></i> Query 5 Results: Average Profit Margin by Sector</h4>
-                <button class="close-result" data-target="query5">×</button>
-            </div>
-            <div class="result-content">
-                <!-- Results will be loaded here -->
-            </div>
+        <div class="result-content">
+            <!-- Results will be loaded here -->
         </div>
     </div>
+</div>
+
+<div class="section" id="sector">
+    <h3>SECTION 2: SECTOR ANALYSIS</h3>
+    
+    <div class="query-description">
+        <p><strong>5. Average Profit Margin by Sector (Most Recent Year)</strong></p>
+        <p>Aggregates financial metrics at the sector level using the most recent financial year data for each company.</p>
+        <p>Shows average net margin and ROE for each sector, along with the number of companies and the latest report date.</p>
+        <p><em>Note: Only the latest financial statement for each company is considered for accurate sector comparisons.</em></p>
+    </div>
+    
+    <div class="code-header-bar">
+        <div class="code-title">SQL Query 5</div>
+        <button class="copy-btn" data-target="query5-code">Copy</button>
+    </div>
+    <pre><code class="language-sql" id="query5-code">-- 5. Average Profit Margin by Sector (Most Recent Year)
+WITH LatestFinancials AS (
+    SELECT 
+        f1.*,
+        ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
+    FROM financial_statements f1
+    WHERE f1.revenue > 0
+),
+LatestCompanyData AS (
+    SELECT 
+        c.sector,
+        f.ticker,
+        f.net_margin,
+        f.roe,
+        f.report_date
+    FROM LatestFinancials f
+    JOIN companies c ON f.ticker = c.ticker
+    WHERE f.rn = 1
+)
+SELECT 
+    sector,
+    COUNT(DISTINCT ticker) as company_count,
+    ROUND(AVG(net_margin) * 100, 2) as avg_net_margin_percent,
+    ROUND(AVG(roe) * 100, 2) as avg_roe_percent,
+    MAX(report_date) as latest_report_date
+FROM LatestCompanyData
+GROUP BY sector
+ORDER BY avg_net_margin_percent DESC;</code></pre>
+    
+    <div class="query-controls">
+        <div class="query-status" id="status-query5"></div>
+        <button class="query-btn" data-query="5">
+            <i class="fas fa-play"></i> Run Query 5
+        </button>
+    </div>
+    
+    <div class="query-result-container" id="result-query5">
+        <div class="result-header">
+            <h4><i class="fas fa-industry"></i> Query 5 Results: Average Profit Margin by Sector (Most Recent Year)</h4>
+            <button class="close-result" data-target="query5">×</button>
+        </div>
+        <div class="result-content">
+            <!-- Results will be loaded here -->
+        </div>
+    </div>
+</div>
     
     <div class="section" id="market">
         <h3>SECTION 3: MARKET ANALYSIS & VALUATION</h3>
@@ -1472,57 +1527,91 @@ LIMIT 100;</code></pre>
             8: 'query_data/result8.csv'
         };
         
-        // Parse CSV string to array
+        // Parse CSV string to array (cải tiến để xử lý dấu phẩy trong giá trị)
         function parseCSV(csvText) {
-            const lines = csvText.split('\n');
-            const result = [];
-            const headers = lines[0].split(',');
+            const lines = csvText.split('\n').filter(line => line.trim() !== '');
+            if (lines.length === 0) return { headers: [], data: [] };
             
-            for (let i = 1; i < lines.length; i++) {
-                if (lines[i].trim() === '') continue;
+            // Hàm phân tích cú pháp dòng CSV với xử lý dấu ngoặc kép
+            function parseCSVLine(line) {
+                const result = [];
+                let currentField = '';
+                let inQuotes = false;
                 
-                const obj = {};
-                const currentline = lines[i].split(',');
-                
-                for (let j = 0; j < headers.length; j++) {
-                    obj[headers[j].trim()] = currentline[j] ? currentline[j].trim() : '';
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    const nextChar = i + 1 < line.length ? line[i + 1] : '';
+                    
+                    if (char === '"') {
+                        // Nếu có 2 dấu ngoặc kép liên tiếp, đó là dấu ngoặc kép được thoát
+                        if (inQuotes && nextChar === '"') {
+                            currentField += '"';
+                            i++; // Bỏ qua dấu ngoặc kép tiếp theo
+                        } else {
+                            // Bắt đầu hoặc kết thúc trường trong ngoặc kép
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        // Dấu phân cách trường
+                        result.push(currentField);
+                        currentField = '';
+                    } else {
+                        currentField += char;
+                    }
                 }
                 
-                result.push(obj);
+                // Thêm trường cuối cùng
+                result.push(currentField);
+                return result;
             }
             
-            return { headers, data: result };
+            // Phân tích tiêu đề
+            const headers = parseCSVLine(lines[0]).map(h => h.trim());
+            
+            // Phân tích dữ liệu
+            const data = [];
+            for (let i = 1; i < lines.length; i++) {
+                const fields = parseCSVLine(lines[i]);
+                if (fields.length === headers.length) {
+                    const obj = {};
+                    headers.forEach((header, index) => {
+                        obj[header] = fields[index] ? fields[index].trim() : '';
+                    });
+                    data.push(obj);
+                }
+            }
+            
+            return { headers, data };
         }
         
-        // Create HTML table from CSV data
-        function createTableFromCSV(csvData) {
-            const { headers, data } = csvData;
-            
-            let html = `<table class="csv-table">`;
-            
-            // Create header row
-            html += '<thead><tr>';
-            headers.forEach(header => {
-                html += `<th>${header}</th>`;
-            });
-            html += '</tr></thead>';
-            
-            // Create data rows
-            html += '<tbody>';
-            data.forEach(row => {
-                html += '<tr>';
-                headers.forEach(header => {
-                    const value = row[header] || '';
-                    // Check if value is numeric for right alignment
-                    const isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
-                    html += `<td style="${isNumeric ? 'text-align: right;' : ''}">${value}</td>`;
-                });
-                html += '</tr>';
-            });
-            html += '</tbody></table>';
-            
-            return html;
-        }
+// Create HTML table from CSV data - tất cả đều căn giữa
+function createTableFromCSV(csvData) {
+    const { headers, data } = csvData;
+    
+    let html = `<table style="width: 100%; text-align: center; border-collapse: collapse; margin: 15px 0;">`;
+    
+    // Create header row
+    html += '<thead><tr>';
+    headers.forEach(header => {
+        html += `<th style="padding: 12px; background: #4a6fa5; color: white; border-bottom: 3px solid #2a4a7a;">${header}</th>`;
+    });
+    html += '</tr></thead>';
+    
+    // Create data rows
+    html += '<tbody>';
+    data.forEach((row, rowIndex) => {
+        const bgColor = rowIndex % 2 === 0 ? '#f8f9fa' : '#ffffff';
+        html += `<tr style="background-color: ${bgColor};">`;
+        headers.forEach(header => {
+            const value = row[header] || '';
+            html += `<td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">${value}</td>`;
+        });
+        html += '</tr>';
+    });
+    html += '</tbody></table>';
+    
+    return html;
+}
         
         // Load CSV file
         async function loadCSV(queryNumber) {

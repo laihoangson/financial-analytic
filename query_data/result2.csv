@@ -1,11 +1,11 @@
 ticker,name,report_date,net_margin_percent,gross_margin_percent
 NVDA,"NVIDIA Corporation",2025-01-31,55.85,74.99
-V,"Visa Inc.",2024-09-30,54.95,80.40
-V,"Visa Inc.",2023-09-30,52.90,79.89
-V,"Visa Inc.",2022-09-30,51.03,80.44
 V,"Visa Inc.",2025-09-30,50.15,80.36
-NVDA,"NVIDIA Corporation",2024-01-31,48.85,72.72
-MA,"Mastercard Incorporated",2021-12-31,46.00,76.23
 MA,"Mastercard Incorporated",2024-12-31,45.71,76.31
-MA,"Mastercard Incorporated",2022-12-31,44.66,76.33
-MA,"Mastercard Incorporated",2023-12-31,44.61,76.01
+META,"Meta Platforms, Inc.",2024-12-31,37.91,81.67
+MSFT,"Microsoft Corporation",2025-06-30,36.15,68.82
+JPM,"JPMorgan Chase & Co.",2024-12-31,34.51,NULL
+GOOGL,"Alphabet Inc.",2024-12-31,28.60,58.20
+AAPL,"Apple Inc.",2025-09-30,26.92,46.91
+BAC,"Bank of America Corporation",2024-12-31,26.63,NULL
+ADBE,"Adobe Inc.",2024-11-30,25.85,89.04
