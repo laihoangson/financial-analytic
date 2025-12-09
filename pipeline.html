@@ -1,0 +1,902 @@
+<!-- frontend/pipeline.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ETL Pipeline - Global Market Insight 360">
+    <meta name="author" content="Hoang Son Lai">
+    <title>ETL Pipeline - Global Market Insight 360</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">GM</div>
+                    <span>MarketInsight 360</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pipeline.html" class="active">ETL Pipeline</a></li>
+                    <li><a href="sql.html">SQL Section</a></li>
+                    <li><a href="powerbi.html">Power BI Dashboards</a></li>
+                    <li><a href="reports.html">Python Reports</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <section class="hero" style="background: linear-gradient(135deg, #10b981, #059669);">
+            <h1>ETL Pipeline Architecture</h1>
+            <p class="hero-subtitle">
+                Data extraction, transformation, and loading process from yFinance API to MySQL database.
+            </p>
+        </section>
+
+        <!-- Pipeline Overview -->
+        <section class="pipeline-overview">
+            <div class="etl-process">
+                <h2>Pipeline Components</h2>
+                
+                <div class="overview-cards">
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3><i class="fas fa-download"></i> Data Extraction</h3>
+                        </div>
+                        <p>Fetch data from yFinance API for 21 major companies</p>
+                        <div class="overview-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Source:</span>
+                                <span class="detail-value">yFinance API</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Companies:</span>
+                                <span class="detail-value">21 tickers</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Data Types:</span>
+                                <span class="detail-value">Company info, stock prices, financials</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3><i class="fas fa-broom"></i> Data Cleaning</h3>
+                        </div>
+                        <p>Clean, transform, and calculate financial ratios</p>
+                        <div class="overview-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Processing:</span>
+                                <span class="detail-value">Handle missing values, standardize formats</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Calculations:</span>
+                                <span class="detail-value">40+ financial ratios</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Timezone:</span>
+                                <span class="detail-value">UTC timezone handling</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3><i class="fas fa-database"></i> Database Load</h3>
+                        </div>
+                        <p>Load cleaned data into MySQL tables with integrity checks</p>
+                        <div class="overview-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Database:</span>
+                                <span class="detail-value">MySQL</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tables:</span>
+                                <span class="detail-value">3 main tables with foreign keys</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Error Handling:</span>
+                                <span class="detail-value">NaN/Infinity handling, duplicate prevention</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Flow Diagram -->
+        <section class="data-flow">
+            <div class="etl-process">
+                <h2>Data Flow Architecture</h2>
+                
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-cloud-download-alt"></i>
+                        </div>
+                        <h4>Source: yFinance API</h4>
+                        <ul>
+                            <li>Stock prices (5-year history)</li>
+                            <li>Company information</li>
+                            <li>Financial statements</li>
+                            <li>21 global companies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-file-csv"></i>
+                        </div>
+                        <h4>Raw Data Storage</h4>
+                        <ul>
+                            <li>raw_companies.csv</li>
+                            <li>raw_prices.csv</li>
+                            <li>raw_financials.csv</li>
+                            <li>Data validation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4>Data Processing</h4>
+                        <ul>
+                            <li>Clean missing values</li>
+                            <li>Calculate ratios</li>
+                            <li>Standardize formats</li>
+                            <li>Handle time zones</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>MySQL Database</h4>
+                        <ul>
+                            <li>companies table</li>
+                            <li>stock_prices table</li>
+                            <li>financial_statements table</li>
+                            <li>Foreign key constraints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Implementation -->
+        <section class="code-implementation">
+            <h2 style="margin-bottom: 2rem;">Pipeline Code Implementation</h2>
+            
+            <!-- fetch_data.py -->
+            <div class="etl-process">
+                <div class="code-header">
+                    <h3><i class="fab fa-python"></i> fetch_data.py</h3>
+                    <span class="file-info">Extracts data from yFinance API</span>
+                </div>
+                
+                <div class="code-snippet">
+                    <div class="code-header-bar">
+                        <div class="code-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="code-filename">fetch_data.py</span>
+                    </div>
+                    <pre><code class="language-python">import yfinance as yf
+import pandas as pd
+import os
+import time
+from config import TICKERS, DATA_RAW_DIR
+
+def fetch_company_info(ticker_symbol):
+    """Fetch general company information."""
+    ticker = yf.Ticker(ticker_symbol)
+    info = ticker.info
+    
+    data = {
+        'ticker': ticker_symbol,
+        'name': info.get('longName'),
+        'sector': info.get('sector'),
+        'industry': info.get('industry'),
+        'country': info.get('country'),
+        'website': info.get('website'),
+        'description': info.get('longBusinessSummary'),
+        'currency': info.get('currency')
+    }
+    return pd.DataFrame([data])
+
+def fetch_stock_history(ticker_symbol, period="5y"):
+    """Fetch historical stock prices."""
+    ticker = yf.Ticker(ticker_symbol)
+    hist = ticker.history(period=period)
+    hist.reset_index(inplace=True)
+    hist['Ticker'] = ticker_symbol
+    return hist
+
+def fetch_financials(ticker_symbol):
+    """Fetch Income Statement, Balance Sheet, and Cash Flow."""
+    t = yf.Ticker(ticker_symbol)
+    inc = t.financials.T
+    bal = t.balance_sheet.T
+    cf = t.cashflow.T
+    fin_df = inc.join(bal, lsuffix='_inc', rsuffix='_bal').join(cf, rsuffix='_cf')
+    fin_df.reset_index(inplace=True)
+    fin_df.rename(columns={'index': 'Date'}, inplace=True)
+    fin_df['Ticker'] = ticker_symbol
+    return fin_df
+
+def main():
+    print("--- Starting Data Fetching Process ---")
+    
+    all_companies, all_prices, all_financials = [], [], []
+    
+    for t in TICKERS:
+        print(f"Fetching data for {t}...")
+        try:
+            all_companies.append(fetch_company_info(t))
+            all_prices.append(fetch_stock_history(t))
+            all_financials.append(fetch_financials(t))
+            time.sleep(1)  # Rate limiting
+        except Exception as e:
+            print(f"Error fetching {t}: {e}")
+    
+    # Save raw data
+    if all_companies:
+        pd.concat(all_companies).to_csv(
+            os.path.join(DATA_RAW_DIR, 'raw_companies.csv'), index=False
+        )
+    if all_prices:
+        pd.concat(all_prices).to_csv(
+            os.path.join(DATA_RAW_DIR, 'raw_prices.csv'), index=False
+        )
+    if all_financials:
+        pd.concat(all_financials).to_csv(
+            os.path.join(DATA_RAW_DIR, 'raw_financials.csv'), index=False
+        )
+    
+    print(f"--- Fetching Complete. Data saved to {DATA_RAW_DIR} ---")</code></pre>
+                </div>
+            </div>
+
+            <!-- clean_data.py -->
+            <div class="etl-process">
+                <div class="code-header">
+                    <h3><i class="fab fa-python"></i> clean_data.py</h3>
+                    <span class="file-info">Cleans data and calculates financial ratios</span>
+                </div>
+                
+                <div class="code-snippet">
+                    <div class="code-header-bar">
+                        <div class="code-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="code-filename">clean_data.py</span>
+                    </div>
+                    <pre><code class="language-python">import pandas as pd
+import numpy as np
+import os
+from config import DATA_RAW_DIR, DATA_CLEANED_DIR
+
+def clean_companies():
+    """Clean company info data."""
+    path = os.path.join(DATA_RAW_DIR, 'raw_companies.csv')
+    df = pd.read_csv(path)
+    df = df.drop_duplicates(subset=['ticker'])
+    df.fillna({'website': '', 'description': ''}, inplace=True)
+    
+    output_path = os.path.join(DATA_CLEANED_DIR, 'companies.csv')
+    df.to_csv(output_path, index=False)
+    print(f"Saved: {output_path}")
+
+def clean_prices():
+    """Clean stock price data."""
+    path = os.path.join(DATA_RAW_DIR, 'raw_prices.csv')
+    df = pd.read_csv(path)
+    
+    cols_map = {
+        'Date': 'date', 'Open': 'open', 'High': 'high', 
+        'Low': 'low', 'Close': 'close', 'Volume': 'volume', 
+        'Ticker': 'ticker'
+    }
+    df.rename(columns=cols_map, inplace=True)
+    
+    df['date'] = pd.to_datetime(df['date'], utc=True).dt.date
+    if 'adj_close' not in df.columns:
+        df['adj_close'] = df['close']
+    
+    final_cols = ['ticker', 'date', 'open', 'high', 'low', 
+                  'close', 'adj_close', 'volume']
+    df = df[final_cols].dropna(subset=['ticker', 'date'])
+    
+    output_path = os.path.join(DATA_CLEANED_DIR, 'stock_prices.csv')
+    df.to_csv(output_path, index=False)
+    print(f"Saved: {output_path}")
+
+def clean_financials():
+    """Clean financials and calculate metrics."""
+    path = os.path.join(DATA_RAW_DIR, 'raw_financials.csv')
+    df = pd.read_csv(path)
+    
+    # Calculate key financial ratios
+    df['current_ratio'] = df['current_assets'] / df['current_liabilities'].replace(0, np.nan)
+    df['quick_ratio'] = (df['current_assets'] - df['inventory']) / df['current_liabilities'].replace(0, np.nan)
+    df['debt_to_equity'] = df['total_liabilities'] / df['total_equity'].replace(0, np.nan)
+    df['roe'] = df['net_income'] / df['total_equity'].replace(0, np.nan)
+    df['roa'] = df['net_income'] / df['total_assets'].replace(0, np.nan)
+    df['gross_margin'] = df['gross_profit'] / df['revenue'].replace(0, np.nan)
+    df['net_margin'] = df['net_income'] / df['revenue'].replace(0, np.nan)
+    
+    df['report_date'] = pd.to_datetime(df['Date'], utc=True).dt.date
+    df['period'] = '12M'
+    df.rename(columns={'Ticker': 'ticker'}, inplace=True)
+    
+    output_path = os.path.join(DATA_CLEANED_DIR, 'financial_statements.csv')
+    df.to_csv(output_path, index=False)
+    print(f"Saved: {output_path}")</code></pre>
+                </div>
+            </div>
+
+            <!-- load_to_mysql.py -->
+            <div class="etl-process">
+                <div class="code-header">
+                    <h3><i class="fab fa-python"></i> load_to_mysql.py</h3>
+                    <span class="file-info">Loads data into MySQL database</span>
+                </div>
+                
+                <div class="code-snippet">
+                    <div class="code-header-bar">
+                        <div class="code-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="code-filename">load_to_mysql.py</span>
+                    </div>
+                    <pre><code class="language-python">import pandas as pd
+import numpy as np
+import os
+from sqlalchemy import create_engine, text
+from urllib.parse import quote_plus
+from config import DATA_CLEANED_DIR, DB_CONFIG
+
+def get_db_engine():
+    """Create database connection engine."""
+    encoded_password = quote_plus(DB_CONFIG['password'])
+    conn_str = f"mysql+mysqlconnector://{DB_CONFIG['user']}:{encoded_password}@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
+    return create_engine(conn_str)
+
+def load_data():
+    engine = get_db_engine()
+    
+    # Load companies with duplicate handling
+    df_comp = pd.read_csv(os.path.join(DATA_CLEANED_DIR, 'companies.csv'))
+    df_comp = df_comp.where(pd.notnull(df_comp), None)
+    
+    with engine.connect() as conn:
+        for _, row in df_comp.iterrows():
+            sql = text("""
+                INSERT INTO companies (ticker, name, sector, industry, country, 
+                                       website, description, currency)
+                VALUES (:ticker, :name, :sector, :industry, :country, 
+                        :website, :description, :currency)
+                ON DUPLICATE KEY UPDATE 
+                    name=VALUES(name), description=VALUES(description), 
+                    last_updated=NOW();
+            """)
+            conn.execute(sql, row.to_dict())
+        conn.commit()
+    
+    # Load stock prices with IGNORE for duplicates
+    df_prices = pd.read_csv(os.path.join(DATA_CLEANED_DIR, 'stock_prices.csv'))
+    df_prices = df_prices.where(pd.notnull(df_prices), None)
+    
+    with engine.connect() as conn:
+        for _, row in df_prices.iterrows():
+            sql = text("""
+                INSERT IGNORE INTO stock_prices (ticker, date, open, high, low, 
+                                                 close, adj_close, volume)
+                VALUES (:ticker, :date, :open, :high, :low, :close, 
+                        :adj_close, :volume)
+            """)
+            conn.execute(sql, row.to_dict())
+        conn.commit()
+    
+    # Load financials with Infinity/NaN handling
+    df_fin = pd.read_csv(os.path.join(DATA_CLEANED_DIR, 'financial_statements.csv'))
+    df_fin.replace([np.inf, -np.inf], np.nan, inplace=True)
+    df_fin = df_fin.astype(object).where(pd.notnull(df_fin), None)
+    
+    with engine.connect() as conn:
+        for _, row in df_fin.iterrows():
+            row_data = row.to_dict()
+            for k, v in row_data.items():
+                if isinstance(v, float) and np.isnan(v):
+                    row_data[k] = None
+                    
+            cols = ', '.join(df_fin.columns)
+            vals = ', '.join([f':{c}' for c in df_fin.columns])
+            
+            sql = text(f"""
+                INSERT IGNORE INTO financial_statements ({cols})
+                VALUES ({vals})
+            """)
+            conn.execute(sql, row_data)
+        conn.commit()
+    
+    print("Data successfully loaded into MySQL database")
+
+if __name__ == "__main__":
+    print("--- Starting Database Load ---")
+    load_data()
+    print("--- Database Load Complete ---")</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Features -->
+        <section class="technical-features">
+            <div class="etl-process">
+                <h2>Technical Features</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Error Handling</h4>
+                        <ul>
+                            <li>Try-catch blocks for each API call</li>
+                            <li>Database transaction rollback on failure</li>
+                            <li>Graceful handling of missing data</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h4>Financial Ratios</h4>
+                        <ul>
+                            <li>Liquidity ratios (current, quick, cash)</li>
+                            <li>Profitability ratios (ROE, ROA, margins)</li>
+                            <li>Leverage ratios (debt-to-equity)</li>
+                            <li>Efficiency ratios (turnovers)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>Data Integrity</h4>
+                        <ul>
+                            <li>Foreign key constraints</li>
+                            <li>Duplicate prevention</li>
+                            <li>NaN and Infinity handling</li>
+                            <li>Type consistency checks</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h4>Tooling</h4>
+                        <ul>
+                            <li>Pandas for data manipulation</li>
+                            <li>SQLAlchemy for ORM</li>
+                            <li>NumPy for calculations</li>
+                            <li>yFinance for data sourcing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pipeline.html">ETL Pipeline</a></li>
+                <li><a href="sql.html">SQL Section</a></li>
+                <li><a href="powerbi.html">Dashboards</a></li>
+                <li><a href="reports.html">Reports</a></li>
+            </ul>
+            
+            <div class="social-links">
+                <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            
+            <div class="credit">
+                Created by Hoang Son Lai | Financial Analytics Platform | © 2024
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    
+    <style>
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .overview-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow);
+        }
+        
+        .overview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        
+        .overview-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark-color);
+            margin: 0;
+        }
+        
+        .overview-card p {
+            color: var(--gray-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .overview-details {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: var(--gray-color);
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: var(--dark-color);
+            font-weight: 600;
+            text-align: right;
+            max-width: 60%;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .flow-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 2px solid #e2e8f0;
+            text-align: center;
+        }
+        
+        .flow-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .flow-step h4 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .flow-step ul {
+            list-style: none;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--gray-color);
+        }
+        
+        .flow-step li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        
+        .flow-step li:before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .code-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+        }
+        
+        .file-info {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .code-snippet {
+            background: #1e293b;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        
+        .code-header-bar {
+            background: #0f172a;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot.red { background-color: #ef4444; }
+        .dot.yellow { background-color: #f59e0b; }
+        .dot.green { background-color: #10b981; }
+        
+        .code-filename {
+            color: #cbd5e1;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .code-snippet pre {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+        
+        .code-snippet code {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .code-snippet .language-python .keyword { color: #60a5fa; }
+        .code-snippet .language-python .string { color: #34d399; }
+        .code-snippet .language-python .function { color: #fbbf24; }
+        .code-snippet .language-python .comment { color: #94a3b8; }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .feature-card h4 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .feature-card ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--gray-color);
+        }
+        
+        .feature-card li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        
+        .feature-card li:before {
+            content: "✓";
+            color: #10b981;
+            position: absolute;
+            left: 0;
+        }
+        
+        .error-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .error-feature {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .error-feature i {
+            font-size: 1.25rem;
+            margin-top: 0.25rem;
+        }
+        
+        .error-feature h4 {
+            margin-bottom: 0.25rem;
+            color: var(--dark-color);
+        }
+        
+        .error-feature p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        @media (max-width: 992px) {
+            .flow-diagram {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .overview-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .code-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

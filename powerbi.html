@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Dashboards - Global Market Insight 360</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <style>
+        /* =========================================
+           PAGE SPECIFIC HEADER STYLING (Power BI)
+           ========================================= */
+        
+        /* ĐỔI MÀU HEADER: Sang Gradient Xanh Ngọc (Teal) */
+        .container header {
+            background: linear-gradient(135deg, #009688 0%, #80cbc4 100%);
+            
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .container header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container header .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .container header .author {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            min-width: 250px;
+        }
+
+        /* --- Các Style khác của trang --- */
+        .dashboard-section { background: white; border-radius: 10px; padding: 30px; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
+        
+        /* ĐỔI MÀU TIÊU ĐỀ SECTION: Sang xanh đậm hơn */
+        .section-header h2 { color: #00695c; font-size: 1.8rem; display: flex; align-items: center; gap: 10px; }
+        
+        /* STYLE CHO NÚT "OPEN FULL DASHBOARD" */
+        /* Biến nó trông giống cái nút hơn vì nội dung là hành động "Open" */
+        .status-badge { 
+            background: #e0f2f1; 
+            color: #00796b; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            text-decoration: none; /* Nếu muốn bọc thẻ a */
+            border: 1px solid #b2dfdb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .status-badge:hover {
+            background: #009688;
+            color: white;
+        }
+
+        .powerbi-container { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; background-color: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+        .powerbi-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .placeholder-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #94a3b8; }
+        .placeholder-content i { font-size: 3rem; margin-bottom: 15px; display: block; }
+        
+        @media (max-width: 768px) {
+            .container header { padding: 2rem 1rem; }
+            .container header h1 { font-size: 1.8rem; }
+            .container header .subtitle { font-size: 1rem; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">GM</div>
+                    <span>MarketInsight 360</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pipeline.html">ETL Pipeline</a></li>
+                    <li><a href="sql.html">SQL Section</a></li>
+                    <li><a href="powerbi.html" class="active">Power BI Dashboards</a></li>
+                    <li><a href="reports.html">Python Reports</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <div class="hamburger"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Financial Dashboards</h1>
+            <p class="subtitle">Interactive Visualizations & Market Analysis</p>
+            <p class="author">Project: Global Market Insight 360 | Author: Hoang Son Lai</p>
+        </header>
+
+        <div class="dashboard-section" id="global">
+            <div class="section-header">
+                <h2><i class="fas fa-globe-americas"></i> Global Market Overview</h2>
+                <a href="#" class="status-badge">Open Full Dashboard <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+            </div>
+            <p style="margin-bottom: 20px; color: #666;">
+                Comparative analysis of 21 major global companies. Filter by sector, industry, and region to visualize market cap distribution and revenue trends.
+            </p>
+            <div class="powerbi-container">
+                <div class="placeholder-content">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Global Dashboard Placeholder</h3>
+                    <p>Paste your Power BI embed code in the HTML file here.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section" id="company">
+            <div class="section-header">
+                <h2><i class="fas fa-search-dollar"></i> Company Deep Dive</h2>
+                <a href="#" class="status-badge">Open Full Dashboard <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+            </div>
+            <p style="margin-bottom: 20px; color: #666;">
+                Detailed fundamental analysis for individual tickers. Select a company to view historical stock performance and financial statement ratios.
+            </p>
+            <div class="powerbi-container">
+                <div class="placeholder-content">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Company Detail Dashboard Placeholder</h3>
+                    <p>Paste your Power BI embed code in the HTML file here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Global Market Insight 360 - Financial Analytics Platform &copy; 2025</p>
+            <div class="credit">Author: Hoang Son Lai</div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if(hamburger) {
+            hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+        }
+    </script>
+</body>
+</html>
