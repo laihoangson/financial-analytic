@@ -334,22 +334,6 @@
             </div>
         </div>
         
-        <!-- Instructions for generating reports -->
-        <div class="report-card" style="background: #f8f9fa; border: 2px dashed #dee2e6;">
-            <div class="report-header" style="background: transparent;">
-                <div class="report-title">
-                    <h2><i class="fas fa-info-circle" style="color: #3498db;"></i> How to Generate Reports</h2>
-                </div>
-            </div>
-            <div style="padding: 25px 30px;">
-                <p>To generate the HTML reports from Jupyter notebooks, run these commands in your project directory:</p>
-                <div style="background: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: monospace;">
-                    <p style="margin: 5px 0;"><span style="color: #3498db;"># For EDA Report:</span> python -m nbconvert backend/notebooks/eda.ipynb --to html --output backend/reports/eda_report.html --no-input</p>
-                    <p style="margin: 5px 0;"><span style="color: #3498db;"># For ML Report:</span> python -m nbconvert backend/notebooks/ml_model.ipynb --to html --output backend/reports/ml_report.html --no-input</p>
-                </div>
-                <p><i class="fas fa-lightbulb" style="color: #f39c12;"></i> Use <code>--no-input</code> flag to hide code cells and show only outputs in the report.</p>
-            </div>
-        </div>
     </div>
 
     <footer class="footer">
