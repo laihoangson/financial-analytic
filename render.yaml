@@ -1,0 +1,48 @@
+# render.yaml
+services:
+  - type: web
+    name: financial-analytics-web
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn backend.app:app
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: financial-mysql
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: financial-mysql
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: financial-mysql
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: financial-mysql
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: financial-mysql
+          property: database
+
+  - type: cron
+    name: daily-data-update
+    schedule: "0 22 * * *"  # 10 PM UTC daily
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash automation/cronjob.sh
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: financial-mysql
+          property: host
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: financial-mysql
+          property: password
+
+databases:
+  - name: financial-mysql
+    databaseName: financial_analytics
+    plan: free

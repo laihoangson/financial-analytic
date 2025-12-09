@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Analytics - Database Schema & Queries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/sql.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Navigation Bar Styles */
+        .navbar {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        .logo-icon {
+            background-color: #4fc3f7;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 8px 0;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .nav-links a.active {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #4fc3f7;
+            border-radius: 2px;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: rgba(79, 195, 247, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .author {
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #bdc3c7;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2:before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        h3 {
+            color: #2980b9;
+            font-size: 1.4rem;
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3:before {
+            content: "▶";
+            margin-right: 10px;
+            font-size: 0.9rem;
+            color: #1e3c72;
+        }
+        
+        .table-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .table-info h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .table-schema {
+            margin-bottom: 25px;
+        }
+        
+        .table-columns {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        th {
+            background-color: #2c3e50;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+        }
+        
+        td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .query-description {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 3px solid #4a90e2;
+        }
+        
+        .query-description p {
+            margin-bottom: 8px;
+        }
+        
+        .query-description ul {
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+        
+        pre {
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+        
+        .hljs {
+            padding: 20px;
+            background-color: #282c34;
+        }
+        
+        .section-nav {
+            background-color: #f0f5ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .section-nav h3 {
+            margin-top: 0;
+            color: #1e3c72;
+        }
+        
+        .nav-links-small {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .nav-link-small {
+            background-color: white;
+            border: 1px solid #d0d7e7;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #2a5298;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .nav-link-small:hover {
+            background-color: #2a5298;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-left {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+                margin: 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding-left: 15px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+                flex-direction: column;
+                padding: 20px;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 999;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .social-links {
+                display: none;
+            }
+        }
+        
+        .database-info {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .database-info p {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .page-breadcrumb {
+            background-color: #f0f5ff;
+            padding: 10px 30px;
+            font-size: 0.9rem;
+            color: #666;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .page-breadcrumb a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+        
+        .page-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 8px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">GM</div>
+                    <span>MarketInsight 360</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pipeline.html">ETL Pipeline</a></li>
+                    <li><a href="sql.html" class="active">SQL Section</a></li>
+                    <li><a href="powerbi.html">Power BI Dashboards</a></li>
+                    <li><a href="reports.html">Python Reports</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <div class="container">
+        <header>
+            <h1>Financial Analytics Database</h1>
+            <p class="subtitle">Complete Database Schema & Analytical SQL Queries</p>
+            <p class="author">Project: Global Market Insight 360 | Author: Hoang Son Lai</p>
+        </header>
+        
+        <div class="content">
+            <div class="database-info">
+                <h3>Database Overview</h3>
+                <p>This database, <span class="highlight">financial_analytics</span>, is designed for comprehensive financial data analysis including company information, stock prices, and financial statements with calculated ratios.</p>
+                <p>The schema consists of 3 main tables that support various analytical queries for fundamental analysis, sector comparison, and market valuation.</p>
+            </div>
+            
+            <div class="section" id="schema">
+                <h2>DATABASE SCHEMA</h2>
+                
+                <div class="table-info">
+                    <h4>Database: financial_analytics</h4>
+                    <p>The database contains three core tables that form the foundation for financial analysis:</p>
+                    <ol>
+                        <li><strong>companies</strong> - Company metadata and information</li>
+                        <li><strong>stock_prices</strong> - Daily historical stock prices</li>
+                        <li><strong>financial_statements</strong> - Financial statements with calculated ratios</li>
+                    </ol>
+                </div>
+                
+                <div class="table-schema">
+                    <h3>1. Table: companies</h3>
+                    <p>Stores company metadata including name, sector, industry, and other descriptive information.</p>
+                    <div class="table-columns">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Column Name</th>
+                                    <th>Data Type</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ticker</td>
+                                    <td>VARCHAR(10)</td>
+                                    <td>Primary key, stock ticker symbol</td>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>VARCHAR(255)</td>
+                                    <td>Company name</td>
+                                </tr>
+                                <tr>
+                                    <td>sector</td>
+                                    <td>VARCHAR(100)</td>
+                                    <td>Business sector (e.g., Technology, Healthcare)</td>
+                                </tr>
+                                <tr>
+                                    <td>industry</td>
+                                    <td>VARCHAR(100)</td>
+                                    <td>Specific industry classification</td>
+                                </tr>
+                                <tr>
+                                    <td>country</td>
+                                    <td>VARCHAR(100)</td>
+                                    <td>Country of headquarters</td>
+                                </tr>
+                                <tr>
+                                    <td>website</td>
+                                    <td>VARCHAR(255)</td>
+                                    <td>Company website URL</td>
+                                </tr>
+                                <tr>
+                                    <td>description</td>
+                                    <td>TEXT</td>
+                                    <td>Company description/business overview</td>
+                                </tr>
+                                <tr>
+                                    <td>currency</td>
+                                    <td>VARCHAR(10)</td>
+                                    <td>Reporting currency</td>
+                                </tr>
+                                <tr>
+                                    <td>last_updated</td>
+                                    <td>TIMESTAMP</td>
+                                    <td>Updated timestamp</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="table-schema">
+                    <h3>2. Table: stock_prices</h3>
+                    <p>Contains daily historical stock price data including OHLC (Open, High, Low, Close) prices and volume.</p>
+                    <div class="table-columns">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Column Name</th>
+                                    <th>Data Type</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>INT</td>
+                                    <td>Auto-increment primary key</td>
+                                </tr>
+                                <tr>
+                                    <td>ticker</td>
+                                    <td>VARCHAR(10)</td>
+                                    <td>Foreign key to companies table</td>
+                                </tr>
+                                <tr>
+                                    <td>date</td>
+                                    <td>DATE</td>
+                                    <td>Trading date</td>
+                                </tr>
+                                <tr>
+                                    <td>open</td>
+                                    <td>DECIMAL(15,4)</td>
+                                    <td>Opening price</td>
+                                </tr>
+                                <tr>
+                                    <td>high</td>
+                                    <td>DECIMAL(15,4)</td>
+                                    <td>Daily high price</td>
+                                </tr>
+                                <tr>
+                                    <td>low</td>
+                                    <td>DECIMAL(15,4)</td>
+                                    <td>Daily low price</td>
+                                </tr>
+                                <tr>
+                                    <td>close</td>
+                                    <td>DECIMAL(15,4)</td>
+                                    <td>Closing price</td>
+                                </tr>
+                                <tr>
+                                    <td>adj_close</td>
+                                    <td>DECIMAL(15,4)</td>
+                                    <td>Adjusted closing price</td>
+                                </tr>
+                                <tr>
+                                    <td>volume</td>
+                                    <td>BIGINT</td>
+                                    <td>Trading volume</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="table-schema">
+                    <h3>3. Table: financial_statements</h3>
+                    <p>Comprehensive financial statement data including income statement, balance sheet items, and pre-calculated financial ratios.</p>
+                    <div class="table-columns">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Column Name</th>
+                                    <th>Data Type</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>INT</td>
+                                    <td>Auto-increment primary key</td>
+                                </tr>
+                                <tr>
+                                    <td>ticker</td>
+                                    <td>VARCHAR(10)</td>
+                                    <td>Foreign key to companies table</td>
+                                </tr>
+                                <tr>
+                                    <td>report_date</td>
+                                    <td>DATE</td>
+                                    <td>Financial report date</td>
+                                </tr>
+                                <tr>
+                                    <td>period</td>
+                                    <td>VARCHAR(20)</td>
+                                    <td>Reporting period ('12M', 'TTM', '3M')</td>
+                                </tr>
+                                <tr>
+                                    <td>revenue</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Total revenue/sales</td>
+                                </tr>
+                                <tr>
+                                    <td>cogs</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Cost of goods sold</td>
+                                </tr>
+                                <tr>
+                                    <td>gross_profit</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Revenue minus COGS</td>
+                                </tr>
+                                <tr>
+                                    <td>opex</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Operating expenses</td>
+                                </tr>
+                                <tr>
+                                    <td>operating_income_ebit</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Operating income/EBIT</td>
+                                </tr>
+                                <tr>
+                                    <td>ebt</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Earnings before tax</td>
+                                </tr>
+                                <tr>
+                                    <td>net_income</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Net income/profit</td>
+                                </tr>
+                                <tr>
+                                    <td>ebitda</td>
+                                    <td>DECIMAL(20,2)</td>
+                                    <td>Earnings before interest, tax, depreciation & amortization</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="text-align: center; background-color: #e3f2fd;"><strong>... Plus 30+ additional columns for balance sheet items and financial ratios</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="query-description" style="margin-top: 15px;">Note: This table includes comprehensive financial data with columns for income statement, balance sheet (assets, liabilities, equity), and pre-calculated financial ratios (profitability, liquidity, solvency, efficiency ratios).</p>
+                </div>
+                
+                <div class="query-description">
+                    <h4>Complete Schema SQL</h4>
+                    <p>The complete database schema creation script:</p>
+                </div>
+                <pre><code class="language-sql">-- backend/sql/schema.sql
+-- Project: Global Market Insight 360
+-- Author: Hoang Son Lai
+
+CREATE DATABASE IF NOT EXISTS financial_analytics;
+USE financial_analytics;
+
+-- 1. Table: Company Information
+CREATE TABLE IF NOT EXISTS companies (
+    ticker VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(255),
+    sector VARCHAR(100),
+    industry VARCHAR(100),
+    country VARCHAR(100),
+    website VARCHAR(255),
+    description TEXT,
+    currency VARCHAR(10),
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 2. Table: Stock Prices (Daily)
+CREATE TABLE IF NOT EXISTS stock_prices (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ticker VARCHAR(10),
+    date DATE,
+    open DECIMAL(15, 4),
+    high DECIMAL(15, 4),
+    low DECIMAL(15, 4),
+    close DECIMAL(15, 4),
+    adj_close DECIMAL(15, 4),
+    volume BIGINT,
+    FOREIGN KEY (ticker) REFERENCES companies(ticker) ON DELETE CASCADE,
+    UNIQUE KEY unique_stock (ticker, date)
+);
+
+-- 3. Table: Financial Statements (Yearly/Quarterly) & Calculated Ratios
+CREATE TABLE IF NOT EXISTS financial_statements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ticker VARCHAR(10),
+    report_date DATE,
+    period VARCHAR(20), -- '12M' for Yearly, 'TTM' or '3M'
+
+    -- Income Statement
+    revenue DECIMAL(20, 2),
+    cogs DECIMAL(20, 2),
+    gross_profit DECIMAL(20, 2),
+    opex DECIMAL(20, 2),
+    operating_income_ebit DECIMAL(20, 2),
+    ebt DECIMAL(20, 2),
+    net_income DECIMAL(20, 2),
+    ebitda DECIMAL(20, 2),
+    basic_eps DECIMAL(10, 4),
+    diluted_eps DECIMAL(10, 4),
+
+    -- Balance Sheet
+    total_assets DECIMAL(20, 2),
+    current_assets DECIMAL(20, 2),
+    cash_and_equivalents DECIMAL(20, 2),
+    accounts_receivable DECIMAL(20, 2),
+    inventory DECIMAL(20, 2),
+    non_current_assets DECIMAL(20, 2),
+    total_liabilities DECIMAL(20, 2),
+    current_liabilities DECIMAL(20, 2),
+    accounts_payable DECIMAL(20, 2),
+    short_term_debt DECIMAL(20, 2),
+    long_term_debt DECIMAL(20, 2),
+    total_equity DECIMAL(20, 2),
+    common_stock DECIMAL(20, 2),
+    retained_earnings DECIMAL(20, 2),
+
+    -- Calculated Ratios
+    current_ratio DECIMAL(10, 4),
+    quick_ratio DECIMAL(10, 4),
+    cash_ratio DECIMAL(10, 4),
+    debt_to_equity DECIMAL(10, 4),
+    debt_ratio DECIMAL(10, 4),
+    interest_coverage_ratio DECIMAL(10, 4),
+    roa DECIMAL(10, 4),
+    roe DECIMAL(10, 4),
+    gross_margin DECIMAL(10, 4),
+    net_margin DECIMAL(10, 4),
+    asset_turnover DECIMAL(10, 4),
+    inventory_turnover DECIMAL(10, 4),
+    receivables_turnover DECIMAL(10, 4),
+
+    FOREIGN KEY (ticker) REFERENCES companies(ticker) ON DELETE CASCADE,
+    UNIQUE KEY unique_financial (ticker, report_date)
+);</code></pre>
+            </div>
+            
+            <div class="section" id="queries">
+                <h2>ANALYTICAL SQL QUERIES</h2>
+                
+                <div class="section-nav">
+                    <h3>Query Categories</h3>
+                    <p>The following analytical queries leverage the database schema to provide insights into company performance, sector comparisons, and market valuation.</p>
+                    <div class="nav-links-small">
+                        <a href="#fundamental" class="nav-link-small">Fundamental Analysis</a>
+                        <a href="#sector" class="nav-link-small">Sector Analysis</a>
+                        <a href="#market" class="nav-link-small">Market Analysis</a>
+                    </div>
+                </div>
+                
+                <div class="section" id="fundamental">
+                    <h3>SECTION 1: FUNDAMENTAL ANALYSIS</h3>
+                    
+                    <div class="query-description">
+                        <p><strong>1. Top 10 Companies by Revenue</strong></p>
+                        <p>This query identifies the top 10 companies based on revenue, joining company information with financial statements data.</p>
+                        <p>Key metrics displayed:</p>
+                        <ul>
+                            <li>Company name and sector</li>
+                            <li>Report date</li>
+                            <li>Revenue and net income (formatted with thousand separators)</li>
+                        </ul>
+                    </div>
+                    <pre><code class="language-sql">-- 1. Top 10 Companies by Revenue 
+SELECT 
+    c.name, 
+    c.sector, 
+    f.report_date, 
+    FORMAT(f.revenue, 0) as revenue, 
+    FORMAT(f.net_income, 0) as net_income
+FROM financial_statements f
+JOIN companies c ON f.ticker = c.ticker
+ORDER BY f.revenue DESC
+LIMIT 10;</code></pre>
+                    
+                    <div class="query-description">
+                        <p><strong>2. Profitability Leaders: Highest Net Profit Margin</strong></p>
+                        <p>Identifies companies with the highest net profit margin, calculated as (Net Income / Revenue) × 100.</p>
+                        <p>Includes both net margin and gross margin percentages.</p>
+                    </div>
+                    <pre><code class="language-sql">-- 2. Profitability Leaders: Highest Net Profit Margin 
+-- Formula: (Net Income / Revenue) * 100
+SELECT 
+    c.ticker, 
+    c.name, 
+    f.report_date,
+    ROUND(f.net_margin * 100, 2) as net_margin_percent,
+    ROUND(f.gross_margin * 100, 2) as gross_margin_percent
+FROM financial_statements f
+JOIN companies c ON f.ticker = c.ticker
+WHERE f.revenue > 0 -- Avoid division by zero
+ORDER BY f.net_margin DESC
+LIMIT 10;</code></pre>
+                    
+                    <div class="query-description">
+                        <p><strong>3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)</strong></p>
+                        <p>Highlights companies with potentially risky debt levels (Debt-to-Equity ratio > 2).</p>
+                        <p>Also shows current ratio and interest coverage ratio for further analysis of financial health.</p>
+                    </div>
+                    <pre><code class="language-sql">-- 3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)
+SELECT 
+    c.name, 
+    c.industry, 
+    f.debt_to_equity,
+    f.current_ratio,
+    f.interest_coverage_ratio
+FROM financial_statements f
+JOIN companies c ON f.ticker = c.ticker
+WHERE f.debt_to_equity > 2
+ORDER BY f.debt_to_equity DESC;</code></pre>
+                    
+                    <div class="query-description">
+                        <p><strong>4. Efficient Operations: Best Return on Equity (ROE) & ROA</strong></p>
+                        <p>Ranks companies by Return on Equity (ROE), showing the top 10 performers.</p>
+                        <p>Also includes Return on Assets (ROA) for comparison of asset utilization efficiency.</p>
+                    </div>
+                    <pre><code class="language-sql">-- 4. Efficient Operations: Best Return on Equity (ROE) & ROA
+SELECT 
+    c.ticker,
+    c.name,
+    ROUND(f.roe * 100, 2) as roe_percent,
+    ROUND(f.roa * 100, 2) as roa_percent
+FROM financial_statements f
+JOIN companies c ON f.ticker = c.ticker
+ORDER BY f.roe DESC
+LIMIT 10;</code></pre>
+                </div>
+                
+                <div class="section" id="sector">
+                    <h3>SECTION 2: SECTOR ANALYSIS</h3>
+                    
+                    <div class="query-description">
+                        <p><strong>5. Average Profit Margin by Sector</strong></p>
+                        <p>Aggregates financial metrics at the sector level to compare industry performance.</p>
+                        <p>Shows average net margin and ROE for each sector, along with the number of companies in each sector.</p>
+                    </div>
+                    <pre><code class="language-sql">-- 5. Average Profit Margin by Sector
+SELECT 
+    c.sector,
+    COUNT(c.ticker) as company_count,
+    ROUND(AVG(f.net_margin) * 100, 2) as avg_net_margin_percent,
+    ROUND(AVG(f.roe) * 100, 2) as avg_roe_percent
+FROM companies c
+JOIN financial_statements f ON c.ticker = f.ticker
+GROUP BY c.sector
+ORDER BY avg_net_margin_percent DESC;</code></pre>
+                </div>
+                
+                <div class="section" id="market">
+                    <h3>SECTION 3: MARKET ANALYSIS & VALUATION</h3>
+                    
+                    <div class="query-description">
+                        <p><strong>6. Calculate P/E Ratio (Price-to-Earnings) manually</strong></p>
+                        <p>Calculates P/E ratio by joining the most recent stock price with the most recent earnings per share (EPS).</p>
+                        <p>Uses Common Table Expressions (CTEs) to get latest price and EPS data before joining them.</p>
+                    </div>
+                    <pre><code class="language-sql">-- 6. Calculate P/E Ratio (Price-to-Earnings) manually
+WITH LatestPrice AS (
+    -- Get the most recent closing price for each ticker
+    SELECT ticker, close as latest_price, date
+    FROM stock_prices
+    WHERE date = (SELECT MAX(date) FROM stock_prices)
+),
+LatestEPS AS (
+    -- Get the most recent EPS
+    SELECT ticker, basic_eps, report_date
+    FROM financial_statements
+    WHERE (ticker, report_date) IN (
+        SELECT ticker, MAX(report_date) 
+        FROM financial_statements 
+        GROUP BY ticker
+    )
+)
+SELECT 
+    lp.ticker,
+    lp.latest_price,
+    le.basic_eps,
+    ROUND(lp.latest_price / NULLIF(le.basic_eps, 0), 2) as PE_Ratio
+FROM LatestPrice lp
+JOIN LatestEPS le ON lp.ticker = le.ticker
+ORDER BY PE_Ratio ASC;</code></pre>
+                    
+                    <div class="query-description">
+                        <p><strong>7. Stock Volatility</strong></p>
+                        <p>Calculates price volatility for each stock using standard deviation of closing prices.</p>
+                        <p>Also shows average price, minimum and maximum prices during the period for context.</p>
+                    </div>
+                    <pre><code class="language-sql">-- 7. Stock Volatility 
+-- Calculate Standard Deviation of close price
+SELECT 
+    ticker,
+    ROUND(AVG(close), 2) as avg_price,
+    ROUND(STDDEV(close), 2) as price_volatility,
+    MIN(close) as min_price_period,
+    MAX(close) as max_price_period
+FROM stock_prices
+GROUP BY ticker
+ORDER BY price_volatility DESC;</code></pre>
+                    
+                    <div class="query-description">
+                        <p><strong>8. Moving Average for Apple (Calculating 30-Day Moving Average)</strong></p>
+                        <p>Calculates a 30-day moving average for Apple (AAPL) stock price using window functions.</p>
+                        <p>Demonstrates technical analysis calculation for a specific stock.</p>
+                    </div>
+                    <pre><code class="language-sql">-- 8. Moving Average for Apple (Calculating 30-Day Moving Average)
+SELECT 
+    ticker,
+    date,
+    close,
+    AVG(close) OVER (
+        PARTITION BY ticker 
+        ORDER BY date 
+        ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+    ) as MA_30
+FROM stock_prices
+WHERE ticker = 'AAPL' 
+ORDER BY date DESC
+LIMIT 100;</code></pre>
+                </div>
+            </div>
+        </div> 
+        
+        <footer>
+            <p>Global Market Insight 360 - Financial Analytics Database &copy; 2025</p>
+            <p>Database Schema & Analytical SQL Queries | Author: Hoang Son Lai</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.8;">Note: These SQL scripts are designed for analytical purposes and assume proper database structure with appropriate indexes.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Hamburger menu toggle for mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.navbar a, .nav-link-small').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Only handle hash links for smooth scrolling
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.navbar a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    link.style.backgroundColor = '';
+                    
+                    if (link.getAttribute('href') === currentSection) {
+                        link.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

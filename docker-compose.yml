@@ -1,0 +1,64 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: financial_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Quangthoi2@
+      MYSQL_DATABASE: financial_analytics
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build: .
+    container_name: financial_backend
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: Quangthoi2@
+      DB_NAME: financial_analytics
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./backend/reports:/app/backend/reports
+    command: >
+      sh -c "python backend/etl/fetch_data.py &&
+             python backend/etl/clean_data.py &&
+             python backend/etl/load_to_mysql.py &&
+             python backend/app.py"
+
+  scheduler:
+    build: .
+    container_name: financial_scheduler
+    restart: always
+    depends_on:
+      - mysql
+      - backend
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: Quangthoi2@
+      DB_NAME: financial_analytics
+    volumes:
+      - ./data:/app/data
+    command: python backend/etl/scheduler.py
+
+volumes:
+  mysql_data:
