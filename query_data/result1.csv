@@ -1,0 +1,11 @@
+name,sector,report_date,revenue,net_income
+"Walmart Inc.","Consumer Defensive",2025-01-31,"680,985,000,000","19,436,000,000"
+"Walmart Inc.","Consumer Defensive",2024-01-31,"648,125,000,000","15,511,000,000"
+"Amazon.com, Inc.","Consumer Cyclical",2024-12-31,"637,959,000,000","59,248,000,000"
+"Walmart Inc.","Consumer Defensive",2023-01-31,"611,289,000,000","11,680,000,000"
+"Amazon.com, Inc.","Consumer Cyclical",2023-12-31,"574,785,000,000","30,425,000,000"
+"Walmart Inc.","Consumer Defensive",2022-01-31,"572,754,000,000","13,673,000,000"
+"Amazon.com, Inc.","Consumer Cyclical",2022-12-31,"513,983,000,000","-2,722,000,000"
+"Amazon.com, Inc.","Consumer Cyclical",2021-12-31,"469,822,000,000","33,364,000,000"
+"Apple Inc.",Technology,2025-09-30,"416,161,000,000","112,010,000,000"
+"UnitedHealth Group Incorporated",Healthcare,2024-12-31,"400,278,000,000","14,405,000,000"

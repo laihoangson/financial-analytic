@@ -300,6 +300,7 @@
             overflow-x: auto;
             margin: 0;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         
         code {
@@ -468,6 +469,189 @@
             margin: 0 8px;
             color: #999;
         }
+        
+        /* NEW STYLES FOR QUERY RESULTS */
+        .query-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .query-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .query-btn:hover {
+            background-color: #3e8e41;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .query-btn.running {
+            background-color: #FF9800;
+        }
+        
+        .query-btn.running i {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .query-result-container {
+            margin-top: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .query-result-container.active {
+            max-height: 600px;
+            border: 1px solid #ddd;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .result-header h4 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .close-result {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .result-content {
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .csv-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .csv-table th {
+            background-color: #3498db;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .csv-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .download-link:hover {
+            background-color: #0b7dda;
+        }
+        
+        .query-status {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .status-success {
+            color: #4CAF50;
+        }
+        
+        .status-error {
+            color: #f44336;
+        }
+        
+        .code-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 8px 15px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .code-title {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .copy-btn:hover {
+            background-color: #555;
+        }
+        
+        .copy-btn.copied {
+            background-color: #4CAF50;
+        }
+        
+        .data-info {
+            background-color: #e8f5e8;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -483,7 +667,7 @@
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="pipeline.html">ETL Pipeline</a></li>
-                    <li><a href="sql.html" class="active">SQL Section</a></li>
+                    <li><a href="sql.html" class="active">SQL Analytics</a></li>
                     <li><a href="powerbi.html">Power BI Dashboards</a></li>
                     <li><a href="reports.html">Python Reports</a></li>
                 </ul>
@@ -508,7 +692,6 @@
         </div>
     </nav>
     
-    
     <div class="container">
         <header>
             <h1>Financial Analytics Database</h1>
@@ -521,6 +704,9 @@
                 <h3>Database Overview</h3>
                 <p>This database, <span class="highlight">financial_analytics</span>, is designed for comprehensive financial data analysis including company information, stock prices, and financial statements with calculated ratios.</p>
                 <p>The schema consists of 3 main tables that support various analytical queries for fundamental analysis, sector comparison, and market valuation.</p>
+                <div class="data-info">
+                    <strong><i class="fas fa-info-circle"></i> Interactive Features:</strong> Click "Run Query" to view CSV results from the database. All results are pre-generated and stored in the <code>query_data</code> folder.
+                </div>
             </div>
             
             <div class="section" id="schema">
@@ -838,33 +1024,41 @@ CREATE TABLE IF NOT EXISTS financial_statements (
 );</code></pre>
             </div>
             
-            <div class="section" id="queries">
-                <h2>ANALYTICAL SQL QUERIES</h2>
-                
-                <div class="section-nav">
-                    <h3>Query Categories</h3>
-                    <p>The following analytical queries leverage the database schema to provide insights into company performance, sector comparisons, and market valuation.</p>
-                    <div class="nav-links-small">
-                        <a href="#fundamental" class="nav-link-small">Fundamental Analysis</a>
-                        <a href="#sector" class="nav-link-small">Sector Analysis</a>
-                        <a href="#market" class="nav-link-small">Market Analysis</a>
-                    </div>
-                </div>
-                
-                <div class="section" id="fundamental">
-                    <h3>SECTION 1: FUNDAMENTAL ANALYSIS</h3>
-                    
-                    <div class="query-description">
-                        <p><strong>1. Top 10 Companies by Revenue</strong></p>
-                        <p>This query identifies the top 10 companies based on revenue, joining company information with financial statements data.</p>
-                        <p>Key metrics displayed:</p>
-                        <ul>
-                            <li>Company name and sector</li>
-                            <li>Report date</li>
-                            <li>Revenue and net income (formatted with thousand separators)</li>
-                        </ul>
-                    </div>
-                    <pre><code class="language-sql">-- 1. Top 10 Companies by Revenue 
+ <div class="section" id="queries">
+    <h2>ANALYTICAL SQL QUERIES</h2>
+    
+    <div class="section-nav">
+        <h3>Query Categories</h3>
+        <p>The following analytical queries leverage the database schema to provide insights into company performance, sector comparisons, and market valuation.</p>
+        <div class="nav-links-small">
+            <a href="#fundamental" class="nav-link-small">Fundamental Analysis</a>
+            <a href="#sector" class="nav-link-small">Sector Analysis</a>
+            <a href="#market" class="nav-link-small">Market Analysis</a>
+        </div>
+        <div class="data-info">
+            <i class="fas fa-database"></i> All query results are pre-generated and stored as CSV files. Click "Run Query" to view results.
+        </div>
+    </div>
+    
+    <div class="section" id="fundamental">
+        <h3>SECTION 1: FUNDAMENTAL ANALYSIS</h3>
+        
+        <div class="query-description">
+            <p><strong>1. Top 10 Companies by Revenue</strong></p>
+            <p>This query identifies the top 10 companies based on revenue, joining company information with financial statements data.</p>
+            <p>Key metrics displayed:</p>
+            <ul>
+                <li>Company name and sector</li>
+                <li>Report date</li>
+                <li>Revenue and net income (formatted with thousand separators)</li>
+            </ul>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 1</div>
+            <button class="copy-btn" data-target="query1-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query1-code">-- 1. Top 10 Companies by Revenue 
 SELECT 
     c.name, 
     c.sector, 
@@ -875,13 +1069,35 @@ FROM financial_statements f
 JOIN companies c ON f.ticker = c.ticker
 ORDER BY f.revenue DESC
 LIMIT 10;</code></pre>
-                    
-                    <div class="query-description">
-                        <p><strong>2. Profitability Leaders: Highest Net Profit Margin</strong></p>
-                        <p>Identifies companies with the highest net profit margin, calculated as (Net Income / Revenue) × 100.</p>
-                        <p>Includes both net margin and gross margin percentages.</p>
-                    </div>
-                    <pre><code class="language-sql">-- 2. Profitability Leaders: Highest Net Profit Margin 
+        
+        <div class="query-controls">
+            <div class="query-status" id="status-query1"></div>
+            <button class="query-btn" data-query="1">
+                <i class="fas fa-play"></i> Run Query 1
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query1">
+            <div class="result-header">
+                <h4><i class="fas fa-table"></i> Query 1 Results: Top 10 Companies by Revenue</h4>
+                <button class="close-result" data-target="query1">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="query-description">
+            <p><strong>2. Profitability Leaders: Highest Net Profit Margin</strong></p>
+            <p>Identifies companies with the highest net profit margin, calculated as (Net Income / Revenue) × 100.</p>
+            <p>Includes both net margin and gross margin percentages.</p>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 2</div>
+            <button class="copy-btn" data-target="query2-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query2-code">-- 2. Profitability Leaders: Highest Net Profit Margin 
 -- Formula: (Net Income / Revenue) * 100
 SELECT 
     c.ticker, 
@@ -894,13 +1110,35 @@ JOIN companies c ON f.ticker = c.ticker
 WHERE f.revenue > 0 -- Avoid division by zero
 ORDER BY f.net_margin DESC
 LIMIT 10;</code></pre>
-                    
-                    <div class="query-description">
-                        <p><strong>3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)</strong></p>
-                        <p>Highlights companies with potentially risky debt levels (Debt-to-Equity ratio > 2).</p>
-                        <p>Also shows current ratio and interest coverage ratio for further analysis of financial health.</p>
-                    </div>
-                    <pre><code class="language-sql">-- 3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)
+        
+        <div class="query-controls">
+            <div class="query-status" id="status-query2"></div>
+            <button class="query-btn" data-query="2">
+                <i class="fas fa-play"></i> Run Query 2
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query2">
+            <div class="result-header">
+                <h4><i class="fas fa-chart-line"></i> Query 2 Results: Highest Net Profit Margin</h4>
+                <button class="close-result" data-target="query2">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="query-description">
+            <p><strong>3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)</strong></p>
+            <p>Highlights companies with potentially risky debt levels (Debt-to-Equity ratio > 2).</p>
+            <p>Also shows current ratio and interest coverage ratio for further analysis of financial health.</p>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 3</div>
+            <button class="copy-btn" data-target="query3-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query3-code">-- 3. Financial Health: Companies with High Debt Risk (Debt-to-Equity > 2)
 SELECT 
     c.name, 
     c.industry, 
@@ -911,13 +1149,35 @@ FROM financial_statements f
 JOIN companies c ON f.ticker = c.ticker
 WHERE f.debt_to_equity > 2
 ORDER BY f.debt_to_equity DESC;</code></pre>
-                    
-                    <div class="query-description">
-                        <p><strong>4. Efficient Operations: Best Return on Equity (ROE) & ROA</strong></p>
-                        <p>Ranks companies by Return on Equity (ROE), showing the top 10 performers.</p>
-                        <p>Also includes Return on Assets (ROA) for comparison of asset utilization efficiency.</p>
-                    </div>
-                    <pre><code class="language-sql">-- 4. Efficient Operations: Best Return on Equity (ROE) & ROA
+        
+        <div class="query-controls">
+            <div class="query-status" id="status-query3"></div>
+            <button class="query-btn" data-query="3">
+                <i class="fas fa-play"></i> Run Query 3
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query3">
+            <div class="result-header">
+                <h4><i class="fas fa-exclamation-triangle"></i> Query 3 Results: High Debt Risk Companies</h4>
+                <button class="close-result" data-target="query3">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="query-description">
+            <p><strong>4. Efficient Operations: Best Return on Equity (ROE) & ROA</strong></p>
+            <p>Ranks companies by Return on Equity (ROE), showing the top 10 performers.</p>
+            <p>Also includes Return on Assets (ROA) for comparison of asset utilization efficiency.</p>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 4</div>
+            <button class="copy-btn" data-target="query4-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query4-code">-- 4. Efficient Operations: Best Return on Equity (ROE) & ROA
 SELECT 
     c.ticker,
     c.name,
@@ -927,17 +1187,39 @@ FROM financial_statements f
 JOIN companies c ON f.ticker = c.ticker
 ORDER BY f.roe DESC
 LIMIT 10;</code></pre>
-                </div>
-                
-                <div class="section" id="sector">
-                    <h3>SECTION 2: SECTOR ANALYSIS</h3>
-                    
-                    <div class="query-description">
-                        <p><strong>5. Average Profit Margin by Sector</strong></p>
-                        <p>Aggregates financial metrics at the sector level to compare industry performance.</p>
-                        <p>Shows average net margin and ROE for each sector, along with the number of companies in each sector.</p>
-                    </div>
-                    <pre><code class="language-sql">-- 5. Average Profit Margin by Sector
+        
+        <div class="query-controls">
+            <div class="query-status" id="status-query4"></div>
+            <button class="query-btn" data-query="4">
+                <i class="fas fa-play"></i> Run Query 4
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query4">
+            <div class="result-header">
+                <h4><i class="fas fa-tachometer-alt"></i> Query 4 Results: Best ROE & ROA</h4>
+                <button class="close-result" data-target="query4">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="section" id="sector">
+        <h3>SECTION 2: SECTOR ANALYSIS</h3>
+        
+        <div class="query-description">
+            <p><strong>5. Average Profit Margin by Sector</strong></p>
+            <p>Aggregates financial metrics at the sector level to compare industry performance.</p>
+            <p>Shows average net margin and ROE for each sector, along with the number of companies in each sector.</p>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 5</div>
+            <button class="copy-btn" data-target="query5-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query5-code">-- 5. Average Profit Margin by Sector
 SELECT 
     c.sector,
     COUNT(c.ticker) as company_count,
@@ -947,17 +1229,39 @@ FROM companies c
 JOIN financial_statements f ON c.ticker = f.ticker
 GROUP BY c.sector
 ORDER BY avg_net_margin_percent DESC;</code></pre>
-                </div>
-                
-                <div class="section" id="market">
-                    <h3>SECTION 3: MARKET ANALYSIS & VALUATION</h3>
-                    
-                    <div class="query-description">
-                        <p><strong>6. Calculate P/E Ratio (Price-to-Earnings) manually</strong></p>
-                        <p>Calculates P/E ratio by joining the most recent stock price with the most recent earnings per share (EPS).</p>
-                        <p>Uses Common Table Expressions (CTEs) to get latest price and EPS data before joining them.</p>
-                    </div>
-                    <pre><code class="language-sql">-- 6. Calculate P/E Ratio (Price-to-Earnings) manually
+        
+        <div class="query-controls">
+            <div class="query-status" id="status-query5"></div>
+            <button class="query-btn" data-query="5">
+                <i class="fas fa-play"></i> Run Query 5
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query5">
+            <div class="result-header">
+                <h4><i class="fas fa-industry"></i> Query 5 Results: Average Profit Margin by Sector</h4>
+                <button class="close-result" data-target="query5">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="section" id="market">
+        <h3>SECTION 3: MARKET ANALYSIS & VALUATION</h3>
+        
+        <div class="query-description">
+            <p><strong>6. Calculate P/E Ratio (Price-to-Earnings) manually</strong></p>
+            <p>Calculates P/E ratio by joining the most recent stock price with the most recent earnings per share (EPS).</p>
+            <p>Uses Common Table Expressions (CTEs) to get latest price and EPS data before joining them.</p>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 6</div>
+            <button class="copy-btn" data-target="query6-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query6-code">-- 6. Calculate P/E Ratio (Price-to-Earnings) manually
 WITH LatestPrice AS (
     -- Get the most recent closing price for each ticker
     SELECT ticker, close as latest_price, date
@@ -982,13 +1286,35 @@ SELECT
 FROM LatestPrice lp
 JOIN LatestEPS le ON lp.ticker = le.ticker
 ORDER BY PE_Ratio ASC;</code></pre>
-                    
-                    <div class="query-description">
-                        <p><strong>7. Stock Volatility</strong></p>
-                        <p>Calculates price volatility for each stock using standard deviation of closing prices.</p>
-                        <p>Also shows average price, minimum and maximum prices during the period for context.</p>
-                    </div>
-                    <pre><code class="language-sql">-- 7. Stock Volatility 
+        
+        <div class="query-controls">
+            <div class="query-status" id="status-query6"></div>
+            <button class="query-btn" data-query="6">
+                <i class="fas fa-play"></i> Run Query 6
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query6">
+            <div class="result-header">
+                <h4><i class="fas fa-calculator"></i> Query 6 Results: P/E Ratio Calculation</h4>
+                <button class="close-result" data-target="query6">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="query-description">
+            <p><strong>7. Stock Volatility</strong></p>
+            <p>Calculates price volatility for each stock using standard deviation of closing prices.</p>
+            <p>Also shows average price, minimum and maximum prices during the period for context.</p>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 7</div>
+            <button class="copy-btn" data-target="query7-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query7-code">-- 7. Stock Volatility 
 -- Calculate Standard Deviation of close price
 SELECT 
     ticker,
@@ -999,13 +1325,35 @@ SELECT
 FROM stock_prices
 GROUP BY ticker
 ORDER BY price_volatility DESC;</code></pre>
-                    
-                    <div class="query-description">
-                        <p><strong>8. Moving Average for Apple (Calculating 30-Day Moving Average)</strong></p>
-                        <p>Calculates a 30-day moving average for Apple (AAPL) stock price using window functions.</p>
-                        <p>Demonstrates technical analysis calculation for a specific stock.</p>
-                    </div>
-                    <pre><code class="language-sql">-- 8. Moving Average for Apple (Calculating 30-Day Moving Average)
+        
+        <div class="query-controls">
+            <div class="query-status" id="status-query7"></div>
+            <button class="query-btn" data-query="7">
+                <i class="fas fa-play"></i> Run Query 7
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query7">
+            <div class="result-header">
+                <h4><i class="fas fa-chart-area"></i> Query 7 Results: Stock Volatility Analysis</h4>
+                <button class="close-result" data-target="query7">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="query-description">
+            <p><strong>8. Moving Average for Apple (Calculating 30-Day Moving Average)</strong></p>
+            <p>Calculates a 30-day moving average for Apple (AAPL) stock price using window functions.</p>
+            <p>Demonstrates technical analysis calculation for a specific stock.</p>
+        </div>
+        
+        <div class="code-header-bar">
+            <div class="code-title">SQL Query 8</div>
+            <button class="copy-btn" data-target="query8-code">Copy</button>
+        </div>
+        <pre><code class="language-sql" id="query8-code">-- 8. Moving Average for Apple (Calculating 30-Day Moving Average)
 SELECT 
     ticker,
     date,
@@ -1019,16 +1367,32 @@ FROM stock_prices
 WHERE ticker = 'AAPL' 
 ORDER BY date DESC
 LIMIT 100;</code></pre>
-                </div>
-            </div>
-        </div> 
         
-        <footer>
-            <p>Global Market Insight 360 - Financial Analytics Database &copy; 2025</p>
-            <p>Database Schema & Analytical SQL Queries | Author: Hoang Son Lai</p>
-            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.8;">Note: These SQL scripts are designed for analytical purposes and assume proper database structure with appropriate indexes.</p>
-        </footer>
+        <div class="query-controls">
+            <div class="query-status" id="status-query8"></div>
+            <button class="query-btn" data-query="8">
+                <i class="fas fa-play"></i> Run Query 8
+            </button>
+        </div>
+        
+        <div class="query-result-container" id="result-query8">
+            <div class="result-header">
+                <h4><i class="fab fa-apple"></i> Query 8 Results: Apple 30-Day Moving Average</h4>
+                <button class="close-result" data-target="query8">×</button>
+            </div>
+            <div class="result-content">
+                <!-- Results will be loaded here -->
+            </div>
+        </div>
     </div>
+</div>
+
+<footer>
+    <p>Global Market Insight 360 - Financial Analytics Database &copy; 2025</p>
+    <p>Database Schema & Analytical SQL Queries | Author: Hoang Son Lai</p>
+    <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.8;">Note: Query results are loaded from pre-generated CSV files in the <code>query_data</code> folder.</p>
+</footer>
+</div>
     
     <script>
         // Hamburger menu toggle for mobile
@@ -1092,6 +1456,250 @@ LIMIT 100;</code></pre>
                     }
                 }
             });
+        });
+        
+        // NEW JAVASCRIPT FOR QUERY FUNCTIONALITY
+        
+        // CSV file paths for each query
+        const queryFiles = {
+            1: 'query_data/result1.csv',
+            2: 'query_data/result2.csv',
+            3: 'query_data/result3.csv',
+            4: 'query_data/result4.csv',
+            5: 'query_data/result5.csv',
+            6: 'query_data/result6.csv',
+            7: 'query_data/result7.csv',
+            8: 'query_data/result8.csv'
+        };
+        
+        // Parse CSV string to array
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n');
+            const result = [];
+            const headers = lines[0].split(',');
+            
+            for (let i = 1; i < lines.length; i++) {
+                if (lines[i].trim() === '') continue;
+                
+                const obj = {};
+                const currentline = lines[i].split(',');
+                
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j].trim()] = currentline[j] ? currentline[j].trim() : '';
+                }
+                
+                result.push(obj);
+            }
+            
+            return { headers, data: result };
+        }
+        
+        // Create HTML table from CSV data
+        function createTableFromCSV(csvData) {
+            const { headers, data } = csvData;
+            
+            let html = `<table class="csv-table">`;
+            
+            // Create header row
+            html += '<thead><tr>';
+            headers.forEach(header => {
+                html += `<th>${header}</th>`;
+            });
+            html += '</tr></thead>';
+            
+            // Create data rows
+            html += '<tbody>';
+            data.forEach(row => {
+                html += '<tr>';
+                headers.forEach(header => {
+                    const value = row[header] || '';
+                    // Check if value is numeric for right alignment
+                    const isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+                    html += `<td style="${isNumeric ? 'text-align: right;' : ''}">${value}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            
+            return html;
+        }
+        
+        // Load CSV file
+        async function loadCSV(queryNumber) {
+            const filePath = queryFiles[queryNumber];
+            const statusElement = document.getElementById(`status-query${queryNumber}`);
+            
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const csvText = await response.text();
+                const csvData = parseCSV(csvText);
+                
+                return {
+                    success: true,
+                    data: csvData,
+                    rowCount: csvData.data.length
+                };
+            } catch (error) {
+                console.error(`Error loading CSV for query ${queryNumber}:`, error);
+                
+                if (statusElement) {
+                    statusElement.innerHTML = `<span class="status-error"><i class="fas fa-times-circle"></i> Error loading data: ${error.message}</span>`;
+                }
+                
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+        
+        // Run query button click handler
+        document.querySelectorAll('.query-btn').forEach(button => {
+            button.addEventListener('click', async function() {
+                const queryNumber = this.getAttribute('data-query');
+                const resultContainer = document.getElementById(`result-query${queryNumber}`);
+                const statusElement = document.getElementById(`status-query${queryNumber}`);
+                
+                // Show loading state
+                this.classList.add('running');
+                this.innerHTML = '<i class="fas fa-spinner"></i> Loading...';
+                
+                if (statusElement) {
+                    statusElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading data from CSV...';
+                }
+                
+                // Close any other open result containers
+                document.querySelectorAll('.query-result-container.active').forEach(container => {
+                    if (container.id !== `result-query${queryNumber}`) {
+                        container.classList.remove('active');
+                    }
+                });
+                
+                // Load and display CSV data
+                const result = await loadCSV(queryNumber);
+                
+                // Reset button state
+                this.classList.remove('running');
+                this.innerHTML = '<i class="fas fa-play"></i> Run Query ' + queryNumber;
+                
+                if (result.success) {
+                    const csvData = result.data;
+                    const rowCount = result.rowCount;
+                    
+                    // Update status
+                    if (statusElement) {
+                        statusElement.innerHTML = `<span class="status-success"><i class="fas fa-check-circle"></i> Loaded ${rowCount} rows from CSV</span>`;
+                    }
+                    
+                    // Create table HTML
+                    const tableHTML = createTableFromCSV(csvData);
+                    
+                    // Create download link
+                    const downloadLink = `<a href="${queryFiles[queryNumber]}" class="download-link" download="query${queryNumber}_results.csv">
+                        <i class="fas fa-download"></i> Download CSV (${rowCount} rows)
+                    </a>`;
+                    
+                    // Update result container
+                    const contentDiv = resultContainer.querySelector('.result-content');
+                    contentDiv.innerHTML = `
+                        <div class="data-info">
+                            <i class="fas fa-info-circle"></i> Showing ${rowCount} rows from CSV file: <code>${queryFiles[queryNumber]}</code>
+                        </div>
+                        ${tableHTML}
+                        <div style="margin-top: 15px;">
+                            ${downloadLink}
+                        </div>
+                    `;
+                    
+                    // Show result container
+                    resultContainer.classList.add('active');
+                    
+                    // Scroll to result container
+                    setTimeout(() => {
+                        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                    
+                } else {
+                    // Show error in result container
+                    const contentDiv = resultContainer.querySelector('.result-content');
+                    contentDiv.innerHTML = `
+                        <div class="no-data">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <h4>Error Loading Data</h4>
+                            <p>Could not load CSV file: ${queryFiles[queryNumber]}</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">Error: ${result.error}</p>
+                            <p style="font-size: 0.8rem; margin-top: 5px;">Make sure the CSV file exists in the query_data folder.</p>
+                        </div>
+                    `;
+                    
+                    // Show result container
+                    resultContainer.classList.add('active');
+                }
+            });
+        });
+        
+        // Close result container
+        document.querySelectorAll('.close-result').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const container = document.getElementById(`result-${targetId}`);
+                container.classList.remove('active');
+            });
+        });
+        
+        // Copy code functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const codeElement = document.getElementById(targetId);
+                const codeText = codeElement.textContent;
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(codeText).then(() => {
+                    // Show copied state
+                    const originalText = this.textContent;
+                    this.textContent = 'Copied!';
+                    this.classList.add('copied');
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    this.textContent = 'Error!';
+                    
+                    setTimeout(() => {
+                        this.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        });
+        
+        // Auto-load first query on page load (optional)
+        // Uncomment the line below if you want to auto-load a query when page loads
+        // document.querySelector('.query-btn[data-query="1"]').click();
+        
+        // Close result containers when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.query-result-container') && 
+                !event.target.closest('.query-btn') && 
+                !event.target.closest('.close-result')) {
+                document.querySelectorAll('.query-result-container.active').forEach(container => {
+                    container.classList.remove('active');
+                });
+            }
+        });
+        
+        // Display file paths information
+        console.log('CSV files expected in query_data folder:');
+        Object.entries(queryFiles).forEach(([queryNum, filePath]) => {
+            console.log(`Query ${queryNum}: ${filePath}`);
         });
     </script>
 </body>
