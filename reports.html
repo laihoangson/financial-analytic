@@ -12,11 +12,8 @@
            PAGE SPECIFIC HEADER STYLING (Reports)
            ========================================= */
         
-        /* ĐỔI MÀU HEADER: Sang Gradient Xanh Dương (Màu cũ của Power BI) */
         .container header {
             background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-            /* Hoặc màu sáng hơn: background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); */
-            
             color: white;
             padding: 3rem 2rem;
             border-radius: 8px;
@@ -53,27 +50,154 @@
         }
 
         /* --- Các Style khác của trang --- */
-        .report-card { background: white; border-radius: 10px; overflow: hidden; margin-bottom: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
-        .report-header { background: #f8f9fa; padding: 20px 30px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .report-title h2 { font-size: 1.5rem; color: #2c3e50; display: flex; align-items: center; gap: 10px; }
-        .report-meta { color: #666; font-size: 0.9rem; margin-top: 5px; }
+        .report-card { 
+            background: white; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            margin-bottom: 50px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+            border: 1px solid #e2e8f0; 
+        }
+        .report-header { 
+            background: #f8f9fa; 
+            padding: 20px 30px; 
+            border-bottom: 1px solid #eee; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .report-title h2 { 
+            font-size: 1.5rem; 
+            color: #2c3e50; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .report-meta { 
+            color: #666; 
+            font-size: 0.9rem; 
+            margin-top: 5px; 
+        }
         
         /* ĐỔI MÀU ACCENT (Icon & Button): Sang Xanh Dương */
-        .report-title h2 i { color: #1e3c72; }
+        .report-title h2 i { 
+            color: #1e3c72; 
+        }
 
-        .btn-view { background-color: #1e3c72; color: white; padding: 8px 20px; text-decoration: none; border-radius: 5px; font-weight: 500; transition: background 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-view:hover { background-color: #2a5298; }
+        .btn-view { 
+            background-color: #1e3c72; 
+            color: white; 
+            padding: 8px 20px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            font-weight: 500; 
+            transition: background 0.3s; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            white-space: nowrap;
+        }
+        .btn-view:hover { 
+            background-color: #2a5298; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30, 60, 114, 0.2);
+        }
 
-        .report-content { height: 600px; width: 100%; position: relative; background-color: white; }
-        .report-frame { width: 100%; height: 100%; border: none; }
-        .frame-placeholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fafafa; color: #adb5bd; }
-        .frame-placeholder i { font-size: 4rem; margin-bottom: 20px; color: #dee2e6; }
+        /* Container for iframe - chỉ hiện phần đầu */
+        .report-content { 
+            width: 100%; 
+            position: relative; 
+            background-color: white;
+            overflow: hidden; /* Ẩn phần thừa */
+        }
+        
+        /* Frame chỉ hiển thị phần đầu báo cáo */
+        .report-frame {
+            width: 100%;
+            height: 600px; /* Chiều cao cố định - chỉ hiện phần đầu */
+            border: none;
+            pointer-events: none; /* Ngăn tương tác trong iframe trên trang chính */
+        }
+        
+        /* Cho phép tương tác khi hover */
+        .report-frame.preview:hover {
+            pointer-events: auto;
+        }
+        
+        /* Overlay để nhấn mạnh đây chỉ là preview */
+        .preview-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0.5));
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .preview-text {
+            color: #1e3c72;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        /* Placeholder khi không có file */
+        .frame-placeholder { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            background: #fafafa; 
+            color: #adb5bd;
+            text-align: center;
+            padding: 20px;
+        }
+        .frame-placeholder i { 
+            font-size: 4rem; 
+            margin-bottom: 20px; 
+            color: #dee2e6; 
+        }
+        
+        .frame-placeholder h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .frame-placeholder .error-message {
+            color: #e74c3c;
+            background: #fee;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            max-width: 500px;
+        }
 
         @media (max-width: 768px) {
-            .container header { padding: 2rem 1rem; }
-            .container header h1 { font-size: 1.8rem; }
-            .container header .subtitle { font-size: 1rem; }
-            .report-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .container header { 
+                padding: 2rem 1rem; 
+            }
+            .container header h1 { 
+                font-size: 1.8rem; 
+            }
+            .container header .subtitle { 
+                font-size: 1rem; 
+            }
+            .report-header { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 15px; 
+            }
+            .report-frame {
+                height: 400px; /* Chiều cao nhỏ hơn trên mobile */
+            }
         }
     </style>
 </head>
@@ -114,41 +238,116 @@
             <p class="author">Project: Global Market Insight 360 | Author: Hoang Son Lai</p>
         </header>
 
+        <!-- EDA Report Card -->
         <div class="report-card" id="eda">
             <div class="report-header">
                 <div class="report-title">
                     <h2><i class="fas fa-microscope"></i> Exploratory Data Analysis</h2>
-                    <p class="report-meta">Generated via Python (Pandas, Matplotlib, Seaborn)</p>
+                    <p class="report-meta">Generated via Python (Pandas, Matplotlib, Seaborn) | Updated: Dec 2025</p>
                 </div>
-                <a href="path/to/eda_report.html" target="_blank" class="btn-view">
+                <a href="backend/reports/eda_report.html" target="_blank" class="btn-view" id="eda-full-link">
                     <i class="fas fa-external-link-alt"></i> Open Full Report
                 </a>
             </div>
             <div class="report-content">
-                <div class="frame-placeholder">
+                <!-- Iframe chỉ hiển thị phần đầu của EDA report -->
+                <iframe 
+                    src="backend/reports/eda_report.html" 
+                    class="report-frame preview"
+                    id="eda-preview"
+                    title="EDA Report Preview"
+                    loading="lazy"
+                    onload="checkIframeLoad(this, 'eda')"
+                    onerror="handleIframeError(this, 'eda')">
+                </iframe>
+                
+                <!-- Overlay thông báo preview -->
+                <div class="preview-overlay">
+                    <div class="preview-text">
+                        <i class="fas fa-info-circle"></i> This is a preview. Click "Open Full Report" to view complete analysis.
+                    </div>
+                </div>
+                
+                <!-- Placeholder sẽ hiện nếu iframe lỗi -->
+                <div class="frame-placeholder" id="eda-placeholder" style="display: none;">
                     <i class="fab fa-python"></i>
                     <h3>Jupyter Notebook EDA Report</h3>
-                    <p>iframe src="backend/reports/eda_report.html"</p>
+                    <p>The EDA report preview is currently unavailable.</p>
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        Cannot load preview. Please check if the file exists at: <code>backend/reports/eda_report.html</code>
+                    </div>
+                    <p style="margin-top: 15px;">
+                        <a href="backend/reports/eda_report.html" target="_blank" class="btn-view">
+                            <i class="fas fa-external-link-alt"></i> Try Open Directly
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
 
+        <!-- Machine Learning Report Card -->
         <div class="report-card" id="ml">
             <div class="report-header">
                 <div class="report-title">
                     <h2><i class="fas fa-robot"></i> Machine Learning Forecast</h2>
-                    <p class="report-meta">Stock Price Prediction Model (Scikit-Learn)</p>
+                    <p class="report-meta">Stock Price Prediction Model (Scikit-Learn, TensorFlow) | Updated: Dec 2025</p>
                 </div>
-                <a href="path/to/ml_report.html" target="_blank" class="btn-view">
+                <a href="backend/reports/ml_report.html" target="_blank" class="btn-view" id="ml-full-link">
                     <i class="fas fa-external-link-alt"></i> Open Full Report
                 </a>
             </div>
             <div class="report-content">
-                <div class="frame-placeholder">
+                <!-- Iframe chỉ hiển thị phần đầu của ML report -->
+                <iframe 
+                    src="backend/reports/ml_report.html" 
+                    class="report-frame preview"
+                    id="ml-preview"
+                    title="Machine Learning Report Preview"
+                    loading="lazy"
+                    onload="checkIframeLoad(this, 'ml')"
+                    onerror="handleIframeError(this, 'ml')">
+                </iframe>
+                
+                <!-- Overlay thông báo preview -->
+                <div class="preview-overlay">
+                    <div class="preview-text">
+                        <i class="fas fa-info-circle"></i> This is a preview. Click "Open Full Report" to view complete model analysis.
+                    </div>
+                </div>
+                
+                <!-- Placeholder sẽ hiện nếu iframe lỗi -->
+                <div class="frame-placeholder" id="ml-placeholder" style="display: none;">
                     <i class="fas fa-brain"></i>
                     <h3>Machine Learning Model Report</h3>
-                    <p>iframe src="backend/reports/ml_report.html"</p>
+                    <p>The ML report preview is currently unavailable.</p>
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        Cannot load preview. Please check if the file exists at: <code>backend/reports/ml_report.html</code>
+                    </div>
+                    <p style="margin-top: 15px;">
+                        <a href="backend/reports/ml_report.html" target="_blank" class="btn-view">
+                            <i class="fas fa-external-link-alt"></i> Try Open Directly
+                        </a>
+                    </p>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Instructions for generating reports -->
+        <div class="report-card" style="background: #f8f9fa; border: 2px dashed #dee2e6;">
+            <div class="report-header" style="background: transparent;">
+                <div class="report-title">
+                    <h2><i class="fas fa-info-circle" style="color: #3498db;"></i> How to Generate Reports</h2>
+                </div>
+            </div>
+            <div style="padding: 25px 30px;">
+                <p>To generate the HTML reports from Jupyter notebooks, run these commands in your project directory:</p>
+                <div style="background: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: monospace;">
+                    <p style="margin: 5px 0;"><span style="color: #3498db;"># For EDA Report:</span> python -m nbconvert backend/notebooks/eda.ipynb --to html --output backend/reports/eda_report.html --no-input</p>
+                    <p style="margin: 5px 0;"><span style="color: #3498db;"># For ML Report:</span> python -m nbconvert backend/notebooks/ml_model.ipynb --to html --output backend/reports/ml_report.html --no-input</p>
+                </div>
+                <p><i class="fas fa-lightbulb" style="color: #f39c12;"></i> Use <code>--no-input</code> flag to hide code cells and show only outputs in the report.</p>
             </div>
         </div>
     </div>
@@ -161,11 +360,86 @@
     </footer>
 
     <script>
+        // JavaScript để xử lý iframe và lỗi
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
+        
         if(hamburger) {
-            hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+            hamburger.addEventListener('click', () => { 
+                navLinks.classList.toggle('active'); 
+            });
         }
+        
+        // Hàm kiểm tra iframe đã load thành công chưa
+        function checkIframeLoad(iframe, type) {
+            console.log(`${type.toUpperCase()} Report preview loaded successfully`);
+            
+            // Sau khi iframe load, cuộn lên đầu để chỉ hiện phần đầu
+            try {
+                iframe.contentWindow.scrollTo(0, 0);
+            } catch (e) {
+                // Bỏ qua lỗi cross-origin nếu có
+            }
+            
+            // Ẩn placeholder nếu có
+            const placeholder = document.getElementById(`${type}-placeholder`);
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+        }
+        
+        // Hàm xử lý lỗi khi iframe không load được
+        function handleIframeError(iframe, type) {
+            console.error(`Failed to load ${type} report preview`);
+            
+            // Hiện placeholder thông báo lỗi
+            const placeholder = document.getElementById(`${type}-placeholder`);
+            if (placeholder) {
+                placeholder.style.display = 'flex';
+            }
+            
+            // Ẩn iframe
+            iframe.style.display = 'none';
+        }
+        
+        // Kiểm tra file tồn tại khi trang load (optional - có thể bỏ qua nếu không cần)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra links
+            const edaLink = document.getElementById('eda-full-link');
+            const mlLink = document.getElementById('ml-full-link');
+            
+            // Thêm sự kiện click để tracking (optional)
+            if (edaLink) {
+                edaLink.addEventListener('click', function() {
+                    console.log('Opening full EDA report');
+                    // Có thể thêm analytics tracking ở đây
+                });
+            }
+            
+            if (mlLink) {
+                mlLink.addEventListener('click', function() {
+                    console.log('Opening full ML report');
+                    // Có thể thêm analytics tracking ở đây
+                });
+            }
+            
+            // Tự động cuộn iframe lên đầu sau 1 giây (fallback)
+            setTimeout(() => {
+                const edaIframe = document.getElementById('eda-preview');
+                const mlIframe = document.getElementById('ml-preview');
+                
+                try {
+                    if (edaIframe && edaIframe.contentWindow) {
+                        edaIframe.contentWindow.scrollTo(0, 0);
+                    }
+                    if (mlIframe && mlIframe.contentWindow) {
+                        mlIframe.contentWindow.scrollTo(0, 0);
+                    }
+                } catch (e) {
+                    // Bỏ qua lỗi cross-origin
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html>
