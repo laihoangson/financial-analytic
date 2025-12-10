@@ -7515,7 +7515,8 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: center; background: linear-gradient(135deg, #1a2980, #26d0ce); 
             padding: 30px 25px; border-radius: 10px; color: white; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px;">
@@ -7545,6 +7546,85 @@ a.anchor-link {
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=43f7a94a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="1.-Load-datasets">1. Load datasets<a class="anchor-link" href="#1.-Load-datasets">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=dac1e416">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># Load Data</span>
+<span class="n">fin_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../../data/cleaned/financial_statements.csv'</span><span class="p">)</span>
+<span class="n">stock_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../../data/cleaned/stock_prices.csv'</span><span class="p">)</span>
+
+<span class="c1"># Display</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fin_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>  ticker report_date period       revenue          cogs  gross_profit  opex  \
+0   AAPL  2025-09-30    12M  4.161610e+11  2.209600e+11  1.952010e+11     0   
+1   AAPL  2024-09-30    12M  3.910350e+11  2.103520e+11  1.806830e+11     0   
+2   AAPL  2023-09-30    12M  3.832850e+11  2.141370e+11  1.691480e+11     0   
+
+   operating_income_ebit           ebt    net_income  ...  debt_to_equity  \
+0           1.330500e+11  1.327290e+11  1.120100e+11  ...        3.872187   
+1           1.232160e+11  1.234850e+11  9.373600e+10  ...        5.408780   
+2           1.143010e+11  1.137360e+11  9.699500e+10  ...        4.673462   
+
+   debt_ratio  interest_coverage_ratio       roa       roe  gross_margin  \
+0    0.794753                      NaN  0.311796  1.519130      0.469052   
+1    0.843964                      NaN  0.256825  1.645935      0.462063   
+2    0.823741                29.062039  0.275098  1.560760      0.441311   
+
+   net_margin  asset_turnover  inventory_turnover  receivables_turnover  
+0    0.269151        1.158445           38.642882                   NaN  
+1    0.239713        1.071387           28.870711                   NaN  
+2    0.253062        1.087077           33.823567                   NaN  
+
+[3 rows x 40 columns]
+  ticker        date        open        high         low       close  \
+0   AAPL  2020-12-07  119.062940  121.262945  119.004536  120.464714   
+1   AAPL  2020-12-08  121.068258  121.662065  119.822233  121.077988   
+2   AAPL  2020-12-09  121.224014  122.606314  117.787728  118.547020   
+
+    adj_close     volume  
+0  120.464714   86712000  
+1  121.077988   82225500  
+2  118.547020  115089200  
+</pre>
 </div>
 </div>
 </div>
