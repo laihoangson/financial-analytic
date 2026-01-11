@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Market Overview Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2.0.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        /* =========================================
+           GLOBAL DASHBOARD STYLING
+           ========================================= */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            padding: 20px; 
+            background: #f8f9fa; 
+            margin: 0;
+            color: #333;
+        }
+
+        /* Controls Section */
+        .controls-container {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 5px solid #009688;
+        }
+
+        .controls-container label {
+            font-weight: 600;
+            color: #00695c;
+        }
+
+        select { 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            border: 1px solid #b2dfdb; 
+            font-size: 14px; 
+            outline: none;
+            color: #333;
+            background-color: #f1f8f6;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        select:hover, select:focus {
+            border-color: #009688;
+        }
+
+        /* Layout Grid cho biểu đồ */
+        .charts-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            grid-template-rows: auto auto;
+            gap: 20px; 
+            height: auto; 
+        }
+
+        /* Biểu đồ hàng đầu - chiếm 2 cột */
+        .chart-card-full {
+            grid-column: 1 / -1;
+            height: 500px;
+        }
+
+        .chart-card { 
+            background: white; 
+            border-radius: 10px; 
+            padding: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 450px;
+        }
+
+        .chart-card h2 { 
+            text-align: center; 
+            color: #00796b; 
+            margin-top: 0; 
+            margin-bottom: 15px; 
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .canvas-container {
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Chú thích cho biểu đồ tròn */
+        .legend-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .charts-grid { 
+                grid-template-columns: 1fr; 
+                grid-template-rows: auto;
+            }
+            .chart-card-full {
+                grid-column: 1;
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            .chart-card { height: 400px; }
+            .chart-card-full { height: 400px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls-container">
+        <label for="metricSelect"><i class="fas fa-filter"></i> Select Comparison Metric: </label>
+        <select id="metricSelect">
+            <option value="revenue">Total Revenue</option>
+            <option value="net_income">Net Income</option>
+            <option value="gross_profit">Gross Profit</option>
+            <option value="operating_income_ebit">Operating Income (EBIT)</option>
+            <option value="total_assets">Total Assets</option>
+            <option value="total_equity">Total Equity</option>
+            <option value="cash_and_equivalents">Cash & Equivalents</option>
+        </select>
+        <span style="margin-left: auto; font-size: 0.9em; color: #888;">*Data source: Latest Financial Statements</span>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <h2>Top Companies Ranking</h2>
+            <div class="canvas-container">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h2>Financial Health Heatmap (Normalized)</h2>
+            <div class="canvas-container">
+                <canvas id="heatmapChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h2>Market Share by Revenue (Top 10)</h2>
+            <div class="canvas-container">
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div id="pieLegend" class="legend-container"></div>
+        </div>
+
+        <div class="chart-card">
+            <h2>Industry Growth Trend (Historical Revenue)</h2>
+            <div class="canvas-container">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card chart-card-full">
+            <h2>Profitability vs Efficiency Bubble Chart</h2>
+            <div class="canvas-container">
+                <canvas id="bubbleChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Đăng ký Plugin
+        Chart.register(ChartDataLabels);
+
+        // Các biến toàn cục
+        let financialData = [];
+        let rawDataAll = []; 
+        let barChartInstance = null;
+        let heatmapChartInstance = null;
+        let pieChartInstance = null;
+        let lineChartInstance = null;
+        let bubbleChartInstance = null;
+
+        // Màu sắc cho biểu đồ
+        const chartColors = {
+            teal: 'rgba(0, 150, 136, 0.7)',
+            tealDark: 'rgba(0, 121, 107, 1)',
+            orange: 'rgba(255, 152, 0, 0.7)',
+            orangeDark: 'rgba(239, 108, 0, 1)',
+            purple: 'rgba(156, 39, 176, 0.7)',
+            purpleDark: 'rgba(123, 31, 162, 1)',
+            blue: 'rgba(33, 150, 243, 0.7)',
+            blueDark: 'rgba(25, 118, 210, 1)',
+            green: 'rgba(76, 175, 80, 0.7)',
+            greenDark: 'rgba(56, 142, 60, 1)'
+        };
+
+        // --- BƯỚC 1: LOAD DỮ LIỆU TỪ FILE CSV ---
+        Papa.parse("data/cleaned/financial_statements.csv", {
+            download: true,
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+                console.log("CSV Loaded:", results.data);
+                if(results.data && results.data.length > 0) {
+                    rawDataAll = results.data;
+                    processData(results.data);
+                } else {
+                    console.error("CSV empty or invalid");
+                    loadSampleData();
+                }
+            },
+            error: function(err) {
+                console.error("Error loading CSV:", err);
+                loadSampleData();
+            }
+        });
+
+        // --- BƯỚC 2: XỬ LÝ DỮ LIỆU ---
+        function processData(rawData) {
+            const cleanData = rawData.filter(row => row.ticker && row.report_date);
+            const latestReports = {};
+
+            // Chỉ lấy báo cáo mới nhất cho các biểu đồ tĩnh
+            cleanData.forEach(row => {
+                const ticker = row.ticker;
+                const reportDate = new Date(row.report_date);
+                if (!latestReports[ticker] || reportDate > new Date(latestReports[ticker].report_date)) {
+                    latestReports[ticker] = row;
+                }
+            });
+
+            financialData = Object.values(latestReports);
+            initCharts();
+        }
+
+        // --- BƯỚC 3: VẼ TẤT CẢ BIỂU ĐỒ ---
+        function initCharts() {
+            updateBarChart();
+            updateHeatmapChart();
+            updatePieChart();
+            updateLineChart();
+            updateBubbleChart();
+        }
+
+        // 1. Bar Chart
+        function updateBarChart() {
+            const metric = document.getElementById('metricSelect').value;
+            const sortedData = [...financialData].sort((a, b) => (b[metric] || 0) - (a[metric] || 0)).slice(0, 15); 
+            const labels = sortedData.map(d => d.ticker);
+            const values = sortedData.map(d => d[metric]);
+            const labelText = metric.replace(/_/g, ' ').toUpperCase();
+
+            const ctx = document.getElementById('barChart').getContext('2d');
+            if(barChartInstance) barChartInstance.destroy();
+
+            barChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: labelText,
+                        data: values,
+                        backgroundColor: chartColors.teal,
+                        borderColor: chartColors.tealDark,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        datalabels: { display: false }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: function(value) { return formatCompactNumber(value); } }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // 2. Heatmap Chart
+        function updateHeatmapChart() {
+            const ctx = document.getElementById('heatmapChart').getContext('2d');
+            const topCompanies = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 10);
+            
+            const metrics = [
+                { key: 'net_margin', label: 'Net Margin', higherIsBetter: true },
+                { key: 'roe', label: 'ROE', higherIsBetter: true },
+                { key: 'roa', label: 'ROA', higherIsBetter: true },
+                { key: 'asset_turnover', label: 'Asset Turnover', higherIsBetter: true },
+                { key: 'current_ratio', label: 'Current Ratio', higherIsBetter: true },
+                { key: 'debt_to_equity', label: 'Debt/Equity', higherIsBetter: false }
+            ];
+
+            const matrixData = [];
+
+            metrics.forEach(metric => {
+                const values = topCompanies.map(c => c[metric.key] || 0);
+                const max = Math.max(...values);
+                const min = Math.min(...values);
+                
+                topCompanies.forEach(company => {
+                    let val = company[metric.key] || 0;
+                    let normalized = 0;
+                    if (max !== min) {
+                        normalized = (val - min) / (max - min);
+                    }
+                    if (!metric.higherIsBetter) normalized = 1 - normalized;
+
+                    matrixData.push({
+                        x: metric.label,
+                        y: company.ticker,
+                        v: normalized,
+                        raw: val
+                    });
+                });
+            });
+
+            if(heatmapChartInstance) heatmapChartInstance.destroy();
+
+            heatmapChartInstance = new Chart(ctx, {
+                type: 'matrix',
+                data: {
+                    datasets: [{
+                        label: 'Financial Health',
+                        data: matrixData,
+                        backgroundColor(c) {
+                            const value = c.dataset.data[c.dataIndex].v;
+                            const hue = value * 120;
+                            return `hsla(${hue}, 70%, 60%, 0.8)`;
+                        },
+                        width: ({chart}) => (chart.chartArea || {}).width / metrics.length - 2,
+                        height: ({chart}) => (chart.chartArea || {}).height / topCompanies.length - 2,
+                        datalabels: {
+                            display: true,
+                            color: '#333',
+                            font: { size: 10, weight: 'bold' },
+                            formatter: function(v) { return v.raw.toFixed(2); }
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title() { return ''; },
+                                label(context) {
+                                    const v = context.raw;
+                                    return `${v.y} - ${v.x}: ${v.raw.toFixed(2)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { type: 'category', labels: metrics.map(m => m.label), grid: { display: false } },
+                        y: { type: 'category', labels: topCompanies.map(c => c.ticker), offset: true, grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // 3. Pie Chart
+        function updatePieChart() {
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            const sortedByRevenue = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 10);
+            
+            const labels = sortedByRevenue.map(d => d.ticker);
+            const data = sortedByRevenue.map(d => d.revenue || 0);
+            const totalRevenue = data.reduce((sum, val) => sum + val, 0);
+            const percentages = data.map(val => ((val / totalRevenue) * 100).toFixed(1));
+            
+            const backgroundColors = labels.map((_, i) => `hsla(${(i * 360 / labels.length) % 360}, 70%, 65%, 0.7)`);
+            const borderColors = labels.map((_, i) => `hsl(${(i * 360 / labels.length) % 360}, 70%, 50%)`);
+
+            if(pieChartInstance) pieChartInstance.destroy();
+
+            pieChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '40%',
+                    layout: { padding: 20 },
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            color: '#fff',
+                            font: { weight: 'bold', size: 11 },
+                            formatter: (value, ctx) => {
+                                const label = ctx.chart.data.labels[ctx.dataIndex];
+                                const percent = percentages[ctx.dataIndex];
+                                return parseFloat(percent) > 3 ? `${label}\n${percent}%` : ''; 
+                            },
+                            textShadowColor: 'black',
+                            textShadowBlur: 4
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${formatCurrency(context.raw)} (${percentages[context.dataIndex]}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            updatePieLegend(labels, backgroundColors, percentages);
+        }
+
+        function updatePieLegend(labels, colors, percentages) {
+            const legendContainer = document.getElementById('pieLegend');
+            legendContainer.innerHTML = '';
+            labels.forEach((label, i) => {
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.innerHTML = `<div class="legend-color" style="background-color: ${colors[i]}"></div><span>${label}: ${percentages[i]}%</span>`;
+                legendContainer.appendChild(legendItem);
+            });
+        }
+
+        // 4. Line Chart (CẬP NHẬT: Dùng dữ liệu thật từ CSV)
+        function updateLineChart() {
+            const ctx = document.getElementById('lineChart').getContext('2d');
+            
+            // Nếu không có dữ liệu gốc (trường hợp loadSampleData), dùng logic cũ
+            if (!rawDataAll || rawDataAll.length === 0) {
+                // Logic giả lập cũ (fallback)
+                const quarters = ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024'];
+                const topCompanies = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 3);
+                const datasets = topCompanies.map((company, idx) => {
+                    const baseRevenue = company.revenue || 1000000;
+                    const growthRates = [0.85, 0.92, 0.98, 1.05, 1.12];
+                    const dataPoints = growthRates.map(rate => Math.round(baseRevenue * rate * (0.9 + Math.random() * 0.2)));
+                    const colorKeys = ['blue', 'purple', 'green'];
+                    const colorKey = colorKeys[idx % colorKeys.length];
+                    return {
+                        label: company.ticker,
+                        data: dataPoints,
+                        borderColor: chartColors[colorKey],
+                        backgroundColor: chartColors[colorKey].replace('0.7', '0.1'),
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.3,
+                        datalabels: { display: false }
+                    };
+                });
+                
+                if(lineChartInstance) lineChartInstance.destroy();
+                lineChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels: quarters, datasets: datasets },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+                return;
+            }
+
+            // LOGIC MỚI: Xử lý dữ liệu từ CSV
+            // 1. Xác định Top 5 công ty theo doanh thu mới nhất
+            const topTickers = [...financialData]
+                .sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
+                .slice(0, 5)
+                .map(d => d.ticker);
+
+            // 2. Lấy dữ liệu lịch sử của 5 công ty này từ rawDataAll
+            const historyData = rawDataAll.filter(row => 
+                topTickers.includes(row.ticker) && row.revenue && row.report_date
+            );
+
+            // 3. Tạo trục thời gian chung (Unique Dates, sorted)
+            let allDates = [...new Set(historyData.map(d => d.report_date))];
+            allDates.sort((a, b) => new Date(a) - new Date(b));
+
+            // 4. Map dữ liệu cho từng công ty
+            const datasets = topTickers.map((ticker, idx) => {
+                const colorKeys = ['blue', 'purple', 'green', 'teal', 'orange'];
+                const colorKey = colorKeys[idx % colorKeys.length];
+                const baseColor = chartColors[colorKey] || chartColors.blue;
+                
+                // Tạo mảng dữ liệu khớp với allDates
+                const dataPoints = allDates.map(date => {
+                    // Tìm bản ghi của công ty tại ngày này
+                    const record = historyData.find(d => d.ticker === ticker && d.report_date === date);
+                    return record ? record.revenue : null; // Trả về null nếu không có để Chart.js xử lý
+                });
+
+                return {
+                    label: ticker,
+                    data: dataPoints,
+                    borderColor: baseColor.replace('0.7', '1'),
+                    backgroundColor: baseColor.replace('0.7', '0.1'),
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.3,
+                    spanGaps: true, // Quan trọng: Nối các điểm bị ngắt quãng do lệch ngày báo cáo
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    datalabels: { display: false }
+                };
+            });
+
+            if(lineChartInstance) lineChartInstance.destroy();
+
+            lineChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: allDates,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.raw === null) return null;
+                                    return `${context.dataset.label}: ${formatCompactNumber(context.raw)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: { callback: function(value) { return formatCompactNumber(value); } },
+                            grid: { color: '#f0f0f0' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                maxTicksLimit: 10 // Giới hạn số lượng nhãn ngày hiển thị
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 5. Bubble Chart
+        function updateBubbleChart() {
+            const ctx = document.getElementById('bubbleChart').getContext('2d');
+            const companies = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 20);
+            const maxRevenue = Math.max(...companies.map(c => c.revenue || 0));
+
+            const bubbleData = companies.map((company, idx) => {
+                return {
+                    x: (company.net_margin || 0) * 100,
+                    y: (company.asset_turnover || 0),
+                    r: ((company.revenue || 0) / maxRevenue) * 30 + 5,
+                    ticker: company.ticker,
+                    revenue: company.revenue,
+                    net_margin: company.net_margin,
+                    asset_turnover: company.asset_turnover
+                };
+            });
+
+            if(bubbleChartInstance) bubbleChartInstance.destroy();
+
+            bubbleChartInstance = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Companies',
+                        data: bubbleData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        datalabels: {
+                            display: true,
+                            align: 'top',
+                            color: '#333',
+                            font: { size: 10, weight: 'bold' },
+                            formatter: function(v) { return v.ticker; }
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Net Margin (%)', font: { weight: 'bold' } }, grid: { color: '#f0f0f0' } },
+                        y: { title: { display: true, text: 'Asset Turnover (Ratio)', font: { weight: 'bold' } }, grid: { color: '#f0f0f0' } }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const p = context.raw;
+                                    return `${p.ticker}: Margin ${p.x.toFixed(1)}%, T/O ${p.y.toFixed(2)}, Rev: ${formatCompactNumber(p.revenue)}`;
+                                }
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // --- UTILS ---
+        function formatCompactNumber(number) {
+            if (!number) return '0';
+            const absNum = Math.abs(number);
+            const units = ['', 'K', 'M', 'B', 'T'];
+            const tier = Math.floor(Math.log10(absNum) / 3);
+            if (tier <= 0) return number.toLocaleString();
+            const suffix = units[tier];
+            const scale = Math.pow(10, tier * 3);
+            const scaled = number / scale;
+            return scaled.toFixed(1) + suffix;
+        }
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: 1 }).format(num);
+        }
+
+        function loadSampleData() {
+            alert("Đang dùng dữ liệu mẫu do không thấy file CSV.");
+            const sampleCompanies = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA', 'META', 'NVDA', 'JPM', 'JNJ', 'V'];
+            financialData = sampleCompanies.map((ticker, i) => ({
+                ticker: ticker,
+                report_date: '2024-03-31',
+                revenue: 50000000000 + Math.random() * 200000000000,
+                net_income: 10000000000 + Math.random() * 50000000000,
+                net_margin: 0.1 + Math.random() * 0.3,
+                roe: 0.15 + Math.random() * 0.25,
+                roa: 0.05 + Math.random() * 0.15,
+                asset_turnover: 0.5 + Math.random() * 1.5,
+                current_ratio: 1 + Math.random() * 2,
+                debt_to_equity: 0.5 + Math.random() * 1.5
+            }));
+            initCharts();
+        }
+
+        document.getElementById('metricSelect').addEventListener('change', updateBarChart);
+    </script>
+</body>
+</html>

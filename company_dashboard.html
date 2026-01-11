@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Deep Dive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        /* =========================================
+           COMPANY DASHBOARD STYLING
+           ========================================= */
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            padding: 20px; 
+            background: #f8f9fa; 
+            margin: 0; 
+            color: #333;
+        }
+
+        /* Header Control Section */
+        .control-panel {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #009688;
+        }
+
+        .control-panel h2 { margin: 0; color: #00796b; font-size: 1.5rem; }
+
+        .select-wrapper label { font-weight: bold; margin-right: 10px; color: #555; }
+        .select-wrapper select {
+            padding: 8px 15px;
+            font-size: 16px;
+            border: 2px solid #b2dfdb;
+            border-radius: 5px;
+            color: #00695c;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+        .select-wrapper select:focus { border-color: #009688; }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            transition: transform 0.2s;
+        }
+        
+        .kpi-card:hover { transform: translateY(-3px); }
+        .kpi-card.blue { border-bottom-color: #2196F3; }
+        .kpi-card.green { border-bottom-color: #4CAF50; }
+        .kpi-card.orange { border-bottom-color: #FF9800; }
+        .kpi-card.purple { border-bottom-color: #9C27B0; }
+
+        .kpi-card h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: #777; text-transform: uppercase; letter-spacing: 1px; }
+        .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: #333; }
+        .kpi-card .sub-text { font-size: 0.8rem; color: #999; margin-top: 5px; }
+
+        /* Charts Layout Updated */
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Hai cột bằng nhau cho hàng dưới */
+            gap: 20px;
+            /* height: auto;  Bỏ chiều cao cố định để linh hoạt */
+        }
+
+        .chart-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+            height: 400px; /* Chiều cao cố định cho mỗi biểu đồ */
+        }
+
+        /* Class để biểu đồ chứng khoán tràn màn hình */
+        .chart-box.full-width {
+            grid-column: 1 / -1;
+            height: 450px;
+        }
+
+        .chart-box h3 { margin-top: 0; color: #00796b; margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px;}
+        .canvas-wrapper { flex-grow: 1; position: relative; width: 100%; height: 100%; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .charts-container { grid-template-columns: 1fr; }
+            .chart-box.full-width { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="control-panel">
+        <h2><i class="fas fa-chart-line"></i> Company Analysis</h2>
+        <div class="select-wrapper">
+            <label for="tickerSelect">Select Company:</label>
+            <select id="tickerSelect">
+                <option value="">Loading...</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card blue">
+            <h3>Revenue (Latest)</h3>
+            <div class="value" id="kpi-revenue">-</div>
+            <div class="sub-text">Total Revenue</div>
+        </div>
+        <div class="kpi-card green">
+            <h3>Net Income</h3>
+            <div class="value" id="kpi-income">-</div>
+            <div class="sub-text">Bottom Line</div>
+        </div>
+        <div class="kpi-card orange">
+            <h3>Net Margin</h3>
+            <div class="value" id="kpi-margin">-</div>
+            <div class="sub-text">Profitability %</div>
+        </div>
+        <div class="kpi-card purple">
+            <h3>ROE</h3>
+            <div class="value" id="kpi-roe">-</div>
+            <div class="sub-text">Return on Equity</div>
+        </div>
+    </div>
+
+    <div class="charts-container">
+        <div class="chart-box full-width">
+            <h3>Historical Stock Price</h3>
+            <div class="canvas-wrapper">
+                <canvas id="stockChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-box">
+            <h3>Revenue vs Profit Margins</h3>
+            <div class="canvas-wrapper">
+                <canvas id="finChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-box">
+            <h3>Financial Position (Assets Structure)</h3>
+            <div class="canvas-wrapper">
+                <canvas id="balanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA VARIABLES ---
+        let stockData = [];      
+        let financialData = [];  
+        
+        let stockChartInstance = null;
+        let finChartInstance = null;
+        let balanceChartInstance = null;
+
+        // --- STEP 1: LOAD DATA ---
+        // Sử dụng đường dẫn tương đối mặc định 'financial_statements.csv'
+        Papa.parse("data/cleaned/financial_statements.csv", {
+            download: true,
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+            complete: function(finResults) {
+                financialData = finResults.data;
+                console.log("Financial Data Loaded:", financialData.length);
+
+                // Thử load file giá cổ phiếu (nếu có)
+                Papa.parse("data/cleaned/stock_prices.csv", {
+                    download: true,
+                    header: true,
+                    dynamicTyping: true,
+                    skipEmptyLines: true,
+                    complete: function(stockResults) {
+                        stockData = stockResults.data;
+                        console.log("Stock Data Loaded:", stockData.length);
+                        initApp();
+                    },
+                    error: function() {
+                        console.warn("Stock prices file not found. Skipping stock chart.");
+                        stockData = []; // Dữ liệu trống nếu không tìm thấy file
+                        initApp();
+                    }
+                });
+            }
+        });
+
+        // --- STEP 2: INITIALIZATION ---
+        function initApp() {
+            const tickers = [...new Set(financialData.map(d => d.ticker))].sort();
+            
+            const select = document.getElementById('tickerSelect');
+            select.innerHTML = ''; 
+            
+            tickers.forEach(t => {
+                const option = document.createElement('option');
+                option.value = t;
+                option.text = t;
+                select.appendChild(option);
+            });
+
+            if(tickers.length > 0) {
+                updateDashboard(tickers[0]);
+            }
+
+            select.addEventListener('change', (e) => updateDashboard(e.target.value));
+        }
+
+        // --- STEP 3: UPDATE DASHBOARD ---
+        function updateDashboard(ticker) {
+            updateFinancialInfo(ticker);
+            updateStockChart(ticker);
+        }
+
+        function updateFinancialInfo(ticker) {
+            const companyReports = financialData.filter(d => d.ticker === ticker);
+            // Sắp xếp theo ngày báo cáo
+            companyReports.sort((a, b) => new Date(a.report_date) - new Date(b.report_date));
+            
+            const latest = companyReports[companyReports.length - 1];
+
+            if (latest) {
+                document.getElementById('kpi-revenue').innerText = formatCurrency(latest.revenue);
+                document.getElementById('kpi-income').innerText = formatCurrency(latest.net_income);
+                document.getElementById('kpi-margin').innerText = (latest.net_margin * 100).toFixed(2) + '%';
+                document.getElementById('kpi-roe').innerText = (latest.roe * 100).toFixed(2) + '%';
+            }
+
+            const years = companyReports.map(d => d.report_date.substring(0, 4));
+
+            // --- CHART 2: REVENUE vs MARGINS (Dual Axis) ---
+            const ctxFin = document.getElementById('finChart').getContext('2d');
+            if(finChartInstance) finChartInstance.destroy();
+
+            finChartInstance = new Chart(ctxFin, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Revenue',
+                            data: companyReports.map(d => d.revenue),
+                            backgroundColor: 'rgba(0, 150, 136, 0.6)',
+                            borderColor: 'rgba(0, 150, 136, 1)',
+                            borderWidth: 1,
+                            order: 2,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Net Margin (%)',
+                            data: companyReports.map(d => (d.net_margin * 100).toFixed(1)),
+                            type: 'line',
+                            borderColor: '#FF9800',
+                            backgroundColor: '#FF9800',
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.3,
+                            order: 1,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Revenue ($)' },
+                            ticks: { callback: value => formatCompactNumber(value) },
+                            grid: { color: '#f0f0f0' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: { display: true, text: 'Margin (%)' },
+                            grid: { drawOnChartArea: false }, // Không vẽ lưới cho trục phụ
+                            ticks: { callback: value => value + '%' }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataset.yAxisID === 'y1') {
+                                        return context.dataset.label + ': ' + context.raw + '%';
+                                    }
+                                    return context.dataset.label + ': ' + formatCurrency(context.raw);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- CHART 3: FINANCIAL POSITION (Stacked Bar) ---
+            const ctxBal = document.getElementById('balanceChart').getContext('2d');
+            if(balanceChartInstance) balanceChartInstance.destroy();
+
+            balanceChartInstance = new Chart(ctxBal, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Total Liabilities',
+                            data: companyReports.map(d => d.total_liabilities),
+                            backgroundColor: 'rgba(244, 67, 54, 0.6)', // Red for Liability
+                            borderColor: 'rgba(244, 67, 54, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Total Equity',
+                            data: companyReports.map(d => d.total_equity),
+                            backgroundColor: 'rgba(76, 175, 80, 0.6)', // Green for Equity
+                            borderColor: 'rgba(76, 175, 80, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true },
+                        y: { 
+                            stacked: true,
+                            beginAtZero: true,
+                            ticks: { callback: value => formatCompactNumber(value) },
+                            title: { display: true, text: 'Total Assets (Stacked)' }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                footer: function(tooltipItems) {
+                                    let sum = 0;
+                                    tooltipItems.forEach(function(tooltipItem) {
+                                        sum += tooltipItem.raw;
+                                    });
+                                    return 'Total Assets: ' + formatCurrency(sum);
+                                },
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.raw);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateStockChart(ticker) {
+            const ctx = document.getElementById('stockChart').getContext('2d');
+            
+            // Xử lý trường hợp không có dữ liệu giá
+            if (!stockData || stockData.length === 0) {
+                if(stockChartInstance) stockChartInstance.destroy();
+                // Vẽ biểu đồ trống hoặc hiển thị thông báo
+                stockChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels: [], datasets: [] },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        plugins: { title: { display: true, text: 'No Stock Data Available' } }
+                    }
+                });
+                return;
+            }
+
+            const companyStock = stockData.filter(d => d.ticker === ticker);
+            companyStock.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const labels = companyStock.map(d => d.date);
+            const closePrices = companyStock.map(d => d.close);
+
+            if(stockChartInstance) stockChartInstance.destroy();
+
+            stockChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Close Price (USD)',
+                        data: closePrices,
+                        borderColor: '#009688',
+                        backgroundColor: 'rgba(0, 150, 136, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        x: { ticks: { maxTicksLimit: 12 } },
+                        y: { position: 'right', title: { display: true, text: 'Price ($)' } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: context => `$${context.parsed.y.toFixed(2)}` } }
+                    }
+                }
+            });
+        }
+
+        // --- UTILS ---
+        function formatCurrency(num) {
+            if (num === null || num === undefined) return '-';
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: 1 }).format(num);
+        }
+
+        function formatCompactNumber(number) {
+            const units = ['', 'K', 'M', 'B', 'T'];
+            const tier = Math.floor(Math.log10(Math.abs(number)) / 3);
+            if (tier <= 0) return number;
+            const suffix = units[tier];
+            const scale = Math.pow(10, tier * 3);
+            return (number / scale).toFixed(1) + suffix;
+        }
+
+    </script>
+</body>
+</html>

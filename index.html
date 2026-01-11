@@ -24,7 +24,7 @@
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="pipeline.html">ETL Pipeline</a></li>
                     <li><a href="sql.html">SQL Section</a></li>
-                    <li><a href="powerbi.html">Power BI Dashboards</a></li>
+                    <li><a href="powerbi.html">Dashboards</a></li>
                     <li><a href="reports.html">Python Reports</a></li>
                     <li><a href="about.html">About Me</a></li>
                 </ul>
@@ -54,7 +54,7 @@
             <h1>Global Market Insight 360</h1>
             <p class="hero-subtitle">
                 A comprehensive financial analytics platform analyzing 21 major global companies, 
-                ETL pipelines, database, interactive dashboards, and reports powered by Python, MySQL, and Power BI.
+                ETL pipelines, database, interactive dashboards, and reports powered by Python and MySQL.
             </p>
             <div class="hero-buttons">
                 <a href="pipeline.html" class="btn" style="background: linear-gradient(135deg, #009688, #80cbc4); border: none;">
@@ -131,89 +131,6 @@
             </div>
         </section>
 
-        <section class="features" style="margin-top: 4rem;">
-            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2rem; color: var(--dark-color);">
-                Platform Architecture
-            </h2>
-            
-            <div class="architecture-diagram">
-                <div class="arch-step">
-                    <div class="step-number">1</div>
-                    <h4>Data Extraction</h4>
-                    <p>Python scripts fetch data from yFinance API</p>
-                    <ul class="tech-list">
-                        <li>yfinance library</li>
-                        <li>20+ company tickers</li>
-                    </ul>
-                </div>
-                
-                <div class="arch-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                
-                <div class="arch-step">
-                    <div class="step-number">2</div>
-                    <h4>Data Processing</h4>
-                    <p>Clean and transform raw data</p>
-                    <ul class="tech-list">
-                        <li>Pandas for data cleaning</li>
-                        <li>Calculate financial ratios</li>
-                        <li>Handle missing values</li>
-                    </ul>
-                </div>
-                
-                <div class="arch-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                
-                <div class="arch-step">
-                    <div class="step-number">3</div>
-                    <h4>Database Storage</h4>
-                    <p>Store in MySQL database</p>
-                    <ul class="tech-list">
-                        <li>3 normalized tables</li>
-                        <li>SQLAlchemy for ORM</li>
-                        <li>Foreign key constraints</li>
-                    </ul>
-                </div>
-                
-                <div class="arch-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                
-                <div class="arch-step">
-                    <div class="step-number">4</div>
-                    <h4>Visualization</h4>
-                    <p>Interactive dashboards & reports</p>
-                    <ul class="tech-list">
-                        <li>Power BI dashboards</li>
-                        <li>Python EDA and ML reports</li>
-                        <li>Web interface</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="schema-preview" style="margin-top: 4rem;">
-            <div class="etl-process">
-                <h2>Database Schema</h2>
-                <p>Structured MySQL database with 3 main tables for efficient querying:</p>
-                
-                <div class="schema-tables">
-                    <div class="schema-table">
-                        <h3><i class="fas fa-building"></i> companies</h3>
-                    </div>
-                    
-                    <div class="schema-table">
-                        <h3><i class="fas fa-chart-line"></i> stock_prices</h3>
-                    </div>
-                    
-                    <div class="schema-table">
-                        <h3><i class="fas fa-file-invoice-dollar"></i> financial_statements</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section class="tech-stack" style="margin-top: 4rem;">
             <div class="etl-process">
@@ -230,12 +147,6 @@
                         <i class="fas fa-database" style="color: #4479A1;"></i>
                         <h4>MySQL</h4>
                         <p>Relational database storage</p>
-                    </div>
-                    
-                    <div class="tech-item">
-                        <i class="fab fa-microsoft" style="color: #F2C811;"></i>
-                        <h4>Power BI</h4>
-                        <p>Interactive dashboards</p>
                     </div>
                     
                     <div class="tech-item">
@@ -334,49 +245,6 @@
             font-size: 0.9rem;
         }
         
-        .architecture-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .arch-step {
-            flex: 1;
-            min-width: 200px;
-            max-width: 250px;
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            border: 2px solid #e2e8f0;
-            text-align: center;
-        }
-        
-        .arch-step .step-number {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-weight: bold;
-        }
-        
-        .arch-step h4 {
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        .arch-step p {
-            color: var(--gray-color);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
         
         .tech-list {
             list-style: none;
