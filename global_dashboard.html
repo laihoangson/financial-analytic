@@ -3,375 +3,732 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Market Overview Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2.0.1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <title>Global Market Dashboard | Financial Analytics</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* =========================================
-           GLOBAL DASHBOARD STYLING
-           ========================================= */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            padding: 20px; 
-            background: #f8f9fa; 
-            margin: 0;
-            color: #333;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1a202c; 
+            --text-secondary: #4a5568;
+            --border-color: #cbd5e0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
         }
 
-        /* Controls Section */
-        .controls-container {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a2530 100%);
+            color: white;
+            padding: 2rem 2rem 1.5rem;
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .dashboard-title {
             display: flex;
             align-items: center;
-            gap: 15px;
-            border-left: 5px solid #009688;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
         }
 
-        .controls-container label {
-            font-weight: 600;
-            color: #00695c;
+        .dashboard-title h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.5px;
         }
 
-        select { 
-            padding: 8px 12px; 
-            border-radius: 6px; 
-            border: 1px solid #b2dfdb; 
-            font-size: 14px; 
-            outline: none;
-            color: #333;
-            background-color: #f1f8f6;
-            cursor: pointer;
-            transition: border-color 0.3s;
+        .dashboard-title i {
+            font-size: 2rem;
+            color: var(--secondary-color);
         }
 
-        select:hover, select:focus {
-            border-color: #009688;
-        }
-
-        /* Layout Grid cho biểu đồ */
-        .charts-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            grid-template-rows: auto auto;
-            gap: 20px; 
-            height: auto; 
-        }
-
-        /* Biểu đồ hàng đầu - chiếm 2 cột */
-        .chart-card-full {
-            grid-column: 1 / -1;
-            height: 500px;
-        }
-
-        .chart-card { 
-            background: white; 
-            border-radius: 10px; 
-            padding: 20px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-            border: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            height: 450px;
-        }
-
-        .chart-card h2 { 
-            text-align: center; 
-            color: #00796b; 
-            margin-top: 0; 
-            margin-bottom: 15px; 
+        .dashboard-subtitle {
             font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 800px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.5rem;
+            min-width: 180px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.75);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 10px;
         }
 
-        .canvas-container {
-            flex-grow: 1;
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 1.5rem;
+        }
+
+        /* --- Card Styling --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
             position: relative;
-            width: 100%;
-            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
-        /* Chú thích cho biểu đồ tròn */
-        .legend-container {
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-            justify-content: center;
-            max-height: 100px;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-title i {
+            color: var(--secondary-color);
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .controls select, .controls button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: white;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .controls select:hover, .controls button:hover {
+            border-color: var(--secondary-color);
+        }
+
+        .controls button.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* --- Chart Containers --- */
+        .chart-container-lg {
+            height: 400px; 
+            width: 100%;
+            position: relative;
+        }
+
+        .chart-container-md {
+            height: 350px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* --- Row 1: Top Companies (Full Width) --- */
+        .row-1 {
+            grid-column: span 12;
+        }
+
+        /* --- Row 2: Sector & Bubble (Ratio 2:3) --- */
+        /* Changed from span 4 to span 5 (approx 41.6%) */
+        .row-2-sector {
+            grid-column: span 5; 
+        }
+
+        /* Changed from span 8 to span 7 (approx 58.3%) */
+        .row-2-bubble {
+            grid-column: span 7;
+        }
+
+        @media (max-width: 1200px) {
+            .row-2-sector, .row-2-bubble {
+                grid-column: span 12;
+            }
+        }
+
+        /* --- Row 3: Heatmap (Full Width) --- */
+        .row-3 {
+            grid-column: span 12;
+        }
+
+        /* --- Row 4: Market Trends (Full Width) --- */
+        .row-4 {
+            grid-column: span 12;
+        }
+
+        /* --- Table Styling --- */
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            max-height: 500px;
             overflow-y: auto;
         }
 
-        .legend-item {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 1000px;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 800;
+            color: #111;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #a0aec0;
+            cursor: pointer;
+            user-select: none;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        th:hover {
+            background-color: #e2e8f0;
+        }
+        
+        th i {
+            margin-left: 5px;
+            color: #4a5568;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+            color: #000;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        td.ticker-col {
+            font-weight: 800;
+            text-align: left;
+            color: var(--primary-color);
+        }
+        
+        .heatmap-cell {
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* --- Loading State --- */
+        .loading-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 5px;
-            font-size: 0.85rem;
-            padding: 4px 8px;
-            background: #f9f9f9;
-            border-radius: 4px;
+            justify-content: center;
+            min-height: 70vh;
+            text-align: center;
         }
 
-        .legend-color {
-            width: 12px;
-            height: 12px;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(52, 152, 219, 0.2);
             border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1.5rem;
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .charts-grid { 
-                grid-template-columns: 1fr; 
-                grid-template-rows: auto;
-            }
-            .chart-card-full {
-                grid-column: 1;
-                height: 450px;
-            }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 768px) { 
-            .chart-card { height: 400px; }
-            .chart-card-full { height: 400px; }
+        .loading-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* --- Footer --- */
+        .dashboard-footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .last-update {
+            background: var(--card-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+            margin-top: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 0 1rem 2rem;
+                grid-gap: 1rem;
+            }
+            
+            .dashboard-header {
+                padding: 1.5rem 1rem 1rem;
+            }
+            
+            .dashboard-title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .stat-box {
+                min-width: auto;
+            }
+            
+            .card {
+                padding: 1.25rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .controls {
+                width: 100%;
+                justify-content: flex-start;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="controls-container">
-        <label for="metricSelect"><i class="fas fa-filter"></i> Select Comparison Metric: </label>
-        <select id="metricSelect">
-            <option value="revenue">Total Revenue</option>
-            <option value="net_income">Net Income</option>
-            <option value="gross_profit">Gross Profit</option>
-            <option value="operating_income_ebit">Operating Income (EBIT)</option>
-            <option value="total_assets">Total Assets</option>
-            <option value="total_equity">Total Equity</option>
-            <option value="cash_and_equivalents">Cash & Equivalents</option>
-        </select>
-        <span style="margin-left: auto; font-size: 0.9em; color: #888;">*Data source: Latest Financial Statements</span>
-    </div>
-
-    <div class="charts-grid">
-        <div class="chart-card">
-            <h2>Top Companies Ranking</h2>
-            <div class="canvas-container">
-                <canvas id="barChart"></canvas>
-            </div>
+<div class="dashboard-header">
+    <div class="header-container">
+        <div class="dashboard-title">
+            <i class="fas fa-chart-line"></i>
+            <h1>Global Market Dashboard</h1>
         </div>
-
-        <div class="chart-card">
-            <h2>Financial Health Heatmap (Normalized)</h2>
-            <div class="canvas-container">
-                <canvas id="heatmapChart"></canvas>
-            </div>
+        <div class="dashboard-subtitle">
+            Financial analytics and performance metrics for global companies. Track revenue, assets, profitability, and market trends until December 2025.
         </div>
-
-        <div class="chart-card">
-            <h2>Market Share by Revenue (Top 10)</h2>
-            <div class="canvas-container">
-                <canvas id="pieChart"></canvas>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-value" id="total-companies">--</div>
+                <div class="stat-label">Companies Tracked</div>
             </div>
-            <div id="pieLegend" class="legend-container"></div>
-        </div>
-
-        <div class="chart-card">
-            <h2>Industry Growth Trend (Historical Revenue)</h2>
-            <div class="canvas-container">
-                <canvas id="lineChart"></canvas>
+            <div class="stat-box">
+                <div class="stat-value" id="total-sectors">--</div>
+                <div class="stat-label">Sectors</div>
             </div>
-        </div>
-
-        <div class="chart-card chart-card-full">
-            <h2>Profitability vs Efficiency Bubble Chart</h2>
-            <div class="canvas-container">
-                <canvas id="bubbleChart"></canvas>
+            <div class="stat-box">
+                <div class="stat-value" id="avg-revenue">--</div>
+                <div class="stat-label">Avg Revenue</div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // Đăng ký Plugin
-        Chart.register(ChartDataLabels);
+<div id="loading" class="loading-container">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading financial data...</div>
+    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
+        Parsing company data, financial statements, and stock prices
+    </div>
+</div>
 
-        // Các biến toàn cục
-        let financialData = [];
-        let rawDataAll = []; 
-        let barChartInstance = null;
-        let heatmapChartInstance = null;
-        let pieChartInstance = null;
-        let lineChartInstance = null;
-        let bubbleChartInstance = null;
+<div class="dashboard-container">
+    <div class="card row-1" id="row1" style="display:none;">
+        <div class="card-header">
+            <div>
+                <h3 class="card-title">
+                    <i class="fas fa-trophy"></i>
+                    Top Companies Ranking
+                </h3>
+                <div class="card-subtitle">
+                    Top 20 companies by selected financial metric. Hover for exact values.
+                </div>
+            </div>
+            <div class="controls">
+                <label><i class="fas fa-chart-bar"></i> Metric:</label>
+                <select id="row1-metric">
+                    <option value="revenue">Revenue</option>
+                    <option value="net_income">Net Income</option>
+                    <option value="total_assets">Total Assets</option>
+                    <option value="total_equity">Total Equity</option>
+                    <option value="total_liabilities">Total Liabilities</option>
+                    <option value="cash_and_equivalents">Cash & Equivalents</option>
+                    <option value="gross_profit">Gross Profit</option>
+                    <option value="operating_income_ebit">Operating Income (EBIT)</option>
+                </select>
+            </div>
+        </div>
+        <div class="chart-container-lg">
+            <canvas id="chartRow1"></canvas>
+        </div>
+    </div>
 
-        // Màu sắc cho biểu đồ
-        const chartColors = {
-            teal: 'rgba(0, 150, 136, 0.7)',
-            tealDark: 'rgba(0, 121, 107, 1)',
-            orange: 'rgba(255, 152, 0, 0.7)',
-            orangeDark: 'rgba(239, 108, 0, 1)',
-            purple: 'rgba(156, 39, 176, 0.7)',
-            purpleDark: 'rgba(123, 31, 162, 1)',
-            blue: 'rgba(33, 150, 243, 0.7)',
-            blueDark: 'rgba(25, 118, 210, 1)',
-            green: 'rgba(76, 175, 80, 0.7)',
-            greenDark: 'rgba(56, 142, 60, 1)'
-        };
+    <div class="card row-2-sector" id="row2-sector" style="display:none;">
+        <div class="card-header">
+            <div>
+                <h3 class="card-title">
+                    <i class="fas fa-industry"></i>
+                    Sector Overview
+                </h3>
+                <div class="card-subtitle">
+                    Financial distribution across market sectors
+                </div>
+            </div>
+            <div class="controls">
+                <select id="row2-sector-metric">
+                    <option value="revenue">Revenue</option>
+                    <option value="total_assets">Total Assets</option>
+                    <option value="net_income">Net Income</option>
+                </select>
+            </div>
+        </div>
+        <div class="chart-container-md">
+            <canvas id="chartRow2Sector"></canvas>
+        </div>
+    </div>
 
-        // --- BƯỚC 1: LOAD DỮ LIỆU TỪ FILE CSV ---
-        Papa.parse("data/cleaned/financial_statements.csv", {
-            download: true,
-            header: true,
-            dynamicTyping: true,
-            skipEmptyLines: true,
-            complete: function(results) {
-                console.log("CSV Loaded:", results.data);
-                if(results.data && results.data.length > 0) {
-                    rawDataAll = results.data;
-                    processData(results.data);
-                } else {
-                    console.error("CSV empty or invalid");
-                    loadSampleData();
-                }
-            },
-            error: function(err) {
-                console.error("Error loading CSV:", err);
-                loadSampleData();
+    <div class="card row-2-bubble" id="row2-bubble" style="display:none;">
+        <div class="card-header">
+            <div>
+                <h3 class="card-title">
+                    <i class="fas fa-chart-bubble"></i>
+                    Company Performance Map
+                </h3>
+                <div class="card-subtitle">
+                    Bubble size = Total Assets (Normalized). Color = Sector.
+                </div>
+            </div>
+        </div>
+        <div class="chart-container-md">
+            <canvas id="chartRow2Bubble"></canvas>
+        </div>
+    </div>
+
+    <div class="card row-3" id="row3" style="display:none;">
+        <div class="card-header">
+            <div>
+                <h3 class="card-title">
+                    <i class="fas fa-heartbeat"></i>
+                    Financial Health Heatmap
+                </h3>
+                <div class="card-subtitle">
+                    Key financial ratios for all companies. Click column headers to sort.
+                </div>
+            </div>
+        </div>
+        <div class="table-container">
+            <table id="ratioTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('ticker')">Ticker <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('name')">Company Name <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('gross_margin')">Gross Margin % <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('net_margin')">Net Margin % <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('roe')">ROE % <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('roa')">ROA % <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('current_ratio')">Current Ratio <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('debt_to_equity')">Debt/Equity <i class="fas fa-sort"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card row-4" id="row4" style="display:none;">
+        <div class="card-header">
+            <div>
+                <h3 class="card-title">
+                    <i class="fas fa-trend-up"></i>
+                    Market Performance Trends
+                </h3>
+                <div class="card-subtitle">
+                    Top performing stocks (Cumulative Returns) over the last 12 months
+                </div>
+            </div>
+            <div class="controls" id="row4-controls">
+                <button data-top="3" onclick="updateRow4(3)" class="active">
+                    <i class="fas fa-medal"></i> Top 3
+                </button>
+                <button data-top="5" onclick="updateRow4(5)">
+                    <i class="fas fa-trophy"></i> Top 5
+                </button>
+                <button data-top="10" onclick="updateRow4(10)">
+                    <i class="fas fa-chart-line"></i> Top 10
+                </button>
+            </div>
+        </div>
+        <div class="chart-container-lg">
+            <canvas id="chartRow4"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-footer" style="display:none;" id="footer">
+    <div>
+        <p>Global Market Dashboard v2.0 | Financial Analytics Platform</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">
+            Data source: Cleaned financial statements and stock prices | Visualization: Chart.js
+        </p>
+    </div>
+</div>
+
+<script>
+    // --- Global Data Stores ---
+    let globalData = {
+        companies: [],
+        financials: [],
+        stocks: [],
+        topRevenueTickers: [],
+        sectors: [],
+        sectorColors: {}, // Store colors for consistency
+        lastUpdate: new Date(),
+        tableData: [],
+        sortState: { column: 'revenue', direction: 'desc' }
+    };
+
+    // --- Chart Instances ---
+    let charts = {
+        row1: null,
+        row2Sector: null,
+        row2Bubble: null,
+        row4: null
+    };
+
+    // --- Chart.js Defaults for Visibility ---
+    Chart.defaults.color = '#000000'; // Mặc định chữ đen
+    Chart.defaults.scale.grid.color = '#e2e8f0'; // Lưới nhạt hơn chút cho đẹp
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.font.weight = '600';
+
+    // --- NEW BEAUTIFUL COLOR PALETTE (Pastel/Financial) ---
+    const modernPalette = [
+        '#6366f1', // Indigo
+        '#10b981', // Emerald
+        '#f59e0b', // Amber
+        '#ef4444', // Red
+        '#ec4899', // Pink
+        '#8b5cf6', // Violet
+        '#06b6d4', // Cyan
+        '#f97316', // Orange
+        '#84cc16', // Lime
+        '#14b8a6', // Teal
+        '#3b82f6', // Blue
+        '#d946ef'  // Fuchsia
+    ];
+
+    // --- 1. LOAD DATA ---
+    async function loadData() {
+        const paths = [
+            'data/cleaned/companies.csv',
+            'data/cleaned/financial_statements.csv',
+            'data/cleaned/stock_prices.csv'
+        ];
+
+        try {
+            const [companiesRaw, financialsRaw, stocksRaw] = await Promise.all(
+                paths.map(path => fetch(path).then(res => res.text()))
+            );
+
+            const companies = Papa.parse(companiesRaw, { header: true, skipEmptyLines: true }).data;
+            const financials = Papa.parse(financialsRaw, { header: true, skipEmptyLines: true, dynamicTyping: true }).data;
+            const stocks = Papa.parse(stocksRaw, { header: true, skipEmptyLines: true, dynamicTyping: true }).data;
+
+            processData(companies, financials, stocks);
+            
+            updateDashboardStats();
+            
+            document.getElementById('loading').style.display = 'none';
+            ['row1', 'row2-sector', 'row2-bubble', 'row3', 'row4'].forEach(id => {
+                if (document.getElementById(id)) document.getElementById(id).style.display = 'block';
+            });
+            document.getElementById('footer').style.display = 'block';
+
+            initRow1();
+            initRow2();
+            initRow3();
+            initRow4();
+
+        } catch (error) {
+            console.error("Error loading data:", error);
+            document.getElementById('loading').innerHTML = `
+                <div style="color: var(--accent-color);">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <div class="loading-text">Error loading data</div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem;">
+                        Please check that the CSV files exist in the data/cleaned/ directory
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // --- 2. PROCESS DATA ---
+    function processData(companies, financials, stocks) {
+        const companyMap = {};
+        companies.forEach(c => companyMap[c.ticker] = c);
+
+        const latestFinancials = {};
+        financials.forEach(f => {
+            if (!f.ticker || !f.report_date) return;
+            if (!latestFinancials[f.ticker] || f.report_date > latestFinancials[f.ticker].report_date) {
+                latestFinancials[f.ticker] = f;
             }
         });
 
-        // --- BƯỚC 2: XỬ LÝ DỮ LIỆU ---
-        function processData(rawData) {
-            const cleanData = rawData.filter(row => row.ticker && row.report_date);
-            const latestReports = {};
+        globalData.financials = Object.values(latestFinancials).map(f => {
+            const comp = companyMap[f.ticker] || {};
+            return {
+                ...f,
+                name: comp.name || f.ticker,
+                sector: comp.sector || 'Unknown'
+            };
+        });
 
-            // Chỉ lấy báo cáo mới nhất cho các biểu đồ tĩnh
-            cleanData.forEach(row => {
-                const ticker = row.ticker;
-                const reportDate = new Date(row.report_date);
-                if (!latestReports[ticker] || reportDate > new Date(latestReports[ticker].report_date)) {
-                    latestReports[ticker] = row;
-                }
-            });
+        globalData.stocks = stocks;
+        globalData.companies = companies;
+        globalData.sectors = [...new Set(globalData.financials.map(f => f.sector))].filter(s => s);
+        
+        // Generate consistent colors for sectors using new palette
+        globalData.sectors.forEach((sector, index) => {
+            globalData.sectorColors[sector] = generateColor(index);
+        });
+        // Default color for unknown
+        globalData.sectorColors['Unknown'] = '#94a3b8';
 
-            financialData = Object.values(latestReports);
-            initCharts();
-        }
+        globalData.topRevenueTickers = [...globalData.financials]
+            .sort((a, b) => b.revenue - a.revenue)
+            .map(f => f.ticker);
+            
+        globalData.tableData = [...globalData.financials].sort((a, b) => b.revenue - a.revenue);
+    }
 
-        // --- BƯỚC 3: VẼ TẤT CẢ BIỂU ĐỒ ---
-        function initCharts() {
-            updateBarChart();
-            updateHeatmapChart();
-            updatePieChart();
-            updateLineChart();
-            updateBubbleChart();
-        }
+    function updateDashboardStats() {
+        document.getElementById('total-companies').textContent = globalData.financials.length;
+        document.getElementById('total-sectors').textContent = globalData.sectors.length;
+        const avgRevenue = globalData.financials.reduce((sum, f) => sum + (f.revenue || 0), 0) / globalData.financials.length;
+        document.getElementById('avg-revenue').textContent = formatCompactNumber(avgRevenue);
+        const now = new Date();
+    }
 
-        // 1. Bar Chart
-        function updateBarChart() {
-            const metric = document.getElementById('metricSelect').value;
-            const sortedData = [...financialData].sort((a, b) => (b[metric] || 0) - (a[metric] || 0)).slice(0, 15); 
-            const labels = sortedData.map(d => d.ticker);
-            const values = sortedData.map(d => d[metric]);
-            const labelText = metric.replace(/_/g, ' ').toUpperCase();
+    // --- 4. ROW 1: BAR CHART ---
+    function initRow1() {
+        const ctx = document.getElementById('chartRow1').getContext('2d');
+        const metricSelect = document.getElementById('row1-metric');
 
-            const ctx = document.getElementById('barChart').getContext('2d');
-            if(barChartInstance) barChartInstance.destroy();
+        const updateChart = () => {
+            const metric = metricSelect.value;
+            const metricLabel = metric.replace(/_/g, ' ').toUpperCase();
+            const data = [...globalData.financials].sort((a, b) => (b[metric] || 0) - (a[metric] || 0)).slice(0, 20);
+            
+            // New modern gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, '#3b82f6'); // Blue-500
+            gradient.addColorStop(1, '#93c5fd'); // Blue-300
 
-            barChartInstance = new Chart(ctx, {
+            if (charts.row1) charts.row1.destroy();
+
+            charts.row1 = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: data.map(d => d.ticker),
                     datasets: [{
-                        label: labelText,
-                        data: values,
-                        backgroundColor: chartColors.teal,
-                        borderColor: chartColors.tealDark,
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        datalabels: { display: false }
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { callback: function(value) { return formatCompactNumber(value); } }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
-
-        // 2. Heatmap Chart
-        function updateHeatmapChart() {
-            const ctx = document.getElementById('heatmapChart').getContext('2d');
-            const topCompanies = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 10);
-            
-            const metrics = [
-                { key: 'net_margin', label: 'Net Margin', higherIsBetter: true },
-                { key: 'roe', label: 'ROE', higherIsBetter: true },
-                { key: 'roa', label: 'ROA', higherIsBetter: true },
-                { key: 'asset_turnover', label: 'Asset Turnover', higherIsBetter: true },
-                { key: 'current_ratio', label: 'Current Ratio', higherIsBetter: true },
-                { key: 'debt_to_equity', label: 'Debt/Equity', higherIsBetter: false }
-            ];
-
-            const matrixData = [];
-
-            metrics.forEach(metric => {
-                const values = topCompanies.map(c => c[metric.key] || 0);
-                const max = Math.max(...values);
-                const min = Math.min(...values);
-                
-                topCompanies.forEach(company => {
-                    let val = company[metric.key] || 0;
-                    let normalized = 0;
-                    if (max !== min) {
-                        normalized = (val - min) / (max - min);
-                    }
-                    if (!metric.higherIsBetter) normalized = 1 - normalized;
-
-                    matrixData.push({
-                        x: metric.label,
-                        y: company.ticker,
-                        v: normalized,
-                        raw: val
-                    });
-                });
-            });
-
-            if(heatmapChartInstance) heatmapChartInstance.destroy();
-
-            heatmapChartInstance = new Chart(ctx, {
-                type: 'matrix',
-                data: {
-                    datasets: [{
-                        label: 'Financial Health',
-                        data: matrixData,
-                        backgroundColor(c) {
-                            const value = c.dataset.data[c.dataIndex].v;
-                            const hue = value * 120;
-                            return `hsla(${hue}, 70%, 60%, 0.8)`;
-                        },
-                        width: ({chart}) => (chart.chartArea || {}).width / metrics.length - 2,
-                        height: ({chart}) => (chart.chartArea || {}).height / topCompanies.length - 2,
-                        datalabels: {
-                            display: true,
-                            color: '#333',
-                            font: { size: 10, weight: 'bold' },
-                            formatter: function(v) { return v.raw.toFixed(2); }
-                        }
+                        label: metricLabel,
+                        data: data.map(d => d[metric]),
+                        backgroundColor: gradient,
+                        borderRadius: 8, // More rounded
+                        barPercentage: 0.7
                     }]
                 },
                 options: {
@@ -380,310 +737,401 @@
                     plugins: {
                         legend: { display: false },
                         tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)', // Darker slate
+                            titleColor: '#fff',
+                            bodyColor: '#e2e8f0',
+                            padding: 12,
+                            cornerRadius: 8,
                             callbacks: {
-                                title() { return ''; },
-                                label(context) {
-                                    const v = context.raw;
-                                    return `${v.y} - ${v.x}: ${v.raw.toFixed(2)}`;
-                                }
+                                title: (items) => {
+                                    const d = data[items[0].dataIndex];
+                                    return `${d.ticker} - ${d.name} (${d.sector})`;
+                                },
+                                label: (ctx) => `${metricLabel}: ${formatCurrency(ctx.raw)}`
                             }
                         }
                     },
                     scales: {
-                        x: { type: 'category', labels: metrics.map(m => m.label), grid: { display: false } },
-                        y: { type: 'category', labels: topCompanies.map(c => c.ticker), offset: true, grid: { display: false } }
+                        x: { 
+                            ticks: { color: '#334155', font: { weight: '600' } },
+                            grid: { display: false }
+                        },
+                        y: { 
+                            ticks: { color: '#334155', callback: formatCompactNumber, font: { weight: '600' } },
+                            title: { display: true, text: metricLabel, color: '#334155', font: { weight: '700' } },
+                            grid: { borderDash: [2, 4] } // Dashed grid
+                        }
                     }
                 }
             });
-        }
+        };
+        metricSelect.addEventListener('change', updateChart);
+        updateChart();
+    }
 
-        // 3. Pie Chart
-        function updatePieChart() {
-            const ctx = document.getElementById('pieChart').getContext('2d');
-            const sortedByRevenue = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 10);
+    // --- 5. ROW 2: SECTOR & BUBBLE ---
+    function initRow2() {
+        // Sector Donut
+        const ctxSector = document.getElementById('chartRow2Sector').getContext('2d');
+        const sectorSelect = document.getElementById('row2-sector-metric');
+
+        const updateSector = () => {
+            const metric = sectorSelect.value;
+            const agg = {};
+            globalData.financials.forEach(f => {
+                const s = f.sector || 'Unknown';
+                if(!agg[s]) agg[s] = 0;
+                agg[s] += (f[metric] || 0);
+            });
+            const sorted = Object.entries(agg).sort((a, b) => b[1] - a[1]);
             
-            const labels = sortedByRevenue.map(d => d.ticker);
-            const data = sortedByRevenue.map(d => d.revenue || 0);
-            const totalRevenue = data.reduce((sum, val) => sum + val, 0);
-            const percentages = data.map(val => ((val / totalRevenue) * 100).toFixed(1));
-            
-            const backgroundColors = labels.map((_, i) => `hsla(${(i * 360 / labels.length) % 360}, 70%, 65%, 0.7)`);
-            const borderColors = labels.map((_, i) => `hsl(${(i * 360 / labels.length) % 360}, 70%, 50%)`);
+            // Use synchronized colors
+            const bgColors = sorted.map(s => globalData.sectorColors[s[0]] || '#999');
 
-            if(pieChartInstance) pieChartInstance.destroy();
+            if (charts.row2Sector) charts.row2Sector.destroy();
 
-            pieChartInstance = new Chart(ctx, {
+            charts.row2Sector = new Chart(ctxSector, {
                 type: 'doughnut',
                 data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: backgroundColors,
-                        borderColor: borderColors,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '40%',
-                    layout: { padding: 20 },
-                    plugins: {
-                        legend: { display: false },
-                        datalabels: {
-                            color: '#fff',
-                            font: { weight: 'bold', size: 11 },
-                            formatter: (value, ctx) => {
-                                const label = ctx.chart.data.labels[ctx.dataIndex];
-                                const percent = percentages[ctx.dataIndex];
-                                return parseFloat(percent) > 3 ? `${label}\n${percent}%` : ''; 
-                            },
-                            textShadowColor: 'black',
-                            textShadowBlur: 4
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.label}: ${formatCurrency(context.raw)} (${percentages[context.dataIndex]}%)`;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-            updatePieLegend(labels, backgroundColors, percentages);
-        }
-
-        function updatePieLegend(labels, colors, percentages) {
-            const legendContainer = document.getElementById('pieLegend');
-            legendContainer.innerHTML = '';
-            labels.forEach((label, i) => {
-                const legendItem = document.createElement('div');
-                legendItem.className = 'legend-item';
-                legendItem.innerHTML = `<div class="legend-color" style="background-color: ${colors[i]}"></div><span>${label}: ${percentages[i]}%</span>`;
-                legendContainer.appendChild(legendItem);
-            });
-        }
-
-        // 4. Line Chart (CẬP NHẬT: Dùng dữ liệu thật từ CSV)
-        function updateLineChart() {
-            const ctx = document.getElementById('lineChart').getContext('2d');
-            
-            // Nếu không có dữ liệu gốc (trường hợp loadSampleData), dùng logic cũ
-            if (!rawDataAll || rawDataAll.length === 0) {
-                // Logic giả lập cũ (fallback)
-                const quarters = ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024'];
-                const topCompanies = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 3);
-                const datasets = topCompanies.map((company, idx) => {
-                    const baseRevenue = company.revenue || 1000000;
-                    const growthRates = [0.85, 0.92, 0.98, 1.05, 1.12];
-                    const dataPoints = growthRates.map(rate => Math.round(baseRevenue * rate * (0.9 + Math.random() * 0.2)));
-                    const colorKeys = ['blue', 'purple', 'green'];
-                    const colorKey = colorKeys[idx % colorKeys.length];
-                    return {
-                        label: company.ticker,
-                        data: dataPoints,
-                        borderColor: chartColors[colorKey],
-                        backgroundColor: chartColors[colorKey].replace('0.7', '0.1'),
+                    labels: sorted.map(s => s[0]),
+                    datasets: [{ 
+                        data: sorted.map(s => s[1]), 
+                        backgroundColor: bgColors, 
                         borderWidth: 2,
-                        fill: false,
-                        tension: 0.3,
-                        datalabels: { display: false }
-                    };
-                });
-                
-                if(lineChartInstance) lineChartInstance.destroy();
-                lineChartInstance = new Chart(ctx, {
-                    type: 'line',
-                    data: { labels: quarters, datasets: datasets },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-                return;
-            }
-
-            // LOGIC MỚI: Xử lý dữ liệu từ CSV
-            // 1. Xác định Top 5 công ty theo doanh thu mới nhất
-            const topTickers = [...financialData]
-                .sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
-                .slice(0, 5)
-                .map(d => d.ticker);
-
-            // 2. Lấy dữ liệu lịch sử của 5 công ty này từ rawDataAll
-            const historyData = rawDataAll.filter(row => 
-                topTickers.includes(row.ticker) && row.revenue && row.report_date
-            );
-
-            // 3. Tạo trục thời gian chung (Unique Dates, sorted)
-            let allDates = [...new Set(historyData.map(d => d.report_date))];
-            allDates.sort((a, b) => new Date(a) - new Date(b));
-
-            // 4. Map dữ liệu cho từng công ty
-            const datasets = topTickers.map((ticker, idx) => {
-                const colorKeys = ['blue', 'purple', 'green', 'teal', 'orange'];
-                const colorKey = colorKeys[idx % colorKeys.length];
-                const baseColor = chartColors[colorKey] || chartColors.blue;
-                
-                // Tạo mảng dữ liệu khớp với allDates
-                const dataPoints = allDates.map(date => {
-                    // Tìm bản ghi của công ty tại ngày này
-                    const record = historyData.find(d => d.ticker === ticker && d.report_date === date);
-                    return record ? record.revenue : null; // Trả về null nếu không có để Chart.js xử lý
-                });
-
-                return {
-                    label: ticker,
-                    data: dataPoints,
-                    borderColor: baseColor.replace('0.7', '1'),
-                    backgroundColor: baseColor.replace('0.7', '0.1'),
-                    borderWidth: 2,
-                    fill: false,
-                    tension: 0.3,
-                    spanGaps: true, // Quan trọng: Nối các điểm bị ngắt quãng do lệch ngày báo cáo
-                    pointRadius: 3,
-                    pointHoverRadius: 6,
-                    datalabels: { display: false }
-                };
-            });
-
-            if(lineChartInstance) lineChartInstance.destroy();
-
-            lineChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: allDates,
-                    datasets: datasets
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    plugins: {
-                        legend: { position: 'top' },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    if (context.raw === null) return null;
-                                    return `${context.dataset.label}: ${formatCompactNumber(context.raw)}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            ticks: { callback: function(value) { return formatCompactNumber(value); } },
-                            grid: { color: '#f0f0f0' }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: {
-                                maxTicksLimit: 10 // Giới hạn số lượng nhãn ngày hiển thị
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // 5. Bubble Chart
-        function updateBubbleChart() {
-            const ctx = document.getElementById('bubbleChart').getContext('2d');
-            const companies = [...financialData].sort((a, b) => (b.revenue || 0) - (a.revenue || 0)).slice(0, 20);
-            const maxRevenue = Math.max(...companies.map(c => c.revenue || 0));
-
-            const bubbleData = companies.map((company, idx) => {
-                return {
-                    x: (company.net_margin || 0) * 100,
-                    y: (company.asset_turnover || 0),
-                    r: ((company.revenue || 0) / maxRevenue) * 30 + 5,
-                    ticker: company.ticker,
-                    revenue: company.revenue,
-                    net_margin: company.net_margin,
-                    asset_turnover: company.asset_turnover
-                };
-            });
-
-            if(bubbleChartInstance) bubbleChartInstance.destroy();
-
-            bubbleChartInstance = new Chart(ctx, {
-                type: 'bubble',
-                data: {
-                    datasets: [{
-                        label: 'Companies',
-                        data: bubbleData,
-                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1,
-                        datalabels: {
-                            display: true,
-                            align: 'top',
-                            color: '#333',
-                            font: { size: 10, weight: 'bold' },
-                            formatter: function(v) { return v.ticker; }
-                        }
+                        borderColor: '#ffffff',
+                        hoverOffset: 10
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#334155', font: { size: 11, weight: 600 }, usePointStyle: true, pointStyle: 'circle' } },
+                        tooltip: {
+                             backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                             padding: 12,
+                             cornerRadius: 8,
+                             callbacks: {
+                                 label: (c) => {
+                                     const val = c.raw;
+                                     const total = sorted.reduce((a,b)=>a+b[1],0);
+                                     return `${c.label}: ${formatCompactNumber(val)} (${(val/total*100).toFixed(1)}%)`;
+                                 }
+                             }
+                        }
+                    }
+                }
+            });
+        };
+        sectorSelect.addEventListener('change', updateSector);
+        updateSector();
+
+// --- BUBBLE CHART
+const ctxBubble = document.getElementById('chartRow2Bubble').getContext('2d');
+        
+        function renderBubble() {
+            // Show ALL data (no filter)
+            const bubbleData = [...globalData.financials];
+            const sectors = [...new Set(bubbleData.map(d => d.sector))];
+            
+            const datasets = sectors.map(sec => ({
+                label: sec,
+                data: bubbleData.filter(d => d.sector === sec).map(d => ({
+                    x: d.revenue,
+                    y: d.net_income,
+                    // Giữ nguyên logic tính bán kính
+                    r: Math.sqrt(d.total_assets) / 80000, 
+                    _raw: d
+                })),
+                backgroundColor: globalData.sectorColors[sec] + 'BB', // Độ trong suốt nhẹ
+                borderColor: globalData.sectorColors[sec],
+                borderWidth: 1.5,
+                hoverBackgroundColor: globalData.sectorColors[sec]
+            }));
+
+            if (charts.row2Bubble) charts.row2Bubble.destroy();
+
+            charts.row2Bubble = new Chart(ctxBubble, {
+                type: 'bubble',
+                data: { datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
-                        x: { title: { display: true, text: 'Net Margin (%)', font: { weight: 'bold' } }, grid: { color: '#f0f0f0' } },
-                        y: { title: { display: true, text: 'Asset Turnover (Ratio)', font: { weight: 'bold' } }, grid: { color: '#f0f0f0' } }
+                        x: { 
+                            // type: 'linear' (Mặc định) - Khoảng cách đều nhau
+                            title: { display: true, text: 'Revenue ($)', color: '#334155', font: {weight: '700'} },
+                            ticks: { 
+                                callback: (val) => '$' + formatCompactNumber(val), 
+                                color: '#334155',
+                                font: {weight: '600'}
+                            },
+                            grid: { color: '#e2e8f0' } 
+                        },
+                        y: { 
+                            title: { display: true, text: 'Net Income ($)', color: '#334155', font: {weight: '700'} },
+                            ticks: { callback: formatCompactNumber, color: '#334155', font: {weight: '600'} },
+                            grid: { color: '#e2e8f0' }
+                        }
                     },
                     plugins: {
+                        // --- CẬP NHẬT: HIỂN THỊ LEGEND ---
+legend: { 
+                            display: true,
+                            position: 'bottom',
+                            align: 'center', // Căn giữa nội dung legend
+                            labels: {
+                                color: '#334155',
+                                font: { size: 11, weight: '600' },
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                boxWidth: 10,
+                                padding: 17 // Tăng khoảng cách giữa các mục để dễ nhìn khi xuống dòng
+                            },
+                            // Mẹo: Giới hạn chiều cao tối đa của legend để nó không chiếm quá nhiều chỗ
+                            maxHeight: 100 
+                        },
                         tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleColor: '#fff',
+                            bodyColor: '#e2e8f0',
+                            padding: 12,
+                            cornerRadius: 8,
                             callbacks: {
-                                label: function(context) {
-                                    const p = context.raw;
-                                    return `${p.ticker}: Margin ${p.x.toFixed(1)}%, T/O ${p.y.toFixed(2)}, Rev: ${formatCompactNumber(p.revenue)}`;
+                                title: (items) => {
+                                     const d = items[0].raw._raw;
+                                     return `${d.ticker} - ${d.name}`;
+                                },
+                                label: (c) => {
+                                    const d = c.raw._raw;
+                                    return [
+                                        `Sector: ${d.sector}`,
+                                        `Rev: ${formatCurrency(d.revenue)}`,
+                                        `Inc: ${formatCurrency(d.net_income)}`,
+                                        `Asset: ${formatCurrency(d.total_assets)}`
+                                    ];
                                 }
                             }
-                        },
-                        legend: { display: false }
+                        }
                     }
                 }
             });
         }
+        renderBubble();
+    }
 
-        // --- UTILS ---
-        function formatCompactNumber(number) {
-            if (!number) return '0';
-            const absNum = Math.abs(number);
-            const units = ['', 'K', 'M', 'B', 'T'];
-            const tier = Math.floor(Math.log10(absNum) / 3);
-            if (tier <= 0) return number.toLocaleString();
-            const suffix = units[tier];
-            const scale = Math.pow(10, tier * 3);
-            const scaled = number / scale;
-            return scaled.toFixed(1) + suffix;
+    // --- 6. ROW 3: HEATMAP TABLE (All Data, Sortable) ---
+    function initRow3() { renderTable(); }
+
+    function sortTable(column) {
+        if (globalData.sortState.column === column) {
+            globalData.sortState.direction = globalData.sortState.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+            globalData.sortState.column = column;
+            globalData.sortState.direction = 'desc'; // Default desc for financials
         }
+        
+        // Sort ALL data
+        globalData.tableData.sort((a, b) => {
+            let valA = a[column] ?? -Infinity;
+            let valB = b[column] ?? -Infinity;
+            if (typeof valA === 'string') { valA = valA.toLowerCase(); valB = valB.toLowerCase(); }
+            
+            if (valA < valB) return globalData.sortState.direction === 'asc' ? -1 : 1;
+            if (valA > valB) return globalData.sortState.direction === 'asc' ? 1 : -1;
+            return 0;
+        });
 
-        function formatCurrency(num) {
-            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: 1 }).format(num);
-        }
+        // Update Icons
+        document.querySelectorAll('th i').forEach(i => i.className = 'fas fa-sort');
+        const active = document.querySelector(`th[onclick="sortTable('${column}')"] i`);
+        if(active) active.className = globalData.sortState.direction === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+        
+        renderTable();
+    }
 
-        function loadSampleData() {
-            alert("Đang dùng dữ liệu mẫu do không thấy file CSV.");
-            const sampleCompanies = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA', 'META', 'NVDA', 'JPM', 'JNJ', 'V'];
-            financialData = sampleCompanies.map((ticker, i) => ({
-                ticker: ticker,
-                report_date: '2024-03-31',
-                revenue: 50000000000 + Math.random() * 200000000000,
-                net_income: 10000000000 + Math.random() * 50000000000,
-                net_margin: 0.1 + Math.random() * 0.3,
-                roe: 0.15 + Math.random() * 0.25,
-                roa: 0.05 + Math.random() * 0.15,
-                asset_turnover: 0.5 + Math.random() * 1.5,
-                current_ratio: 1 + Math.random() * 2,
-                debt_to_equity: 0.5 + Math.random() * 1.5
-            }));
-            initCharts();
-        }
+    function renderTable() {
+        const tbody = document.querySelector('#ratioTable tbody');
+        tbody.innerHTML = '';
+        const data = globalData.tableData; 
 
-        document.getElementById('metricSelect').addEventListener('change', updateBarChart);
-    </script>
+        const metrics = [
+            { k: 'gross_margin', s: '%', rev: false },
+            { k: 'net_margin', s: '%', rev: false },
+            { k: 'roe', s: '%', rev: false },
+            { k: 'roa', s: '%', rev: false },
+            { k: 'current_ratio', s: '', rev: false },
+            { k: 'debt_to_equity', s: '', rev: true } // Lower is better
+        ];
+
+        // Calc ranges for coloring
+        const ranges = {};
+        metrics.forEach(m => {
+            const vals = data.map(d => d[m.k]).filter(v => typeof v === 'number');
+            ranges[m.k] = { min: Math.min(...vals), max: Math.max(...vals) };
+        });
+
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td class="ticker-col">${row.ticker}</td><td style="text-align:left">${row.name}</td>`;
+            
+            metrics.forEach(m => {
+                const val = row[m.k];
+                const td = document.createElement('td');
+                td.className = 'heatmap-cell';
+                if (val === null || val === undefined || isNaN(val)) {
+                    td.innerText = '-';
+                } else {
+                    // Multiply by 100 for percentage columns
+                    let displayVal = val;
+                    if (['gross_margin', 'net_margin', 'roe', 'roa'].includes(m.k)) {
+                        displayVal = val * 100;
+                    }
+                    td.innerText = displayVal.toFixed(2) + m.s;
+                    
+                    // Heatmap logic
+                    let score = (val - ranges[m.k].min) / (ranges[m.k].max - ranges[m.k].min);
+                    if (m.rev) score = 1 - score; 
+                    
+                    const hue = score * 120;
+                    td.style.backgroundColor = `hsla(${hue}, 85%, 92%, 1)`; 
+                    td.style.color = `hsla(${hue}, 100%, 20%, 1)`; 
+                }
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+    }
+
+    // --- 7. ROW 4: MARKET TRENDS ---
+    function initRow4() { 
+        updateRow4(3); // Default Top 3
+        document.getElementById('toggle-trendlines').addEventListener('click', () => {
+            if(charts.row4) {
+                charts.row4.options.plugins.tooltip.mode = charts.row4.options.plugins.tooltip.mode === 'index' ? 'nearest' : 'index';
+                charts.row4.update();
+            }
+        });
+    }
+
+    function updateRow4(topN) {
+        document.querySelectorAll('#row4-controls button[data-top]').forEach(b => b.classList.remove('active'));
+        document.querySelector(`button[data-top="${topN}"]`).classList.add('active');
+
+        const ctx = document.getElementById('chartRow4').getContext('2d');
+        
+        // --- NEW LOGIC: TOP RETURNS (NOT REVENUE) ---
+        // 1. Calculate returns for ALL companies first
+        const allReturns = [];
+        
+        // Find latest date in dataset
+        const allDates = globalData.stocks.map(s => new Date(s.date));
+        const maxDate = new Date(Math.max(...allDates));
+        const minDate = new Date(maxDate);
+        minDate.setMonth(minDate.getMonth() - 12);
+
+        // Iterate through all tracked tickers
+        globalData.topRevenueTickers.forEach(ticker => {
+            const sData = globalData.stocks
+                .filter(s => s.ticker === ticker)
+                .map(s => ({ date: new Date(s.date), price: s.close }))
+                .filter(s => s.date >= minDate)
+                .sort((a, b) => a.date - b.date);
+
+            if (sData.length > 0) {
+                const startPrice = sData[0].price;
+                const endPrice = sData[sData.length - 1].price;
+                const totalReturn = (endPrice - startPrice) / startPrice;
+                allReturns.push({
+                    ticker: ticker,
+                    return: totalReturn,
+                    data: sData,
+                    startPrice: startPrice
+                });
+            }
+        });
+
+        // 2. Sort by Return Descending and take Top N
+        allReturns.sort((a, b) => b.return - a.return);
+        const topPerformers = allReturns.slice(0, topN);
+
+        const datasets = [];
+        topPerformers.forEach((item, i) => {
+             const company = globalData.financials.find(f=>f.ticker===item.ticker);
+             const sector = company?.sector || 'Unknown';
+             // Pick color from our palette (cycle through)
+             const color = modernPalette[i % modernPalette.length];
+
+            datasets.push({
+                label: item.ticker,
+                data: item.data.map(d => ({ x: d.date, y: (d.price - item.startPrice)/item.startPrice*100 })),
+                borderColor: color,
+                backgroundColor: color, // For point hover
+                borderWidth: 2.5,
+                pointRadius: 0,
+                pointHoverRadius: 6,
+                tension: 0.3
+            });
+        });
+
+        if(charts.row4) charts.row4.destroy();
+        charts.row4 = new Chart(ctx, {
+            type: 'line',
+            data: { datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                scales: {
+                    x: { 
+                        type: 'time', 
+                        time: { unit: 'month' }, 
+                        ticks: { color: '#334155', font: {weight:'bold'} },
+                        title: { display:true, text:'Date', color:'#334155', font: {weight:'bold'} },
+                        grid: { display: false }
+                    },
+                    y: { 
+                        ticks: { color: '#334155', callback: v => v.toFixed(1)+'%', font: {weight:'bold'} },
+                        grid: { color: c => c.tick.value === 0 ? '#334155' : '#e2e8f0', lineWidth: c => c.tick.value === 0 ? 2 : 1 },
+                        title: { display:true, text:'Cumulative Return (%)', color:'#334155', font: {weight:'bold'} }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                        titleColor: '#fff',
+                        bodyColor: '#e2e8f0',
+                        padding: 12,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: c => {
+                                const company = globalData.financials.find(f => f.ticker === c.dataset.label);
+                                return `${c.dataset.label} (${company?.name}): ${c.raw.y.toFixed(2)}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // --- Helpers ---
+    function formatCompactNumber(n) {
+        if (!n && n!==0) return '-';
+        return Intl.NumberFormat('en-US', { notation: "compact", maximumFractionDigits: 1 }).format(n);
+    }
+    function formatCurrency(n) {
+        if (!n && n!==0) return '-';
+        return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+    }
+    
+    // Updated Color Generator (cycles through Modern Palette)
+    function generateColor(index) {
+        return modernPalette[index % modernPalette.length];
+    }
+
+    loadData();
+</script>
 </body>
 </html>
