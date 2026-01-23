@@ -410,6 +410,10 @@
                 <div class="stat-value" id="avg-revenue">--</div>
                 <div class="stat-label">Avg Revenue</div>
             </div>
+            <div class="stat-box">
+                <div class="stat-value" id="last-updated-date">--</div>
+                <div class="stat-label">Last Updated</div>
+            </div>
         </div>
     </div>
 </div>
@@ -699,7 +703,22 @@
         document.getElementById('total-sectors').textContent = globalData.sectors.length;
         const avgRevenue = globalData.financials.reduce((sum, f) => sum + (f.revenue || 0), 0) / globalData.financials.length;
         document.getElementById('avg-revenue').textContent = formatCompactNumber(avgRevenue);
-        const now = new Date();
+        
+        // --- LOGIC TO FIND LAST UPDATED DATE FROM STOCKS ---
+        let maxDateTimestamp = 0;
+        if (globalData.stocks.length > 0) {
+            globalData.stocks.forEach(s => {
+                // Ensure date parsing works for your CSV format (YYYY-MM-DD)
+                const ts = new Date(s.date).getTime();
+                if (ts > maxDateTimestamp) maxDateTimestamp = ts;
+            });
+        }
+        
+        const lastUpdateText = maxDateTimestamp > 0 
+            ? new Date(maxDateTimestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+            : '-';
+            
+        document.getElementById('last-updated-date').textContent = lastUpdateText;
     }
 
     // --- 4. ROW 1: BAR CHART ---
@@ -1007,12 +1026,7 @@ legend: {
     // --- 7. ROW 4: MARKET TRENDS ---
     function initRow4() { 
         updateRow4(3); // Default Top 3
-        document.getElementById('toggle-trendlines').addEventListener('click', () => {
-            if(charts.row4) {
-                charts.row4.options.plugins.tooltip.mode = charts.row4.options.plugins.tooltip.mode === 'index' ? 'nearest' : 'index';
-                charts.row4.update();
-            }
-        });
+        // No trendline toggle in new design, removed event listener check
     }
 
     function updateRow4(topN) {
