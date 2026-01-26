@@ -1183,15 +1183,30 @@
             document.getElementById('roLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #8b5cf6;"></div> ROE</div><div class="legend-item"><div class="legend-color" style="background: #ec4899;"></div> ROA</div>`;
         }
 
+        // --- 4. CHART RENDERING FUNCTIONS ---
+        // (Tôi chỉ cập nhật các hàm định dạng ở cuối thẻ script để đảm bảo đúng yêu cầu của bạn)
+
         function formatCurrency(num) {
             if (num === undefined || num === null) return '$0.00';
-            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(num);
+            // Đảm bảo dùng en-US: Hàng nghìn là "," thập phân là "."
+            return new Intl.NumberFormat('en-US', { 
+                style: 'currency', 
+                currency: 'USD', 
+                minimumFractionDigits: 2 
+            }).format(num);
         }
 
         function formatCompact(num) {
             if (!num && num !== 0) return '0';
-            if (Math.abs(num) < 1000) return new Intl.NumberFormat('en-US').format(num);
-            return Intl.NumberFormat('en-US', { notation: "compact", maximumFractionDigits: 1 }).format(num);
+            if (Math.abs(num) < 1000) {
+                // Hàng nghìn là "," thập phân là "."
+                return new Intl.NumberFormat('en-US').format(num);
+            }
+            // Hàng nghìn là "," thập phân là "."
+            return new Intl.NumberFormat('en-US', { 
+                notation: "compact", 
+                maximumFractionDigits: 1 
+            }).format(num);
         }
     </script>
 </body>
