@@ -7515,7 +7515,8 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: center; background: linear-gradient(135deg, #1a2980, #26d0ce); 
             padding: 30px 25px; border-radius: 10px; color: white; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px;">
@@ -7524,13 +7525,13 @@ a.anchor-link {
 <h1 style="color: white; font-size: 2.5em; margin: 0; 
                        font-family: 'Segoe UI', Arial, sans-serif; 
                        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">
-                Machine Learning Report
+                Stock Price Prediction Report
             </h1>
 </div>
 <div style="margin-bottom: 20px; padding: 0 10px;">
 <p style="font-size: 1.2em; opacity: 0.95; margin: 0; 
                       line-height: 1.5; display: inline;">
-                Stock Price Forecast
+                Using Technical Analysis &amp; Machine Learning
             </p>
 </div>
 <div>
@@ -7540,11 +7541,1048 @@ a.anchor-link {
 <h3 style="color: white; margin: 0; font-weight: 400; 
                            font-size: 1.1em;">
 <span style="font-weight: 600;">Author:</span> Hoang Son Lai | 
-                    <span style="font-weight: 600;">Date:</span> 10/12/2025
+                    <span style="font-weight: 600;">Date:</span> 26/01/2026
                 </h3>
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=fff3ca45">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Load libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">table</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly.subplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pio</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">"notebook_connected"</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">templates</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">"plotly_white"</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas_ta</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ta</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mplfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">clear_output</span>
+<span class="c1"># python -m nbconvert backend/reports/ml_report.ipynb --to html --no-input</span>
+<span class="c1"># To convert to html</span>
+
+<span class="c1"># Load Data</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../../data/cleaned/stock_prices.csv'</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">])</span>
+    <span class="c1"># Sort by Ticker and Date for accurate calculation</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">'ticker'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Error: File 'stock_prices.csv' not found."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=214ef1ce">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Part-1.-Technical-Analysis">Part 1. Technical Analysis<a class="anchor-link" href="#Part-1.-Technical-Analysis">¶</a></h2><p>This section provides a comprehensive technical analysis of stock prices using multiple indicators. For each stock, I calculate key metrics:</p>
+<ol>
+<li>Trend Indicators:</li>
+</ol>
+<ul>
+<li><p>MA50/MA200: 50-day and 200-day Simple Moving Averages compare current price to medium/long-term trends (Price &gt; MA = bullish +1, Price &lt; MA = bearish -1)</p>
+</li>
+<li><p>EMA20: 20-day Exponential Moving Average gives more weight to recent prices for short-term trend direction</p>
+</li>
+</ul>
+<ol start="2">
+<li>Momentum Indicators:</li>
+</ol>
+<ul>
+<li><p>RSI (14-day): Measures overbought (&gt;70 = -1) vs. oversold (&lt;30 = +1) conditions, with 30-70 being neutral</p>
+</li>
+<li><p>MACD: Signal line crossover indicator (MACD &gt; 0 = +1 bullish momentum, MACD &lt; 0 = -1 bearish momentum)</p>
+</li>
+</ul>
+<ol start="3">
+<li>Volatility &amp; Volume Indicators:</li>
+</ol>
+<ul>
+<li><p>Bollinger Bands: Price above upper band = overbought (-1), below lower band = oversold (+1), within bands = neutral (0)</p>
+</li>
+<li><p>MFI (Money Flow Index): Volume-weighted RSI (&gt;80 = -1 overbought, &lt;20 = +1 oversold, 20-80 = neutral)</p>
+</li>
+</ul>
+<p>Each indicator is scored (+1 for bullish, -1 for bearish, 0 for neutral), with a final aggregate signal determining the overall market outlook (Positive, Negative, or Neutral).</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9e477dd1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 1. Define a function to calculate indicators for a single dataframe</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_indicators</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># Ensure data is sorted by date</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'date'</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Trend Indicators</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">sma</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Simple Moving Average (50)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">sma</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Simple Moving Average (200)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">ema</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Exponential Moving Average (20)</span>
+    
+    <span class="c1"># Momentum Indicators</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">rsi</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Relative Strength Index (14)</span>
+    
+    <span class="c1"># Volatility Indicators - Bollinger Bands</span>
+    <span class="c1"># Using bbands with standard parameters</span>
+    <span class="n">bbands</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">bbands</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Trend Following (MACD)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">macd</span><span class="p">(</span><span class="n">fast</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">slow</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">signal</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Money Flow Index (MFI)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">mfi</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Volume</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">'Volume'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'volume'</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="c1"># 2. Apply calculation to all tickers</span>
+<span class="c1"># Create a list to store processed dataframes</span>
+<span class="n">processed_frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Get list of unique tickers</span>
+<span class="n">tickers</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'ticker'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">:</span>
+    <span class="c1"># Filter data for specific ticker</span>
+    <span class="n">ticker_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'ticker'</span><span class="p">]</span> <span class="o">==</span> <span class="n">ticker</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="c1"># Calculate indicators (need at least 200 days for MA200)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ticker_df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ticker_df</span> <span class="o">=</span> <span class="n">calculate_indicators</span><span class="p">(</span><span class="n">ticker_df</span><span class="p">)</span>
+            <span class="n">processed_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ticker_df</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✓ Processed </span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ticker_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows, columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ticker_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✗ Error processing </span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✗ Skipped </span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s2">: Not enough data (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ticker_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows, need at least 200)"</span><span class="p">)</span>
+
+<span class="c1"># Combine back into a single main DataFrame</span>
+<span class="k">if</span> <span class="n">processed_frames</span><span class="p">:</span>
+    <span class="n">df_ta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">processed_frames</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Combined DataFrame shape: </span><span class="si">{</span><span class="n">df_ta</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Available columns: </span><span class="si">{</span><span class="n">df_ta</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"No data was processed!"</span><span class="p">)</span>
+    <span class="n">df_ta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="c1"># 3. Check column names and find Bollinger Bands columns</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">df_ta</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Searching for Bollinger Bands columns..."</span><span class="p">)</span>
+    <span class="n">bollinger_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_ta</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">'BB'</span> <span class="ow">in</span> <span class="n">col</span> <span class="ow">or</span> <span class="s1">'bb'</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Bollinger Bands columns found: </span><span class="si">{</span><span class="n">bollinger_cols</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    
+    <span class="c1"># Find the actual column names for BB upper and lower</span>
+    <span class="n">bb_upper</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bb_lower</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bb_middle</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">bollinger_cols</span><span class="p">:</span>
+        <span class="n">col_lower</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">'bbu'</span> <span class="ow">in</span> <span class="n">col_lower</span> <span class="ow">or</span> <span class="s1">'upper'</span> <span class="ow">in</span> <span class="n">col_lower</span><span class="p">:</span>
+            <span class="n">bb_upper</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">elif</span> <span class="s1">'bbl'</span> <span class="ow">in</span> <span class="n">col_lower</span> <span class="ow">or</span> <span class="s1">'lower'</span> <span class="ow">in</span> <span class="n">col_lower</span><span class="p">:</span>
+            <span class="n">bb_lower</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="k">elif</span> <span class="s1">'bbm'</span> <span class="ow">in</span> <span class="n">col_lower</span> <span class="ow">or</span> <span class="s1">'middle'</span> <span class="ow">in</span> <span class="n">col_lower</span><span class="p">:</span>
+            <span class="n">bb_middle</span> <span class="o">=</span> <span class="n">col</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Upper BB column: </span><span class="si">{</span><span class="n">bb_upper</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Lower BB column: </span><span class="si">{</span><span class="n">bb_lower</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Middle BB column: </span><span class="si">{</span><span class="n">bb_middle</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 4. Calculate scores for each indicator with safe column access</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_scores</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="c1"># Helper function to safely get values</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_value</span><span class="p">(</span><span class="n">col_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="n">row</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">col_name</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">default</span>
+    
+    <span class="c1"># MA50 vs Close</span>
+    <span class="n">ma50</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="s1">'SMA_50'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">ma50</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ma50</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MA50'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ma50</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MA50'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MA50'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># MA200 vs Close</span>
+    <span class="n">ma200</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="s1">'SMA_200'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">ma200</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ma200</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MA200'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ma200</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MA200'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MA200'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># EMA20 vs Close</span>
+    <span class="n">ema20</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="s1">'EMA_20'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">ema20</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ema20</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'EMA'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ema20</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'EMA'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'EMA'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># MACD</span>
+    <span class="n">macd</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="s1">'MACD_12_26_9'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">get_value</span><span class="p">(</span><span class="s1">'MACD'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">macd</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">macd</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MACD'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">macd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MACD'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MACD'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># RSI</span>
+    <span class="n">rsi</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="s1">'RSI_14'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">rsi</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rsi</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'RSI'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Overbought</span>
+        <span class="k">elif</span> <span class="n">rsi</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'RSI'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># Oversold</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'RSI'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># Neutral</span>
+    
+    <span class="c1"># Bollinger Bands</span>
+    <span class="k">if</span> <span class="n">bb_upper</span> <span class="ow">and</span> <span class="n">bb_lower</span><span class="p">:</span>
+        <span class="n">bb_upper_val</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="n">bb_upper</span><span class="p">)</span>
+        <span class="n">bb_lower_val</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="n">bb_lower</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">bb_upper_val</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">bb_lower_val</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">bb_upper_val</span><span class="p">:</span>
+                <span class="n">scores</span><span class="p">[</span><span class="s1">'BB'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>   <span class="c1"># Overbought (above upper band)</span>
+            <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bb_lower_val</span><span class="p">:</span>
+                <span class="n">scores</span><span class="p">[</span><span class="s1">'BB'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># Oversold (below lower band)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">scores</span><span class="p">[</span><span class="s1">'BB'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># Within bands</span>
+    
+    <span class="c1"># MFI (Money Flow Index)</span>
+    <span class="n">mfi</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="s1">'MFI_14'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">mfi</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mfi</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MFI'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Overbought</span>
+        <span class="k">elif</span> <span class="n">mfi</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MFI'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># Oversold</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="s1">'MFI'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># Neutral</span>
+    
+    <span class="c1"># Calculate total score</span>
+    <span class="n">total_score</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">scores</span> <span class="k">else</span> <span class="mi">0</span>
+    
+    <span class="c1"># Determine signal</span>
+    <span class="k">if</span> <span class="n">total_score</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="s1">'Positive'</span>
+    <span class="k">elif</span> <span class="n">total_score</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="s1">'Negative'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="s1">'Neutral'</span>
+    
+    <span class="c1"># Add scores and signal to row</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'MA50_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MA50'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'MA200_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MA200'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'EMA_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'EMA'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'MACD_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MACD'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'RSI_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RSI'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'BB_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'BB'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'MFI_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MFI'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'Total_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_score</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'Signal'</span><span class="p">]</span> <span class="o">=</span> <span class="n">signal</span>
+    
+    <span class="k">return</span> <span class="n">row</span>
+
+<span class="c1"># Apply scoring function if we have data</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">df_ta</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Calculating scores for each row..."</span><span class="p">)</span>
+    <span class="n">df_ta</span> <span class="o">=</span> <span class="n">df_ta</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">calculate_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># 5. Create a summary report table (latest data for each ticker)</span>
+    <span class="c1"># Get the latest date for each ticker</span>
+    <span class="n">latest_dates</span> <span class="o">=</span> <span class="n">df_ta</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'ticker'</span><span class="p">)[</span><span class="s1">'date'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    
+    <span class="c1"># Create summary dataframe</span>
+    <span class="n">summary_rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">latest_date</span> <span class="ow">in</span> <span class="n">latest_dates</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">df_ta</span><span class="p">[(</span><span class="n">df_ta</span><span class="p">[</span><span class="s1">'ticker'</span><span class="p">]</span> <span class="o">==</span> <span class="n">ticker</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_ta</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">==</span> <span class="n">latest_date</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ticker_data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">latest_row</span> <span class="o">=</span> <span class="n">ticker_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            
+            <span class="n">summary_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">'Ticker'</span><span class="p">:</span> <span class="n">ticker</span><span class="p">,</span>
+                <span class="s1">'Close Price'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'close'</span><span class="p">],</span>
+                <span class="s1">'Volume'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'volume'</span><span class="p">],</span>
+                <span class="s1">'MA50'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'SMA_50'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+                <span class="s1">'MA200'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'SMA_200'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+                <span class="s1">'EMA20'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'EMA_20'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+                <span class="s1">'MACD'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MACD_12_26_9'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+                <span class="s1">'RSI'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RSI_14'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+                <span class="s1">'BB Upper'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bb_upper</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="k">if</span> <span class="n">bb_upper</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s1">'BB Lower'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bb_lower</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="k">if</span> <span class="n">bb_lower</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s1">'MFI'</span><span class="p">:</span> <span class="n">latest_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MFI_14'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+                <span class="s1">'MA50 Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'MA50_Score'</span><span class="p">],</span>
+                <span class="s1">'MA200 Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'MA200_Score'</span><span class="p">],</span>
+                <span class="s1">'EMA Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'EMA_Score'</span><span class="p">],</span>
+                <span class="s1">'MACD Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'MACD_Score'</span><span class="p">],</span>
+                <span class="s1">'RSI Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'RSI_Score'</span><span class="p">],</span>
+                <span class="s1">'BB Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'BB_Score'</span><span class="p">],</span>
+                <span class="s1">'MFI Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'MFI_Score'</span><span class="p">],</span>
+                <span class="s1">'Total Score'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'Total_Score'</span><span class="p">],</span>
+                <span class="s1">'Signal'</span><span class="p">:</span> <span class="n">latest_row</span><span class="p">[</span><span class="s1">'Signal'</span><span class="p">]</span>
+            <span class="p">})</span>
+    
+    <span class="c1"># Create summary dataframe</span>
+    <span class="n">summary_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">summary_rows</span><span class="p">)</span>
+    
+    <span class="c1"># 6. Display the summary table with styling</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">style_scores</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">'color: green; font-weight: bold;'</span>
+            <span class="k">elif</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">'color: red; font-weight: bold;'</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">'color: black;'</span>
+        <span class="k">return</span> <span class="s1">''</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">style_signal</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">'Positive'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">'background-color: #d4edda; color: #155724; font-weight: bold;'</span>
+        <span class="k">elif</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">'Negative'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">'background-color: #f8d7da; color: #721c24; font-weight: bold;'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">'background-color: #fff3cd; color: #856404; font-weight: bold;'</span>
+    
+    <span class="c1"># Apply styling - using map() instead of applymap() for newer pandas versions</span>
+    <span class="n">score_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'MA50 Score'</span><span class="p">,</span> <span class="s1">'MA200 Score'</span><span class="p">,</span> <span class="s1">'EMA Score'</span><span class="p">,</span> <span class="s1">'MACD Score'</span><span class="p">,</span> 
+                    <span class="s1">'RSI Score'</span><span class="p">,</span> <span class="s1">'BB Score'</span><span class="p">,</span> <span class="s1">'MFI Score'</span><span class="p">,</span> <span class="s1">'Total Score'</span><span class="p">]</span>
+    
+    <span class="c1"># Filter columns that actually exist in the dataframe</span>
+    <span class="n">existing_score_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">score_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">summary_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    
+    <span class="c1"># Create styler object</span>
+    <span class="n">styler</span> <span class="o">=</span> <span class="n">summary_df</span><span class="o">.</span><span class="n">style</span>
+    
+    <span class="c1"># Apply formatting</span>
+    <span class="n">styler</span> <span class="o">=</span> <span class="n">styler</span><span class="o">.</span><span class="n">format</span><span class="p">({</span>
+        <span class="s1">'Close Price'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.2f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'MA50'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.2f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'MA200'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.2f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'EMA20'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.2f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'MACD'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.4f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'RSI'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.1f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'BB Upper'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.2f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'BB Lower'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.2f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'MFI'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.1f}</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'Volume'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:,.0f}</span><span class="s1">'</span>
+    <span class="p">})</span>
+    
+    <span class="c1"># Apply styling to score columns (use map for newer pandas)</span>
+    <span class="k">if</span> <span class="n">existing_score_cols</span><span class="p">:</span>
+        <span class="n">styler</span> <span class="o">=</span> <span class="n">styler</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">style_scores</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">existing_score_cols</span><span class="p">)</span>
+    
+    <span class="c1"># Apply styling to signal column</span>
+    <span class="k">if</span> <span class="s1">'Signal'</span> <span class="ow">in</span> <span class="n">summary_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">styler</span> <span class="o">=</span> <span class="n">styler</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">style_signal</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">'Signal'</span><span class="p">])</span>
+    
+    <span class="c1"># Set properties and table styles</span>
+    <span class="n">styler</span> <span class="o">=</span> <span class="n">styler</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+        <span class="s1">'text-align'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">,</span>
+        <span class="s1">'border'</span><span class="p">:</span> <span class="s1">'1px solid #ddd'</span><span class="p">,</span>
+        <span class="s1">'padding'</span><span class="p">:</span> <span class="s1">'5px'</span>
+    <span class="p">})</span>
+    
+    <span class="n">styler</span> <span class="o">=</span> <span class="n">styler</span><span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
+        <span class="p">{</span><span class="s1">'selector'</span><span class="p">:</span> <span class="s1">'thead th'</span><span class="p">,</span> <span class="s1">'props'</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">'background-color'</span><span class="p">,</span> <span class="s1">'#4a6fa5'</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">'color'</span><span class="p">,</span> <span class="s1">'white'</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">'font-weight'</span><span class="p">,</span> <span class="s1">'bold'</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">'padding'</span><span class="p">,</span> <span class="s1">'10px'</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">'border'</span><span class="p">,</span> <span class="s1">'1px solid #ddd'</span><span class="p">)</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s1">'selector'</span><span class="p">:</span> <span class="s1">'tbody td'</span><span class="p">,</span> <span class="s1">'props'</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">'padding'</span><span class="p">,</span> <span class="s1">'8px'</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">'border'</span><span class="p">,</span> <span class="s1">'1px solid #ddd'</span><span class="p">)</span>
+        <span class="p">]},</span>
+        <span class="p">{</span><span class="s1">'selector'</span><span class="p">:</span> <span class="s1">'tr:hover'</span><span class="p">,</span> <span class="s1">'props'</span><span class="p">:</span> <span class="p">[(</span><span class="s1">'background-color'</span><span class="p">,</span> <span class="s1">'#f5f5f5'</span><span class="p">)]}</span>
+    <span class="p">])</span>
+    
+    <span class="n">styler</span> <span class="o">=</span> <span class="n">styler</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">"Technical Analysis Summary - Latest Signals"</span><span class="p">)</span>
+    
+    <span class="c1"># Display the styled table</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Summary table shape: </span><span class="si">{</span><span class="n">summary_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Columns in summary table: </span><span class="si">{</span><span class="n">summary_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">styler</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✓ Processed AAPL: 1256 rows, columns: 31
+✓ Processed ADBE: 1256 rows, columns: 31
+✓ Processed AMZN: 1256 rows, columns: 31
+✓ Processed BAC: 1256 rows, columns: 31
+✓ Processed DIS: 1256 rows, columns: 31
+✓ Processed GOOGL: 1256 rows, columns: 31
+✓ Processed HD: 1256 rows, columns: 31
+✓ Processed JNJ: 1256 rows, columns: 31
+✓ Processed JPM: 1256 rows, columns: 31
+✓ Processed KO: 1256 rows, columns: 31
+✓ Processed MA: 1256 rows, columns: 31
+✓ Processed META: 1256 rows, columns: 31
+✓ Processed MSFT: 1256 rows, columns: 31
+✓ Processed NFLX: 1256 rows, columns: 31
+✓ Processed NVDA: 1256 rows, columns: 31
+✓ Processed PG: 1256 rows, columns: 31
+✓ Processed PYPL: 1256 rows, columns: 31
+✓ Processed TSLA: 1256 rows, columns: 31
+✓ Processed UNH: 1256 rows, columns: 31
+✓ Processed V: 1256 rows, columns: 31
+✓ Processed WMT: 1256 rows, columns: 31
+
+Combined DataFrame shape: (26376, 31)
+Available columns: ['ticker', 'date', 'open', 'high', 'low', 'close', 'adj_close', 'volume', 'SMA_50', 'SMA_200', 'EMA_20', 'RSI_14', 'BBL_20_2.0_2.0', 'BBM_20_2.0_2.0', 'BBU_20_2.0_2.0', 'BBB_20_2.0_2.0', 'BBP_20_2.0_2.0', 'MACD_12_26_9', 'MACDh_12_26_9', 'MACDs_12_26_9', 'MFI_14', 'Volume', 'MA50_Score', 'MA200_Score', 'EMA_Score', 'MACD_Score', 'RSI_Score', 'BB_Score', 'MFI_Score', 'Total_Score', 'Signal']
+
+Searching for Bollinger Bands columns...
+Bollinger Bands columns found: ['BBL_20_2.0_2.0', 'BBM_20_2.0_2.0', 'BBU_20_2.0_2.0', 'BBB_20_2.0_2.0', 'BBP_20_2.0_2.0', 'BB_Score']
+Upper BB column: BBU_20_2.0_2.0
+Lower BB column: BBL_20_2.0_2.0
+Middle BB column: BBM_20_2.0_2.0
+
+Calculating scores for each row...
+
+Summary table shape: (21, 20)
+Columns in summary table: ['Ticker', 'Close Price', 'Volume', 'MA50', 'MA200', 'EMA20', 'MACD', 'RSI', 'BB Upper', 'BB Lower', 'MFI', 'MA50 Score', 'MA200 Score', 'EMA Score', 'MACD Score', 'RSI Score', 'BB Score', 'MFI Score', 'Total Score', 'Signal']
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<style type="text/css">
+#T_17f34 thead th {
+  background-color: #4a6fa5;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+#T_17f34 tbody td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+#T_17f34 tr:hover {
+  background-color: #f5f5f5;
+}
+#T_17f34_row0_col0, #T_17f34_row0_col1, #T_17f34_row0_col2, #T_17f34_row0_col3, #T_17f34_row0_col4, #T_17f34_row0_col5, #T_17f34_row0_col6, #T_17f34_row0_col7, #T_17f34_row0_col8, #T_17f34_row0_col9, #T_17f34_row0_col10, #T_17f34_row1_col0, #T_17f34_row1_col1, #T_17f34_row1_col2, #T_17f34_row1_col3, #T_17f34_row1_col4, #T_17f34_row1_col5, #T_17f34_row1_col6, #T_17f34_row1_col7, #T_17f34_row1_col8, #T_17f34_row1_col9, #T_17f34_row1_col10, #T_17f34_row2_col0, #T_17f34_row2_col1, #T_17f34_row2_col2, #T_17f34_row2_col3, #T_17f34_row2_col4, #T_17f34_row2_col5, #T_17f34_row2_col6, #T_17f34_row2_col7, #T_17f34_row2_col8, #T_17f34_row2_col9, #T_17f34_row2_col10, #T_17f34_row3_col0, #T_17f34_row3_col1, #T_17f34_row3_col2, #T_17f34_row3_col3, #T_17f34_row3_col4, #T_17f34_row3_col5, #T_17f34_row3_col6, #T_17f34_row3_col7, #T_17f34_row3_col8, #T_17f34_row3_col9, #T_17f34_row3_col10, #T_17f34_row4_col0, #T_17f34_row4_col1, #T_17f34_row4_col2, #T_17f34_row4_col3, #T_17f34_row4_col4, #T_17f34_row4_col5, #T_17f34_row4_col6, #T_17f34_row4_col7, #T_17f34_row4_col8, #T_17f34_row4_col9, #T_17f34_row4_col10, #T_17f34_row5_col0, #T_17f34_row5_col1, #T_17f34_row5_col2, #T_17f34_row5_col3, #T_17f34_row5_col4, #T_17f34_row5_col5, #T_17f34_row5_col6, #T_17f34_row5_col7, #T_17f34_row5_col8, #T_17f34_row5_col9, #T_17f34_row5_col10, #T_17f34_row6_col0, #T_17f34_row6_col1, #T_17f34_row6_col2, #T_17f34_row6_col3, #T_17f34_row6_col4, #T_17f34_row6_col5, #T_17f34_row6_col6, #T_17f34_row6_col7, #T_17f34_row6_col8, #T_17f34_row6_col9, #T_17f34_row6_col10, #T_17f34_row7_col0, #T_17f34_row7_col1, #T_17f34_row7_col2, #T_17f34_row7_col3, #T_17f34_row7_col4, #T_17f34_row7_col5, #T_17f34_row7_col6, #T_17f34_row7_col7, #T_17f34_row7_col8, #T_17f34_row7_col9, #T_17f34_row7_col10, #T_17f34_row8_col0, #T_17f34_row8_col1, #T_17f34_row8_col2, #T_17f34_row8_col3, #T_17f34_row8_col4, #T_17f34_row8_col5, #T_17f34_row8_col6, #T_17f34_row8_col7, #T_17f34_row8_col8, #T_17f34_row8_col9, #T_17f34_row8_col10, #T_17f34_row9_col0, #T_17f34_row9_col1, #T_17f34_row9_col2, #T_17f34_row9_col3, #T_17f34_row9_col4, #T_17f34_row9_col5, #T_17f34_row9_col6, #T_17f34_row9_col7, #T_17f34_row9_col8, #T_17f34_row9_col9, #T_17f34_row9_col10, #T_17f34_row10_col0, #T_17f34_row10_col1, #T_17f34_row10_col2, #T_17f34_row10_col3, #T_17f34_row10_col4, #T_17f34_row10_col5, #T_17f34_row10_col6, #T_17f34_row10_col7, #T_17f34_row10_col8, #T_17f34_row10_col9, #T_17f34_row10_col10, #T_17f34_row11_col0, #T_17f34_row11_col1, #T_17f34_row11_col2, #T_17f34_row11_col3, #T_17f34_row11_col4, #T_17f34_row11_col5, #T_17f34_row11_col6, #T_17f34_row11_col7, #T_17f34_row11_col8, #T_17f34_row11_col9, #T_17f34_row11_col10, #T_17f34_row12_col0, #T_17f34_row12_col1, #T_17f34_row12_col2, #T_17f34_row12_col3, #T_17f34_row12_col4, #T_17f34_row12_col5, #T_17f34_row12_col6, #T_17f34_row12_col7, #T_17f34_row12_col8, #T_17f34_row12_col9, #T_17f34_row12_col10, #T_17f34_row13_col0, #T_17f34_row13_col1, #T_17f34_row13_col2, #T_17f34_row13_col3, #T_17f34_row13_col4, #T_17f34_row13_col5, #T_17f34_row13_col6, #T_17f34_row13_col7, #T_17f34_row13_col8, #T_17f34_row13_col9, #T_17f34_row13_col10, #T_17f34_row14_col0, #T_17f34_row14_col1, #T_17f34_row14_col2, #T_17f34_row14_col3, #T_17f34_row14_col4, #T_17f34_row14_col5, #T_17f34_row14_col6, #T_17f34_row14_col7, #T_17f34_row14_col8, #T_17f34_row14_col9, #T_17f34_row14_col10, #T_17f34_row15_col0, #T_17f34_row15_col1, #T_17f34_row15_col2, #T_17f34_row15_col3, #T_17f34_row15_col4, #T_17f34_row15_col5, #T_17f34_row15_col6, #T_17f34_row15_col7, #T_17f34_row15_col8, #T_17f34_row15_col9, #T_17f34_row15_col10, #T_17f34_row16_col0, #T_17f34_row16_col1, #T_17f34_row16_col2, #T_17f34_row16_col3, #T_17f34_row16_col4, #T_17f34_row16_col5, #T_17f34_row16_col6, #T_17f34_row16_col7, #T_17f34_row16_col8, #T_17f34_row16_col9, #T_17f34_row16_col10, #T_17f34_row17_col0, #T_17f34_row17_col1, #T_17f34_row17_col2, #T_17f34_row17_col3, #T_17f34_row17_col4, #T_17f34_row17_col5, #T_17f34_row17_col6, #T_17f34_row17_col7, #T_17f34_row17_col8, #T_17f34_row17_col9, #T_17f34_row17_col10, #T_17f34_row18_col0, #T_17f34_row18_col1, #T_17f34_row18_col2, #T_17f34_row18_col3, #T_17f34_row18_col4, #T_17f34_row18_col5, #T_17f34_row18_col6, #T_17f34_row18_col7, #T_17f34_row18_col8, #T_17f34_row18_col9, #T_17f34_row18_col10, #T_17f34_row19_col0, #T_17f34_row19_col1, #T_17f34_row19_col2, #T_17f34_row19_col3, #T_17f34_row19_col4, #T_17f34_row19_col5, #T_17f34_row19_col6, #T_17f34_row19_col7, #T_17f34_row19_col8, #T_17f34_row19_col9, #T_17f34_row19_col10, #T_17f34_row20_col0, #T_17f34_row20_col1, #T_17f34_row20_col2, #T_17f34_row20_col3, #T_17f34_row20_col4, #T_17f34_row20_col5, #T_17f34_row20_col6, #T_17f34_row20_col7, #T_17f34_row20_col8, #T_17f34_row20_col9, #T_17f34_row20_col10 {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+#T_17f34_row0_col11, #T_17f34_row0_col13, #T_17f34_row0_col14, #T_17f34_row0_col18, #T_17f34_row1_col11, #T_17f34_row1_col12, #T_17f34_row1_col13, #T_17f34_row1_col14, #T_17f34_row1_col18, #T_17f34_row3_col11, #T_17f34_row3_col13, #T_17f34_row3_col14, #T_17f34_row3_col18, #T_17f34_row4_col13, #T_17f34_row8_col11, #T_17f34_row8_col13, #T_17f34_row8_col14, #T_17f34_row8_col18, #T_17f34_row10_col11, #T_17f34_row10_col12, #T_17f34_row10_col13, #T_17f34_row10_col14, #T_17f34_row10_col18, #T_17f34_row11_col12, #T_17f34_row11_col14, #T_17f34_row12_col11, #T_17f34_row12_col12, #T_17f34_row12_col14, #T_17f34_row12_col18, #T_17f34_row13_col11, #T_17f34_row13_col12, #T_17f34_row13_col13, #T_17f34_row13_col14, #T_17f34_row13_col18, #T_17f34_row15_col12, #T_17f34_row15_col16, #T_17f34_row16_col11, #T_17f34_row16_col12, #T_17f34_row16_col13, #T_17f34_row16_col14, #T_17f34_row16_col18, #T_17f34_row17_col14, #T_17f34_row19_col11, #T_17f34_row19_col12, #T_17f34_row19_col13, #T_17f34_row19_col14, #T_17f34_row19_col18 {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+#T_17f34_row0_col12, #T_17f34_row0_col15, #T_17f34_row2_col11, #T_17f34_row2_col12, #T_17f34_row2_col13, #T_17f34_row2_col14, #T_17f34_row2_col18, #T_17f34_row3_col12, #T_17f34_row4_col11, #T_17f34_row4_col12, #T_17f34_row4_col14, #T_17f34_row4_col18, #T_17f34_row5_col11, #T_17f34_row5_col12, #T_17f34_row5_col13, #T_17f34_row5_col14, #T_17f34_row5_col18, #T_17f34_row6_col11, #T_17f34_row6_col12, #T_17f34_row6_col13, #T_17f34_row6_col14, #T_17f34_row6_col18, #T_17f34_row7_col11, #T_17f34_row7_col12, #T_17f34_row7_col13, #T_17f34_row7_col14, #T_17f34_row7_col18, #T_17f34_row8_col12, #T_17f34_row9_col11, #T_17f34_row9_col12, #T_17f34_row9_col13, #T_17f34_row9_col14, #T_17f34_row9_col18, #T_17f34_row11_col11, #T_17f34_row11_col13, #T_17f34_row12_col13, #T_17f34_row14_col11, #T_17f34_row14_col12, #T_17f34_row14_col13, #T_17f34_row14_col14, #T_17f34_row14_col18, #T_17f34_row15_col11, #T_17f34_row15_col13, #T_17f34_row15_col14, #T_17f34_row15_col18, #T_17f34_row17_col11, #T_17f34_row17_col12, #T_17f34_row17_col13, #T_17f34_row17_col18, #T_17f34_row18_col11, #T_17f34_row18_col12, #T_17f34_row18_col13, #T_17f34_row18_col14, #T_17f34_row18_col18, #T_17f34_row20_col11, #T_17f34_row20_col12, #T_17f34_row20_col13, #T_17f34_row20_col14, #T_17f34_row20_col18 {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+#T_17f34_row0_col16, #T_17f34_row0_col17, #T_17f34_row1_col15, #T_17f34_row1_col16, #T_17f34_row1_col17, #T_17f34_row2_col15, #T_17f34_row2_col16, #T_17f34_row2_col17, #T_17f34_row3_col15, #T_17f34_row3_col16, #T_17f34_row3_col17, #T_17f34_row4_col15, #T_17f34_row4_col16, #T_17f34_row4_col17, #T_17f34_row5_col15, #T_17f34_row5_col16, #T_17f34_row5_col17, #T_17f34_row6_col15, #T_17f34_row6_col16, #T_17f34_row6_col17, #T_17f34_row7_col15, #T_17f34_row7_col16, #T_17f34_row7_col17, #T_17f34_row8_col15, #T_17f34_row8_col16, #T_17f34_row8_col17, #T_17f34_row9_col15, #T_17f34_row9_col16, #T_17f34_row9_col17, #T_17f34_row10_col15, #T_17f34_row10_col16, #T_17f34_row10_col17, #T_17f34_row11_col15, #T_17f34_row11_col16, #T_17f34_row11_col17, #T_17f34_row11_col18, #T_17f34_row12_col15, #T_17f34_row12_col16, #T_17f34_row12_col17, #T_17f34_row13_col15, #T_17f34_row13_col16, #T_17f34_row13_col17, #T_17f34_row14_col15, #T_17f34_row14_col16, #T_17f34_row14_col17, #T_17f34_row15_col15, #T_17f34_row15_col17, #T_17f34_row16_col15, #T_17f34_row16_col16, #T_17f34_row16_col17, #T_17f34_row17_col15, #T_17f34_row17_col16, #T_17f34_row17_col17, #T_17f34_row18_col15, #T_17f34_row18_col16, #T_17f34_row18_col17, #T_17f34_row19_col15, #T_17f34_row19_col16, #T_17f34_row19_col17, #T_17f34_row20_col15, #T_17f34_row20_col16, #T_17f34_row20_col17 {
+  color: black;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+#T_17f34_row0_col19, #T_17f34_row1_col19, #T_17f34_row3_col19, #T_17f34_row8_col19, #T_17f34_row10_col19, #T_17f34_row12_col19, #T_17f34_row13_col19, #T_17f34_row16_col19, #T_17f34_row19_col19 {
+  background-color: #f8d7da;
+  color: #721c24;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+#T_17f34_row2_col19, #T_17f34_row4_col19, #T_17f34_row5_col19, #T_17f34_row6_col19, #T_17f34_row7_col19, #T_17f34_row9_col19, #T_17f34_row14_col19, #T_17f34_row15_col19, #T_17f34_row17_col19, #T_17f34_row18_col19, #T_17f34_row20_col19 {
+  background-color: #d4edda;
+  color: #155724;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+#T_17f34_row11_col19 {
+  background-color: #fff3cd;
+  color: #856404;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+</style>
+<table id="T_17f34">
+<caption>Technical Analysis Summary - Latest Signals</caption>
+<thead>
+<tr>
+<th class="blank level0"> </th>
+<th class="col_heading level0 col0" id="T_17f34_level0_col0">Ticker</th>
+<th class="col_heading level0 col1" id="T_17f34_level0_col1">Close Price</th>
+<th class="col_heading level0 col2" id="T_17f34_level0_col2">Volume</th>
+<th class="col_heading level0 col3" id="T_17f34_level0_col3">MA50</th>
+<th class="col_heading level0 col4" id="T_17f34_level0_col4">MA200</th>
+<th class="col_heading level0 col5" id="T_17f34_level0_col5">EMA20</th>
+<th class="col_heading level0 col6" id="T_17f34_level0_col6">MACD</th>
+<th class="col_heading level0 col7" id="T_17f34_level0_col7">RSI</th>
+<th class="col_heading level0 col8" id="T_17f34_level0_col8">BB Upper</th>
+<th class="col_heading level0 col9" id="T_17f34_level0_col9">BB Lower</th>
+<th class="col_heading level0 col10" id="T_17f34_level0_col10">MFI</th>
+<th class="col_heading level0 col11" id="T_17f34_level0_col11">MA50 Score</th>
+<th class="col_heading level0 col12" id="T_17f34_level0_col12">MA200 Score</th>
+<th class="col_heading level0 col13" id="T_17f34_level0_col13">EMA Score</th>
+<th class="col_heading level0 col14" id="T_17f34_level0_col14">MACD Score</th>
+<th class="col_heading level0 col15" id="T_17f34_level0_col15">RSI Score</th>
+<th class="col_heading level0 col16" id="T_17f34_level0_col16">BB Score</th>
+<th class="col_heading level0 col17" id="T_17f34_level0_col17">MFI Score</th>
+<th class="col_heading level0 col18" id="T_17f34_level0_col18">Total Score</th>
+<th class="col_heading level0 col19" id="T_17f34_level0_col19">Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="row_heading level0 row0" id="T_17f34_level0_row0">0</th>
+<td class="data row0 col0" id="T_17f34_row0_col0">AAPL</td>
+<td class="data row0 col1" id="T_17f34_row0_col1">248.68</td>
+<td class="data row0 col2" id="T_17f34_row0_col2">20,369,381</td>
+<td class="data row0 col3" id="T_17f34_row0_col3">269.78</td>
+<td class="data row0 col4" id="T_17f34_row0_col4">234.74</td>
+<td class="data row0 col5" id="T_17f34_row0_col5">259.27</td>
+<td class="data row0 col6" id="T_17f34_row0_col6">-6.1921</td>
+<td class="data row0 col7" id="T_17f34_row0_col7">23.5</td>
+<td class="data row0 col8" id="T_17f34_row0_col8">280.05</td>
+<td class="data row0 col9" id="T_17f34_row0_col9">243.12</td>
+<td class="data row0 col10" id="T_17f34_row0_col10">25.3</td>
+<td class="data row0 col11" id="T_17f34_row0_col11">-1</td>
+<td class="data row0 col12" id="T_17f34_row0_col12">1</td>
+<td class="data row0 col13" id="T_17f34_row0_col13">-1</td>
+<td class="data row0 col14" id="T_17f34_row0_col14">-1</td>
+<td class="data row0 col15" id="T_17f34_row0_col15">1</td>
+<td class="data row0 col16" id="T_17f34_row0_col16">0</td>
+<td class="data row0 col17" id="T_17f34_row0_col17">0</td>
+<td class="data row0 col18" id="T_17f34_row0_col18">-1</td>
+<td class="data row0 col19" id="T_17f34_row0_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row1" id="T_17f34_level0_row1">1</th>
+<td class="data row1 col0" id="T_17f34_row1_col0">ADBE</td>
+<td class="data row1 col1" id="T_17f34_row1_col1">302.73</td>
+<td class="data row1 col2" id="T_17f34_row1_col2">1,708,290</td>
+<td class="data row1 col3" id="T_17f34_row1_col3">331.50</td>
+<td class="data row1 col4" id="T_17f34_row1_col4">357.65</td>
+<td class="data row1 col5" id="T_17f34_row1_col5">318.17</td>
+<td class="data row1 col6" id="T_17f34_row1_col6">-12.2318</td>
+<td class="data row1 col7" id="T_17f34_row1_col7">34.1</td>
+<td class="data row1 col8" id="T_17f34_row1_col8">370.32</td>
+<td class="data row1 col9" id="T_17f34_row1_col9">280.05</td>
+<td class="data row1 col10" id="T_17f34_row1_col10">32.9</td>
+<td class="data row1 col11" id="T_17f34_row1_col11">-1</td>
+<td class="data row1 col12" id="T_17f34_row1_col12">-1</td>
+<td class="data row1 col13" id="T_17f34_row1_col13">-1</td>
+<td class="data row1 col14" id="T_17f34_row1_col14">-1</td>
+<td class="data row1 col15" id="T_17f34_row1_col15">0</td>
+<td class="data row1 col16" id="T_17f34_row1_col16">0</td>
+<td class="data row1 col17" id="T_17f34_row1_col17">0</td>
+<td class="data row1 col18" id="T_17f34_row1_col18">-4</td>
+<td class="data row1 col19" id="T_17f34_row1_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row2" id="T_17f34_level0_row2">2</th>
+<td class="data row2 col0" id="T_17f34_row2_col0">AMZN</td>
+<td class="data row2 col1" id="T_17f34_row2_col1">239.68</td>
+<td class="data row2 col2" id="T_17f34_row2_col2">17,267,451</td>
+<td class="data row2 col3" id="T_17f34_row2_col3">232.37</td>
+<td class="data row2 col4" id="T_17f34_row2_col4">220.30</td>
+<td class="data row2 col5" id="T_17f34_row2_col5">236.04</td>
+<td class="data row2 col6" id="T_17f34_row2_col6">1.4068</td>
+<td class="data row2 col7" id="T_17f34_row2_col7">55.5</td>
+<td class="data row2 col8" id="T_17f34_row2_col8">248.81</td>
+<td class="data row2 col9" id="T_17f34_row2_col9">224.73</td>
+<td class="data row2 col10" id="T_17f34_row2_col10">61.6</td>
+<td class="data row2 col11" id="T_17f34_row2_col11">1</td>
+<td class="data row2 col12" id="T_17f34_row2_col12">1</td>
+<td class="data row2 col13" id="T_17f34_row2_col13">1</td>
+<td class="data row2 col14" id="T_17f34_row2_col14">1</td>
+<td class="data row2 col15" id="T_17f34_row2_col15">0</td>
+<td class="data row2 col16" id="T_17f34_row2_col16">0</td>
+<td class="data row2 col17" id="T_17f34_row2_col17">0</td>
+<td class="data row2 col18" id="T_17f34_row2_col18">4</td>
+<td class="data row2 col19" id="T_17f34_row2_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row3" id="T_17f34_level0_row3">3</th>
+<td class="data row3 col0" id="T_17f34_row3_col0">BAC</td>
+<td class="data row3 col1" id="T_17f34_row3_col1">51.58</td>
+<td class="data row3 col2" id="T_17f34_row3_col2">14,331,746</td>
+<td class="data row3 col3" id="T_17f34_row3_col3">53.90</td>
+<td class="data row3 col4" id="T_17f34_row3_col4">48.30</td>
+<td class="data row3 col5" id="T_17f34_row3_col5">53.79</td>
+<td class="data row3 col6" id="T_17f34_row3_col6">-0.6639</td>
+<td class="data row3 col7" id="T_17f34_row3_col7">34.6</td>
+<td class="data row3 col8" id="T_17f34_row3_col8">58.25</td>
+<td class="data row3 col9" id="T_17f34_row3_col9">50.93</td>
+<td class="data row3 col10" id="T_17f34_row3_col10">45.3</td>
+<td class="data row3 col11" id="T_17f34_row3_col11">-1</td>
+<td class="data row3 col12" id="T_17f34_row3_col12">1</td>
+<td class="data row3 col13" id="T_17f34_row3_col13">-1</td>
+<td class="data row3 col14" id="T_17f34_row3_col14">-1</td>
+<td class="data row3 col15" id="T_17f34_row3_col15">0</td>
+<td class="data row3 col16" id="T_17f34_row3_col16">0</td>
+<td class="data row3 col17" id="T_17f34_row3_col17">0</td>
+<td class="data row3 col18" id="T_17f34_row3_col18">-2</td>
+<td class="data row3 col19" id="T_17f34_row3_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row4" id="T_17f34_level0_row4">4</th>
+<td class="data row4 col0" id="T_17f34_row4_col0">DIS</td>
+<td class="data row4 col1" id="T_17f34_row4_col1">111.56</td>
+<td class="data row4 col2" id="T_17f34_row4_col2">4,051,824</td>
+<td class="data row4 col3" id="T_17f34_row4_col3">109.76</td>
+<td class="data row4 col4" id="T_17f34_row4_col4">110.60</td>
+<td class="data row4 col5" id="T_17f34_row4_col5">112.44</td>
+<td class="data row4 col6" id="T_17f34_row4_col6">0.4457</td>
+<td class="data row4 col7" id="T_17f34_row4_col7">48.3</td>
+<td class="data row4 col8" id="T_17f34_row4_col8">115.97</td>
+<td class="data row4 col9" id="T_17f34_row4_col9">110.68</td>
+<td class="data row4 col10" id="T_17f34_row4_col10">59.2</td>
+<td class="data row4 col11" id="T_17f34_row4_col11">1</td>
+<td class="data row4 col12" id="T_17f34_row4_col12">1</td>
+<td class="data row4 col13" id="T_17f34_row4_col13">-1</td>
+<td class="data row4 col14" id="T_17f34_row4_col14">1</td>
+<td class="data row4 col15" id="T_17f34_row4_col15">0</td>
+<td class="data row4 col16" id="T_17f34_row4_col16">0</td>
+<td class="data row4 col17" id="T_17f34_row4_col17">0</td>
+<td class="data row4 col18" id="T_17f34_row4_col18">2</td>
+<td class="data row4 col19" id="T_17f34_row4_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row5" id="T_17f34_level0_row5">5</th>
+<td class="data row5 col0" id="T_17f34_row5_col0">GOOGL</td>
+<td class="data row5 col1" id="T_17f34_row5_col1">328.39</td>
+<td class="data row5 col2" id="T_17f34_row5_col2">12,237,364</td>
+<td class="data row5 col3" id="T_17f34_row5_col3">312.72</td>
+<td class="data row5 col4" id="T_17f34_row5_col4">229.67</td>
+<td class="data row5 col5" id="T_17f34_row5_col5">323.91</td>
+<td class="data row5 col6" id="T_17f34_row5_col6">5.7880</td>
+<td class="data row5 col7" id="T_17f34_row5_col7">58.3</td>
+<td class="data row5 col8" id="T_17f34_row5_col8">340.02</td>
+<td class="data row5 col9" id="T_17f34_row5_col9">306.56</td>
+<td class="data row5 col10" id="T_17f34_row5_col10">58.9</td>
+<td class="data row5 col11" id="T_17f34_row5_col11">1</td>
+<td class="data row5 col12" id="T_17f34_row5_col12">1</td>
+<td class="data row5 col13" id="T_17f34_row5_col13">1</td>
+<td class="data row5 col14" id="T_17f34_row5_col14">1</td>
+<td class="data row5 col15" id="T_17f34_row5_col15">0</td>
+<td class="data row5 col16" id="T_17f34_row5_col16">0</td>
+<td class="data row5 col17" id="T_17f34_row5_col17">0</td>
+<td class="data row5 col18" id="T_17f34_row5_col18">4</td>
+<td class="data row5 col19" id="T_17f34_row5_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row6" id="T_17f34_level0_row6">6</th>
+<td class="data row6 col0" id="T_17f34_row6_col0">HD</td>
+<td class="data row6 col1" id="T_17f34_row6_col1">383.07</td>
+<td class="data row6 col2" id="T_17f34_row6_col2">996,841</td>
+<td class="data row6 col3" id="T_17f34_row6_col3">356.24</td>
+<td class="data row6 col4" id="T_17f34_row6_col4">370.44</td>
+<td class="data row6 col5" id="T_17f34_row6_col5">368.76</td>
+<td class="data row6 col6" id="T_17f34_row6_col6">7.9576</td>
+<td class="data row6 col7" id="T_17f34_row6_col7">65.6</td>
+<td class="data row6 col8" id="T_17f34_row6_col8">395.88</td>
+<td class="data row6 col9" id="T_17f34_row6_col9">331.25</td>
+<td class="data row6 col10" id="T_17f34_row6_col10">75.4</td>
+<td class="data row6 col11" id="T_17f34_row6_col11">1</td>
+<td class="data row6 col12" id="T_17f34_row6_col12">1</td>
+<td class="data row6 col13" id="T_17f34_row6_col13">1</td>
+<td class="data row6 col14" id="T_17f34_row6_col14">1</td>
+<td class="data row6 col15" id="T_17f34_row6_col15">0</td>
+<td class="data row6 col16" id="T_17f34_row6_col16">0</td>
+<td class="data row6 col17" id="T_17f34_row6_col17">0</td>
+<td class="data row6 col18" id="T_17f34_row6_col18">4</td>
+<td class="data row6 col19" id="T_17f34_row6_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row7" id="T_17f34_level0_row7">7</th>
+<td class="data row7 col0" id="T_17f34_row7_col0">JNJ</td>
+<td class="data row7 col1" id="T_17f34_row7_col1">218.29</td>
+<td class="data row7 col2" id="T_17f34_row7_col2">2,194,145</td>
+<td class="data row7 col3" id="T_17f34_row7_col3">206.78</td>
+<td class="data row7 col4" id="T_17f34_row7_col4">176.21</td>
+<td class="data row7 col5" id="T_17f34_row7_col5">212.80</td>
+<td class="data row7 col6" id="T_17f34_row7_col6">3.7928</td>
+<td class="data row7 col7" id="T_17f34_row7_col7">67.7</td>
+<td class="data row7 col8" id="T_17f34_row7_col8">222.94</td>
+<td class="data row7 col9" id="T_17f34_row7_col9">199.47</td>
+<td class="data row7 col10" id="T_17f34_row7_col10">60.9</td>
+<td class="data row7 col11" id="T_17f34_row7_col11">1</td>
+<td class="data row7 col12" id="T_17f34_row7_col12">1</td>
+<td class="data row7 col13" id="T_17f34_row7_col13">1</td>
+<td class="data row7 col14" id="T_17f34_row7_col14">1</td>
+<td class="data row7 col15" id="T_17f34_row7_col15">0</td>
+<td class="data row7 col16" id="T_17f34_row7_col16">0</td>
+<td class="data row7 col17" id="T_17f34_row7_col17">0</td>
+<td class="data row7 col18" id="T_17f34_row7_col18">4</td>
+<td class="data row7 col19" id="T_17f34_row7_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row8" id="T_17f34_level0_row8">8</th>
+<td class="data row8 col0" id="T_17f34_row8_col0">JPM</td>
+<td class="data row8 col1" id="T_17f34_row8_col1">297.76</td>
+<td class="data row8 col2" id="T_17f34_row8_col2">4,505,715</td>
+<td class="data row8 col3" id="T_17f34_row8_col3">312.95</td>
+<td class="data row8 col4" id="T_17f34_row8_col4">288.98</td>
+<td class="data row8 col5" id="T_17f34_row8_col5">313.03</td>
+<td class="data row8 col6" id="T_17f34_row8_col6">-3.7925</td>
+<td class="data row8 col7" id="T_17f34_row8_col7">34.8</td>
+<td class="data row8 col8" id="T_17f34_row8_col8">341.22</td>
+<td class="data row8 col9" id="T_17f34_row8_col9">295.53</td>
+<td class="data row8 col10" id="T_17f34_row8_col10">45.1</td>
+<td class="data row8 col11" id="T_17f34_row8_col11">-1</td>
+<td class="data row8 col12" id="T_17f34_row8_col12">1</td>
+<td class="data row8 col13" id="T_17f34_row8_col13">-1</td>
+<td class="data row8 col14" id="T_17f34_row8_col14">-1</td>
+<td class="data row8 col15" id="T_17f34_row8_col15">0</td>
+<td class="data row8 col16" id="T_17f34_row8_col16">0</td>
+<td class="data row8 col17" id="T_17f34_row8_col17">0</td>
+<td class="data row8 col18" id="T_17f34_row8_col18">-2</td>
+<td class="data row8 col19" id="T_17f34_row8_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row9" id="T_17f34_level0_row9">9</th>
+<td class="data row9 col0" id="T_17f34_row9_col0">KO</td>
+<td class="data row9 col1" id="T_17f34_row9_col1">72.26</td>
+<td class="data row9 col2" id="T_17f34_row9_col2">5,750,665</td>
+<td class="data row9 col3" id="T_17f34_row9_col3">70.56</td>
+<td class="data row9 col4" id="T_17f34_row9_col4">69.11</td>
+<td class="data row9 col5" id="T_17f34_row9_col5">70.70</td>
+<td class="data row9 col6" id="T_17f34_row9_col6">0.4989</td>
+<td class="data row9 col7" id="T_17f34_row9_col7">62.9</td>
+<td class="data row9 col8" id="T_17f34_row9_col8">72.96</td>
+<td class="data row9 col9" id="T_17f34_row9_col9">67.49</td>
+<td class="data row9 col10" id="T_17f34_row9_col10">62.4</td>
+<td class="data row9 col11" id="T_17f34_row9_col11">1</td>
+<td class="data row9 col12" id="T_17f34_row9_col12">1</td>
+<td class="data row9 col13" id="T_17f34_row9_col13">1</td>
+<td class="data row9 col14" id="T_17f34_row9_col14">1</td>
+<td class="data row9 col15" id="T_17f34_row9_col15">0</td>
+<td class="data row9 col16" id="T_17f34_row9_col16">0</td>
+<td class="data row9 col17" id="T_17f34_row9_col17">0</td>
+<td class="data row9 col18" id="T_17f34_row9_col18">4</td>
+<td class="data row9 col19" id="T_17f34_row9_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row10" id="T_17f34_level0_row10">10</th>
+<td class="data row10 col0" id="T_17f34_row10_col0">MA</td>
+<td class="data row10 col1" id="T_17f34_row10_col1">525.59</td>
+<td class="data row10 col2" id="T_17f34_row10_col2">1,739,901</td>
+<td class="data row10 col3" id="T_17f34_row10_col3">553.92</td>
+<td class="data row10 col4" id="T_17f34_row10_col4">561.10</td>
+<td class="data row10 col5" id="T_17f34_row10_col5">550.38</td>
+<td class="data row10 col6" id="T_17f34_row10_col6">-8.6462</td>
+<td class="data row10 col7" id="T_17f34_row10_col7">30.9</td>
+<td class="data row10 col8" id="T_17f34_row10_col8">599.35</td>
+<td class="data row10 col9" id="T_17f34_row10_col9">518.87</td>
+<td class="data row10 col10" id="T_17f34_row10_col10">35.0</td>
+<td class="data row10 col11" id="T_17f34_row10_col11">-1</td>
+<td class="data row10 col12" id="T_17f34_row10_col12">-1</td>
+<td class="data row10 col13" id="T_17f34_row10_col13">-1</td>
+<td class="data row10 col14" id="T_17f34_row10_col14">-1</td>
+<td class="data row10 col15" id="T_17f34_row10_col15">0</td>
+<td class="data row10 col16" id="T_17f34_row10_col16">0</td>
+<td class="data row10 col17" id="T_17f34_row10_col17">0</td>
+<td class="data row10 col18" id="T_17f34_row10_col18">-4</td>
+<td class="data row10 col19" id="T_17f34_row10_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row11" id="T_17f34_level0_row11">11</th>
+<td class="data row11 col0" id="T_17f34_row11_col0">META</td>
+<td class="data row11 col1" id="T_17f34_row11_col1">661.78</td>
+<td class="data row11 col2" id="T_17f34_row11_col2">11,566,994</td>
+<td class="data row11 col3" id="T_17f34_row11_col3">639.49</td>
+<td class="data row11 col4" id="T_17f34_row11_col4">676.81</td>
+<td class="data row11 col5" id="T_17f34_row11_col5">640.07</td>
+<td class="data row11 col6" id="T_17f34_row11_col6">-5.2857</td>
+<td class="data row11 col7" id="T_17f34_row11_col7">57.2</td>
+<td class="data row11 col8" id="T_17f34_row11_col8">684.18</td>
+<td class="data row11 col9" id="T_17f34_row11_col9">604.76</td>
+<td class="data row11 col10" id="T_17f34_row11_col10">56.3</td>
+<td class="data row11 col11" id="T_17f34_row11_col11">1</td>
+<td class="data row11 col12" id="T_17f34_row11_col12">-1</td>
+<td class="data row11 col13" id="T_17f34_row11_col13">1</td>
+<td class="data row11 col14" id="T_17f34_row11_col14">-1</td>
+<td class="data row11 col15" id="T_17f34_row11_col15">0</td>
+<td class="data row11 col16" id="T_17f34_row11_col16">0</td>
+<td class="data row11 col17" id="T_17f34_row11_col17">0</td>
+<td class="data row11 col18" id="T_17f34_row11_col18">0</td>
+<td class="data row11 col19" id="T_17f34_row11_col19">Neutral</td>
+</tr>
+<tr>
+<th class="row_heading level0 row12" id="T_17f34_level0_row12">12</th>
+<td class="data row12 col0" id="T_17f34_row12_col0">MSFT</td>
+<td class="data row12 col1" id="T_17f34_row12_col1">469.30</td>
+<td class="data row12 col2" id="T_17f34_row12_col2">19,925,313</td>
+<td class="data row12 col3" id="T_17f34_row12_col3">480.94</td>
+<td class="data row12 col4" id="T_17f34_row12_col4">482.82</td>
+<td class="data row12 col5" id="T_17f34_row12_col5">468.51</td>
+<td class="data row12 col6" id="T_17f34_row12_col6">-7.9125</td>
+<td class="data row12 col7" id="T_17f34_row12_col7">48.3</td>
+<td class="data row12 col8" id="T_17f34_row12_col8">499.12</td>
+<td class="data row12 col9" id="T_17f34_row12_col9">445.07</td>
+<td class="data row12 col10" id="T_17f34_row12_col10">42.7</td>
+<td class="data row12 col11" id="T_17f34_row12_col11">-1</td>
+<td class="data row12 col12" id="T_17f34_row12_col12">-1</td>
+<td class="data row12 col13" id="T_17f34_row12_col13">1</td>
+<td class="data row12 col14" id="T_17f34_row12_col14">-1</td>
+<td class="data row12 col15" id="T_17f34_row12_col15">0</td>
+<td class="data row12 col16" id="T_17f34_row12_col16">0</td>
+<td class="data row12 col17" id="T_17f34_row12_col17">0</td>
+<td class="data row12 col18" id="T_17f34_row12_col18">-2</td>
+<td class="data row12 col19" id="T_17f34_row12_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row13" id="T_17f34_level0_row13">13</th>
+<td class="data row13 col0" id="T_17f34_row13_col0">NFLX</td>
+<td class="data row13 col1" id="T_17f34_row13_col1">86.00</td>
+<td class="data row13 col2" id="T_17f34_row13_col2">34,573,696</td>
+<td class="data row13 col3" id="T_17f34_row13_col3">97.70</td>
+<td class="data row13 col4" id="T_17f34_row13_col4">113.01</td>
+<td class="data row13 col5" id="T_17f34_row13_col5">89.75</td>
+<td class="data row13 col6" id="T_17f34_row13_col6">-3.3278</td>
+<td class="data row13 col7" id="T_17f34_row13_col7">31.6</td>
+<td class="data row13 col8" id="T_17f34_row13_col8">96.17</td>
+<td class="data row13 col9" id="T_17f34_row13_col9">83.84</td>
+<td class="data row13 col10" id="T_17f34_row13_col10">20.0</td>
+<td class="data row13 col11" id="T_17f34_row13_col11">-1</td>
+<td class="data row13 col12" id="T_17f34_row13_col12">-1</td>
+<td class="data row13 col13" id="T_17f34_row13_col13">-1</td>
+<td class="data row13 col14" id="T_17f34_row13_col14">-1</td>
+<td class="data row13 col15" id="T_17f34_row13_col15">0</td>
+<td class="data row13 col16" id="T_17f34_row13_col16">0</td>
+<td class="data row13 col17" id="T_17f34_row13_col17">0</td>
+<td class="data row13 col18" id="T_17f34_row13_col18">-4</td>
+<td class="data row13 col19" id="T_17f34_row13_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row14" id="T_17f34_level0_row14">14</th>
+<td class="data row14 col0" id="T_17f34_row14_col0">NVDA</td>
+<td class="data row14 col1" id="T_17f34_row14_col1">187.94</td>
+<td class="data row14 col2" id="T_17f34_row14_col2">80,231,943</td>
+<td class="data row14 col3" id="T_17f34_row14_col3">183.83</td>
+<td class="data row14 col4" id="T_17f34_row14_col4">165.69</td>
+<td class="data row14 col5" id="T_17f34_row14_col5">184.93</td>
+<td class="data row14 col6" id="T_17f34_row14_col6">0.1661</td>
+<td class="data row14 col7" id="T_17f34_row14_col7">54.3</td>
+<td class="data row14 col8" id="T_17f34_row14_col8">191.82</td>
+<td class="data row14 col9" id="T_17f34_row14_col9">180.78</td>
+<td class="data row14 col10" id="T_17f34_row14_col10">46.7</td>
+<td class="data row14 col11" id="T_17f34_row14_col11">1</td>
+<td class="data row14 col12" id="T_17f34_row14_col12">1</td>
+<td class="data row14 col13" id="T_17f34_row14_col13">1</td>
+<td class="data row14 col14" id="T_17f34_row14_col14">1</td>
+<td class="data row14 col15" id="T_17f34_row14_col15">0</td>
+<td class="data row14 col16" id="T_17f34_row14_col16">0</td>
+<td class="data row14 col17" id="T_17f34_row14_col17">0</td>
+<td class="data row14 col18" id="T_17f34_row14_col18">4</td>
+<td class="data row14 col19" id="T_17f34_row14_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row15" id="T_17f34_level0_row15">15</th>
+<td class="data row15 col0" id="T_17f34_row15_col0">PG</td>
+<td class="data row15 col1" id="T_17f34_row15_col1">150.58</td>
+<td class="data row15 col2" id="T_17f34_row15_col2">6,517,631</td>
+<td class="data row15 col3" id="T_17f34_row15_col3">144.97</td>
+<td class="data row15 col4" id="T_17f34_row15_col4">153.20</td>
+<td class="data row15 col5" id="T_17f34_row15_col5">145.17</td>
+<td class="data row15 col6" id="T_17f34_row15_col6">1.0609</td>
+<td class="data row15 col7" id="T_17f34_row15_col7">64.9</td>
+<td class="data row15 col8" id="T_17f34_row15_col8">150.24</td>
+<td class="data row15 col9" id="T_17f34_row15_col9">137.90</td>
+<td class="data row15 col10" id="T_17f34_row15_col10">66.2</td>
+<td class="data row15 col11" id="T_17f34_row15_col11">1</td>
+<td class="data row15 col12" id="T_17f34_row15_col12">-1</td>
+<td class="data row15 col13" id="T_17f34_row15_col13">1</td>
+<td class="data row15 col14" id="T_17f34_row15_col14">1</td>
+<td class="data row15 col15" id="T_17f34_row15_col15">0</td>
+<td class="data row15 col16" id="T_17f34_row15_col16">-1</td>
+<td class="data row15 col17" id="T_17f34_row15_col17">0</td>
+<td class="data row15 col18" id="T_17f34_row15_col18">1</td>
+<td class="data row15 col19" id="T_17f34_row15_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row16" id="T_17f34_level0_row16">16</th>
+<td class="data row16 col0" id="T_17f34_row16_col0">PYPL</td>
+<td class="data row16 col1" id="T_17f34_row16_col1">56.91</td>
+<td class="data row16 col2" id="T_17f34_row16_col2">4,045,483</td>
+<td class="data row16 col3" id="T_17f34_row16_col3">60.13</td>
+<td class="data row16 col4" id="T_17f34_row16_col4">67.19</td>
+<td class="data row16 col5" id="T_17f34_row16_col5">57.83</td>
+<td class="data row16 col6" id="T_17f34_row16_col6">-1.2061</td>
+<td class="data row16 col7" id="T_17f34_row16_col7">42.1</td>
+<td class="data row16 col8" id="T_17f34_row16_col8">60.75</td>
+<td class="data row16 col9" id="T_17f34_row16_col9">55.14</td>
+<td class="data row16 col10" id="T_17f34_row16_col10">35.2</td>
+<td class="data row16 col11" id="T_17f34_row16_col11">-1</td>
+<td class="data row16 col12" id="T_17f34_row16_col12">-1</td>
+<td class="data row16 col13" id="T_17f34_row16_col13">-1</td>
+<td class="data row16 col14" id="T_17f34_row16_col14">-1</td>
+<td class="data row16 col15" id="T_17f34_row16_col15">0</td>
+<td class="data row16 col16" id="T_17f34_row16_col16">0</td>
+<td class="data row16 col17" id="T_17f34_row16_col17">0</td>
+<td class="data row16 col18" id="T_17f34_row16_col18">-4</td>
+<td class="data row16 col19" id="T_17f34_row16_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row17" id="T_17f34_level0_row17">17</th>
+<td class="data row17 col0" id="T_17f34_row17_col0">TSLA</td>
+<td class="data row17 col1" id="T_17f34_row17_col1">448.26</td>
+<td class="data row17 col2" id="T_17f34_row17_col2">34,982,226</td>
+<td class="data row17 col3" id="T_17f34_row17_col3">442.38</td>
+<td class="data row17 col4" id="T_17f34_row17_col4">372.75</td>
+<td class="data row17 col5" id="T_17f34_row17_col5">444.51</td>
+<td class="data row17 col6" id="T_17f34_row17_col6">-3.4541</td>
+<td class="data row17 col7" id="T_17f34_row17_col7">51.3</td>
+<td class="data row17 col8" id="T_17f34_row17_col8">476.34</td>
+<td class="data row17 col9" id="T_17f34_row17_col9">415.56</td>
+<td class="data row17 col10" id="T_17f34_row17_col10">55.6</td>
+<td class="data row17 col11" id="T_17f34_row17_col11">1</td>
+<td class="data row17 col12" id="T_17f34_row17_col12">1</td>
+<td class="data row17 col13" id="T_17f34_row17_col13">1</td>
+<td class="data row17 col14" id="T_17f34_row17_col14">-1</td>
+<td class="data row17 col15" id="T_17f34_row17_col15">0</td>
+<td class="data row17 col16" id="T_17f34_row17_col16">0</td>
+<td class="data row17 col17" id="T_17f34_row17_col17">0</td>
+<td class="data row17 col18" id="T_17f34_row17_col18">2</td>
+<td class="data row17 col19" id="T_17f34_row17_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row18" id="T_17f34_level0_row18">18</th>
+<td class="data row18 col0" id="T_17f34_row18_col0">UNH</td>
+<td class="data row18 col1" id="T_17f34_row18_col1">355.18</td>
+<td class="data row18 col2" id="T_17f34_row18_col2">3,106,433</td>
+<td class="data row18 col3" id="T_17f34_row18_col3">331.31</td>
+<td class="data row18 col4" id="T_17f34_row18_col4">332.55</td>
+<td class="data row18 col5" id="T_17f34_row18_col5">340.37</td>
+<td class="data row18 col6" id="T_17f34_row18_col6">4.3885</td>
+<td class="data row18 col7" id="T_17f34_row18_col7">63.2</td>
+<td class="data row18 col8" id="T_17f34_row18_col8">355.84</td>
+<td class="data row18 col9" id="T_17f34_row18_col9">322.73</td>
+<td class="data row18 col10" id="T_17f34_row18_col10">58.8</td>
+<td class="data row18 col11" id="T_17f34_row18_col11">1</td>
+<td class="data row18 col12" id="T_17f34_row18_col12">1</td>
+<td class="data row18 col13" id="T_17f34_row18_col13">1</td>
+<td class="data row18 col14" id="T_17f34_row18_col14">1</td>
+<td class="data row18 col15" id="T_17f34_row18_col15">0</td>
+<td class="data row18 col16" id="T_17f34_row18_col16">0</td>
+<td class="data row18 col17" id="T_17f34_row18_col17">0</td>
+<td class="data row18 col18" id="T_17f34_row18_col18">4</td>
+<td class="data row18 col19" id="T_17f34_row18_col19">Positive</td>
+</tr>
+<tr>
+<th class="row_heading level0 row19" id="T_17f34_level0_row19">19</th>
+<td class="data row19 col0" id="T_17f34_row19_col0">V</td>
+<td class="data row19 col1" id="T_17f34_row19_col1">327.00</td>
+<td class="data row19 col2" id="T_17f34_row19_col2">2,249,084</td>
+<td class="data row19 col3" id="T_17f34_row19_col3">338.03</td>
+<td class="data row19 col4" id="T_17f34_row19_col4">344.07</td>
+<td class="data row19 col5" id="T_17f34_row19_col5">336.65</td>
+<td class="data row19 col6" id="T_17f34_row19_col6">-4.8379</td>
+<td class="data row19 col7" id="T_17f34_row19_col7">35.0</td>
+<td class="data row19 col8" id="T_17f34_row19_col8">368.38</td>
+<td class="data row19 col9" id="T_17f34_row19_col9">316.18</td>
+<td class="data row19 col10" id="T_17f34_row19_col10">40.4</td>
+<td class="data row19 col11" id="T_17f34_row19_col11">-1</td>
+<td class="data row19 col12" id="T_17f34_row19_col12">-1</td>
+<td class="data row19 col13" id="T_17f34_row19_col13">-1</td>
+<td class="data row19 col14" id="T_17f34_row19_col14">-1</td>
+<td class="data row19 col15" id="T_17f34_row19_col15">0</td>
+<td class="data row19 col16" id="T_17f34_row19_col16">0</td>
+<td class="data row19 col17" id="T_17f34_row19_col17">0</td>
+<td class="data row19 col18" id="T_17f34_row19_col18">-4</td>
+<td class="data row19 col19" id="T_17f34_row19_col19">Negative</td>
+</tr>
+<tr>
+<th class="row_heading level0 row20" id="T_17f34_level0_row20">20</th>
+<td class="data row20 col0" id="T_17f34_row20_col0">WMT</td>
+<td class="data row20 col1" id="T_17f34_row20_col1">118.40</td>
+<td class="data row20 col2" id="T_17f34_row20_col2">8,188,390</td>
+<td class="data row20 col3" id="T_17f34_row20_col3">112.18</td>
+<td class="data row20 col4" id="T_17f34_row20_col4">102.04</td>
+<td class="data row20 col5" id="T_17f34_row20_col5">116.44</td>
+<td class="data row20 col6" id="T_17f34_row20_col6">1.9834</td>
+<td class="data row20 col7" id="T_17f34_row20_col7">60.2</td>
+<td class="data row20 col8" id="T_17f34_row20_col8">122.34</td>
+<td class="data row20 col9" id="T_17f34_row20_col9">108.75</td>
+<td class="data row20 col10" id="T_17f34_row20_col10">27.9</td>
+<td class="data row20 col11" id="T_17f34_row20_col11">1</td>
+<td class="data row20 col12" id="T_17f34_row20_col12">1</td>
+<td class="data row20 col13" id="T_17f34_row20_col13">1</td>
+<td class="data row20 col14" id="T_17f34_row20_col14">1</td>
+<td class="data row20 col15" id="T_17f34_row20_col15">0</td>
+<td class="data row20 col16" id="T_17f34_row20_col16">0</td>
+<td class="data row20 col17" id="T_17f34_row20_col17">0</td>
+<td class="data row20 col18" id="T_17f34_row20_col18">4</td>
+<td class="data row20 col19" id="T_17f34_row20_col19">Positive</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
