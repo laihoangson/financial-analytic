@@ -7555,7 +7555,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Load libraries</span>
@@ -8594,7 +8594,24 @@ Columns in summary table: ['Ticker', 'Close Price', 'Volume', 'MA50', 'MA200', '
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-2.-Machine-Learning">Part 2. Machine Learning<a class="anchor-link" href="#Part-2.-Machine-Learning">¶</a></h2><p>In this section, I build a predictive model to forecast the next trading day's closing price for each stock. I utilize the XGBoost Regressor, a powerful gradient boosting algorithm highly effective for time-series and tabular data. The model is trained using historical price data combined with the technical indicators generated in Part 1 (such as RSI, MACD, and Bollinger Bands) as input features. I evaluate the model's accuracy on a test set using Root Mean Squared Error (RMSE) and then deploy it to predict future price movements based on the latest available market data.</p>
+<h2 id="Part-2.-Machine-Learning">Part 2. Machine Learning<a class="anchor-link" href="#Part-2.-Machine-Learning">¶</a></h2><h3 id="1.-Overview">1. Overview<a class="anchor-link" href="#1.-Overview">¶</a></h3><p>Building upon the technical analysis in Part 1, this section utilizes <strong>Machine Learning (XGBoost)</strong> to predict stock prices. Unlike traditional indicators that give simple Buy/Sell signals, the ML model analyzes the complex relationships between historical patterns (RSI, MACD, Moving Averages) to forecast the <strong>exact closing price of the next trading day</strong>.</p>
+<h3 id="2.-Methodology">2. Methodology<a class="anchor-link" href="#2.-Methodology">¶</a></h3><ul>
+<li><strong>Algorithm</strong>: We use <strong>XGBRegressor (Extreme Gradient Boosting)</strong>, a robust algorithm highly effective for structured time-series data.</li>
+<li><strong>Feature Engineering</strong>: The model inputs include Open, High, Low, Volume, and all technical indicators calculated in Part 1 (SMA, EMA, Bollinger Bands, etc.).</li>
+<li><strong>Training &amp; Validation</strong>: To prevent "data leakage" (looking into the future), the data is split chronologically:<ul>
+<li><strong>Training Set (First 80%)</strong>: Used to teach the model historical patterns.</li>
+<li><strong>Test Set (Last 20%)</strong>: Used to evaluate how well the model predicts unseen data.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3.-Interactive-Analysis-Dashboard">3. Interactive Analysis Dashboard<a class="anchor-link" href="#3.-Interactive-Analysis-Dashboard">¶</a></h3><p>The visualization below provides a comprehensive view of the model's performance. Use the <strong>dropdown menu</strong> to select a specific ticker:</p>
+<ul>
+<li><strong>Top Chart (Actual vs. Predicted)</strong>: Compares the real market price (Blue line) against the model's prediction (Orange dotted line). The closer the lines, the better the model accuracy.</li>
+<li><strong>Bottom Chart (Feature Importance)</strong>: Ranks which technical indicators were most influential in determining the price. For example, if <em>RSI</em> has a high bar, the model relies heavily on momentum to make predictions for that specific stock.</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: The table below summarizes the prediction for the <strong>next upcoming trading day</strong>, including the predicted percentage change.</p>
+</blockquote>
 </div>
 </div>
 </div>
