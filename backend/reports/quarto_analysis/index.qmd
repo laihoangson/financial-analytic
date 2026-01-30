@@ -1,0 +1,232 @@
+---
+title: "Stock Price Forecast"
+subtitle: "Using Technical Analysis and Machine Learning"
+author: "Hoang Son Lai"
+date: "2026-01-23"
+categories: [Stock, Technical Analysis, Machine Learning]
+format: 
+ html:
+  toc: true
+  css: styles.css
+  embed-resources: true
+  code-fold: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+#| out-height: "auto"
+
+knitr::include_graphics("world.jpg")
+```
+
+## Part 1. Technical Analysis
+
+This section provides a comprehensive technical analysis of stock prices using multiple indicators. For each stock, I calculate key metrics: 
+
+1. Trend Indicators:
+
+- MA50/MA200: 50-day and 200-day Simple Moving Averages compare current price to medium/long-term trends (Price > MA = bullish +1, Price < MA = bearish -1)
+
+- EMA20: 20-day Exponential Moving Average gives more weight to recent prices for short-term trend direction
+
+2. Momentum Indicators:
+
+- RSI (14-day): Measures overbought (>70 = -1) vs. oversold (<30 = +1) conditions, with 30-70 being neutral
+
+- MACD: Signal line crossover indicator (MACD > 0 = +1 bullish momentum, MACD < 0 = -1 bearish momentum)
+
+3. Volatility & Volume Indicators:
+
+- Bollinger Bands: Price above upper band = overbought (-1), below lower band = oversold (+1), within bands = neutral (0)
+
+- MFI (Money Flow Index): Volume-weighted RSI (>80 = -1 overbought, <20 = +1 oversold, 20-80 = neutral)
+
+Each indicator is scored (+1 for bullish, -1 for bearish, 0 for neutral), with a final aggregate signal determining the overall market outlook (Positive, Negative, or Neutral).
+
+```{r}
+#| output: false
+# Load necessary libraries
+library(tidyverse)
+library(dplyr)
+library(tidyquant)
+library(TTR)
+library(xgboost)
+library(plotly)
+library(gt)
+library(gtExtras)
+library(readr)
+
+# 1. Load Data
+# Assuming the same directory structure
+df <- read_csv("data/cleaned/stock_prices.csv")
+df$date <- as.Date(df$date)
+df <- df %>% arrange(ticker, date)
+```
+
+```{r}
+# Define function to calculate indicators
+calculate_indicators <- function(data) {
+  # Create the HLC matrix required by TTR functions
+  hlc <- data %>% select(high, low, close)
+  
+  data %>%
+    mutate(
+      SMA_50  = SMA(close, n = 50),
+      SMA_200 = SMA(close, n = 200),
+      EMA_20  = EMA(close, n = 20),
+      RSI_14  = RSI(close, n = 14),
+      # FIX: Pass HLC as one argument and volume as the second
+      MFI_14  = MFI(hlc, volume = data$volume, n = 14)
+    ) %>%
+    # MACD returns multiple columns
+    bind_cols(as_tibble(MACD(data$close, 12, 26, 9, maType="EMA"))) %>%
+    # Bollinger Bands
+    bind_cols(as_tibble(BBands(data$close, n = 20, sd = 2)))
+}
+
+# Apply calculations to all tickers
+df_ta <- df %>%
+  group_by(ticker) %>%
+  filter(n() > 200) %>%
+  group_modify(~ calculate_indicators(.x)) %>%
+  ungroup()
+
+# Scoring Logic
+df_ta <- df_ta %>%
+  mutate(
+    MA50_Score  = case_when(close > SMA_50 ~ 1, close < SMA_50 ~ -1, TRUE ~ 0),
+    MA200_Score = case_when(close > SMA_200 ~ 1, close < SMA_200 ~ -1, TRUE ~ 0),
+    EMA_Score   = case_when(close > EMA_20 ~ 1, close < EMA_20 ~ -1, TRUE ~ 0),
+    MACD_Score  = case_when(macd > signal ~ 1, macd < signal ~ -1, TRUE ~ 0),
+    RSI_Score   = case_when(RSI_14 < 30 ~ 1, RSI_14 > 70 ~ -1, TRUE ~ 0),
+    BB_Score    = case_when(close < dn ~ 1, close > up ~ -1, TRUE ~ 0),
+    MFI_Score   = case_when(MFI_14 < 20 ~ 1, MFI_14 > 80 ~ -1, TRUE ~ 0)
+  ) %>%
+  mutate(
+    Total_Score = MA50_Score + MA200_Score + EMA_Score + MACD_Score + RSI_Score + BB_Score + MFI_Score,
+    Signal = case_when(Total_Score > 0 ~ "Positive", Total_Score < 0 ~ "Negative", TRUE ~ "Neutral")
+  )
+
+# Generate Summary Table
+summary_df <- df_ta %>%
+  group_by(ticker) %>%
+  filter(date == max(date)) %>%
+  select(ticker, close, volume, SMA_50, SMA_200, EMA_20, macd, RSI_14, up, dn, MFI_14, 
+         contains("Score"), Signal)
+
+# Display styled table using gt
+summary_df %>%
+  gt() %>%
+  tab_header(title = "Technical Analysis Summary - Latest Signals") %>%
+  fmt_number(columns = c(close, SMA_50, SMA_200, EMA_20, up, dn), decimals = 2) %>%
+  fmt_number(columns = volume, suffixing = TRUE) %>%
+  gt_color_rows(Total_Score, palette = c("red", "yellow", "green")) %>%
+  tab_style(
+    style = cell_fill(color = "#d4edda"),
+    locations = cells_body(columns = Signal, rows = Signal == "Positive")
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#f8d7da"),
+    locations = cells_body(columns = Signal, rows = Signal == "Negative")
+  )
+```
+
+## Part 2. Machine Learning
+
+**1. Overview**
+
+Building upon the technical analysis in Part 1, this section utilizes **Machine Learning (XGBoost)** to predict stock prices. Unlike traditional indicators that give simple Buy/Sell signals, the ML model analyzes the complex relationships between historical patterns (RSI, MACD, Moving Averages) to forecast the **exact closing price of the next trading day**.
+
+**2. Methodology**
+
+* **Algorithm**: We use **XGBRegressor (Extreme Gradient Boosting)**, a robust algorithm highly effective for structured time-series data.
+
+* **Feature Engineering**: The model inputs include Open, High, Low, Volume, and all technical indicators calculated in Part 1 (SMA, EMA, Bollinger Bands, etc.).
+
+* **Training & Validation**: To prevent "data leakage" (looking into the future), the data is split chronologically:
+
+    * **Training Set (First 80%)**: Used to teach the model historical patterns.
+    
+    * **Test Set (Last 20%)**: Used to evaluate how well the model predicts unseen data.
+
+**3. Interactive Analysis Dashboard**
+
+The visualization below provides a comprehensive view of the model's performance. Use the **dropdown menu** to select a specific ticker:
+
+* **Top Chart (Actual vs. Predicted)**: Compares the real market price (Blue line) against the model's prediction (Orange dotted line). The closer the lines, the better the model accuracy.
+
+* **Bottom Chart (Feature Importance)**: Ranks which technical indicators were most influential in determining the price. For example, if *RSI* has a high bar, the model relies heavily on momentum to make predictions for that specific stock.
+
+> **Note**: The table below summarizes the prediction for the **next upcoming trading day**, including the predicted percentage change.
+
+```{r}
+# Prepare features
+feature_cols <- c("open", "high", "low", "close", "volume", 
+                  "SMA_50", "SMA_200", "EMA_20", "RSI_14", 
+                  "macd", "signal", "up", "mavg", "dn", "pctB", "MFI_14")
+
+ml_results <- list()
+ticker_preds <- list()
+
+for (t in unique(df_ta$ticker)) {
+  ticker_data <- df_ta %>% filter(ticker == t) %>% drop_na(any_of(feature_cols))
+  
+  # Create Target (Shifted Close)
+  ticker_data$target <- lead(ticker_data$close)
+  
+  # Split data
+  train_df <- ticker_data %>% drop_na(target)
+  split_idx <- floor(0.8 * nrow(train_df))
+  
+  train_set <- train_df[1:split_idx, ]
+  test_set  <- train_df[(split_idx + 1):nrow(train_df), ]
+  
+  # XGBoost Matrices
+  dtrain <- xgb.DMatrix(data = as.matrix(train_set[, feature_cols]), label = train_set$target)
+  dtest  <- xgb.DMatrix(data = as.matrix(test_set[, feature_cols]), label = test_set$target)
+  
+  # Train Model
+  model <- xgboost(data = dtrain, nrounds = 100, objective = "reg:squarederror", 
+                   eta = 0.05, max_depth = 5, verbose = 0)
+  
+  # Predict on test set
+  preds <- predict(model, dtest)
+  rmse_val <- sqrt(mean((test_set$target - preds)^2))
+  
+  # Predict Next Day
+  latest_data <- tail(ticker_data, 1)
+  next_pred <- predict(model, as.matrix(latest_data[, feature_cols]))
+  
+  ml_results[[t]] <- tibble(
+    Ticker = t,
+    Current_Price = latest_data$close,
+    Predicted_Price = next_pred,
+    Change_Pct = ((next_pred - latest_data$close) / latest_data$close) * 100,
+    RMSE = rmse_val
+  )
+}
+
+final_ml_results <- bind_rows(ml_results)
+
+# Display ML Table
+final_ml_results %>%
+  gt() %>%
+  fmt_percent(columns = Change_Pct, scale_values = FALSE) %>%
+  fmt_number(columns = c(Current_Price, Predicted_Price, RMSE), decimals = 2)
+```
+
+```{r}
+# Interactive Plotly Chart for the first ticker as an example
+plot_ly(data = df_ta %>% filter(ticker == "AAPL")) %>%
+  add_lines(x = ~date, y = ~close, name = "Actual Price") %>%
+  layout(title = "Stock Price Overview", xaxis = list(title = "Date"), yaxis = list(title = "Price"))
+```
+

@@ -1,0 +1,26 @@
+project:
+  type: website
+
+website:
+  title: "Global Market Insight"
+  navbar:
+    left:
+      - href: https://laihoangson.github.io/financial-analytic/
+        icon: house
+        text: Home
+    right:
+      - icon: github
+        text: GitHub
+        href: https://github.com/laihoangson
+      - icon: linkedin
+        text: LinkedIn
+        href: https://linkedin.com/in/hoang-son-lai-92ab19282
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+
+editor: visual
+
