@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Narrow:wght@400;700&display=swap');
+
+/* Reset và base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Karla', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+  background-color: #ffffff;
+}
+
+/* Container chính */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Typography hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "PT Sans Narrow", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #027EB6;
+}
+
+h1 {
+  color: #006DAE;
+  font-size: 3rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 1.65rem;
+  color: #006DAE;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #0284C7; /* Gạch chân dưới */
+  padding-bottom: 0.5rem; /* Giống h1 */
+  border-left: none; /* Bỏ border trái */
+  padding-left: 0; /* Reset padding trái */
+}
+
+h3 {
+  font-size: 1.35rem;
+  color: #006DAE;
+  margin-top: 2.5rem;
+  padding-left: 0.1rem;
+}
+
+h4 {
+  font-size: 1rem;
+  color: #03A9F4;
+}
+
+h5 {
+  font-size: 1.25rem;
+  color: #29B6F6;
+}
+
+h6 {
+  font-size: 1.1rem;
+  color: #4FC3F7;
+}
+
+/* Paragraph và text elements */
+p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+/* Links */
+a {
+  color: #0277BD;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #01579B;
+  text-decoration: underline;
+}
+
+/* Code blocks */
+pre, code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+pre {
+  padding: 0.8rem;
+  margin: 0.8rem 0;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  border-left: 4px solid #027EB6;
+  background-color: #f1f8ff;
+}
+
+code {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.9em;
+  color: #D32F2F;
+}
+
+/* Blockquotes */
+blockquote {
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  background-color: #f8f9fa;
+  font-style: italic;
+  color: #555;
+}
+
+/* Lists */
+ul, ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #027EB6;
+  color: white;
+  font-weight: 700;
+  font-family: "PT Sans Narrow", sans-serif;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tr:hover {
+  background-color: #e3f2fd;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #027EB6, transparent);
+  margin: 2rem 0;
+}
+
+/* Navigation (nếu có) */
+.navbar {
+  background: linear-gradient(135deg, #006DAE 0%, #027EB6 100%);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Footer (nếu có) */
+.footer {
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+  margin-top: 3rem;
+  text-align: center;
+  color: #666;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: #666;
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.shadow {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.rounded {
+  border-radius: 4px;
+}
+

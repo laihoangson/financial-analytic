@@ -668,7 +668,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="pipeline.html">ETL Pipeline</a></li>
                     <li><a href="sql.html" class="active">SQL Section</a></li>
-                    <li><a href="powerbi.html">Dashboards</a></li>
+                    <li><a href="dashboard.html">Dashboards</a></li>
                     <li><a href="reports.html">Reports</a></li>
                     <li><a href="about.html">About Me</a></li>
                 </ul>
@@ -930,11 +930,16 @@
                     <p class="query-description" style="margin-top: 15px;">Note: This table includes comprehensive financial data with columns for income statement, balance sheet (assets, liabilities, equity), and pre-calculated financial ratios (profitability, liquidity, solvency, efficiency ratios).</p>
                 </div>
                 
-                <div class="query-description">
-                    <h4>Complete Schema SQL</h4>
-                    <p>The complete database schema creation script:</p>
-                </div>
-                <pre><code class="language-sql">-- backend/sql/schema.sql
+<div class="query-description">
+    <h4>Complete Schema SQL</h4>
+    <p>The complete database schema creation script:</p>
+    
+    <details>
+        <summary style="cursor: pointer; color: #007bff; font-weight: bold; margin-bottom: 10px;">
+            Click to Show/Hide SQL Code
+        </summary>
+        
+        <pre><code class="language-sql">-- backend/sql/schema.sql
 -- Project: Global Market Insight 360
 -- Author: Hoang Son Lai
 
@@ -1022,7 +1027,8 @@ CREATE TABLE IF NOT EXISTS financial_statements (
     FOREIGN KEY (ticker) REFERENCES companies(ticker) ON DELETE CASCADE,
     UNIQUE KEY unique_financial (ticker, report_date)
 );</code></pre>
-            </div>
+    </details>
+    </div>
             
  <div class="section" id="queries">
     <h2>ANALYTICAL SQL QUERIES</h2>
@@ -1517,14 +1523,14 @@ LIMIT 100;</code></pre>
         
         // CSV file paths for each query
         const queryFiles = {
-            1: 'query_data/result1.csv',
-            2: 'query_data/result2.csv',
-            3: 'query_data/result3.csv',
-            4: 'query_data/result4.csv',
-            5: 'query_data/result5.csv',
-            6: 'query_data/result6.csv',
-            7: 'query_data/result7.csv',
-            8: 'query_data/result8.csv'
+            1: 'data/query_data/result1.csv',
+            2: 'data/query_data/result2.csv',
+            3: 'data/query_data/result3.csv',
+            4: 'data/query_data/result4.csv',
+            5: 'data/query_data/result5.csv',
+            6: 'data/query_data/result6.csv',
+            7: 'data/query_data/result7.csv',
+            8: 'data/query_data/result8.csv'
         };
         
         // Parse CSV string to array (cải tiến để xử lý dấu phẩy trong giá trị)

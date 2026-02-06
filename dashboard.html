@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboards - Global Market Insight 360</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <style>
+        /* =========================================
+           PAGE SPECIFIC HEADER STYLING
+           ========================================= */
+        
+        /* Header Gradient Style */
+        .container header {
+            background: linear-gradient(135deg, #009688 0%, #80cbc4 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .container header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container header .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .container header .author {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            min-width: 250px;
+        }
+
+        /* Dashboard Section Styling */
+        .dashboard-section { 
+            background: white; 
+            border-radius: 10px; 
+            padding: 30px; 
+            margin-bottom: 40px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            border: 1px solid #e2e8f0; 
+        }
+        
+        .section-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 20px; 
+            border-bottom: 2px solid #f1f5f9; 
+            padding-bottom: 15px; 
+        }
+        
+        .section-header h2 { 
+            color: #00695c; 
+            font-size: 1.8rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        
+        /* Button "Open Full Dashboard" Styling */
+        .status-badge { 
+            background: #e0f2f1; 
+            color: #00796b; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            text-decoration: none; 
+            border: 1px solid #b2dfdb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .status-badge:hover {
+            background: #009688;
+            color: white;
+        }
+
+        /* Container cho Iframe HTML Dashboards */
+        .powerbi-container { 
+            position: relative; 
+            width: 100%; 
+            height: 650px; /* Chiều cao đủ lớn để hiển thị dashboard con */
+            background-color: #f8f9fa; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        
+        .powerbi-container iframe { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container header { padding: 2rem 1rem; }
+            .container header h1 { font-size: 1.8rem; }
+            .container header .subtitle { font-size: 1rem; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .powerbi-container { height: 500px; } /* Giảm chiều cao trên mobile */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">GM</div>
+                    <span>Global Market Insight</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pipeline.html">ETL Pipeline</a></li>
+                    <li><a href="sql.html">SQL Section</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboards</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <div class="hamburger"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Financial Dashboards</h1>
+            <p class="subtitle">Interactive Visualizations & Market Analysis</p>
+        </header>
+
+        <div class="dashboard-section" id="global">
+            <div class="section-header">
+                <h2><i class="fas fa-globe-americas"></i> Global Market Overview</h2>
+                <a href="dashboard/global_dashboard.html" target="_blank" class="status-badge">
+                    Open Full Screen <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+                </a>
+            </div>
+            <p style="margin-bottom: 20px; color: #666;">
+                Comparative analysis of major global companies. Filter by metrics like Revenue, Net Income, and Gross Profit to visualize market performance.
+            </p>
+            <div class="powerbi-container">
+                <iframe src="dashboard/global_dashboard.html" title="Global Market Dashboard"></iframe>
+            </div>
+        </div>
+
+        <div class="dashboard-section" id="company">
+            <div class="section-header">
+                <h2><i class="fas fa-search-dollar"></i> Company Deep Dive</h2>
+                <a href="dashboard/company_dashboard.html" target="_blank" class="status-badge">
+                    Open Full Screen <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+                </a>
+            </div>
+            <p style="margin-bottom: 20px; color: #666;">
+                Detailed fundamental analysis for individual tickers. Select a company to view historical stock price trends and key financial statement ratios.
+            </p>
+            <div class="powerbi-container">
+                <iframe src="dashboard/company_dashboard.html" title="Company Analysis Dashboard"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Global Market Insight - Financial Analytics Platform &copy; 2025</p>
+            <div class="credit">Author: Hoang Son Lai</div>
+        </div>
+    </footer>
+
+    <script>
+        // Script cho hamburger menu trên mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if(hamburger) {
+            hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+        }
+    </script>
+</body>
+</html>

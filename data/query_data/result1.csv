@@ -1,0 +1,11 @@
+name,sector,report_date,revenue,net_income
+"Walmart Inc.","Consumer Defensive",2025-01-31,"680,985,000,000","19,436,000,000"
+"Amazon.com, Inc.","Consumer Cyclical",2024-12-31,"637,959,000,000","59,248,000,000"
+"Apple Inc.",Technology,2025-09-30,"416,161,000,000","112,010,000,000"
+"UnitedHealth Group Incorporated",Healthcare,2024-12-31,"400,278,000,000","14,405,000,000"
+"Alphabet Inc.","Communication Services",2024-12-31,"350,018,000,000","100,118,000,000"
+"Microsoft Corporation",Technology,2025-06-30,"281,724,000,000","101,832,000,000"
+"Meta Platforms, Inc.","Communication Services",2025-12-31,"200,966,000,000","60,458,000,000"
+"JPMorgan Chase & Co.","Financial Services",2024-12-31,"169,439,000,000","58,471,000,000"
+"The Home Depot, Inc.","Consumer Cyclical",2025-01-31,"159,514,000,000","14,806,000,000"
+"NVIDIA Corporation",Technology,2025-01-31,"130,497,000,000","72,880,000,000"

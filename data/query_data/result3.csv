@@ -1,0 +1,9 @@
+name,industry,debt_to_equity,current_ratio,interest_coverage_ratio,report_date
+"The Home Depot, Inc.","Home Improvement Retail",13.4758,1.1054,9.2745,2025-01-31
+"JPMorgan Chase & Co.","Banks - Diversified",10.6105,NULL,NULL,2024-12-31
+"Bank of America Corporation","Banks - Diversified",10.0351,NULL,NULL,2024-12-31
+"Mastercard Incorporated","Credit Services",6.4096,1.0262,25.2740,2024-12-31
+"Apple Inc.","Consumer Electronics",3.8722,0.8933,NULL,2025-09-30
+"PayPal Holdings, Inc.","Credit Services",2.9972,1.2629,15.0864,2024-12-31
+"The Coca-Cola Company","Beverages - Non-Alcoholic",2.9843,1.0296,8.4674,2024-12-31
+"UnitedHealth Group Incorporated","Healthcare Plans",2.1119,0.8266,8.2660,2024-12-31
