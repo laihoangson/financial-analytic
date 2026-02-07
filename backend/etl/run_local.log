@@ -37,3 +37,656 @@ Finished at 08/02/2026  0:43:30.23
 Running local ETL at 08/02/2026  0:50:58.95 
 =============================== 
 Running local ETL at 08/02/2026  0:55:23.08 
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:69: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['revenue'] = get_col('Total Revenue')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:70: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['cogs'] = get_col('Cost Of Revenue')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:71: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['gross_profit'] = get_col('Gross Profit')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:72: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['opex'] = get_col('Total Operating Expenses')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:73: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['operating_income_ebit'] = get_col('Operating Income')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:74: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['ebt'] = get_col('Pretax Income')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:75: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['net_income'] = get_col('Net Income')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:76: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['ebitda'] = get_col('EBITDA')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:77: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['basic_eps'] = get_col('Basic EPS')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:78: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['diluted_eps'] = get_col('Diluted EPS')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:80: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['total_assets'] = get_col('Total Assets')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:81: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['current_assets'] = get_col('Current Assets')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:82: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['cash_and_equivalents'] = get_col('Cash And Cash Equivalents')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:83: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['accounts_receivable'] = get_col('Net Receivables')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:84: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['inventory'] = get_col('Inventory')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:85: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['non_current_assets'] = df['total_assets'] - df['current_assets']
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:87: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['total_liabilities'] = get_col('Total Liabilities Net Minority Interest')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:88: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['current_liabilities'] = get_col('Current Liabilities')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:89: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['accounts_payable'] = get_col('Accounts Payable')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:90: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['short_term_debt'] = get_col('Current Debt')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:91: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['long_term_debt'] = get_col('Long Term Debt')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:93: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['total_equity'] = get_col('Stockholders Equity')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:94: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['common_stock'] = get_col('Common Stock')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:95: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['retained_earnings'] = get_col('Retained Earnings')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:101: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['current_ratio'] = df['current_assets'] / df['current_liabilities'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:102: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['quick_ratio'] = (df['current_assets'] - df['inventory']) / df['current_liabilities'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:103: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['cash_ratio'] = df['cash_and_equivalents'] / df['current_liabilities'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:105: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['debt_to_equity'] = df['total_liabilities'] / df['total_equity'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:106: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['debt_ratio'] = df['total_liabilities'] / df['total_assets'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:107: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['interest_coverage_ratio'] = df['operating_income_ebit'] / interest_expense.replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:109: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['roa'] = df['net_income'] / df['total_assets'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:110: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['roe'] = df['net_income'] / df['total_equity'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:111: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['gross_margin'] = df['gross_profit'] / df['revenue'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:112: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['net_margin'] = df['net_income'] / df['revenue'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:114: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['asset_turnover'] = df['revenue'] / df['total_assets'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:115: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['inventory_turnover'] = df['cogs'] / df['inventory'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:116: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['receivables_turnover'] = df['revenue'] / df['accounts_receivable'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:120: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['report_date'] = pd.to_datetime(df['Date'], utc=True).dt.date
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:122: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['period'] = '12M'
+--- Starting Data Fetching Process ---
+Fetching data for AAPL...
+Fetching data for MSFT...
+Fetching data for GOOGL...
+Fetching data for AMZN...
+Fetching data for META...
+Fetching data for TSLA...
+Fetching data for JPM...
+Fetching data for JNJ...
+Fetching data for V...
+Fetching data for WMT...
+Fetching data for PG...
+Fetching data for UNH...
+Fetching data for HD...
+Fetching data for MA...
+Fetching data for DIS...
+Fetching data for BAC...
+Fetching data for NVDA...
+Fetching data for PYPL...
+Fetching data for NFLX...
+Fetching data for ADBE...
+Fetching data for KO...
+--- Fetching Complete. Data saved to C:\Users\Admin\Documents\Global finance project\data\raw ---
+--- Starting Data Cleaning Process ---
+Saved: C:\Users\Admin\Documents\Global finance project\data\cleaned\companies.csv
+Saved: C:\Users\Admin\Documents\Global finance project\data\cleaned\stock_prices.csv
+Saved: C:\Users\Admin\Documents\Global finance project\data\cleaned\financial_statements.csv
+--- Cleaning Complete ---
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\Global finance project\backend\etl\run_local.py", line 11, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Admin\Documents\Global finance project\backend\etl\run_local.py", line 8, in main
+    load_to_mysql.main()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'load_to_mysql' has no attribute 'main'
+Finished at 08/02/2026  0:56:32.98 
+=============================== 
+Running local ETL at 08/02/2026  0:59:46.01 
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:700: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  start = pd.Timestamp.utcnow().floor("D") - datetime.timedelta(days=365 // 2)
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\quote.py:702: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\site-packages\yfinance\scrapers\fundamentals.py:131: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  end = pd.Timestamp.utcnow().ceil("D")
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:69: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['revenue'] = get_col('Total Revenue')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:70: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['cogs'] = get_col('Cost Of Revenue')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:71: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['gross_profit'] = get_col('Gross Profit')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:72: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['opex'] = get_col('Total Operating Expenses')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:73: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['operating_income_ebit'] = get_col('Operating Income')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:74: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['ebt'] = get_col('Pretax Income')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:75: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['net_income'] = get_col('Net Income')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:76: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['ebitda'] = get_col('EBITDA')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:77: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['basic_eps'] = get_col('Basic EPS')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:78: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['diluted_eps'] = get_col('Diluted EPS')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:80: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['total_assets'] = get_col('Total Assets')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:81: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['current_assets'] = get_col('Current Assets')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:82: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['cash_and_equivalents'] = get_col('Cash And Cash Equivalents')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:83: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['accounts_receivable'] = get_col('Net Receivables')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:84: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['inventory'] = get_col('Inventory')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:85: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['non_current_assets'] = df['total_assets'] - df['current_assets']
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:87: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['total_liabilities'] = get_col('Total Liabilities Net Minority Interest')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:88: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['current_liabilities'] = get_col('Current Liabilities')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:89: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['accounts_payable'] = get_col('Accounts Payable')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:90: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['short_term_debt'] = get_col('Current Debt')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:91: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['long_term_debt'] = get_col('Long Term Debt')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:93: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['total_equity'] = get_col('Stockholders Equity')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:94: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['common_stock'] = get_col('Common Stock')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:95: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['retained_earnings'] = get_col('Retained Earnings')
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:101: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['current_ratio'] = df['current_assets'] / df['current_liabilities'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:102: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['quick_ratio'] = (df['current_assets'] - df['inventory']) / df['current_liabilities'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:103: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['cash_ratio'] = df['cash_and_equivalents'] / df['current_liabilities'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:105: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['debt_to_equity'] = df['total_liabilities'] / df['total_equity'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:106: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['debt_ratio'] = df['total_liabilities'] / df['total_assets'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:107: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['interest_coverage_ratio'] = df['operating_income_ebit'] / interest_expense.replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:109: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['roa'] = df['net_income'] / df['total_assets'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:110: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['roe'] = df['net_income'] / df['total_equity'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:111: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['gross_margin'] = df['gross_profit'] / df['revenue'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:112: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['net_margin'] = df['net_income'] / df['revenue'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:114: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['asset_turnover'] = df['revenue'] / df['total_assets'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:115: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['inventory_turnover'] = df['cogs'] / df['inventory'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:116: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['receivables_turnover'] = df['revenue'] / df['accounts_receivable'].replace(0, np.nan)
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:120: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['report_date'] = pd.to_datetime(df['Date'], utc=True).dt.date
+C:\Users\Admin\Documents\Global finance project\backend\etl\clean_data.py:122: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df['period'] = '12M'
+--- Starting Data Fetching Process ---
+Fetching data for AAPL...
+Fetching data for MSFT...
+Fetching data for GOOGL...
+Fetching data for AMZN...
+Fetching data for META...
+Fetching data for TSLA...
+Fetching data for JPM...
+Fetching data for JNJ...
+Fetching data for V...
+Fetching data for WMT...
+Fetching data for PG...
+Fetching data for UNH...
+Fetching data for HD...
+Fetching data for MA...
+Fetching data for DIS...
+Fetching data for BAC...
+Fetching data for NVDA...
+Fetching data for PYPL...
+Fetching data for NFLX...
+Fetching data for ADBE...
+Fetching data for KO...
+--- Fetching Complete. Data saved to C:\Users\Admin\Documents\Global finance project\data\raw ---
+--- Starting Data Cleaning Process ---
+Saved: C:\Users\Admin\Documents\Global finance project\data\cleaned\companies.csv
+Saved: C:\Users\Admin\Documents\Global finance project\data\cleaned\stock_prices.csv
+Saved: C:\Users\Admin\Documents\Global finance project\data\cleaned\financial_statements.csv
+--- Cleaning Complete ---
+--- Starting Database Load ---
+Loading 21 companies...
+Companies loaded.
+Loading 26376 stock price records...
+Processed 2000/26376 rows...Processed 4000/26376 rows...Processed 6000/26376 rows...Processed 8000/26376 rows...Processed 10000/26376 rows...Processed 12000/26376 rows...Processed 14000/26376 rows...Processed 16000/26376 rows...Processed 18000/26376 rows...Processed 20000/26376 rows...Processed 22000/26376 rows...Processed 24000/26376 rows...Processed 26000/26376 rows...Processed 26376/26376 rows...
+Stock prices loaded successfully (New records added, old records preserved).
+Loading 93 financial records...
+Financials loaded.
+--- Database Load Complete ---
+Finished at 08/02/2026  1:00:45.09 

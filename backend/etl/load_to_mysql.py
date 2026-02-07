@@ -124,7 +124,11 @@ def load_data():
     except Exception as e:
         print(f"Error loading financials: {e}")
 
-if __name__ == "__main__":
+def main():
     print("--- Starting Database Load ---")
     load_data()
     print("--- Database Load Complete ---")
+
+
+if __name__ == "__main__":
+    main()
