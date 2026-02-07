@@ -1,0 +1,39 @@
+=============================== 
+Running local ETL at 08/02/2026  0:30:55.01 
+The system cannot find the path specified.
+Finished at 08/02/2026  0:30:55.06 
+=============================== 
+Running local ETL at 08/02/2026  0:34:15.84 
+'C:\Users\Admin\Documents\Global' is not recognized as an internal or external command,
+operable program or batch file.
+Finished at 08/02/2026  0:34:15.87 
+=============================== 
+Running local ETL at 08/02/2026  0:34:58.41 
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\Global finance project\backend\etl\run_local.py", line 1, in <module>
+    from load_to_mysql import load_to_mysql
+ImportError: cannot import name 'load_to_mysql' from 'load_to_mysql' (C:\Users\Admin\Documents\Global finance project\backend\etl\load_to_mysql.py)
+Finished at 08/02/2026  0:34:59.97 
+=============================== 
+Running local ETL at 08/02/2026  0:38:18.78 
+'C:\Users\Admin\Documents\Global' is not recognized as an internal or external command,
+operable program or batch file.
+Finished at 08/02/2026  0:38:18.84 
+=============================== 
+Running local ETL at 08/02/2026  0:39:56.32 
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\Global finance project\backend\etl\run_local.py", line 1, in <module>
+    from load_to_mysql import load_to_mysql
+ImportError: cannot import name 'load_to_mysql' from 'load_to_mysql' (C:\Users\Admin\Documents\Global finance project\backend\etl\load_to_mysql.py)
+Finished at 08/02/2026  0:40:02.45 
+=============================== 
+Running local ETL at 08/02/2026  0:43:27.43 
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\Global finance project\backend\etl\run_local.py", line 1, in <module>
+    from fetch_data import fetch
+ImportError: cannot import name 'fetch' from 'fetch_data' (C:\Users\Admin\Documents\Global finance project\backend\etl\fetch_data.py)
+Finished at 08/02/2026  0:43:30.23 
+=============================== 
+Running local ETL at 08/02/2026  0:50:58.95 
+=============================== 
+Running local ETL at 08/02/2026  0:55:23.08 

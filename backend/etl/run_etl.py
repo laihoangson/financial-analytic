@@ -1,10 +1,10 @@
-from fetch_data import fetch_data
-from clean_data import clean_data
+import fetch_data
+import clean_data
 
 def main():
     print("Running ETL...")
-    fetch_data()
-    clean_data()
+    fetch_data.main()
+    clean_data.main()
     print("ETL done.")
 
 if __name__ == "__main__":
