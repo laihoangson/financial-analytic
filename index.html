@@ -436,20 +436,29 @@
         }
 
         /* =========================================
-           KEY FEATURES HIGHLIGHTS
+           KEY FEATURES HIGHLIGHTS 
            ========================================= */
         .features-section {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: #ffffff; 
             padding: 5rem 2rem;
             margin: 4rem 0;
             border-radius: 20px;
-            color: white;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05); 
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298, #00cdac);
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem; 
             margin-top: 3rem;
             max-width: 1200px;
             margin-left: auto;
@@ -457,19 +466,19 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             border-radius: 16px;
             padding: 2.5rem;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-10px); 
+            box-shadow: 0 20px 40px rgba(30, 60, 114, 0.15);
+            border-color: rgba(42, 82, 152, 0.2);
         }
 
         .feature-icon {
@@ -480,21 +489,28 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
-            color: white;
+            color: white; 
             font-size: 1.8rem;
-            background: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            box-shadow: 0 8px 15px rgba(42, 82, 152, 0.3); /* Bóng đổ cho icon */
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .feature-card h3 {
             font-size: 1.3rem;
-            color: white;
+            font-weight: 700;
+            color: #1e3c72; 
             margin-bottom: 1rem;
         }
 
         .feature-card p {
-            color: rgba(255, 255, 255, 0.9);
+            color: #546e7a; 
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         /* =========================================
@@ -1005,8 +1021,8 @@
         <!-- KEY FEATURES -->
         <section class="features-section">
             <div class="section-title">
-                <h2 style="color: white;">Key Platform Features</h2>
-                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.9);">
+                <h2>Key Platform Features</h2>
+                <p class="section-subtitle">
                     Comprehensive financial analytics capabilities
                 </p>
             </div>
