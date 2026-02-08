@@ -771,7 +771,49 @@
 
         </section>
 
-                <section class="tech-stack">
+
+        <section class="strategy-section">
+            <div class="strategy-container">
+                <div class="section-title">
+                    <h2>Data Availability Strategy</h2>
+                    <p>Optimizing performance by separating "Live" data from "Stable" data.</p>
+                </div>
+
+                <div class="strategy-wrapper">
+                    <div class="strategy-box">
+                        <div class="strategy-icon-box" style="background: #10b981;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="strategy-content">
+                            <h3>Dashboard Data Feed</h3>
+                            <p>
+                                Interactive dashboards are powered by lightweight CSV files regenerated daily. This ensures users see latest market movements immediately without database query overhead. The data flows directly from GitHub-hosted CSV files to the frontend visualizations.
+                            </p>
+                            <span class="status-badge live">
+                                <span class="dot"></span> Updated Daily via GitHub Actions
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="strategy-box">
+                        <div class="strategy-icon-box" style="background: #ef4444;">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <div class="strategy-content">
+                            <h3>Financial Reports Data</h3>
+                            <p>
+                                The detailed written reports are based on a <strong>verified snapshot</strong> of the MySQL database. This ensures consistency in analysis. The current reports utilize the dataset integrity-checked and loaded on <strong>February 3, 2026</strong>.
+                            </p>
+                            <span class="status-badge static">
+                                <span class="dot"></span> Snapshot Date: 03/02/2026
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section class="tech-stack">
             <div class="section-title">
                 <h2>Technology Stack</h2>
                 <p>Modern tools and frameworks powering the ETL pipeline</p>
@@ -804,47 +846,7 @@
                 </div>
             </div>
         </section>
-
-        <section class="strategy-section">
-            <div class="strategy-container">
-                <div class="section-title">
-                    <h2>Data Availability Strategy</h2>
-                    <p>Optimizing performance by separating "Live" data from "Stable" data.</p>
-                </div>
-
-                <div class="strategy-wrapper">
-                    <div class="strategy-box">
-                        <div class="strategy-icon-box" style="background: #10b981;">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="strategy-content">
-                            <h3>Dashboard Data Feed</h3>
-                            <p>
-                                Interactive dashboards are powered by lightweight CSV files regenerated daily. This ensures users see latest market movements immediately without database query overhead. The data flows directly from GitHub-hosted CSV files to the frontend visualizations.
-                            </p>
-                            <span class="status-badge live">
-                                <span class="dot"></span> Updated Daily via GitHub Actions
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="strategy-box">
-                        <div class="strategy-icon-box" style="background: #ef4444;">
-                            <i class="fas fa-file-contract"></i>
-                        </div>
-                        <div class="strategy-content">
-                            <h3>Financial Reports Data</h3>
-                            <p>
-                                The detailed written reports are based on a <strong>verified snapshot</strong> of the MySQL database. This ensures consistency in analysis. The current reports utilize the dataset integrity-checked and loaded on <strong>February 4, 2026</strong>.
-                            </p>
-                            <span class="status-badge static">
-                                <span class="dot"></span> Snapshot Date: 04/02/2026
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
     </main>
 
     <footer class="footer">
