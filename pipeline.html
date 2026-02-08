@@ -1,21 +1,662 @@
-<!-- frontend/pipeline.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ETL Pipeline - Global Market Insight 360">
+    <meta name="description" content="ETL Pipeline Architecture - Global Market Insight 360">
     <meta name="author" content="Hoang Son Lai">
-    <title>ETL Pipeline - Global Market Insight 360</title>
+    <title>ETL Architecture - Global Market Insight 360</title>
     
-    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #10b981, #059669);
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-gray: #475569;
+            --border-color: #e2e8f0;
+        }
+
+        /* Hero Section với hiệu ứng mới */
+        .hero {
+            text-align: center;
+            padding: 6rem 1rem 5rem 1rem;
+            color: white;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            z-index: -2;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shimmer 10s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .hero h1 { 
+            font-size: 3.5rem; 
+            margin-bottom: 1.5rem; 
+            font-weight: 800; 
+            text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle { 
+            font-size: 1.25rem; 
+            opacity: 0.95; 
+            max-width: 850px; 
+            margin: 0 auto; 
+            line-height: 1.7; 
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Grid Layout với hiệu ứng nâng cao */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            padding: 0 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto 5rem auto;
+            position: relative;
+        }
+
+        .process-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .process-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 2.5rem 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
+        }
+
+        .process-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .process-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .process-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border-color: #10b981;
+        }
+
+        .process-card:hover::after {
+            opacity: 1;
+        }
+
+        .card-header { 
+            margin-bottom: 1.5rem; 
+            position: relative;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: #10b981;
+            background: #ecfdf5;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transition: left 0.8s;
+        }
+
+        .process-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        .process-card:hover .card-icon::before {
+            left: 100%;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .process-card:hover .card-title::after {
+            transform: scaleX(1);
+        }
+
+        .card-filename {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid #c7d2fe;
+        }
+
+        .process-card:hover .card-filename {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+        }
+
+        .card-body { flex-grow: 1; }
+
+        .card-desc {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .process-card:hover .card-desc {
+            color: #334155;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.85rem;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+            transform-origin: left;
+        }
+
+        .process-card:hover .feature-list li {
+            transform: translateX(5px);
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .process-card:hover .feature-list li::before {
+            transform: scale(1.2);
+            text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .feature-list li strong {
+            color: #1e293b;
+            transition: color 0.3s ease;
+        }
+
+        .process-card:hover .feature-list li strong {
+            color: #10b981;
+        }
+
+        /* Tech Stack với hiệu ứng mới */
+        .tech-stack {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+
+        .tech-stack::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.03) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title h2 { 
+            font-size: 2.5rem; 
+            color: var(--text-dark); 
+            margin-bottom: 0.75rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+        
+        .section-title p { 
+            color: var(--text-gray); 
+            font-size: 1.1rem; 
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-item {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .tech-item:hover::before {
+            opacity: 0.05;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: #10b981;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .tech-item:hover .tech-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+        }
+
+        .tech-item div {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .tech-item:hover div {
+            color: #10b981;
+        }
+
+        .python { color: #3776ab; }
+        .github { color: #181717; }
+        .mysql { color: #4479a1; }
+        .pandas { color: #150458; }
+        .yfinance { color: #00c853; }
+
+        /* Strategy Section với hiệu ứng nâng cao */
+        .strategy-section {
+            background: #f8fafc;
+            padding: 6rem 1rem;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.02) 0%, transparent 100%);
+        }
+
+        .strategy-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .strategy-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .strategy-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .strategy-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .strategy-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border-color: #e2e8f0;
+        }
+
+        .strategy-box:hover::before {
+            opacity: 1;
+        }
+
+        .strategy-icon-box {
+            padding: 1.2rem;
+            border-radius: 16px;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .strategy-box:hover .strategy-icon-box {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .strategy-content h3 { 
+            font-size: 1.4rem; 
+            margin-bottom: 0.75rem; 
+            color: var(--text-dark); 
+            transition: color 0.3s ease;
+        }
+
+        .strategy-box:hover .strategy-content h3 {
+            color: #10b981;
+        }
+
+        .strategy-content p { 
+            color: var(--text-gray); 
+            font-size: 1rem; 
+            line-height: 1.6; 
+            margin-bottom: 1.5rem; 
+            transition: color 0.3s ease;
+        }
+
+        .strategy-box:hover .strategy-content p {
+            color: #475569;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .strategy-box:hover .status-badge::before {
+            left: 100%;
+        }
+
+        .status-badge.live { 
+            background: #dcfce7; 
+            color: #15803d; 
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-badge.static { 
+            background: #fef2f2; 
+            color: #b91c1c; 
+            border: 1px solid #fecaca;
+        }
+
+        .strategy-box:hover .status-badge {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dot { 
+            width: 10px; 
+            height: 10px; 
+            border-radius: 50%; 
+            background: currentColor;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-box:hover .dot {
+            transform: scale(1.2);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1.2); }
+            50% { transform: scale(1.5); }
+        }
+
+        @media (max-width: 768px) {
+            .process-grid, .strategy-wrapper { grid-template-columns: 1fr; }
+            .strategy-box { flex-direction: column; }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .process-card, .strategy-box {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 4rem 1rem 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Hiệu ứng scroll animation */
+        .process-card, .tech-item, .strategy-box {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .process-card.animated, .tech-item.animated, .strategy-box.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-left">
@@ -36,513 +677,176 @@
             
             <div class="nav-right">
                 <div class="social-links">
-                    <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
+                    <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                
                 <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Page Header -->
-        <section class="hero" style="background: linear-gradient(135deg, #10b981, #059669);">
+    <main>
+        <section class="hero" style="background: var(--primary-gradient);">
             <h1>ETL Pipeline Architecture</h1>
             <p class="hero-subtitle">
-                Data extraction, transformation, and loading process from yFinance API to MySQL database.
+                An end-to-end Extract, Transform, Load (ETL) system engineered to harvest global financial data, calculate complex metrics, and ensure data integrity for downstream analytics.
             </p>
         </section>
 
-        <!-- Pipeline Overview -->
-        <section class="pipeline-overview">
-            <div class="etl-process">
-                <h2>Pipeline Components</h2>
-                
-                <div class="overview-cards">
-                    <div class="overview-card">
-                        <div class="overview-header">
-                            <h3><i class="fas fa-download"></i> Data Extraction</h3>
-                        </div>
-                        <p>Fetch data from yFinance API for 21 major companies</p>
-                        <div class="overview-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Source:</span>
-                                <span class="detail-value">yFinance API</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Companies:</span>
-                                <span class="detail-value">21 tickers</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Data Types:</span>
-                                <span class="detail-value">Company info, stock prices, financials</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="overview-card">
-                        <div class="overview-header">
-                            <h3><i class="fas fa-broom"></i> Data Cleaning</h3>
-                        </div>
-                        <p>Clean, transform, and calculate financial ratios</p>
-                        <div class="overview-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Processing:</span>
-                                <span class="detail-value">Handle missing values, standardize formats</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Calculations:</span>
-                                <span class="detail-value">40+ financial ratios</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Timezone:</span>
-                                <span class="detail-value">UTC timezone handling</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="overview-card">
-                        <div class="overview-header">
-                            <h3><i class="fas fa-database"></i> Database Load</h3>
-                        </div>
-                        <p>Load cleaned data into MySQL tables with integrity checks</p>
-                        <div class="overview-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Database:</span>
-                                <span class="detail-value">MySQL</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Tables:</span>
-                                <span class="detail-value">3 main tables with foreign keys</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Error Handling:</span>
-                                <span class="detail-value">NaN/Infinity handling, duplicate prevention</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Data Flow Diagram -->
-        <section class="data-flow">
-            <div class="etl-process">
-                <h2>Data Flow Architecture</h2>
-                
-                <div class="flow-diagram">
-                    <div class="flow-step">
-                        <div class="flow-icon">
-                            <i class="fas fa-cloud-download-alt"></i>
-                        </div>
-                        <h4>Source: yFinance API</h4>
-                        <ul>
-                            <li>Stock prices (5-year history)</li>
-                            <li>Company information</li>
-                            <li>Financial statements</li>
-                            <li>21 global companies</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flow-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    
-                    <div class="flow-step">
-                        <div class="flow-icon">
-                            <i class="fas fa-file-csv"></i>
-                        </div>
-                        <h4>Raw Data Storage</h4>
-                        <ul>
-                            <li>raw_companies.csv</li>
-                            <li>raw_prices.csv</li>
-                            <li>raw_financials.csv</li>
-                            <li>Data validation</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flow-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    
-                    <div class="flow-step">
-                        <div class="flow-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h4>Data Processing</h4>
-                        <ul>
-                            <li>Clean missing values</li>
-                            <li>Calculate ratios</li>
-                            <li>Standardize formats</li>
-                            <li>Handle time zones</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flow-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    
-                    <div class="flow-step">
-                        <div class="flow-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h4>MySQL Database</h4>
-                        <ul>
-                            <li>companies table</li>
-                            <li>stock_prices table</li>
-                            <li>financial_statements table</li>
-                            <li>Foreign key constraints</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Code Implementation -->
-        <section class="code-implementation">
-            <h2 style="margin-bottom: 2rem;">Pipeline Code Implementation</h2>
+        <section class="process-grid">
             
-            <!-- fetch_data.py -->
-            <div class="etl-process">
-                <div class="code-header">
-                    <h3><i class="fab fa-python"></i> fetch_data.py</h3>
-                    <span class="file-info">Extracts data from yFinance API</span>
+            <div class="process-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-satellite-dish"></i></div>
+                    <h3 class="card-title">1. Data Extraction</h3>
+                    <span class="card-filename">backend/etl/fetch_data.py</span>
                 </div>
-                
-                <div class="code-snippet">
-                    <div class="code-header-bar">
-                        <div class="code-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <span class="code-filename">fetch_data.py</span>
-                    </div>
-                    <pre><code class="language-python">import yfinance as yf
-import pandas as pd
-import os
-import time
-from config import TICKERS, DATA_RAW_DIR
-
-def fetch_company_info(ticker_symbol):
-    """Fetch general company information."""
-    ticker = yf.Ticker(ticker_symbol)
-    info = ticker.info
-    
-    data = {
-        'ticker': ticker_symbol,
-        'name': info.get('longName'),
-        'sector': info.get('sector'),
-        'industry': info.get('industry'),
-        'country': info.get('country'),
-        'website': info.get('website'),
-        'description': info.get('longBusinessSummary'),
-        'currency': info.get('currency')
-    }
-    return pd.DataFrame([data])
-
-def fetch_stock_history(ticker_symbol, period="5y"):
-    """Fetch historical stock prices."""
-    ticker = yf.Ticker(ticker_symbol)
-    hist = ticker.history(period=period)
-    hist.reset_index(inplace=True)
-    hist['Ticker'] = ticker_symbol
-    return hist
-
-def fetch_financials(ticker_symbol):
-    """Fetch Income Statement, Balance Sheet, and Cash Flow."""
-    t = yf.Ticker(ticker_symbol)
-    inc = t.financials.T
-    bal = t.balance_sheet.T
-    cf = t.cashflow.T
-    fin_df = inc.join(bal, lsuffix='_inc', rsuffix='_bal').join(cf, rsuffix='_cf')
-    fin_df.reset_index(inplace=True)
-    fin_df.rename(columns={'index': 'Date'}, inplace=True)
-    fin_df['Ticker'] = ticker_symbol
-    return fin_df
-
-def main():
-    print("--- Starting Data Fetching Process ---")
-    
-    all_companies, all_prices, all_financials = [], [], []
-    
-    for t in TICKERS:
-        print(f"Fetching data for {t}...")
-        try:
-            all_companies.append(fetch_company_info(t))
-            all_prices.append(fetch_stock_history(t))
-            all_financials.append(fetch_financials(t))
-            time.sleep(1)  # Rate limiting
-        except Exception as e:
-            print(f"Error fetching {t}: {e}")
-    
-    # Save raw data
-    if all_companies:
-        pd.concat(all_companies).to_csv(
-            os.path.join(DATA_RAW_DIR, 'raw_companies.csv'), index=False
-        )
-    if all_prices:
-        pd.concat(all_prices).to_csv(
-            os.path.join(DATA_RAW_DIR, 'raw_prices.csv'), index=False
-        )
-    if all_financials:
-        pd.concat(all_financials).to_csv(
-            os.path.join(DATA_RAW_DIR, 'raw_financials.csv'), index=False
-        )
-    
-    print(f"--- Fetching Complete. Data saved to {DATA_RAW_DIR} ---")</code></pre>
+                <div class="card-body">
+                    <p class="card-desc">
+                        This module acts as the gateway to financial markets. Using the <strong>yFinance API</strong>, it iteratively requests data for 21 target companies (e.g., Apple, Tesla, JP Morgan). The script is designed to be fault-tolerant, using try-catch blocks to handle API timeouts gracefully.
+                    </p>
+                    <ul class="feature-list">
+                        <li><strong>Historical Prices:</strong> Pulls 5 years of Open, High, Low, Close, Volume data.</li>
+                        <li><strong>Financial Statements:</strong> Merges Income Statement, Balance Sheet, and Cash Flow into a single view.</li>
+                        <li><strong>Company Profile:</strong> Captures metadata like Sector, Industry, and Website for context.</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- clean_data.py -->
-            <div class="etl-process">
-                <div class="code-header">
-                    <h3><i class="fab fa-python"></i> clean_data.py</h3>
-                    <span class="file-info">Cleans data and calculates financial ratios</span>
+            <div class="process-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                    <h3 class="card-title">2. Data Transformation</h3>
+                    <span class="card-filename">backend/etl/clean_data.py</span>
                 </div>
-                
-                <div class="code-snippet">
-                    <div class="code-header-bar">
-                        <div class="code-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <span class="code-filename">clean_data.py</span>
-                    </div>
-                    <pre><code class="language-python">import pandas as pd
-import numpy as np
-import os
-from config import DATA_RAW_DIR, DATA_CLEANED_DIR
-
-def clean_companies():
-    """Clean company info data."""
-    path = os.path.join(DATA_RAW_DIR, 'raw_companies.csv')
-    df = pd.read_csv(path)
-    df = df.drop_duplicates(subset=['ticker'])
-    df.fillna({'website': '', 'description': ''}, inplace=True)
-    
-    output_path = os.path.join(DATA_CLEANED_DIR, 'companies.csv')
-    df.to_csv(output_path, index=False)
-    print(f"Saved: {output_path}")
-
-def clean_prices():
-    """Clean stock price data."""
-    path = os.path.join(DATA_RAW_DIR, 'raw_prices.csv')
-    df = pd.read_csv(path)
-    
-    cols_map = {
-        'Date': 'date', 'Open': 'open', 'High': 'high', 
-        'Low': 'low', 'Close': 'close', 'Volume': 'volume', 
-        'Ticker': 'ticker'
-    }
-    df.rename(columns=cols_map, inplace=True)
-    
-    df['date'] = pd.to_datetime(df['date'], utc=True).dt.date
-    if 'adj_close' not in df.columns:
-        df['adj_close'] = df['close']
-    
-    final_cols = ['ticker', 'date', 'open', 'high', 'low', 
-                  'close', 'adj_close', 'volume']
-    df = df[final_cols].dropna(subset=['ticker', 'date'])
-    
-    output_path = os.path.join(DATA_CLEANED_DIR, 'stock_prices.csv')
-    df.to_csv(output_path, index=False)
-    print(f"Saved: {output_path}")
-
-def clean_financials():
-    """Clean financials and calculate metrics."""
-    path = os.path.join(DATA_RAW_DIR, 'raw_financials.csv')
-    df = pd.read_csv(path)
-    
-    # Calculate key financial ratios
-    df['current_ratio'] = df['current_assets'] / df['current_liabilities'].replace(0, np.nan)
-    df['quick_ratio'] = (df['current_assets'] - df['inventory']) / df['current_liabilities'].replace(0, np.nan)
-    df['debt_to_equity'] = df['total_liabilities'] / df['total_equity'].replace(0, np.nan)
-    df['roe'] = df['net_income'] / df['total_equity'].replace(0, np.nan)
-    df['roa'] = df['net_income'] / df['total_assets'].replace(0, np.nan)
-    df['gross_margin'] = df['gross_profit'] / df['revenue'].replace(0, np.nan)
-    df['net_margin'] = df['net_income'] / df['revenue'].replace(0, np.nan)
-    
-    df['report_date'] = pd.to_datetime(df['Date'], utc=True).dt.date
-    df['period'] = '12M'
-    df.rename(columns={'Ticker': 'ticker'}, inplace=True)
-    
-    output_path = os.path.join(DATA_CLEANED_DIR, 'financial_statements.csv')
-    df.to_csv(output_path, index=False)
-    print(f"Saved: {output_path}")</code></pre>
+                <div class="card-body">
+                    <p class="card-desc">
+                        Raw data is rarely analysis-ready. This script cleans the dataset and, more importantly, <strong>generates financial intelligence</strong>. It fills missing values and converts raw numbers into meaningful ratios used by investors.
+                    </p>
+                    <ul class="feature-list">
+                        <li><strong>Standardization:</strong> Renames columns to snake_case and fixes UTC timezones.</li>
+                        <li><strong>Ratio Calculation:</strong> Automatically computes 15+ metrics including ROE, ROA, Current Ratio, and Debt-to-Equity.</li>
+                        <li><strong>Data Hygiene:</strong> Handles <code>NaN</code> values and prevents "Division by Zero" errors to ensure database stability.</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- load_to_mysql.py -->
-            <div class="etl-process">
-                <div class="code-header">
-                    <h3><i class="fab fa-python"></i> load_to_mysql.py</h3>
-                    <span class="file-info">Loads data into MySQL database</span>
+            <div class="process-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-server"></i></div>
+                    <h3 class="card-title">3. Database Loading</h3>
+                    <span class="card-filename">backend/etl/load_to_mysql.py</span>
                 </div>
-                
-                <div class="code-snippet">
-                    <div class="code-header-bar">
-                        <div class="code-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <span class="code-filename">load_to_mysql.py</span>
-                    </div>
-                    <pre><code class="language-python">import pandas as pd
-import numpy as np
-import os
-from sqlalchemy import create_engine, text
-from urllib.parse import quote_plus
-from config import DATA_CLEANED_DIR, DB_CONFIG
+                <div class="card-body">
+                    <p class="card-desc">
+                        This step safely deposits processed data into a <strong>MySQL</strong> database using SQLAlchemy. The logic is built to support "Upsert" operations - meaning it can update existing records or insert new ones without creating duplicates.
+                    </p>
+                    <ul class="feature-list">
+                        <li><strong>Integrity Checks:</strong> Uses <code>INSERT IGNORE</code> and <code>ON DUPLICATE KEY UPDATE</code> to manage data history.</li>
+                        <li><strong>Batch Processing:</strong> Loads data in chunks (2000 rows/batch) to optimize memory usage.</li>
+                        <li><strong>Type Mapping:</strong> Ensures Python Pandas data types align perfectly with MySQL table schemas.</li>
+                    </ul>
+                </div>
+            </div>
 
-def get_db_engine():
-    """Create database connection engine."""
-    encoded_password = quote_plus(DB_CONFIG['password'])
-    conn_str = f"mysql+mysqlconnector://{DB_CONFIG['user']}:{encoded_password}@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
-    return create_engine(conn_str)
+            <div class="process-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-cogs"></i></div>
+                    <h3 class="card-title">4. CI/CD Automation</h3>
+                    <span class="card-filename">.github/workflows/daily_etl.yml</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-desc">
+                        To ensure the dashboard is always "Fresh", the entire pipeline is automated via <strong>GitHub Actions</strong>. It runs without human intervention.
+                    </p>
+                    <ul class="feature-list">
+                        <li><strong>Daily Trigger:</strong> Scheduled to run automatically at 06:00 AM (Vietnam Time) to capture the previous day's US market close.</li>
+                        <li><strong>Environment:</strong> Sets up Python 3.10 and installs dependencies on the fly.</li>
+                        <li><strong>Auto-Commit:</strong> Push the newly processed CSV data back to the repository for the frontend to consume.</li>
+                    </ul>
+                </div>
+            </div>
 
-def load_data():
-    engine = get_db_engine()
-    
-    # Load companies with duplicate handling
-    df_comp = pd.read_csv(os.path.join(DATA_CLEANED_DIR, 'companies.csv'))
-    df_comp = df_comp.where(pd.notnull(df_comp), None)
-    
-    with engine.connect() as conn:
-        for _, row in df_comp.iterrows():
-            sql = text("""
-                INSERT INTO companies (ticker, name, sector, industry, country, 
-                                       website, description, currency)
-                VALUES (:ticker, :name, :sector, :industry, :country, 
-                        :website, :description, :currency)
-                ON DUPLICATE KEY UPDATE 
-                    name=VALUES(name), description=VALUES(description), 
-                    last_updated=NOW();
-            """)
-            conn.execute(sql, row.to_dict())
-        conn.commit()
-    
-    # Load stock prices with IGNORE for duplicates
-    df_prices = pd.read_csv(os.path.join(DATA_CLEANED_DIR, 'stock_prices.csv'))
-    df_prices = df_prices.where(pd.notnull(df_prices), None)
-    
-    with engine.connect() as conn:
-        for _, row in df_prices.iterrows():
-            sql = text("""
-                INSERT IGNORE INTO stock_prices (ticker, date, open, high, low, 
-                                                 close, adj_close, volume)
-                VALUES (:ticker, :date, :open, :high, :low, :close, 
-                        :adj_close, :volume)
-            """)
-            conn.execute(sql, row.to_dict())
-        conn.commit()
-    
-    # Load financials with Infinity/NaN handling
-    df_fin = pd.read_csv(os.path.join(DATA_CLEANED_DIR, 'financial_statements.csv'))
-    df_fin.replace([np.inf, -np.inf], np.nan, inplace=True)
-    df_fin = df_fin.astype(object).where(pd.notnull(df_fin), None)
-    
-    with engine.connect() as conn:
-        for _, row in df_fin.iterrows():
-            row_data = row.to_dict()
-            for k, v in row_data.items():
-                if isinstance(v, float) and np.isnan(v):
-                    row_data[k] = None
-                    
-            cols = ', '.join(df_fin.columns)
-            vals = ', '.join([f':{c}' for c in df_fin.columns])
+        </section>
+
+                <section class="tech-stack">
+            <div class="section-title">
+                <h2>Technology Stack</h2>
+                <p>Modern tools and frameworks powering the ETL pipeline</p>
+            </div>
             
-            sql = text(f"""
-                INSERT IGNORE INTO financial_statements ({cols})
-                VALUES ({vals})
-            """)
-            conn.execute(sql, row_data)
-        conn.commit()
-    
-    print("Data successfully loaded into MySQL database")
-
-if __name__ == "__main__":
-    print("--- Starting Database Load ---")
-    load_data()
-    print("--- Database Load Complete ---")</code></pre>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fab fa-python tech-icon python"></i>
+                    <div>Python</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-database tech-icon mysql"></i>
+                    <div>MySQL</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-github tech-icon github"></i>
+                    <div>GitHub Actions</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-chart-bar tech-icon pandas"></i>
+                    <div>Pandas</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-exchange-alt tech-icon yfinance"></i>
+                    <div>yFinance API</div>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-code tech-icon"></i>
+                    <div>SQLAlchemy</div>
                 </div>
             </div>
         </section>
 
-        <!-- Technical Features -->
-        <section class="technical-features">
-            <div class="etl-process">
-                <h2>Technical Features</h2>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
+        <section class="strategy-section">
+            <div class="strategy-container">
+                <div class="section-title">
+                    <h2>Data Availability Strategy</h2>
+                    <p>Optimizing performance by separating "Live" data from "Stable" data.</p>
+                </div>
+
+                <div class="strategy-wrapper">
+                    <div class="strategy-box">
+                        <div class="strategy-icon-box" style="background: #10b981;">
+                            <i class="fas fa-chart-line"></i>
                         </div>
-                        <h4>Error Handling</h4>
-                        <ul>
-                            <li>Try-catch blocks for each API call</li>
-                            <li>Database transaction rollback on failure</li>
-                            <li>Graceful handling of missing data</li>
-                        </ul>
+                        <div class="strategy-content">
+                            <h3>Dashboard Data Feed</h3>
+                            <p>
+                                Interactive dashboards are powered by lightweight CSV files regenerated daily. This ensures users see latest market movements immediately without database query overhead. The data flows directly from GitHub-hosted CSV files to the frontend visualizations.
+                            </p>
+                            <span class="status-badge live">
+                                <span class="dot"></span> Updated Daily via GitHub Actions
+                            </span>
+                        </div>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-calculator"></i>
+
+                    <div class="strategy-box">
+                        <div class="strategy-icon-box" style="background: #ef4444;">
+                            <i class="fas fa-file-contract"></i>
                         </div>
-                        <h4>Financial Ratios</h4>
-                        <ul>
-                            <li>Liquidity ratios (current, quick, cash)</li>
-                            <li>Profitability ratios (ROE, ROA, margins)</li>
-                            <li>Leverage ratios (debt-to-equity)</li>
-                            <li>Efficiency ratios (turnovers)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-database"></i>
+                        <div class="strategy-content">
+                            <h3>Financial Reports Data</h3>
+                            <p>
+                                The detailed written reports are based on a <strong>verified snapshot</strong> of the MySQL database. This ensures consistency in analysis. The current reports utilize the dataset integrity-checked and loaded on <strong>February 4, 2026</strong>.
+                            </p>
+                            <span class="status-badge static">
+                                <span class="dot"></span> Snapshot Date: 04/02/2026
+                            </span>
                         </div>
-                        <h4>Data Integrity</h4>
-                        <ul>
-                            <li>Foreign key constraints</li>
-                            <li>Duplicate prevention</li>
-                            <li>NaN and Infinity handling</li>
-                            <li>Type consistency checks</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <h4>Tooling</h4>
-                        <ul>
-                            <li>Pandas for data manipulation</li>
-                            <li>SQLAlchemy for ORM</li>
-                            <li>NumPy for calculations</li>
-                            <li>yFinance for data sourcing</li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <ul class="footer-links">
@@ -554,12 +858,8 @@ if __name__ == "__main__":
             </ul>
             
             <div class="social-links">
-                <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
+                <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
             
             <div class="credit">
@@ -568,336 +868,75 @@ if __name__ == "__main__":
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="assets/js/main.js"></script>
-    
-    <style>
-        .overview-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
         
-        .overview-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: var(--shadow);
-        }
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
         
-        .overview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
         
-        .overview-header h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--dark-color);
-            margin: 0;
-        }
-        
-        .overview-card p {
-            color: var(--gray-color);
-            margin-bottom: 1.5rem;
-        }
-        
-        .overview-details {
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 8px;
-        }
-        
-        .detail-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .detail-item:last-child {
-            border-bottom: none;
-        }
-        
-        .detail-label {
-            color: var(--gray-color);
-            font-weight: 500;
-        }
-        
-        .detail-value {
-            color: var(--dark-color);
-            font-weight: 600;
-            text-align: right;
-            max-width: 60%;
-        }
-        
-        .flow-diagram {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: stretch;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .flow-step {
-            flex: 1;
-            min-width: 200px;
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            border: 2px solid #e2e8f0;
-            text-align: center;
-        }
-        
-        .flow-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: white;
-            font-size: 1.5rem;
-        }
-        
-        .flow-step h4 {
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-        
-        .flow-step ul {
-            list-style: none;
-            text-align: left;
-            font-size: 0.9rem;
-            color: var(--gray-color);
-        }
-        
-        .flow-step li {
-            padding: 0.25rem 0;
-            position: relative;
-            padding-left: 1.2rem;
-        }
-        
-        .flow-step li:before {
-            content: "•";
-            color: var(--primary-color);
-            position: absolute;
-            left: 0;
-        }
-        
-        .flow-arrow {
-            display: flex;
-            align-items: center;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-        
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        
-        .code-header h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0;
-        }
-        
-        .file-info {
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-        
-        .code-snippet {
-            background: #1e293b;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-        
-        .code-header-bar {
-            background: #0f172a;
-            padding: 0.75rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .code-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .dot.red { background-color: #ef4444; }
-        .dot.yellow { background-color: #f59e0b; }
-        .dot.green { background-color: #10b981; }
-        
-        .code-filename {
-            color: #cbd5e1;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-        }
-        
-        .code-snippet pre {
-            margin: 0;
-            padding: 1.5rem;
-            overflow-x: auto;
-        }
-        
-        .code-snippet code {
-            color: #e2e8f0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
-        .code-snippet .language-python .keyword { color: #60a5fa; }
-        .code-snippet .language-python .string { color: #34d399; }
-        .code-snippet .language-python .function { color: #fbbf24; }
-        .code-snippet .language-python .comment { color: #94a3b8; }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            border: 1px solid #e2e8f0;
-            transition: var(--transition);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-        
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            color: white;
-            font-size: 1.25rem;
-        }
-        
-        .feature-card h4 {
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-        
-        .feature-card ul {
-            list-style: none;
-            font-size: 0.9rem;
-            color: var(--gray-color);
-        }
-        
-        .feature-card li {
-            padding: 0.25rem 0;
-            position: relative;
-            padding-left: 1.2rem;
-        }
-        
-        .feature-card li:before {
-            content: "✓";
-            color: #10b981;
-            position: absolute;
-            left: 0;
-        }
-        
-        .error-features {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .error-feature {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            padding: 1rem;
-            background: #f8fafc;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .error-feature i {
-            font-size: 1.25rem;
-            margin-top: 0.25rem;
-        }
-        
-        .error-feature h4 {
-            margin-bottom: 0.25rem;
-            color: var(--dark-color);
-        }
-        
-        .error-feature p {
-            color: var(--gray-color);
-            font-size: 0.9rem;
-            margin: 0;
-        }
-        
-        @media (max-width: 992px) {
-            .flow-diagram {
-                flex-direction: column;
-            }
+        // Scroll animation for cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
             
-            .flow-arrow {
-                transform: rotate(90deg);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .overview-cards {
-                grid-template-columns: 1fr;
-            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
             
-            .code-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
+            // Observe all interactive elements
+            document.querySelectorAll('.process-card, .tech-item, .strategy-box').forEach(el => {
+                observer.observe(el);
+            });
             
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+            // Add staggered animation delay
+            document.querySelectorAll('.process-card').forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+            
+            document.querySelectorAll('.tech-item').forEach((item, index) => {
+                item.style.transitionDelay = `${index * 0.05}s`;
+            });
+            
+            document.querySelectorAll('.strategy-box').forEach((box, index) => {
+                box.style.transitionDelay = `${index * 0.15}s`;
+            });
+        });
         
-        @media (max-width: 480px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

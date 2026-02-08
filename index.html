@@ -3,13 +3,756 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Global Market Insight 360 - Financial Analytics Platform">
+    <meta name="description" content="Global Market Insight - Financial Analytics Platform">
     <meta name="author" content="Hoang Son Lai">
     <title>Global Market Insight 360 - Financial Analytics Platform</title>
     
     <link rel="stylesheet" href="assets/css/styles.css">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           HERO SECTION WITH ANIMATED GRADIENT
+           ========================================= */
+        .hero {
+            position: relative;
+            padding: 6rem 2rem;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            z-index: -2;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 8s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        /* Animated gradient text for platform name */
+        .gradient-text {
+            background: linear-gradient(90deg, #4fc3f7, #80cbc4, #4fc3f7);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s linear infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* =========================================
+           HERO BUTTONS WITH HOVER EFFECTS
+           ========================================= */
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #009688, #80cbc4);
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 20px rgba(0, 150, 136, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s;
+            z-index: -1;
+        }
+
+        .hero-btn:hover::before {
+            left: 100%;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 150, 136, 0.4);
+        }
+
+        .hero-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* =========================================
+           DATA ARCHITECTURE SECTION
+           ========================================= */
+        .architecture-section {
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #009688, #80cbc4);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .architecture-diagram {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298, #009688);
+        }
+
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .flow-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        .flow-label {
+            min-width: 150px;
+            font-weight: 600;
+            color: #1e3c72;
+            padding: 0.75rem 1.5rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .flow-components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .component-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+            border-color: #009688;
+            box-shadow: 0 8px 20px rgba(0, 150, 136, 0.1);
+        }
+
+        .component-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .icon-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .icon-green { background: linear-gradient(135deg, #10b981, #047857); }
+        .icon-teal { background: linear-gradient(135deg, #009688, #80cbc4); }
+        .icon-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+        .component-card h4 {
+            font-size: 1.1rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .flow-arrow {
+        text-align: center;
+        color: #009688;
+        font-size: 1.5rem;
+        padding: 1rem 0;
+        margin-left: 14%;
+        transform: translateX(20px);
+    }
+
+        /* =========================================
+           DATA SOURCE EXPLANATION
+           ========================================= */
+        .data-explanation {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 3rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .data-source-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .data-source-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #009688;
+        }
+
+        .data-source-card h3 {
+            font-size: 1.3rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .data-source-card h3 i {
+            color: #009688;
+        }
+
+        .data-source-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .data-source-card li {
+            padding: 0.5rem 0;
+            color: #64748b;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .data-source-card li::before {
+            content: "→";
+            color: #009688;
+            position: absolute;
+            left: 0;
+        }
+
+        /* =========================================
+           COMPANIES SECTION WITH INTERACTIVE GRID
+           ========================================= */
+        .companies-section {
+            padding: 5rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .sector-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sector-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #009688;
+        }
+
+        .sector-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .sector-card:hover .sector-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .sector-card h3 {
+            font-size: 1.3rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .sector-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* =========================================
+           KEY FEATURES HIGHLIGHTS
+           ========================================= */
+        .features-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 5rem 2rem;
+            margin: 4rem 0;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           TECH STACK WITH ANIMATED ICONS
+           ========================================= */
+        .tech-stack {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .tech-item:hover::before {
+            opacity: 0.05;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-item i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover i {
+            transform: scale(1.2);
+        }
+
+        .python { color: #3776ab; }
+        .mysql { color: #4479a1; }
+        .html5 { color: #e34f26; }
+        .js { color: #f7df1e; }
+        .github { color: #181717; }
+        .pandas { color: #150458; }
+        .yfinance { color: #00c853; }
+
+        .tech-item h4 {
+            font-size: 1.2rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tech-item p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =========================================
+           GITHUB CTA SECTION
+           ========================================= */
+        .github-cta {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 20px;
+            margin: 5rem auto;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .github-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(79, 195, 247, 0.1) 0%, transparent 70%);
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .github-cta h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .github-cta p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #0f172a;
+            background: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+        }
+
+        .github-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
+            color: #0f172a;
+        }
+
+        .github-btn i {
+            font-size: 1.5rem;
+        }
+
+        /* =========================================
+           ANIMATIONS
+           ========================================= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* =========================================
+           RESPONSIVE ADJUSTMENTS
+           ========================================= */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .architecture-diagram {
+                padding: 1.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sectors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .sectors-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .component-card, .sector-card, .tech-item {
+                padding: 1.5rem;
+            }
+            
+            .data-explanation {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -50,43 +793,149 @@
     </nav>
 
     <main class="main-content">
+        <!-- HERO SECTION -->
         <section class="hero">
             <h1>Global Market Insight</h1>
             <p class="hero-subtitle">
-                A comprehensive financial analytics platform analyzing 21 major global companies, 
-                ETL pipelines, database, interactive dashboards, and reports powered by Python, HTML, Javascript, and MySQL.
+                A comprehensive financial analytics platform analyzing 21 major global companies. 
+                From automated ETL pipelines to interactive dashboards and predictive reports.
             </p>
-            <div class="hero-buttons">
-                <a href="pipeline.html" class="btn" style="background: linear-gradient(135deg, #009688, #80cbc4); border: none;">
-                    <i class="fas fa-code"></i>
-                    View ETL Pipeline
-                </a>
-                <a href="sql.html" class="btn" style="background: linear-gradient(135deg, #009688, #80cbc4); border: none;">
-                    <i class="fas fa-database"></i>
-                    Explore SQL
-                </a>
-            </div>
             
-            <div class="hero-buttons" style="margin-top: 1rem;">
-                <a href="dashboard.html" class="btn" style="background: linear-gradient(135deg, #009688, #80cbc4); border: none;">
+            <div class="hero-buttons">
+                <a href="pipeline.html" class="hero-btn">
+                    <i class="fas fa-code"></i>
+                    Explore ETL Pipeline
+                </a>
+                <a href="dashboard.html" class="hero-btn">
                     <i class="fas fa-chart-pie"></i>
                     View Dashboards
                 </a>
-                <a href="reports.html" class="btn" style="background: linear-gradient(135deg, #009688, #80cbc4); border: none;">
+                <a href="reports.html" class="hero-btn">
                     <i class="fas fa-file-alt"></i>
-                    View Reports
+                    Read Reports
+                </a>
+                <a href="sql.html" class="hero-btn">
+                    <i class="fas fa-database"></i>
+                    Analyze SQL Queries
                 </a>
             </div>
         </section>
 
-        <section class="companies-overview">
-            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: var(--dark-color);">
-                Featured Companies (21 Total)
-            </h2>
-            <p style="text-align: center; color: var(--gray-color); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Financial data for companies across Technology, Financial Services, Healthcare, 
-                Consumer Goods, and Entertainment.
-            </p>
+        <!-- DATA ARCHITECTURE -->
+        <section class="architecture-section">
+            <div class="section-title">
+                <h2>Data Architecture Flow</h2>
+            </div>
+            
+            <div class="architecture-diagram">
+                <div class="flow-container">
+                    <!-- Row 1: Data Sources -->
+                    <div class="flow-row">
+                        <div class="flow-label">Data Sources</div>
+                        <div class="flow-components">
+                            <div class="component-card">
+                                <div class="component-icon icon-blue">
+                                    <i class="fas fa-satellite-dish"></i>
+                                </div>
+                                <h4>yFinance API</h4>
+                                <p>Real-time financial data for 21 global companies</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <!-- Row 2: ETL Pipeline -->
+                    <div class="flow-row">
+                        <div class="flow-label">ETL Pipeline</div>
+                        <div class="flow-components">
+                            <div class="component-card">
+                                <div class="component-icon icon-green">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <h4>1. Fetch Data</h4>
+                                <p>Extract raw financial data via Python scripts</p>
+                            </div>
+                            <div class="component-card">
+                                <div class="component-icon icon-green">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <h4>2. Clean & Transform</h4>
+                                <p>Process data and calculate 15+ financial ratios</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <!-- Row 3: Data Storage -->
+                    <div class="flow-row">
+                        <div class="flow-label">Data Storage</div>
+                        <div class="flow-components">
+                            <div class="component-card">
+                                <div class="component-icon icon-teal">
+                                    <i class="fas fa-file-csv"></i>
+                                </div>
+                                <h4>CSV Files</h4>
+                                <p>Dashboard data - refreshed daily via GitHub Actions</p>
+                            </div>
+                            <div class="component-card">
+                                <div class="component-icon icon-teal">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <h4>MySQL Database</h4>
+                                <p>Full financial data - historical records & SQL queries</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <!-- Row 4: Analysis -->
+                    <div class="flow-row">
+                        <div class="flow-label">Analysis</div>
+                        <div class="flow-components">
+                            <div class="component-card">
+                                <div class="component-icon icon-purple">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4>Interactive Dashboards</h4>
+                                <p>Real-time visualizations powered by CSV files</p>
+                            </div>
+                            <div class="component-card">
+                                <div class="component-icon icon-purple">
+                                    <i class="fas fa-file-contract"></i>
+                                </div>
+                                <h4>Analytical Reports</h4>
+                                <p>In-depth analysis based on data exported from MySQL</p>
+                            </div>
+                            <div class="component-card">
+                                <div class="component-icon icon-purple">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h4>SQL Queries</h4>
+                                <p>Analytical queries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPANIES BY SECTOR -->
+<section class="companies-section">
+            <div class="section-title">
+                <h2>Companies by Sector</h2>
+                <p class="section-subtitle">
+                    21 major global companies across 6 key market sectors
+                </p>
+            </div>
             
             <div class="sectors-grid">
                 <div class="sector-card">
@@ -117,8 +966,16 @@
                     <div class="sector-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
-                    <h3>Consumer</h3>
-                    <p>AMZN, WMT, PG, KO, HD, TSLA</p>
+                    <h3>Consumer Cyclical</h3>
+                    <p>TSLA, HD, AMZN</p>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-icon" style="background: linear-gradient(135deg, #14b8a6, #0f766e);">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <h3>Consumer Defensive</h3>
+                    <p>KO, PG, WMT</p>
                 </div>
                 
                 <div class="sector-card">
@@ -131,46 +988,117 @@
             </div>
         </section>
 
-
-        <section class="tech-stack" style="margin-top: 4rem;">
-            <div class="etl-process">
-                <h2>Technology Stack</h2>
+        <!-- KEY FEATURES -->
+        <section class="features-section">
+            <div class="section-title">
+                <h2 style="color: white;">Key Platform Features</h2>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.9);">
+                    Comprehensive financial analytics capabilities
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Automated ETL Pipeline</h3>
+                    <p>Daily data refresh via GitHub Actions with error handling and logging</p>
+                </div>
                 
-                <div class="tech-grid">
-                    <div class="tech-item">
-                        <i class="fab fa-python" style="color: #3776AB;"></i>
-                        <h4>Python 3.10</h4>
-                        <p>Data processing, API calls, ML models</p>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
                     </div>
-                    
-                    <div class="tech-item">
-                        <i class="fas fa-database" style="color: #4479A1;"></i>
-                        <h4>MySQL</h4>
-                        <p>Relational database storage</p>
+                    <h3>Interactive Dashboards</h3>
+                    <p>Real-time visualization with filtering, comparison, and trend analysis</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
                     </div>
-                    
-                    <div class="tech-item">
-                        <i class="fab fa-html5" style="color: #E34F26;"></i>
-                        <h4>HTML/CSS/JS</h4>
-                        <p>Web interface</p>
+                    <h3>Machine Learning Reports</h3>
+                    <p>Stock price trend forecasting using Scikit-Learn with technical analysis</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
                     </div>
-                    
+                    <h3>Interactive SQL Queries</h3>
+                    <p>8+ analytical queries with runnable examples and downloadable results</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>CI/CD Automation</h3>
+                    <p>Scheduled workflows for data processing, testing, and deployment</p>
                 </div>
             </div>
         </section>
 
-        <section class="source-code" style="margin-top: 4rem; margin-bottom: 2rem;">
-            <div class="etl-process" style="text-align: center; background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
-                <h2 style="color: white; margin-bottom: 1rem;">View the code and full project</h2>
-                <p style="color: #cbd5e1; margin-bottom: 2rem;">
-                    Access the complete repository containing Python scripts, SQL schemas, Dashboards, and Reports.
+        <!-- TECH STACK -->
+        <section class="tech-stack">
+            <div class="section-title">
+                <h2>Technology Stack</h2>
+                <p class="section-subtitle">
+                    Modern tools and frameworks powering the analytics platform
                 </p>
-                <a href="https://github.com/laihoangson/financial-analytic" target="_blank" class="btn" style="background: white; color: #0f172a;">
-                    <i class="fab fa-github"></i> View on GitHub
-                </a>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fab fa-python tech-icon python"></i>
+                    <h4>Python</h4>
+                    <p>ETL pipelines, data processing, machine learning models</p>
+                </div>
+                
+                <div class="tech-item">
+                    <i class="fas fa-database tech-icon mysql"></i>
+                    <h4>MySQL</h4>
+                    <p>Relational database for structured financial data</p>
+                </div>
+                
+                <div class="tech-item">
+                    <i class="fab fa-html5 tech-icon html5"></i>
+                    <h4>HTML5/CSS3</h4>
+                    <p>Responsive web interface & dashboards</p>
+                </div>
+                
+                <div class="tech-item">
+                    <i class="fab fa-js-square tech-icon js"></i>
+                    <h4>JavaScript</h4>
+                    <p>Interactive visualizations & UI components</p>
+                </div>
+                
+                <div class="tech-item">
+                    <i class="fab fa-github tech-icon github"></i>
+                    <h4>GitHub Actions</h4>
+                    <p>CI/CD automation & scheduled pipelines</p>
+                </div>
+                
+                <div class="tech-item">
+                    <i class="fas fa-exchange-alt tech-icon yfinance"></i>
+                    <h4>yFinance API</h4>
+                    <p>Real-time financial data extraction</p>
+                </div>
             </div>
         </section>
 
+        <!-- GITHUB CTA -->
+        <section class="github-cta">
+            <h2>Explore the Complete Codebase</h2>
+            <p>
+                Access the full repository containing Python ETL scripts, SQL schemas, 
+                interactive dashboards, machine learning models, and automated workflows.
+            </p>
+            <a href="https://github.com/laihoangson/financial-analytic" target="_blank" class="github-btn">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+        </section>
     </main>
 
     <footer class="footer">
@@ -198,218 +1126,73 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
-    
-    <style>
-        .sectors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
         
-        .sector-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            border: 1px solid #e2e8f0;
-            transition: var(--transition);
-        }
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
         
-        .sector-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
         
-        .sector-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: white;
-            font-size: 1.5rem;
-        }
-        
-        .sector-card h3 {
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        .sector-card p {
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-        
-        
-        .tech-list {
-            list-style: none;
-            text-align: left;
-            font-size: 0.85rem;
-            color: var(--gray-color);
-        }
-        
-        .tech-list li {
-            padding: 0.25rem 0;
-            position: relative;
-            padding-left: 1.2rem;
-        }
-        
-        .tech-list li:before {
-            content: "•";
-            color: var(--primary-color);
-            position: absolute;
-            left: 0;
-        }
-        
-        .arch-arrow {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-        
-        .schema-tables {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .schema-table {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            border: 1px solid #e2e8f0;
-        }
-        
-        .schema-table h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .table-structure {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .field {
-            padding: 0.5rem;
-            border-bottom: 1px solid #f1f5f9;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .field:last-child {
-            border-bottom: none;
-        }
-        
-        .field-type {
-            color: var(--gray-color);
-            font-size: 0.8rem;
-        }
-        
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .tech-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: white;
-            border-radius: var(--border-radius);
-            border: 1px solid #e2e8f0;
-            transition: var(--transition);
-        }
-        
-        .tech-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-        
-        .tech-item i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .tech-item h4 {
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        .tech-item p {
-            color: var(--gray-color);
-            font-size: 0.9rem;
-        }
-        
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .metric-card {
-            text-align: center;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            border-radius: var(--border-radius);
-        }
-        
-        .metric-card h3 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .metric-card p {
-            color: var(--dark-color);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-        
-        .metric-card small {
-            color: var(--gray-color);
-            font-size: 0.8rem;
-        }
-        
-        @media (max-width: 992px) {
-            .architecture-diagram {
-                flex-direction: column;
-            }
+        // Add scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
             
-            .arch-arrow {
-                transform: rotate(90deg);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .sectors-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
             
-            .schema-tables {
-                grid-template-columns: 1fr;
-            }
-        }
+            // Observe elements for animation
+            document.querySelectorAll('.component-card, .sector-card, .tech-item, .feature-card, .data-source-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+            
+            // Add hover effect to cards
+            document.querySelectorAll('.component-card, .sector-card, .tech-item, .feature-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+            });
+        });
         
-        @media (max-width: 480px) {
-            .sectors-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
