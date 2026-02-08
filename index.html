@@ -212,33 +212,50 @@
 
         .flow-row {
             display: flex;
-            align-items: center;
-            gap: 2rem;
+            flex-direction: column; /* Xếp label lên trên, components xuống dưới */
+            align-items: center;    /* Căn giữa theo chiều ngang */
+            gap: 1.5rem;            /* Khoảng cách giữa Label và Components */
             position: relative;
-        }
-
-        @media (max-width: 768px) {
-            .flow-row {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
+            width: 100%;            /* Đảm bảo chiếm hết chiều rộng container */
         }
 
         .flow-label {
-            min-width: 150px;
-            font-weight: 600;
-            color: #1e3c72;
-            padding: 0.75rem 1.5rem;
-            background: #f1f5f9;
-            border-radius: 8px;
+            /* 1. Typography */
+            font-size: 1.1rem;          
+            font-weight: 800;            
+            text-transform: uppercase;   
+            letter-spacing: 1.5px;      
+            color: #ffffff;           
+
+            /* 2. Box Model & Background */
+            min-width: 200px;           
+            padding: 12px 30px;          
+            
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            
+            border-radius: 50px;         
+            
+            /* 3. Effects*/
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.35);
+            
             text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0.5rem;      
         }
 
         .flow-components {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center; 
             gap: 1rem;
-            flex: 1;
+            width: 100%;             
+        }
+        
+        @media (max-width: 768px) {
+            .flow-row {
+                gap: 1rem;
+            }
         }
 
         .component-card {
@@ -290,10 +307,8 @@
         .flow-arrow {
         text-align: center;
         color: #009688;
-        font-size: 1.5rem;
-        padding: 1rem 0;
-        margin-left: 14%;
-        transform: translateX(20px);
+        font-size: 2rem;
+        padding: 0.1rem 0;
     }
 
         /* =========================================
@@ -418,7 +433,6 @@
             color: #64748b;
             font-size: 0.95rem;
             line-height: 1.5;
-            font-family: 'Courier New', monospace;
         }
 
         /* =========================================
