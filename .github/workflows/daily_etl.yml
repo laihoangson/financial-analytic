@@ -1,5 +1,8 @@
 name: Daily Cloud ETL
 
+permissions:
+  contents: write
+  
 on:
   schedule:
     - cron: '0 23 * * *'   # 06:00 sáng VN
