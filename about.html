@@ -7,8 +7,369 @@
     <meta name="author" content="Hoang Son Lai">
     <title>About Me - Hoang Son Lai</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           GLOBAL STYLES & VARIABLES
+           ========================================= */
+        :root {
+            --primary-color: #009688;
+            --primary-dark: #00796b;
+            --secondary-color: #80cbc4;
+            --text-dark: #2c3e50;
+            --text-light: #546e7a;
+            --bg-light: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px -10px rgba(0, 150, 136, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           SCROLL ANIMATION (REVEAL)
+           ========================================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           HERO SECTION REDESIGN
+           ========================================= */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 6rem 2rem 8rem;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -3rem; /* Overlap effect */
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* =========================================
+           PROFILE & ABOUT CONTAINER
+           ========================================= */
+        .content-section {
+            max-width: 1100px;
+            margin: 0 auto 4rem;
+            padding: 0 20px;
+        }
+
+        .about-container {
+            display: flex;
+            gap: 4rem;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 10; /* Above hero clip-path */
+        }
+
+        .profile-section {
+            flex: 0 0 320px;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .profile-info h3 {
+            font-size: 2rem;
+            margin: 1.5rem 0 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .contact-info p {
+            color: var(--primary-color);
+            background: rgba(0, 150, 136, 0.1);
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .about-text {
+            font-size: 1.05rem;
+            color: var(--text-light);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        /* =========================================
+           TIMELINE STYLING
+           ========================================= */
+        .timeline-section h3 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .timeline-section h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -5px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid #e0e0e0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+
+        /* Dot on timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .timeline-item:hover::before {
+            background: var(--primary-color);
+            transform: scale(1.3);
+            box-shadow: 0 0 0 6px rgba(0, 150, 136, 0.2);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Arrow pointing left */
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 15px;
+            width: 15px;
+            height: 15px;
+            background: white;
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .timeline-item:hover .timeline-content {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .timeline-location {
+            font-size: 0.85rem;
+            color: #90a4ae;
+            margin-top: 5px;
+        }
+
+        /* =========================================
+           PROJECTS GRID
+           ========================================= */
+        .projects-section {
+            background: #fff;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 3rem auto 0;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Top border gradient */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-card h3 {
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-card .btn {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            align-self: flex-start;
+            margin-top: auto;
+        }
+
+        .project-card .btn:hover {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 150, 136, 0.3);
+        }
+
+        /* =========================================
+           RESPONSIVE ADJUSTMENTS
+           ========================================= */
+        @media (max-width: 900px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-section {
+                margin-bottom: 2rem;
+            }
+            .timeline-content::after {
+                display: none; /* Hide arrow on mobile if layout breaks */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .content-section { padding: 0 15px; }
+            .about-container { padding: 2rem 1.5rem; }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -49,7 +410,7 @@
     </nav>
 
     <main class="main-content">
-        <section class="hero">
+        <section class="hero reveal">
             <h1>About Me</h1>
             <p class="hero-subtitle">
                 Business Analytics Student | Aspiring Data Analyst
@@ -57,7 +418,7 @@
         </section>
 
         <section class="content-section">
-            <div class="about-container">
+            <div class="about-container reveal">
                 <div class="profile-section">
                     <img src="assets/images/profile.jpg" alt="Hoang Son Lai" class="profile-image">
                     <div class="profile-info">
@@ -78,8 +439,9 @@
                 </div>
             </div>
 
-            <div class="education-experience">
-                <div class="timeline-section">
+            <div class="education-experience" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 4rem;">
+                
+                <div class="timeline-section reveal">
                     <h3>Education</h3>
                     <div class="timeline">
                         <div class="timeline-item">
@@ -87,7 +449,7 @@
                                 <div class="timeline-date">Mar 2025 - Dec 2026</div>
                                 <h4 class="timeline-title">Monash University</h4>
                                 <p class="timeline-subtitle">Master's degree, Business Analytics</p>
-                                <p class="timeline-location">Melbourne, Australia</p>
+                                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Melbourne, Australia</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -95,13 +457,13 @@
                                 <div class="timeline-date">Sep 2020 - Aug 2024</div>
                                 <h4 class="timeline-title">Foreign Trade University</h4>
                                 <p class="timeline-subtitle">Bachelor's degree, Banking and International Finance</p>
-                                <p class="timeline-location">Hanoi, Viet Nam</p>
+                                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Hanoi, Viet Nam</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="timeline-section">
+                <div class="timeline-section reveal">
                     <h3>Experience</h3>
                     <div class="timeline">
                         <div class="timeline-item">
@@ -109,15 +471,15 @@
                                 <div class="timeline-date">Dec 2025 - Feb 2026</div>
                                 <h4 class="timeline-title">HD Securities Corporation</h4>
                                 <p class="timeline-subtitle">Research Analyst Intern</p>
-                                <p class="timeline-location">Hanoi, Viet Nam</p>
+                                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Hanoi, Viet Nam</p>
                             </div>
-                        </div>                       
+                        </div>                   
                         <div class="timeline-item">
                             <div class="timeline-content">
                                 <div class="timeline-date">Oct 2024 - Dec 2024</div>
                                 <h4 class="timeline-title">Bao Viet Insurance Company</h4>
                                 <p class="timeline-subtitle">Insurance Intern</p>
-                                <p class="timeline-location">Hanoi, Viet Nam</p>
+                                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Hanoi, Viet Nam</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -125,7 +487,7 @@
                                 <div class="timeline-date">May 2024 - Sep 2024</div>
                                 <h4 class="timeline-title">Shinhan Vietnam Finance Company</h4>
                                 <p class="timeline-subtitle">Telesales Representative</p>
-                                <p class="timeline-location">Hanoi, Viet Nam</p>
+                                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Hanoi, Viet Nam</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -133,7 +495,7 @@
                                 <div class="timeline-date">Jul 2023 - Aug 2023</div>
                                 <h4 class="timeline-title">RSM Vietnam Company</h4>
                                 <p class="timeline-subtitle">Audit Intern</p>
-                                <p class="timeline-location">Hanoi, Viet Nam</p>
+                                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Hanoi, Viet Nam</p>
                             </div>
                         </div>
                     </div>
@@ -141,28 +503,31 @@
             </div>
         </section>
 
-        <section class="projects-section" style="margin-top: 4rem;">
-            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: var(--dark-color);">
-                Projects
-            </h2>
-            
-            <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                <div class="project-card" style="background: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow); border: 1px solid #e2e8f0;">
-                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Global Market Insight</h3>
-                    <p style="color: var(--gray-color); margin-bottom: 1.5rem;">A comprehensive financial analytics platform analyzing 21 major global companies with ETL pipelines, SQL database, dashboards, and reports.</p>
-                    <a href="https://laihoangson.github.io/financial-analytic/" target="_blank" class="btn" style="background: linear-gradient(135deg, #009688, #80cbc4); color: white; border: none; padding: 0.5rem 1.5rem; text-decoration: none; display: inline-block;">
-                        <i class="fas fa-external-link-alt"></i> View Project
-                    </a>
-                </div>
-                
-                <div class="project-card" style="background: white; border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow); border: 1px solid #e2e8f0;">
-                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">World of Games and Data</h3>
-                    <p style="color: var(--gray-color); margin-bottom: 1rem;">- Developed a multi-game web platform.</p>
-                    <p style="color: var(--gray-color); margin-bottom: 1rem;">- Built an end-to-end analytics pipeline using Python, SQLite, and Quarto to perform EDA, feature engineering, clustering, and predictive modelling (Random Forest, XGBoost).</p>
-                    <p style="color: var(--gray-color); margin-bottom: 1.5rem;">- Deployed a live, interactive dashboard and reporting system providing insights into player behaviour and score patterns.</p>
-                    <a href="https://laihoangson.github.io/world-of-games/" target="_blank" class="btn" style="background: linear-gradient(135deg, #009688, #80cbc4); color: white; border: none; padding: 0.5rem 1.5rem; text-decoration: none; display: inline-block;">
-                        <i class="fas fa-external-link-alt"></i> View Project
-                    </a>
+        <section class="projects-section">
+            <div class="content-section reveal">
+                <h2 style="text-align: center; margin-bottom: 1rem; font-size: 2.2rem; color: var(--text-dark);">
+                    Featured Projects
+                </h2>               
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div>
+                            <h3>Global Market Insight</h3>
+                            <p>A comprehensive financial analytics platform analyzing 21 major global companies with ETL pipelines, SQL database, dashboards, and reports.</p>
+                        </div>
+                        <a href="https://laihoangson.github.io/financial-analytic/" target="_blank" class="btn">
+                            View Project <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div>
+                            <h3>World of Games and Data</h3>
+                            <p>Developed a multi-game web platform. Built an end-to-end analytics pipeline using Python, SQLite, and Quarto to perform EDA, feature engineering, clustering, and predictive modelling (Random Forest, XGBoost).</p>
+                        </div>
+                        <a href="https://laihoangson.github.io/world-of-games/" target="_blank" class="btn">
+                            View Project <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -195,160 +560,36 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
-    
-    <style>
-        .content-section {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-        
-        .about-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
-            margin-bottom: 3rem;
-            align-items: flex-start;
-        }
-        
-        .profile-section {
-            flex: 0 0 300px;
-            text-align: center;
-        }
-        
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 5px solid var(--primary-color);
-        }
-        
-        .profile-info h3 {
-            font-size: 1.8rem;
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .profile-info p {
-            color: var(--gray-color);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .contact-info p {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        .contact-info i {
-            color: var(--primary-color);
-        }
-        
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .about-text p {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            color: var(--dark-color);
-            font-size: 1.1rem;
-        }
-        
-        .education-experience {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-        
-        .timeline-section h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-        }
-        
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-        
-        .timeline:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--primary-color);
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-        
-        .timeline-item:before {
-            content: '';
-            position: absolute;
-            left: -2.4rem;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            border: 3px solid white;
-            box-shadow: 0 0 0 3px var(--primary-color);
-        }
-        
-        .timeline-content {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .timeline-date {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .timeline-title {
-            color: var(--dark-color);
-            margin-bottom: 0.25rem;
-        }
-        
-        .timeline-subtitle {
-            color: var(--gray-color);
-            margin-bottom: 0.25rem;
-        }
-        
-        .timeline-location {
-            color: var(--gray-color);
-            font-style: italic;
-        }
-        
-        @media (max-width: 768px) {
-            .about-container {
-                flex-direction: column;
-            }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 150;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Trigger once on load
             
-            .profile-section {
-                flex: 0 0 auto;
+            // Hamburger menu script existing in your main.js or here
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            if(hamburger) {
+                hamburger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    hamburger.classList.toggle('active');
+                });
             }
-            
-            .education-experience {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+        });
+    </script>
 </body>
 </html>

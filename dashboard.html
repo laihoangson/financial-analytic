@@ -4,109 +4,266 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Dashboards - Global Market Insight 360</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 
     <style>
         /* =========================================
-           PAGE SPECIFIC HEADER STYLING
+           GLOBAL & ANIMATIONS
            ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            /* Tinh tế: Họa tiết chấm bi mờ làm nền */
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Animation: Fade In Up */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* =========================================
+           NAVBAR (GIỮ NGUYÊN GỐC 100%)
+           ========================================= */
+        /* Giả định CSS navbar đã có trong assets/css/styles.css hoặc style gốc */
+        /* Nếu cần ghi đè để đảm bảo không vỡ layout: */
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
         
-        /* Header Gradient Style */
+        /* =========================================
+           HEADER STYLING (NÂNG CẤP HIỆU ỨNG)
+           ========================================= */
         .container header {
-            background: linear-gradient(135deg, #009688 0%, #80cbc4 100%);
+            background: linear-gradient(135deg, #009688 0%, #4db6ac 100%);
             color: white;
-            padding: 3rem 2rem;
-            border-radius: 8px;
-            margin-bottom: 3rem;
+            padding: 3.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 3.5rem;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* Đổ bóng màu teal tạo chiều sâu */
+            box-shadow: 0 15px 35px -5px rgba(0, 150, 136, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng ánh sáng lướt qua (Shine Effect) */
+        .container header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
         }
 
         .container header h1 {
+            font-family: 'Poppins', sans-serif;
             color: white;
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
             font-weight: 800;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            letter-spacing: -1px;
+            position: relative;
         }
 
         .container header .subtitle {
             font-size: 1.25rem;
             color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .update-status {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Đèn xanh nhấp nháy báo hiệu live data */
+        .status-text::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #69f0ae;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #69f0ae;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(105, 240, 174, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(105, 240, 174, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(105, 240, 174, 0); }
         }
 
         .container header .author {
+            font-family: 'Poppins', sans-serif;
             font-style: italic;
             font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             display: inline-block;
             min-width: 250px;
+            position: relative;
         }
 
-        /* Dashboard Section Styling */
+        /* =========================================
+           DASHBOARD SECTIONS (CARD EFFECT)
+           ========================================= */
         .dashboard-section { 
             background: white; 
-            border-radius: 10px; 
-            padding: 30px; 
-            margin-bottom: 40px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
-            border: 1px solid #e2e8f0; 
+            border-radius: 16px; 
+            padding: 35px; 
+            margin-bottom: 45px; 
+            /* Bóng đổ mềm mại cao cấp */
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06); 
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        /* Hiệu ứng nổi lên khi hover */
+        .dashboard-section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 150, 136, 0.15);
         }
         
         .section-header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-bottom: 20px; 
-            border-bottom: 2px solid #f1f5f9; 
-            padding-bottom: 15px; 
+            margin-bottom: 25px; 
+            border-bottom: 2px solid #f0f2f5; 
+            padding-bottom: 20px; 
         }
         
         .section-header h2 { 
+            font-family: 'Poppins', sans-serif;
             color: #00695c; 
             font-size: 1.8rem; 
             display: flex; 
             align-items: center; 
-            gap: 10px; 
+            gap: 15px; 
+            font-weight: 700;
         }
         
-        /* Button "Open Full Dashboard" Styling */
+        /* Icon trang trí cạnh tiêu đề */
+        .section-header h2 i {
+            background: #e0f2f1;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            color: #00897b;
+            transition: transform 0.3s;
+        }
+
+        .dashboard-section:hover .section-header h2 i {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        /* =========================================
+           BUTTON STYLING (GLOW EFFECT)
+           ========================================= */
         .status-badge { 
-            background: #e0f2f1; 
+            background: white; 
             color: #00796b; 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            font-size: 0.85rem; 
-            font-weight: 700; 
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
             text-decoration: none; 
-            border: 1px solid #b2dfdb;
+            border: 2px solid #b2dfdb;
             transition: all 0.3s ease;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         
         .status-badge:hover {
             background: #009688;
             color: white;
+            border-color: #009688;
+            box-shadow: 0 5px 15px rgba(0, 150, 136, 0.3);
+            transform: translateY(-2px);
         }
 
-        /* Container cho Iframe HTML Dashboards */
+        /* =========================================
+           IFRAME CONTAINER
+           ========================================= */
         .powerbi-container { 
             position: relative; 
             width: 100%; 
-            height: 650px; /* Chiều cao đủ lớn để hiển thị dashboard con */
+            height: 650px; 
             background-color: #f8f9fa; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 8px; 
+            border: 1px solid #eaeff2; 
+            border-radius: 12px; 
             overflow: hidden; 
+            /* Bóng đổ bên trong */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
         }
         
         .powerbi-container iframe { 
@@ -118,13 +275,36 @@
             border: none; 
         }
         
-        /* Responsive adjustments */
+        /* =========================================
+           FOOTER
+           ========================================= */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            background: white;
+        }
+        
+        .footer .credit {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: #009688;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
         @media (max-width: 768px) {
-            .container header { padding: 2rem 1rem; }
-            .container header h1 { font-size: 1.8rem; }
-            .container header .subtitle { font-size: 1rem; }
-            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .powerbi-container { height: 500px; } /* Giảm chiều cao trên mobile */
+            .container header { padding: 2.5rem 1.5rem; }
+            .container header h1 { font-size: 2rem; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .status-badge { width: 100%; justify-content: center; }
+            .powerbi-container { height: 500px; } 
+            .dashboard-section { padding: 25px; }
         }
     </style>
 </head>
@@ -159,26 +339,26 @@
         </div>
     </nav>
 
-   <div class="container">
-    <header>
-        <h1>Financial Dashboards</h1>
-        <p class="subtitle">Interactive Visualizations & Market Analysis</p>
-        
-        <div class="update-status">
-            <span class="status-text">
-                Data is refreshed every morning at 06:00 AM (GMT+7) via GitHub Actions
-            </span>
-        </div>
-    </header>
+    <div class="container">
+        <header class="reveal">
+            <h1>Financial Dashboards</h1>
+            <p class="subtitle">Interactive Visualizations & Market Analysis</p>
+            
+            <div class="update-status">
+                <span class="status-text">
+                    Data is refreshed every morning at 06:00 AM (GMT+7) via GitHub Actions
+                </span>
+            </div>
+        </header>
 
-        <div class="dashboard-section" id="global">
+        <div class="dashboard-section reveal" id="global">
             <div class="section-header">
                 <h2><i class="fas fa-globe-americas"></i> Global Market Overview</h2>
                 <a href="dashboard/global_dashboard.html" target="_blank" class="status-badge">
-                    Open Full Screen <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+                    Open Full Screen <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i>
                 </a>
             </div>
-            <p style="margin-bottom: 20px; color: #666;">
+            <p style="margin-bottom: 25px; color: #546e7a; font-size: 1.05rem;">
                 Comparative analysis of major global companies. Filter by metrics like Revenue, Net Income, and Gross Profit to visualize market performance.
             </p>
             <div class="powerbi-container">
@@ -186,14 +366,14 @@
             </div>
         </div>
 
-        <div class="dashboard-section" id="company">
+        <div class="dashboard-section reveal" id="company">
             <div class="section-header">
                 <h2><i class="fas fa-search-dollar"></i> Company Deep Dive</h2>
                 <a href="dashboard/company_dashboard.html" target="_blank" class="status-badge">
-                    Open Full Screen <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+                    Open Full Screen <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i>
                 </a>
             </div>
-            <p style="margin-bottom: 20px; color: #666;">
+            <p style="margin-bottom: 25px; color: #546e7a; font-size: 1.05rem;">
                 Detailed fundamental analysis for individual tickers. Select a company to view historical stock price trends and key financial statement ratios.
             </p>
             <div class="powerbi-container">
@@ -216,6 +396,26 @@
         if(hamburger) {
             hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
         }
+
+        // Scroll Reveal Animation Script
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 150;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Trigger once on load
+        });
     </script>
 </body>
 </html>

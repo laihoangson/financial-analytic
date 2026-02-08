@@ -20,6 +20,24 @@
             text-align: center;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Thêm hiệu ứng ánh sáng cho header */
+        .container header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .container header:hover::before {
+            left: 100%;
         }
 
         .container header h1 {
@@ -27,6 +45,29 @@
             font-size: 2.5rem;
             margin-bottom: 0.75rem;
             font-weight: 800;
+            position: relative;
+        }
+
+        /* Thêm hiệu ứng underline cho tiêu đề */
+        .container header .subtitle {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        
+        .container header .subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            transition: width 0.5s ease;
+        }
+        
+        .container header:hover .subtitle::after {
+            width: 100%;
         }
 
         /* =========================================
@@ -42,27 +83,79 @@
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        /* Hiệu ứng nổi cho card */
+        .report-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Thêm viền sáng khi hover */
+        .report-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 4px;
+            box-shadow: 0 0 0 0 rgba(30, 60, 114, 0);
+            transition: box-shadow 0.4s ease;
+            pointer-events: none;
+        }
+        
+        .report-card:hover::after {
+            box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.2);
         }
 
         .report-banner {
             width: 100%;
             height: 350px;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* Hiệu ứng overlay cho banner */
+        .report-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 80%, rgba(0,0,0,0.05) 100%);
+            transition: opacity 0.5s ease;
+            opacity: 1;
+        }
+        
+        .report-card:hover .report-banner::after {
+            opacity: 0.8;
         }
 
         .report-banner img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.7s ease;
         }
 
         .report-card:hover .report-banner img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .report-body {
             padding: 25px 30px;
+            position: relative;
+            background: white;
+            transition: background 0.3s ease;
+        }
+        
+        .report-card:hover .report-body {
+            background: #fcfdfe;
         }
 
         .report-tags {
@@ -80,6 +173,16 @@
             border: 1px solid #e2e8f0;
             border-radius: 3px;
             letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        
+        /* Hiệu ứng cho tag */
+        .tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+            color: #2d3748;
+            border-color: #cbd5e0;
         }
 
         .report-body h2 {
@@ -87,6 +190,11 @@
             color: #2d3748;
             margin-bottom: 15px;
             line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+        
+        .report-card:hover .report-body h2 {
+            color: #1a202c;
         }
 
         .report-excerpt {
@@ -94,6 +202,24 @@
             line-height: 1.6;
             margin-bottom: 25px;
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Hiệu ứng highlight cho đoạn văn */
+        .report-excerpt::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.05), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .report-card:hover .report-excerpt::before {
+            left: 100%;
         }
 
         .report-footer {
@@ -104,7 +230,7 @@
             border-top: 1px solid #edf2f7;
         }
 
-        /* BUTTON STYLE */
+        /* BUTTON STYLE - Thêm hiệu ứng cho nút */
         .btn-view { 
             background-color: #1e3c72; 
             color: white; 
@@ -112,21 +238,75 @@
             text-decoration: none; 
             border-radius: 5px; 
             font-weight: 500; 
-            transition: all 0.3s; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             display: inline-flex; 
             align-items: center; 
             gap: 8px;
             margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        /* Hiệu ứng hover cho nút */
+        .btn-view::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+        
+        .btn-view:hover::before {
+            left: 100%;
         }
         
         .btn-view:hover { 
             background-color: #2a5298; 
-            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        /* Hiệu ứng nhấn cho nút */
+        .btn-view:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(30, 60, 114, 0.3);
+        }
+
+        /* Hiệu ứng xuất hiện cho toàn bộ trang */
+        .container header, .report-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .container header {
+            animation-delay: 0.1s;
+        }
+        
+        .report-card {
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
             .report-banner { height: 200px; }
             .report-body h2 { font-size: 1.4rem; }
+            
+            /* Giảm hiệu ứng trên mobile để đảm bảo hiệu suất */
+            .report-card:hover {
+                transform: translateY(-5px);
+            }
         }
     </style>
 </head>
