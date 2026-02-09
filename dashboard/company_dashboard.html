@@ -347,6 +347,7 @@
             font-size: 0.85rem;
             color: #475569;
             font-weight: 500;
+            flex-wrap: wrap;
         }
 
         .checkbox-group label {
@@ -518,6 +519,10 @@
                         <div class="checkbox-group">
                             <label><input type="checkbox" id="toggleMA20"> MA20</label>
                             <label><input type="checkbox" id="toggleMA50"> MA50</label>
+                            <label><input type="checkbox" id="toggleMA200"> MA200</label>
+                            <label><input type="checkbox" id="toggleEMA12"> EMA12</label>
+                            <label><input type="checkbox" id="toggleEMA26"> EMA26</label>
+                            <label><input type="checkbox" id="toggleBB"> BB</label>
                         </div>
                         <div class="btn-group">
                             <button class="time-btn active" onclick="setStockRange('all')">Full</button>
@@ -628,6 +633,10 @@
         let stockRange = 'all';
         let showMA20 = false;
         let showMA50 = false;
+        let showMA200 = false;
+        let showEMA12 = false;
+        let showEMA26 = false;
+        let showBB = false;
         
         // Chart Instances
         let charts = {};
@@ -712,6 +721,22 @@
                 });
                 document.getElementById('toggleMA50').addEventListener('change', (e) => {
                     showMA50 = e.target.checked;
+                    updateStockChart();
+                });
+                document.getElementById('toggleMA200').addEventListener('change', (e) => {
+                    showMA200 = e.target.checked;
+                    updateStockChart();
+                });
+                document.getElementById('toggleEMA12').addEventListener('change', (e) => {
+                    showEMA12 = e.target.checked;
+                    updateStockChart();
+                });
+                document.getElementById('toggleEMA26').addEventListener('change', (e) => {
+                    showEMA26 = e.target.checked;
+                    updateStockChart();
+                });
+                document.getElementById('toggleBB').addEventListener('change', (e) => {
+                    showBB = e.target.checked;
                     updateStockChart();
                 });
                 
@@ -878,6 +903,10 @@
             const closes = rawStocks.map(d => d.close);
             const ma20 = calculateMA(closes, 20);
             const ma50 = calculateMA(closes, 50);
+            const ma200 = calculateMA(closes, 200);
+            const ema12 = calculateEMA(closes, 12);
+            const ema26 = calculateEMA(closes, 26);
+            const bb = calculateBB(closes, 20, 2);
 
             let filteredIndices = [];
             const now = new Date();
@@ -896,6 +925,11 @@
             const slicedVolume = filteredIndices.map(i => rawStocks[i].volume); // Add Volume slice
             const slicedMA20 = filteredIndices.map(i => ma20[i]);
             const slicedMA50 = filteredIndices.map(i => ma50[i]);
+            const slicedMA200 = filteredIndices.map(i => ma200[i]);
+            const slicedEMA12 = filteredIndices.map(i => ema12[i]);
+            const slicedEMA26 = filteredIndices.map(i => ema26[i]);
+            const slicedBBUpper = filteredIndices.map(i => bb.upper[i]);
+            const slicedBBLower = filteredIndices.map(i => bb.lower[i]);
 
             const ctx = document.getElementById('stockChart').getContext('2d');
             if (charts.stock) charts.stock.destroy();
@@ -955,6 +989,64 @@
                     order: 1
                 });
             }
+            if (showMA200) {
+                datasets.push({
+                    label: 'MA200',
+                    data: slicedMA200,
+                    borderColor: '#ef4444',
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    fill: false,
+                    yAxisID: 'y',
+                    order: 1
+                });
+            }
+            if (showEMA12) {
+                datasets.push({
+                    label: 'EMA12',
+                    data: slicedEMA12,
+                    borderColor: '#8b5cf6',
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    fill: false,
+                    yAxisID: 'y',
+                    order: 1
+                });
+            }
+            if (showEMA26) {
+                datasets.push({
+                    label: 'EMA26',
+                    data: slicedEMA26,
+                    borderColor: '#ec4899',
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    fill: false,
+                    yAxisID: 'y',
+                    order: 1
+                });
+            }
+            if (showBB) {
+                datasets.push({
+                    label: 'BB Upper',
+                    data: slicedBBUpper,
+                    borderColor: '#64748b',
+                    borderWidth: 1,
+                    pointRadius: 0,
+                    fill: false,
+                    yAxisID: 'y',
+                    order: 3
+                });
+                datasets.push({
+                    label: 'BB Lower',
+                    data: slicedBBLower,
+                    borderColor: '#64748b',
+                    borderWidth: 1,
+                    pointRadius: 0,
+                    fill: false,
+                    yAxisID: 'y',
+                    order: 3
+                });
+            }
 
             charts.stock = new Chart(ctx, {
                 type: 'line',
@@ -981,12 +1073,13 @@
                         },
                         y: { 
                             position: 'right',
-                            grid: { color: 'rgba(226, 232, 240, 0.5)' },
+                            grid: { display: false },
                             ticks: { color: '#64748b' }
                         },
                         y1: { // Volume Axis
                             position: 'left',
                             display: false, // Hide labels to keep cleaner
+                            grid: { display: false },
                             min: 0,
                             max: Math.max(...slicedVolume) * 4 // Scale to push bars to bottom 25%
                         }
@@ -998,6 +1091,10 @@
             legendHtml += `<div class="legend-item"><div class="legend-color" style="background: rgba(71, 85, 105, 0.6);"></div> Volume</div>`;
             if (showMA20) legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #f59e0b;"></div> MA20</div>`;
             if (showMA50) legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #10b981;"></div> MA50</div>`;
+            if (showMA200) legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #ef4444;"></div> MA200</div>`;
+            if (showEMA12) legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #8b5cf6;"></div> EMA12</div>`;
+            if (showEMA26) legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #ec4899;"></div> EMA26</div>`;
+            if (showBB) legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #64748b;"></div> Bollinger Bands</div>`;
             document.getElementById('stockLegend').innerHTML = legendHtml;
         }
 
@@ -1013,6 +1110,51 @@
                 ma.push(sum / period);
             }
             return ma;
+        }
+
+        function calculateEMA(data, period) {
+            let ema = [];
+            let multiplier = 2 / (period + 1);
+            
+            // Calculate initial SMA
+            let sum = 0;
+            for(let i=0; i<period; i++) sum += data[i];
+            let startSMA = sum/period;
+
+            for(let i=0; i<data.length; i++) {
+                if(i < period - 1) {
+                    ema.push(null);
+                } else if (i === period - 1) {
+                    ema.push(startSMA);
+                } else {
+                    let val = (data[i] - ema[i-1]) * multiplier + ema[i-1];
+                    ema.push(val);
+                }
+            }
+            return ema;
+        }
+
+        function calculateBB(data, period, stdDevMultiplier) {
+            let sma = calculateMA(data, period);
+            let upper = [];
+            let lower = [];
+
+            for (let i = 0; i < data.length; i++) {
+                if (i < period - 1) {
+                    upper.push(null);
+                    lower.push(null);
+                    continue;
+                }
+                
+                let sumSq = 0;
+                for (let j = 0; j < period; j++) {
+                    sumSq += Math.pow(data[i-j] - sma[i], 2);
+                }
+                let stdDev = Math.sqrt(sumSq / period);
+                upper.push(sma[i] + (stdDev * stdDevMultiplier));
+                lower.push(sma[i] - (stdDev * stdDevMultiplier));
+            }
+            return { upper, lower };
         }
 
         function renderStructureChart(data) {
@@ -1040,7 +1182,7 @@
                     plugins: { legend: { display: false } },
                     scales: { 
                         x: { stacked: true, grid: { display: false } },
-                        y: { stacked: true, ticks: { callback: v => formatCompact(v), color: '#64748b' } }
+                        y: { stacked: true, grid: { display: false }, ticks: { callback: v => formatCompact(v), color: '#64748b' } }
                     }
                 },
                 plugins: [percentagePlugin]
@@ -1074,7 +1216,7 @@
                     plugins: { legend: { display: false } },
                     scales: { 
                         x: { stacked: true, grid: { display: false } },
-                        y: { stacked: true, ticks: { callback: v => formatCompact(v), color: '#64748b' } }
+                        y: { stacked: true, grid: { display: false }, ticks: { callback: v => formatCompact(v), color: '#64748b' } }
                     }
                 },
                 plugins: [percentagePlugin]
@@ -1101,7 +1243,7 @@
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-                    scales: { y: { position: 'left', ticks: { callback: v=>formatCompact(v) } }, y1: { position: 'right', grid: { display: false }, ticks: { callback: v=>formatCompact(v) } }, x: { grid: { display: false } } }
+                    scales: { y: { position: 'left', grid: { display: false }, ticks: { callback: v=>formatCompact(v) } }, y1: { position: 'right', grid: { display: false }, ticks: { callback: v=>formatCompact(v) } }, x: { grid: { display: false } } }
                 }
             });
             document.getElementById('incomeLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div> Revenue</div><div class="legend-item"><div class="legend-color" style="background: #10b981;"></div> Net Income</div>`;
@@ -1121,7 +1263,7 @@
                         { label: 'Cash Ratio', data: data.map(d=>d.cash_ratio), borderColor: '#f59e0b', tension: 0.2 }
                     ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { display: false } } } }
             });
             document.getElementById('liquidityLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div> Current</div><div class="legend-item"><div class="legend-color" style="background: #8b5cf6;"></div> Quick</div><div class="legend-item"><div class="legend-color" style="background: #f59e0b;"></div> Cash</div>`;
         }
@@ -1153,7 +1295,7 @@
                     labels: data.map(d => d.report_date.substring(0,4)),
                     datasets: datasets
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v=>v+'%' } }, x: { grid: { display: false } } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%' } }, x: { grid: { display: false } } } }
             });
 
             let legendHtml = '';
@@ -1178,7 +1320,7 @@
                         { label: 'ROA', data: data.map(d=>(d.roa||0)*100), backgroundColor: '#ec4899' }
                     ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v=>v+'%' } }, x: { grid: { display: false } } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%' } }, x: { grid: { display: false } } } }
             });
             document.getElementById('roLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #8b5cf6;"></div> ROE</div><div class="legend-item"><div class="legend-color" style="background: #ec4899;"></div> ROA</div>`;
         }

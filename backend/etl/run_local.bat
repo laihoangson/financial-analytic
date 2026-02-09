@@ -3,7 +3,7 @@
 REM ===== PROJECT ROOT =====
 cd /d "C:\Users\Admin\Documents\Global finance project"
 
-REM ===== PYTHON (PYTHON 3.10/3.11 / VENV) =====
+REM ===== PYTHON (PYTHON VENV) =====
 set PYTHON_EXE="C:\Users\Admin\AppData\Local\Programs\Python\Python313\python.exe" ^
 "C:\Users\Admin\Documents\Global finance project\backend\etl\run_local.py"
 
