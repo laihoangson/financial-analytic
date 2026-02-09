@@ -222,13 +222,13 @@
         .flow-label {
             /* 1. Typography */
             font-size: 1.1rem;          
-            font-weight: 800;            
+            font-weight: 800;             
             text-transform: uppercase;   
-            letter-spacing: 1.5px;      
-            color: #ffffff;           
+            letter-spacing: 1.5px;       
+            color: #ffffff;            
 
             /* 2. Box Model & Background */
-            min-width: 200px;           
+            min-width: 200px;            
             padding: 12px 30px;          
             
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
@@ -241,7 +241,7 @@
             text-align: center;
             position: relative;
             z-index: 2;
-            margin-bottom: 0.5rem;      
+            margin-bottom: 0.5rem;       
         }
 
         .flow-components {
@@ -312,65 +312,6 @@
     }
 
         /* =========================================
-           DATA SOURCE EXPLANATION
-           ========================================= */
-        .data-explanation {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            padding: 3rem;
-            border-radius: 16px;
-            margin: 3rem 0;
-            border: 1px solid #e2e8f0;
-        }
-
-        .data-source-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .data-source-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #009688;
-        }
-
-        .data-source-card h3 {
-            font-size: 1.3rem;
-            color: #1e3c72;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .data-source-card h3 i {
-            color: #009688;
-        }
-
-        .data-source-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .data-source-card li {
-            padding: 0.5rem 0;
-            color: #64748b;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .data-source-card li::before {
-            content: "→";
-            color: #009688;
-            position: absolute;
-            left: 0;
-        }
-
-        /* =========================================
            COMPANIES SECTION WITH INTERACTIVE GRID
            ========================================= */
         .companies-section {
@@ -439,34 +380,33 @@
            KEY FEATURES HIGHLIGHTS 
            ========================================= */
         .features-section {
-            background: #ffffff; 
-            padding: 5rem 2rem;
-            margin: 4rem 0;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05); 
-            position: relative;
-            overflow: hidden;
+            /* Changed to match .architecture-section structure */
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+            
+            /* Removed background and card-like styling */
+            background: transparent; 
+            border-radius: 0;
+            box-shadow: none; 
+            border: none;
+            overflow: visible;
         }
-
-        .features-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, #1e3c72, #2a5298, #00cdac);
-        }
+        
+        /* Removed .features-section::before since it's no longer a white card */
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem; 
-            margin-top: 3rem;
+            margin-top: 3rem; /* Aligned with Architecture diagram margin */
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .feature-card {
-            background: #ffffff;
+            background: #ffffff; /* Cards remain white */
             border-radius: 16px;
             padding: 2.5rem;
             text-align: center;
@@ -492,7 +432,7 @@
             color: white; 
             font-size: 1.8rem;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            box-shadow: 0 8px 15px rgba(42, 82, 152, 0.3); /* Bóng đổ cho icon */
+            box-shadow: 0 8px 15px rgba(42, 82, 152, 0.3);
             transition: transform 0.3s ease;
         }
 
@@ -823,7 +763,6 @@
     </nav>
 
     <main class="main-content">
-        <!-- HERO SECTION -->
         <section class="hero">
             <h1>Global Market Insight</h1>
             <p class="hero-subtitle">
@@ -851,7 +790,54 @@
             </div>
         </section>
 
-        <!-- DATA ARCHITECTURE -->
+        <section class="features-section">
+            <div class="section-title">
+                <h2>Key Platform Features</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Automated ETL Pipeline</h3>
+                    <p>Daily data refresh via GitHub Actions with error handling and logging</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Interactive Dashboards</h3>
+                    <p>Real-time visualization with filtering, comparison, and trend analysis</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Machine Learning Reports</h3>
+                    <p>Stock price trend forecasting using Scikit-Learn with technical analysis</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>Interactive SQL Queries</h3>
+                    <p>8+ analytical queries with runnable examples and downloadable results</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>CI/CD Automation</h3>
+                    <p>Scheduled workflows for data processing, testing, and deployment</p>
+                </div>
+            </div>
+        </section>
+
         <section class="architecture-section">
             <div class="section-title">
                 <h2>Data Architecture Flow</h2>
@@ -859,7 +845,6 @@
             
             <div class="architecture-diagram">
                 <div class="flow-container">
-                    <!-- Row 1: Data Sources -->
                     <div class="flow-row">
                         <div class="flow-label">Data Sources</div>
                         <div class="flow-components">
@@ -877,7 +862,6 @@
                         <i class="fas fa-arrow-down"></i>
                     </div>
                     
-                    <!-- Row 2: ETL Pipeline -->
                     <div class="flow-row">
                         <div class="flow-label">ETL Pipeline</div>
                         <div class="flow-components">
@@ -902,7 +886,6 @@
                         <i class="fas fa-arrow-down"></i>
                     </div>
                     
-                    <!-- Row 3: Data Storage -->
                     <div class="flow-row">
                         <div class="flow-label">Data Storage</div>
                         <div class="flow-components">
@@ -927,7 +910,6 @@
                         <i class="fas fa-arrow-down"></i>
                     </div>
                     
-                    <!-- Row 4: Analysis -->
                     <div class="flow-row">
                         <div class="flow-label">Analysis</div>
                         <div class="flow-components">
@@ -958,8 +940,7 @@
             </div>
         </section>
 
-        <!-- COMPANIES BY SECTOR -->
-<section class="companies-section">
+        <section class="companies-section">
             <div class="section-title">
                 <h2>Companies by Sector</h2>
                 <p class="section-subtitle">
@@ -1018,59 +999,8 @@
             </div>
         </section>
 
-        <!-- KEY FEATURES -->
-        <section class="features-section">
-            <div class="section-title">
-                <h2>Key Platform Features</h2>
-                <p class="section-subtitle">
-                    Comprehensive financial analytics capabilities
-                </p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Automated ETL Pipeline</h3>
-                    <p>Daily data refresh via GitHub Actions with error handling and logging</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3>Interactive Dashboards</h3>
-                    <p>Real-time visualization with filtering, comparison, and trend analysis</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Machine Learning Reports</h3>
-                    <p>Stock price trend forecasting using Scikit-Learn with technical analysis</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code-branch"></i>
-                    </div>
-                    <h3>Interactive SQL Queries</h3>
-                    <p>8+ analytical queries with runnable examples and downloadable results</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h3>CI/CD Automation</h3>
-                    <p>Scheduled workflows for data processing, testing, and deployment</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- TECH STACK -->
+
         <section class="tech-stack">
             <div class="section-title">
                 <h2>Technology Stack</h2>
@@ -1118,7 +1048,6 @@
             </div>
         </section>
 
-        <!-- GITHUB CTA -->
         <section class="github-cta">
             <h2>Explore the Complete Codebase</h2>
             <p>
