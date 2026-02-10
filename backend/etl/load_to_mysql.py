@@ -89,37 +89,41 @@ def load_data():
         path = os.path.join(DATA_CLEANED_DIR, 'financial_statements.csv')
         if os.path.exists(path):
             df_fin = pd.read_csv(path)
-            
+
             df_fin.replace([np.inf, -np.inf], np.nan, inplace=True)
             df_fin = df_fin.astype(object)
             df_fin = df_fin.where(pd.notnull(df_fin), None)
-            
+
             print(f"Loading {len(df_fin)} financial records...")
-            
+
             with engine.connect() as conn:
                 cols = ', '.join(df_fin.columns)
                 vals = ', '.join([f':{c}' for c in df_fin.columns])
-                
+
+                update_clause = ', '.join(
+                    [f"{c}=VALUES({c})" for c in df_fin.columns if c != 'id']
+                )
+
                 sql = text(f"""
-                    INSERT IGNORE INTO financial_statements ({cols})
+                    INSERT INTO financial_statements ({cols})
                     VALUES ({vals})
+                    ON DUPLICATE KEY UPDATE
+                        {update_clause}
                 """)
-                
-                # Batch insert for Financials
-                data_to_insert = df_fin.to_dict(orient='records')
-                
-            
-                cleaned_data = []
-                for row in data_to_insert:
-                    cleaned_row = {k: (None if isinstance(v, float) and np.isnan(v) else v) for k, v in row.items()}
-                    cleaned_data.append(cleaned_row)
+
+                data = df_fin.to_dict(orient='records')
+
+                cleaned_data = [
+                    {k: (None if isinstance(v, float) and np.isnan(v) else v) for k, v in row.items()}
+                    for row in data
+                ]
 
                 conn.execute(sql, cleaned_data)
                 conn.commit()
-                
-            print("Financials loaded.")
+
+            print("Financials loaded (inserted + updated).")
         else:
-             print("Skipping Financials: File not found.")
+            print("Skipping Financials: File not found.")
 
     except Exception as e:
         print(f"Error loading financials: {e}")
