@@ -486,8 +486,7 @@
             <option value="2024">2024</option>
             <option value="2023">2023</option>
             <option value="2022">2022</option>
-            <option value="2021">2021</option>
-        </select>
+ 	 	</select>
     </div>
 </div>
 
@@ -499,8 +498,8 @@
                     <i class="fas fa-trophy"></i>
                     Top Companies Ranking
                 </h3>
-                <div class="card-subtitle dynamic-subtitle" data-original-text="Top 20 companies by selected financial metric.">
-                    Top 20 companies by selected financial metric. (Based on the latest available financial statements)
+                <div class="card-subtitle dynamic-subtitle" data-original-text="Top companies by selected financial metric.">
+                    Top companies by selected financial metric. (Based on the latest available financial statements)
                 </div>
             </div>
             <div class="controls">
@@ -863,9 +862,13 @@
         const metricLabel = metric.replace(/_/g, ' ').toUpperCase();
         
         // Use current filtered data
+        // EDIT: Added .filter to exclude 0 values before sorting
         const data = [...globalData.financials]
+            .filter(d => {
+                const val = d[metric];
+                return val !== 0 && val !== '0' && val !== null && val !== undefined;
+            })
             .sort((a, b) => (b[metric] || 0) - (a[metric] || 0))
-            .slice(0, 20); // Top 20
 
         const gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, '#3b82f6'); 
@@ -960,16 +963,16 @@
                 plugins: {
                     legend: { position: 'right', labels: { color: '#334155', font: { size: 11, weight: 600 }, usePointStyle: true, pointStyle: 'circle' } },
                     tooltip: {
-                         backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                         padding: 12,
-                         cornerRadius: 8,
-                         callbacks: {
+                          backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                          padding: 12,
+                          cornerRadius: 8,
+                          callbacks: {
                              label: (c) => {
                                  const val = c.raw;
                                  const total = sorted.reduce((a,b)=>a+b[1],0);
                                  return `${c.label}: ${formatCompactNumber(val)} (${(val/total*100).toFixed(1)}%)`;
                              }
-                         }
+                          }
                     }
                 }
             }
