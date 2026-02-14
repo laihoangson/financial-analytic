@@ -58,6 +58,7 @@ financial-analytic/
 ├── pipeline.html                  # ETL Architecture documentation page
 ├── reports.html                   # Analytical reports landing page
 └── sql.html                       # SQL schema and interactive queries page
+```
 
 ---
 
