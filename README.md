@@ -50,9 +50,10 @@ financial-analytic/
 │       ├── result1.csv            # Pre-generated SQL query results for the frontend
 │       └── ...                    # (result1.csv through result8.csv)
 ├── reports/
-│   ├── ml_report.html             # Full Machine Learning forecasting report
+│   ├── ml_report.ipynb            # Full Machine Learning forecasting report
+    ├── ml_report.html             # HTML version rendered by Quarto
 │   └── world.jpg                  # Asset images for the reports section
-├── about.html                     # Author portfolio and contact info
+├── about.html                     # Author information
 ├── dashboard.html                 # Dashboards overview page
 ├── index.html                     # Main landing page
 ├── pipeline.html                  # ETL Architecture documentation page
