@@ -5,7 +5,6 @@ A comprehensive, automated financial analytics platform designed to extract, pro
 **Author:** Hoang Son Lai
 
 Website: https://laihoangson.github.io/financial-analytic/
----
 
 ## 🌟 Key Features
 
