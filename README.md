@@ -16,6 +16,51 @@ Website: https://laihoangson.github.io/financial-analytic/
 
 ---
 
+## 📂 Folder Structure
+
+```text
+financial-analytic/
+├── .github/
+│   └── workflows/
+│       └── daily_etl.yml          # GitHub Actions CI/CD pipeline script
+├── assets/
+│   └── css/
+│       └── styles.css             # Main styling for the web interface
+├── backend/
+│   ├── etl/
+│   │   ├── fetch_data.py          # Extracts raw data via yFinance API
+│   │   ├── clean_data.py          # Cleans data & calculates 15+ financial ratios
+│   │   └── load_to_mysql.py       # Safely upserts processed data to MySQL
+│   └── sql/
+│       ├── schema.sql             # Database schema and table definitions
+│       ├── analysis_queries.sql   # Queries to answer business questions
+├── dashboard/
+│   ├── global_dashboard.html      # Global market interactive dashboard
+│   └── company_dashboard.html     # Deep-dive company interactive dashboard
+├── data/
+│   ├── cleaned/                   # Final datasets powering daily dashboard updates
+│   │   ├── companies.csv
+│   │   ├── financial_statements.csv
+│   │   └── stock_prices.csv
+│   ├── raw/                       # Raw, unprocessed data straight from the API
+│   │   ├── raw_companies.csv
+│   │   ├── raw_financials.csv
+│   │   └── raw_prices.csv
+│   └── query_data/
+│       ├── result1.csv            # Pre-generated SQL query results for the frontend
+│       └── ...                    # (result1.csv through result8.csv)
+├── reports/
+│   ├── ml_report.html             # Full Machine Learning forecasting report
+│   └── world.jpg                  # Asset images for the reports section
+├── about.html                     # Author portfolio and contact info
+├── dashboard.html                 # Dashboards overview page
+├── index.html                     # Main landing page
+├── pipeline.html                  # ETL Architecture documentation page
+├── reports.html                   # Analytical reports landing page
+└── sql.html                       # SQL schema and interactive queries page
+
+---
+
 ## 🏗️ Data Architecture & ETL Pipeline
 
 The platform's data architecture is built for resilience and accuracy, dividing "Live" data for dashboards and "Static" snapshot data for deep-dive reporting.
