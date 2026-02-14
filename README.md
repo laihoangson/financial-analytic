@@ -16,7 +16,7 @@ Website: https://laihoangson.github.io/financial-analytic/
 
 ---
 
-## 📂 Folder Structure
+## 📂 Basic Folder Structure
 
 ```text
 financial-analytic/
