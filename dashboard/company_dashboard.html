@@ -1189,8 +1189,8 @@
             });
             
             document.getElementById('structureLegend').innerHTML = `
-                <div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div> Current Assets</div>
-                <div class="legend-item"><div class="legend-color" style="background: #94a3b8;"></div> Non-Current Assets</div>
+                <div class="legend-item"><div class="legend-color" style="background: steelblue;"></div> Current Assets</div>
+                <div class="legend-item"><div class="legend-color" style="background: orange;"></div> Non-Current Assets</div>
             `;
         }
 
@@ -1326,11 +1326,9 @@
         }
 
         // --- 4. CHART RENDERING FUNCTIONS ---
-        // (Tôi chỉ cập nhật các hàm định dạng ở cuối thẻ script để đảm bảo đúng yêu cầu của bạn)
 
         function formatCurrency(num) {
             if (num === undefined || num === null) return '$0.00';
-            // Đảm bảo dùng en-US: Hàng nghìn là "," thập phân là "."
             return new Intl.NumberFormat('en-US', { 
                 style: 'currency', 
                 currency: 'USD', 
