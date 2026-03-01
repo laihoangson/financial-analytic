@@ -74,7 +74,7 @@ def load_data():
                     chunk_data = chunk.to_dict(orient='records')
                     
                     conn.execute(sql, chunk_data)
-                    conn.commit() # Commit sau mỗi chunk để tránh tràn bộ nhớ DB
+                    conn.commit() 
                     total_inserted += len(chunk)
                     print(f"Processed {total_inserted}/{len(df_prices)} rows...", end='\r')
                     
