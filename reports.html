@@ -16,17 +16,24 @@
         /* =========================================
            GLOBAL & FONT UPDATE
            ========================================= */
+        * {
+            box-sizing: border-box; /* Bắt buộc để padding không làm tràn khung trên mobile */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         /* =========================================
-           PAGE SPECIFIC HEADER STYLING (Đã đồng bộ)
+           PAGE SPECIFIC HEADER STYLING (Đã fix cho Mobile)
            ========================================= */
         .container {
-            width: 1150px;
+            width: 100%; /* Để tự co giãn trên mobile */
+            max-width: 1150px; /* Giới hạn độ rộng tối đa trên PC */
             margin: 20px auto;
-            padding: 20px;
+            padding: 0 15px; /* Giữ lề 2 bên để không chạm sát mép đt */
             position: relative;
         }
 
@@ -38,7 +45,7 @@
             border-radius: 16px;
             margin-bottom: 3.5rem;
             text-align: center;
-            box-shadow: 0 15px 35px -5px rgba(79, 70, 229, 0.4); /* Bóng đồng màu tím */
+            box-shadow: 0 15px 35px -5px rgba(4, 69, 144, 0.4); 
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
@@ -48,7 +55,7 @@
             animation-delay: 0.1s;
         }
 
-        /* Hiệu ứng ánh sáng vệt trượt liên tục (Shine) đồng bộ với trang SQL */
+        /* Hiệu ứng ánh sáng vệt trượt liên tục (Shine) */
         .container header::before {
             content: '';
             position: absolute;
@@ -90,7 +97,7 @@
         }
 
         /* =========================================
-           BLOG-STYLE REPORT CARD (ML ONLY) - Giữ nguyên
+           BLOG-STYLE REPORT CARD (ML ONLY)
            ========================================= */
         .report-card { 
             background: white; 
@@ -99,6 +106,7 @@
             margin-bottom: 50px; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
             border: 1px solid #e2e8f0;
+            width: 100%; /* Fix mobile */
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
@@ -110,13 +118,11 @@
             animation-delay: 0.3s;
         }
 
-        /* Hiệu ứng nổi cho card */
         .report-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Thêm viền sáng khi hover */
         .report-card::after {
             content: '';
             position: absolute;
@@ -141,7 +147,6 @@
             position: relative;
         }
 
-        /* Hiệu ứng overlay cho banner */
         .report-banner::after {
             content: '';
             position: absolute;
@@ -182,6 +187,7 @@
 
         .report-tags {
             display: flex;
+            flex-wrap: wrap; /* Tránh thẻ tag trào ra ngoài ở mobile */
             gap: 10px;
             margin-bottom: 15px;
         }
@@ -199,7 +205,6 @@
             cursor: default;
         }
         
-        /* Hiệu ứng cho tag */
         .tag:hover {
             transform: translateY(-2px);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
@@ -229,7 +234,6 @@
             overflow: hidden;
         }
         
-        /* Hiệu ứng highlight cho đoạn văn */
         .report-excerpt::before {
             content: '';
             position: absolute;
@@ -253,7 +257,6 @@
             border-top: 1px solid #edf2f7;
         }
 
-        /* BUTTON STYLE - Thêm hiệu ứng cho nút */
         .btn-view { 
             background-color: #1e3c72; 
             color: white; 
@@ -271,7 +274,6 @@
             z-index: 1;
         }
         
-        /* Hiệu ứng hover cho nút */
         .btn-view::before {
             content: '';
             position: absolute;
@@ -294,7 +296,6 @@
             transform: translateY(-3px);
         }
         
-        /* Hiệu ứng nhấn cho nút */
         .btn-view:active {
             transform: translateY(0);
             box-shadow: 0 2px 10px rgba(30, 60, 114, 0.3);
@@ -307,24 +308,38 @@
             }
         }
 
+        /* Responsive chuẩn trên thiết bị di động */
         @media (max-width: 768px) {
-            .container header {
-                padding: 2.5rem 1.5rem;
-                border-radius: 16px;
-            }
-            .container header h1 {
-                font-size: 2rem;
-            }
-            .container header .subtitle {
-                font-size: 1.1rem;
+            .container {
+                padding: 0 15px; /* Giảm padding tổng trên mobile */
             }
 
-            .report-banner { height: 200px; }
-            .report-body h2 { font-size: 1.4rem; }
+            .container header {
+                padding: 2.5rem 1.5rem;
+                border-radius: 12px;
+                margin-bottom: 2rem;
+            }
+            .container header h1 {
+                font-size: 2.2rem;
+            }
+            .container header .subtitle {
+                font-size: 1rem;
+            }
+
+            .report-banner { 
+                height: 220px; /* Thu nhỏ banner ảnh lại */
+            }
             
-            /* Giảm hiệu ứng trên mobile để đảm bảo hiệu suất */
+            .report-body {
+                padding: 20px 15px; /* Thu nhỏ phần trắng chứa chữ lại để tiết kiệm diện tích mobile */
+            }
+            
+            .report-body h2 { 
+                font-size: 1.4rem; 
+            }
+            
             .report-card:hover {
-                transform: translateY(-5px);
+                transform: translateY(-5px); /* Giảm hiệu ứng bay để khỏi lag máy yếu */
             }
         }
     </style>
