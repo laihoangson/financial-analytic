@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -20,14 +24,19 @@
             --border-color: #e2e8f0;
         }
 
-        /* Hero Section với hiệu ứng mới */
+        /* Hero Section với hiệu ứng mới - Đã đồng bộ khung với Dashboard */
         .hero {
+            max-width: 1150px;
+            margin: 40px auto;
+            padding: 40px;
             text-align: center;
-            padding: 6rem 1rem 5rem 1rem;
+            padding: 5.5rem 2rem;
             color: white;
-            margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .hero::before {
@@ -58,19 +67,25 @@
             100% { left: 100%; }
         }
 
+        /* Đã đồng bộ font chữ, cỡ chữ với Dashboard */
         .hero h1 { 
-            font-size: 3.5rem; 
-            margin-bottom: 1.5rem; 
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem; 
+            margin-bottom: 0.5rem; 
             font-weight: 800; 
-            text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            letter-spacing: -1px;
             animation: fadeInUp 1s ease-out;
         }
 
+        /* Đã đồng bộ subtitle với Dashboard */
         .hero-subtitle { 
-            font-size: 1.25rem; 
+            font-size: 1.2rem; 
             opacity: 0.95; 
             max-width: 850px; 
-            margin: 0 auto; 
+            margin: 0 auto 2rem auto; 
+            font-weight: 500;
+            letter-spacing: 0.5px;
             line-height: 1.7; 
             animation: fadeInUp 1s ease-out 0.2s both;
         }
@@ -602,12 +617,14 @@
             50% { transform: scale(1.5); }
         }
 
+        /* Đã cập nhật Responsive cho Header mới */
         @media (max-width: 768px) {
             .process-grid, .strategy-wrapper { grid-template-columns: 1fr; }
             .strategy-box { flex-direction: column; }
             
+            .hero { padding: 2.5rem 1.5rem; margin-top: 20px; }
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             
             .hero-subtitle {
@@ -634,11 +651,11 @@
             }
             
             .hero {
-                padding: 4rem 1rem 3rem 1rem;
+                padding: 3rem 1rem 2rem 1rem;
             }
             
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
         }
 

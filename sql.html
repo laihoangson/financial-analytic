@@ -6,7 +6,7 @@
     <title>Financial Analytics - Database Schema & Queries</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -197,51 +197,73 @@
             transition: all 0.3s;
         }
         
-        /* --- MAIN CONTAINER --- */
+        /* --- MAIN CONTAINER & NEW HEADER STYLING --- */
         .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            background-color: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.8);
+            max-width: 1150px;
+            margin: 20px auto;
+            padding: 20px;
             position: relative;
         }
         
-        header {
-            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+        .container header {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%); /* Giữ màu gốc */
             color: white;
-            padding: 60px 30px;
+            padding: 5.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 3.5rem;
             text-align: center;
+            box-shadow: 0 15px 35px -5px rgba(44, 62, 80, 0.4); /* Đổ bóng cùng tone màu */
+            border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        /* Hiệu ứng Shine cho Header */
+        .container header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shine 6s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .container header h1 {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            letter-spacing: -1px;
             position: relative;
+            z-index: 2;
         }
         
-        .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 5px;
-            font-weight: 300;
+        .container header .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             position: relative;
-        }
-        
-        .author {
-            font-style: italic;
-            margin-top: 15px;
-            font-size: 1rem;
-            color: #bdc3c7;
-            position: relative;
+            z-index: 2;
         }
         
         .content {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255,255,255,0.8);
             padding: 40px;
         }
         
@@ -713,17 +735,27 @@
         
         @media (max-width: 768px) {
             .container {
-                border-radius: 0;
                 margin: 0;
-                border: none;
+                padding: 15px;
             }
             
-            h1 {
-                font-size: 2.2rem;
+            .container header {
+                padding: 2.5rem 1.5rem;
+                margin-bottom: 2rem;
+                border-radius: 16px;
+            }
+            
+            .container header h1 {
+                font-size: 2rem;
+            }
+            
+            .container header .subtitle {
+                font-size: 1.1rem;
             }
             
             .content {
-                padding: 25px 20px;
+                padding: 25px 15px;
+                border-radius: 16px;
             }
             
             .nav-links {
@@ -824,7 +856,7 @@
         <div class="content">
             <div class="database-info section">
                 <h3>Database Overview</h3>
-                <p>This database, financial_analytics, is designed for comprehensive financial data analysis including company information, stock prices, and financial statements with calculated ratios.</p>
+                <p>This database, financial_analytics, is designed for comprehensive financial data analysis including company information, stock prices, and financial statements với calculated ratios.</p>
                 <p>The schema consists of 3 main tables that support various analytical queries for fundamental analysis, sector comparison, and market valuation.</p>
                 <div class="data-info">
                     <strong><i class="fas fa-info-circle"></i> Interactive Features:</strong> Click "Run Query" to view CSV results from the database. All results are pre-generated and stored in the <code>query_data</code> folder.
