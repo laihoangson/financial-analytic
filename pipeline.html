@@ -16,6 +16,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        /* Sửa lỗi tràn khung trên mobile */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
         :root {
             --primary-gradient: linear-gradient(135deg, #10b981, #059669);
             --card-bg: #ffffff;
@@ -26,9 +36,10 @@
 
         /* Hero Section với hiệu ứng mới - Đã đồng bộ khung với Dashboard */
         .hero {
-            max-width: 1150px;
-            margin: 20px auto;
-            padding: 40px auto;
+            width: calc(100% - 40px); /* Tạo lề 2 bên 20px khi thu nhỏ trình duyệt PC */
+            max-width: 1150px; /* Giới hạn độ rộng tối đa bằng các trang khác */
+            margin: 40px auto 3.5rem auto;
+            padding: 5.5rem 2rem; /* Đồng bộ độ cao với trang SQL/Report */
             text-align: center;
             color: white;
             position: relative;
@@ -79,10 +90,11 @@
 
         /* Đã đồng bộ subtitle với Dashboard */
         .hero-subtitle { 
-            font-size: 1.2rem; 
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem; 
             opacity: 0.95; 
             max-width: 850px; 
-            margin: 0 auto 2rem auto; 
+            margin: 0 auto; 
             font-weight: 500;
             letter-spacing: 0.5px;
             line-height: 1.7; 
@@ -616,14 +628,20 @@
             50% { transform: scale(1.5); }
         }
 
-        /* Đã cập nhật Responsive cho Header mới */
+        /* Đã cập nhật Responsive cho Header trên Mobile */
         @media (max-width: 768px) {
             .process-grid, .strategy-wrapper { grid-template-columns: 1fr; }
             .strategy-box { flex-direction: column; }
             
-            .hero { padding: 2.5rem 1.5rem; margin-top: 20px; }
+            /* Điều chỉnh Hero để ôm gọn lề 15px trên mobile giống file sql.html */
+            .hero { 
+                width: calc(100% - 30px);
+                margin: 20px auto 2rem auto;
+                padding: 2.5rem 1.5rem; 
+                border-radius: 12px;
+            }
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .hero-subtitle {
@@ -647,14 +665,6 @@
         @media (max-width: 480px) {
             .tech-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                padding: 3rem 1rem 2rem 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
             }
         }
 
@@ -891,16 +901,18 @@
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
         
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
         
         // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
+                if (hamburger) hamburger.classList.remove('active');
             });
         });
         

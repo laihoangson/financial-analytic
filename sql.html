@@ -4,218 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Analytics - Database Schema & Queries</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/sql.min.js"></script>
     <script>hljs.highlightAll();</script>
+    
     <style>
-        /* --- GLOBAL RESET & TYPOGRAPHY --- */
+        /* --- GLOBAL RESET --- */
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2a5298; 
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2a5298; }
         
         body {
+            font-family: 'Inter', sans-serif;
             background-color: #f0f2f5;
             color: #333;
             line-height: 1.6;
             background-image: radial-gradient(#e1e5ee 1px, transparent 1px);
             background-size: 20px 20px;
+            margin: 0;
+            padding: 0;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: -0.5px;
-        }
-        
-        /* --- NAVIGATION BAR (Glassmorphism) --- */
-        .navbar {
-            background: linear-gradient(135deg, rgba(30, 60, 114, 0.95) 0%, rgba(42, 82, 152, 0.95) 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            padding: 12px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(30, 60, 114, 0.25);
-            transition: all 0.3s ease;
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: white;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 1.3rem;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.02);
-        }
-        
-        .logo-icon {
-            background: linear-gradient(135deg, #4fc3f7, #2196f3);
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-        
-        .nav-links li {
-            position: relative;
-        }
-        
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: none;
-            padding: 8px 0;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            font-size: 0.95rem;
-        }
-        
-        .nav-links a:hover {
-            color: white;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-        
-        .nav-links a.active {
-            color: white;
-            font-weight: 600;
-        }
-        
-        .nav-links a.active:after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: #4fc3f7;
-            border-radius: 2px;
-            box-shadow: 0 0 10px #4fc3f7;
-        }
-        
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-icon {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.1);
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .social-icon:hover {
-            background-color: rgba(79, 195, 247, 0.2);
-            border-color: #4fc3f7;
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-        
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-        
-        /* --- MAIN CONTAINER & NEW HEADER STYLING --- */
+        /* --- MAIN CONTAINER & HEADER STYLING --- */
         .container {
-            max-width: 1150px;
-            margin: 20px auto;
-            padding: 20px;
+            width: 100%;
+            max-width: 1200px; /* 1200px trừ 40px padding = 1160px nội dung (Khớp chính xác với pipeline) */
+            margin: 40px auto;
+            padding: 0 20px;
             position: relative;
         }
         
         .container header {
-            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%); /* Giữ màu gốc */
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
             color: white;
-            padding: 5.5rem 2rem;
+            padding: 3.5rem 2rem; /* Khớp chiều cao với các trang khác */
+            width: 100%;
             border-radius: 16px;
             margin-bottom: 3.5rem;
             text-align: center;
-            box-shadow: 0 15px 35px -5px rgba(44, 62, 80, 0.4); /* Đổ bóng cùng tone màu */
+            box-shadow: 0 15px 35px -5px rgba(44, 62, 80, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.1s;
         }
 
         /* Hiệu ứng Shine cho Header */
@@ -236,6 +86,10 @@
             20% { left: 100%; }
             100% { left: 100%; }
         }
+        
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .container header h1 {
             font-family: 'Poppins', sans-serif;
@@ -247,9 +101,11 @@
             letter-spacing: -1px;
             position: relative;
             z-index: 2;
+            margin-top: 0;
         }
         
         .container header .subtitle {
+            font-family: 'Inter', sans-serif;
             font-size: 1.25rem;
             color: rgba(255, 255, 255, 0.95);
             margin-bottom: 0;
@@ -270,10 +126,11 @@
         /* --- SECTIONS & HEADINGS --- */
         .section {
             margin-bottom: 60px;
-            /* Scroll Reveal Logic Class */
             opacity: 0; 
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            border-left: none;
+            padding-left: 0;
         }
         
         .section.visible {
@@ -281,13 +138,8 @@
             transform: translateY(0);
         }
 
-        /* Styling the section border more elegantly */
-        .section {
-            border-left: none;
-            padding-left: 0;
-        }
-
         h2 {
+            font-family: 'Poppins', sans-serif;
             color: #2c3e50;
             font-size: 2rem;
             margin-bottom: 30px;
@@ -296,6 +148,7 @@
             display: flex;
             align-items: center;
             position: relative;
+            margin-top: 0;
         }
         
         h2:after {
@@ -316,6 +169,7 @@
         }
         
         h3 {
+            font-family: 'Poppins', sans-serif;
             color: #2980b9;
             font-size: 1.5rem;
             margin: 35px 0 20px 0;
@@ -335,6 +189,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        h4 {
+            font-family: 'Poppins', sans-serif;
         }
         
         /* --- INFO BOXES --- */
@@ -369,7 +227,7 @@
             padding: 0;
             border-radius: 12px;
             margin-top: 20px;
-            overflow: hidden; /* Rounded corners for table */
+            overflow: hidden; 
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             border: 1px solid #eee;
         }
@@ -426,7 +284,7 @@
             margin-top: 10px;
         }
         
-        /* --- CODE BLOCKS (Mac Style) --- */
+        /* --- CODE BLOCKS --- */
         pre {
             border-radius: 10px;
             overflow: hidden;
@@ -465,7 +323,6 @@
             gap: 8px;
         }
 
-        /* Mac window dots */
         .code-title::before {
             content: '';
             display: inline-block;
@@ -474,7 +331,7 @@
             border-radius: 50%;
             background-color: #ff5f56;
             box-shadow: 15px 0 0 #ffbd2e, 30px 0 0 #27c93f;
-            margin-right: 35px; /* space for dots */
+            margin-right: 35px;
         }
         
         .copy-btn {
@@ -501,7 +358,7 @@
             border-color: #4CAF50;
         }
         
-        /* --- NAVIGATION TABS --- */
+        /* --- NAVIGATION TABS (Inside Content) --- */
         .section-nav {
             background: linear-gradient(135deg, #f0f5ff 0%, #e6efff 100%);
             padding: 30px;
@@ -596,19 +453,14 @@
             animation: spin 1s linear infinite;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         .query-result-container {
             margin-top: 25px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1); /* Smoother expansion */
+            transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             border-radius: 12px;
             background-color: white;
-            opacity: 0; /* Fade in effect */
+            opacity: 0; 
         }
         
         .query-result-container.active {
@@ -705,48 +557,22 @@
             border: 1px solid #c8e6c9;
             display: inline-block;
         }
-        
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 40px;
-            margin-top: 60px;
-            background-color: #2c3e50;
-            color: white;
-            font-size: 0.95rem;
-            border-top: 5px solid #3498db;
-        }
-        
-        footer p {
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-        
+
         /* --- RESPONSIVE --- */
-        @media (max-width: 992px) {
-            .nav-links {
-                gap: 15px;
-            }
-            
-            .nav-left {
-                gap: 20px;
-            }
-        }
-        
         @media (max-width: 768px) {
             .container {
-                margin: 0;
+                margin: 0 auto;
                 padding: 15px;
             }
             
             .container header {
                 padding: 2.5rem 1.5rem;
                 margin-bottom: 2rem;
-                border-radius: 16px;
+                border-radius: 12px;
             }
             
             .container header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .container header .subtitle {
@@ -756,50 +582,6 @@
             .content {
                 padding: 25px 15px;
                 border-radius: 16px;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background: rgba(30, 60, 114, 0.98);
-                backdrop-filter: blur(15px);
-                flex-direction: column;
-                padding: 20px;
-                gap: 0;
-                transform: translateY(-150%);
-                opacity: 0;
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 999;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            }
-            
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            .nav-links li {
-                width: 100%;
-            }
-            
-            .nav-links a {
-                display: block;
-                padding: 15px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            
-            .nav-links a:last-child {
-                border-bottom: none;
-            }
-            
-            .hamburger {
-                display: flex;
-            }
-            
-            .social-links {
-                display: none;
             }
 
             .table-columns {
@@ -856,7 +638,7 @@
         <div class="content">
             <div class="database-info section">
                 <h3>Database Overview</h3>
-                <p>This database, financial_analytics, is designed for comprehensive financial data analysis including company information, stock prices, and financial statements với calculated ratios.</p>
+                <p>This database, financial_analytics, is designed for comprehensive financial data analysis including company information, stock prices, and financial statements with calculated ratios.</p>
                 <p>The schema consists of 3 main tables that support various analytical queries for fundamental analysis, sector comparison, and market valuation.</p>
                 <div class="data-info">
                     <strong><i class="fas fa-info-circle"></i> Interactive Features:</strong> Click "Run Query" to view CSV results from the database. All results are pre-generated and stored in the <code>query_data</code> folder.
@@ -1252,8 +1034,7 @@ LIMIT 10;</code></pre>
                             <h4><i class="fas fa-table"></i> Query 1 Results: Top 10 Companies by Revenue (Most Recent Year)</h4>
                             <button class="close-result" data-target="query1">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                     
                     <div class="query-description">
@@ -1300,8 +1081,7 @@ LIMIT 10;</code></pre>
                             <h4><i class="fas fa-chart-line"></i> Query 2 Results: Highest Net Profit Margin (Most Recent Year)</h4>
                             <button class="close-result" data-target="query2">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                     
                     <div class="query-description">
@@ -1347,8 +1127,7 @@ ORDER BY f.debt_to_equity DESC;</code></pre>
                             <h4><i class="fas fa-exclamation-triangle"></i> Query 3 Results: High Debt Risk Companies (Most Recent Year)</h4>
                             <button class="close-result" data-target="query3">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                     
                     <div class="query-description">
@@ -1394,8 +1173,7 @@ LIMIT 10;</code></pre>
                             <h4><i class="fas fa-tachometer-alt"></i> Query 4 Results: Best ROE & ROA (Most Recent Year)</h4>
                             <button class="close-result" data-target="query4">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                 </div>
 
@@ -1454,8 +1232,7 @@ ORDER BY avg_net_margin_percent DESC;</code></pre>
                             <h4><i class="fas fa-industry"></i> Query 5 Results: Average Profit Margin by Sector (Most Recent Year)</h4>
                             <button class="close-result" data-target="query5">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                 </div>
                     
@@ -1510,8 +1287,7 @@ ORDER BY PE_Ratio ASC;</code></pre>
                             <h4><i class="fas fa-calculator"></i> Query 6 Results: P/E Ratio Calculation</h4>
                             <button class="close-result" data-target="query6">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                     
                     <div class="query-description">
@@ -1548,8 +1324,7 @@ ORDER BY price_volatility DESC;</code></pre>
                             <h4><i class="fas fa-chart-area"></i> Query 7 Results: Stock Volatility Analysis</h4>
                             <button class="close-result" data-target="query7">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                     
                     <div class="query-description">
@@ -1589,36 +1364,61 @@ LIMIT 100;</code></pre>
                             <h4><i class="fab fa-apple"></i> Query 8 Results: Apple 30-Day Moving Average</h4>
                             <button class="close-result" data-target="query8">×</button>
                         </div>
-                        <div class="result-content">
-                            </div>
+                        <div class="result-content"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pipeline.html">ETL Pipeline</a></li>
+                <li><a href="sql.html">SQL Section</a></li>
+                <li><a href="dashboard.html">Dashboards</a></li>
+                <li><a href="reports.html">Reports</a></li>
+            </ul>
+            
+            <div class="social-links">
+                <a href="https://github.com/laihoangson" class="social-icon" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/hoang-son-lai-92ab19282/" class="social-icon" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            
+            <div class="credit">
+                Created by Hoang Son Lai | Financial Analytics Platform | © 2025
+            </div>
+        </div>
+    </footer>
+    
     <script>
         // Hamburger menu toggle for mobile
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
         
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
         
         // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
+                if (hamburger) hamburger.classList.remove('active');
             });
         });
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('.navbar a, .nav-link-small').forEach(link => {
             link.addEventListener('click', function(e) {
-                // Only handle hash links for smooth scrolling
                 if (this.getAttribute('href').startsWith('#')) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
@@ -1656,7 +1456,6 @@ LIMIT 100;</code></pre>
                     link.style.color = '';
                     
                     if (link.getAttribute('href') === currentSection) {
-                        // Keep text white for contrast
                         link.style.color = '#fff';
                         link.style.textShadow = '0 0 10px rgba(255,255,255,0.5)';
                     }
@@ -1664,7 +1463,7 @@ LIMIT 100;</code></pre>
             });
         });
 
-        // --- NEW: Scroll Reveal Animation Logic ---
+        // Scroll Reveal Animation Logic
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -1675,7 +1474,7 @@ LIMIT 100;</code></pre>
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Only animate once
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -1683,8 +1482,6 @@ LIMIT 100;</code></pre>
         document.querySelectorAll('.section').forEach(section => {
             observer.observe(section);
         });
-        
-        // NEW JAVASCRIPT FOR QUERY FUNCTIONALITY
         
         // CSV file paths for each query
         const queryFiles = {
@@ -1698,12 +1495,11 @@ LIMIT 100;</code></pre>
             8: 'data/query_data/result8.csv'
         };
         
-        // Parse CSV string to array (cải tiến để xử lý dấu phẩy trong giá trị)
+        // Parse CSV string to array
         function parseCSV(csvText) {
             const lines = csvText.split('\n').filter(line => line.trim() !== '');
             if (lines.length === 0) return { headers: [], data: [] };
             
-            // Hàm phân tích cú pháp dòng CSV với xử lý dấu ngoặc kép
             function parseCSVLine(line) {
                 const result = [];
                 let currentField = '';
@@ -1714,16 +1510,13 @@ LIMIT 100;</code></pre>
                     const nextChar = i + 1 < line.length ? line[i + 1] : '';
                     
                     if (char === '"') {
-                        // Nếu có 2 dấu ngoặc kép liên tiếp, đó là dấu ngoặc kép được thoát
                         if (inQuotes && nextChar === '"') {
                             currentField += '"';
-                            i++; // Bỏ qua dấu ngoặc kép tiếp theo
+                            i++;
                         } else {
-                            // Bắt đầu hoặc kết thúc trường trong ngoặc kép
                             inQuotes = !inQuotes;
                         }
                     } else if (char === ',' && !inQuotes) {
-                        // Dấu phân cách trường
                         result.push(currentField);
                         currentField = '';
                     } else {
@@ -1731,15 +1524,11 @@ LIMIT 100;</code></pre>
                     }
                 }
                 
-                // Thêm trường cuối cùng
                 result.push(currentField);
                 return result;
             }
             
-            // Phân tích tiêu đề
             const headers = parseCSVLine(lines[0]).map(h => h.trim());
-            
-            // Phân tích dữ liệu
             const data = [];
             for (let i = 1; i < lines.length; i++) {
                 const fields = parseCSVLine(lines[i]);
@@ -1755,20 +1544,17 @@ LIMIT 100;</code></pre>
             return { headers, data };
         }
         
-        // Create HTML table from CSV data - tất cả đều căn giữa
+        // Create HTML table from CSV data
         function createTableFromCSV(csvData) {
             const { headers, data } = csvData;
-            
             let html = `<table style="width: 100%; text-align: center; border-collapse: separate; border-spacing: 0; margin: 0;">`;
             
-            // Create header row
             html += '<thead><tr>';
             headers.forEach(header => {
                 html += `<th style="padding: 15px; background: #34495e; color: white; border-bottom: 2px solid #2c3e50; font-weight: 600; letter-spacing: 0.5px;">${header}</th>`;
             });
             html += '</tr></thead>';
             
-            // Create data rows
             html += '<tbody>';
             data.forEach((row, rowIndex) => {
                 const bgColor = rowIndex % 2 === 0 ? '#f8f9fa' : '#ffffff';
@@ -1791,29 +1577,18 @@ LIMIT 100;</code></pre>
             
             try {
                 const response = await fetch(filePath);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
                 const csvText = await response.text();
                 const csvData = parseCSV(csvText);
                 
-                return {
-                    success: true,
-                    data: csvData,
-                    rowCount: csvData.data.length
-                };
+                return { success: true, data: csvData, rowCount: csvData.data.length };
             } catch (error) {
                 console.error(`Error loading CSV for query ${queryNumber}:`, error);
-                
                 if (statusElement) {
                     statusElement.innerHTML = `<span class="status-error" style="color: #e74c3c;"><i class="fas fa-times-circle"></i> Error loading data: ${error.message}</span>`;
                 }
-                
-                return {
-                    success: false,
-                    error: error.message
-                };
+                return { success: false, error: error.message };
             }
         }
         
@@ -1824,7 +1599,6 @@ LIMIT 100;</code></pre>
                 const resultContainer = document.getElementById(`result-query${queryNumber}`);
                 const statusElement = document.getElementById(`status-query${queryNumber}`);
                 
-                // Show loading state
                 this.classList.add('running');
                 this.innerHTML = '<i class="fas fa-spinner"></i> Processing...';
                 
@@ -1832,38 +1606,27 @@ LIMIT 100;</code></pre>
                     statusElement.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #3498db;"></i> Loading data...';
                 }
                 
-                // Close any other open result containers
                 document.querySelectorAll('.query-result-container.active').forEach(container => {
-                    if (container.id !== `result-query${queryNumber}`) {
-                        container.classList.remove('active');
-                    }
+                    if (container.id !== `result-query${queryNumber}`) container.classList.remove('active');
                 });
                 
-                // Load and display CSV data
                 const result = await loadCSV(queryNumber);
                 
-                // Reset button state
                 this.classList.remove('running');
                 this.innerHTML = '<i class="fas fa-play"></i> Run Query ' + queryNumber;
                 
                 if (result.success) {
-                    const csvData = result.data;
-                    const rowCount = result.rowCount;
+                    const { data: csvData, rowCount } = result;
                     
-                    // Update status
                     if (statusElement) {
                         statusElement.innerHTML = `<span class="status-success" style="color: #27ae60; font-weight: 500;"><i class="fas fa-check-circle"></i> Success: ${rowCount} rows retrieved</span>`;
                     }
                     
-                    // Create table HTML
                     const tableHTML = createTableFromCSV(csvData);
-                    
-                    // Create download link
                     const downloadLink = `<a href="${queryFiles[queryNumber]}" class="download-link" download="query${queryNumber}_results.csv">
                         <i class="fas fa-download"></i> Download CSV (${rowCount} rows)
                     </a>`;
                     
-                    // Update result container
                     const contentDiv = resultContainer.querySelector('.result-content');
                     contentDiv.innerHTML = `
                         <div class="data-info" style="margin-bottom: 15px;">
@@ -1877,16 +1640,10 @@ LIMIT 100;</code></pre>
                         </div>
                     `;
                     
-                    // Show result container
                     resultContainer.classList.add('active');
-                    
-                    // Scroll to result container
-                    setTimeout(() => {
-                        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 100);
+                    setTimeout(() => resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
                     
                 } else {
-                    // Show error in result container
                     const contentDiv = resultContainer.querySelector('.result-content');
                     contentDiv.innerHTML = `
                         <div class="no-data" style="text-align: center; padding: 40px; color: #7f8c8d;">
@@ -1897,37 +1654,27 @@ LIMIT 100;</code></pre>
                             <p style="font-size: 0.8rem; margin-top: 5px;">Make sure the CSV file exists in the query_data folder.</p>
                         </div>
                     `;
-                    
-                    // Show result container
                     resultContainer.classList.add('active');
                 }
             });
         });
         
-        // Close result container
         document.querySelectorAll('.close-result').forEach(button => {
             button.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
-                const container = document.getElementById(`result-${targetId}`);
-                container.classList.remove('active');
+                document.getElementById(`result-${targetId}`).classList.remove('active');
             });
         });
         
-        // Copy code functionality
         document.querySelectorAll('.copy-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
-                const codeElement = document.getElementById(targetId);
-                const codeText = codeElement.textContent;
+                const codeText = document.getElementById(targetId).textContent;
                 
-                // Copy to clipboard
                 navigator.clipboard.writeText(codeText).then(() => {
-                    // Show copied state
                     const originalText = this.textContent;
                     this.textContent = 'Copied!';
                     this.classList.add('copied');
-                    
-                    // Reset after 2 seconds
                     setTimeout(() => {
                         this.textContent = originalText;
                         this.classList.remove('copied');
@@ -1935,18 +1682,9 @@ LIMIT 100;</code></pre>
                 }).catch(err => {
                     console.error('Failed to copy: ', err);
                     this.textContent = 'Error!';
-                    
-                    setTimeout(() => {
-                        this.textContent = 'Copy';
-                    }, 2000);
+                    setTimeout(() => { this.textContent = 'Copy'; }, 2000);
                 });
             });
-        });
-        
-        // Display file paths information
-        console.log('CSV files expected in query_data folder:');
-        Object.entries(queryFiles).forEach(([queryNum, filePath]) => {
-            console.log(`Query ${queryNum}: ${filePath}`);
         });
     </script>
 </body>
