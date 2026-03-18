@@ -6,6 +6,11 @@ A comprehensive, automated financial analytics platform designed to extract, pro
 
 Website: https://laihoangson.github.io/financial-analytic/
 
+**Viewing Note:**
+
+For the best experience, view this page on a desktop.  
+On mobile devices, switch your browser to **Desktop Mode** or **Request Desktop Site**.
+
 ## 🌟 Key Features
 
 * **Automated ETL Pipeline:** Daily data extraction and transformation using Python and the `yfinance` API, orchestrated by GitHub Actions.
