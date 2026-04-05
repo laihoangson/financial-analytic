@@ -767,12 +767,12 @@
                 </div>
                 <div class="card-body">
                     <p class="card-desc">
-                        This step safely deposits processed data into a <strong>MySQL</strong> database using SQLAlchemy. The logic is built to support "Upsert" operations - meaning it can update existing records or insert new ones without creating duplicates.
+                        This step safely deposits processed data into a <strong>SQL</strong> database using SQLAlchemy. The logic is built to support "Upsert" operations - meaning it can update existing records or insert new ones without creating duplicates.
                     </p>
                     <ul class="feature-list">
                         <li><strong>Integrity Checks:</strong> Uses <code>INSERT IGNORE</code> and <code>ON DUPLICATE KEY UPDATE</code> to manage data history.</li>
                         <li><strong>Batch Processing:</strong> Loads data in chunks (2000 rows/batch) to optimize memory usage.</li>
-                        <li><strong>Type Mapping:</strong> Ensures Python Pandas data types align perfectly with MySQL table schemas.</li>
+                        <li><strong>Type Mapping:</strong> Ensures Python Pandas data types align perfectly with SQL table schemas.</li>
                     </ul>
                 </div>
             </div>
@@ -828,7 +828,7 @@
                         <div class="strategy-content">
                             <h3>Financial Reports Data</h3>
                             <p>
-                                The detailed written reports are based on a <strong>verified snapshot</strong> of the MySQL database. This ensures consistency in analysis. The current reports utilize the dataset integrity-checked and loaded on <strong>February 3, 2026</strong>.
+                                The detailed written reports are based on a <strong>verified snapshot</strong> of the SQL database. This ensures consistency in analysis. The current reports utilize the dataset integrity-checked and loaded on <strong>February 3, 2026</strong>.
                             </p>
                             <span class="status-badge static">
                                 <span class="dot"></span> Snapshot Date: 03/02/2026
@@ -852,7 +852,7 @@
                 </div>
                 <div class="tech-item">
                     <i class="fas fa-database tech-icon mysql"></i>
-                    <div>MySQL</div>
+                    <div>SQL</div>
                 </div>
                 <div class="tech-item">
                     <i class="fab fa-github tech-icon github"></i>
