@@ -40,6 +40,11 @@ jobs:
       # PHASE 2
       # ==========================================
       - name: Run Phase 2 (Supabase & Export SQL)
+        env:
+          SUPA_DB_HOST: ${{ secrets.SUPA_DB_HOST }}
+          SUPA_DB_PORT: ${{ secrets.SUPA_DB_PORT }}
+          SUPA_DB_USER: ${{ secrets.SUPA_DB_USER }}
+          SUPA_DB_PASSWORD: ${{ secrets.SUPA_DB_PASSWORD }}
         run: python backend/etl/run_phase2.py
 
       - name: Commit & push Phase 2
