@@ -45,6 +45,7 @@ jobs:
           SUPA_DB_PORT: ${{ secrets.SUPA_DB_PORT }}
           SUPA_DB_USER: ${{ secrets.SUPA_DB_USER }}
           SUPA_DB_PASSWORD: ${{ secrets.SUPA_DB_PASSWORD }}
+          SUPA_DB_NAME: postgres
         run: python backend/etl/run_phase2.py
 
       - name: Commit & push Phase 2
