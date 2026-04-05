@@ -763,16 +763,16 @@
                 <div class="card-header">
                     <div class="card-icon"><i class="fas fa-server"></i></div>
                     <h3 class="card-title">3. Database Loading</h3>
-                    <span class="card-filename">backend/etl/load_to_mysql.py</span>
+                    <span class="card-filename">backend/etl/load_to_mysql.py & backend/etl/load_to_supabase.py</span>
                 </div>
                 <div class="card-body">
                     <p class="card-desc">
-                        This step safely deposits processed data into a <strong>SQL</strong> database using SQLAlchemy. The logic is built to support "Upsert" operations - meaning it can update existing records or insert new ones without creating duplicates.
+                        This step safely deposits processed data into a dual-database architecture. Data is loaded into both a <strong>Local MySQL</strong> database for backup and a <strong>Cloud-based Supabase (PostgreSQL)</strong> database via SQLAlchemy.
                     </p>
                     <ul class="feature-list">
-                        <li><strong>Integrity Checks:</strong> Uses <code>INSERT IGNORE</code> and <code>ON DUPLICATE KEY UPDATE</code> to manage data history.</li>
-                        <li><strong>Batch Processing:</strong> Loads data in chunks (2000 rows/batch) to optimize memory usage.</li>
-                        <li><strong>Type Mapping:</strong> Ensures Python Pandas data types align perfectly with SQL table schemas.</li>
+                        <li><strong>Integrity Checks:</strong> Uses <code>ON DUPLICATE KEY UPDATE</code> (MySQL) and <code>ON CONFLICT</code> (PostgreSQL) to handle "Upsert" operations seamlessly.</li>
+                        <li><strong>Batch Processing:</strong> Loads data in chunks to optimize memory usage and prevent connection timeouts.</li>
+                        <li><strong>Hybrid Storage:</strong> Maintains perfect synchronization between local development environments and cloud production.</li>
                     </ul>
                 </div>
             </div>
@@ -789,8 +789,8 @@
                     </p>
                     <ul class="feature-list">
                         <li><strong>Daily Trigger:</strong> Scheduled to run automatically at 22:00 UTC to capture the U.S. market close of the same day.</li>
-                        <li><strong>Environment:</strong> Sets up Python 3.10 and installs dependencies on the fly.</li>
-                        <li><strong>Auto-Commit:</strong> Push the newly processed CSV data back to the repository for the frontend to consume.</li>
+                        <li><strong>Environment Setup:</strong> Automatically provisions Python 3.10, installs dependencies, and configures secure cloud credentials.</li>
+                        <li><strong>Data Sync & Auto-Commit:</strong> Generates newly processed CSV files for the dashboards first, then pushes the data to the Supabase cloud database.</li>
                     </ul>
                 </div>
             </div>

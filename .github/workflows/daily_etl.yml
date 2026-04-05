@@ -22,13 +22,28 @@ jobs:
       - name: Install deps
         run: pip install -r requirements.txt
 
-      - name: Run cloud ETL
-        run: python backend/etl/run_etl.py
+      # ==========================================
+      # PHASE 1
+      # ==========================================
+      - name: Run Phase 1 (Fetch & Clean)
+        run: python backend/etl/run_phase1.py
 
-      - name: Commit & push data
+      - name: Commit & push Phase 1
         run: |
           git config --global user.name "laihoangson"
           git config --global user.email "lson21757@gmail.com"
           git add data/
-          git commit -m "Daily fetch & clean data" || echo "No changes"
+          git commit -m "Phase 1: Fast update for Dashboard CSVs" || echo "No changes in Phase 1"
+          git push
+
+      # ==========================================
+      # PHASE 2
+      # ==========================================
+      - name: Run Phase 2 (Supabase & Export SQL)
+        run: python backend/etl/run_phase2.py
+
+      - name: Commit & push Phase 2
+        run: |
+          git add data/query_data/
+          git commit -m "Phase 2: Update SQL query results from Supabase" || echo "No changes in Phase 2"
           git push

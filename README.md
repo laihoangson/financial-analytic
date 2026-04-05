@@ -17,7 +17,6 @@ On mobile devices, switch your browser to **Desktop Mode** or **Request Desktop 
 * **Interactive Dashboards:** Daily-updated visualizations powered by Javascript, allowing users to filter by metrics like Revenue, Net Income, and compare global market performance or dive deep into individual company fundamentals.
 * **Predictive Analytics & Reports:** In-depth stock price trend forecasting integrating Technical Analysis, Quantitative Analysis, and Machine Learning models (XGBoost, Scikit-Learn).
 * **Advanced SQL Analytics:** A robust MySQL database schema supporting complex financial queries, including fundamental analysis, sector comparisons, and market valuation metrics (e.g., P/E ratios, Volatility, Moving Averages).
-* **CI/CD Automation:** Scheduled workflows ensuring data is refreshed daily at 06:00 AM (GMT+7) automatically.
 
 ---
 
@@ -35,10 +34,14 @@ financial-analytic/
 │   ├── etl/
 │   │   ├── fetch_data.py          # Extracts raw data via yFinance API
 │   │   ├── clean_data.py          # Cleans data & calculates 15+ financial ratios
-│   │   └── load_to_mysql.py       # Safely upserts processed data to MySQL
+│   │   ├── load_to_mysql.py       # Safely upserts processed data to MySQL
+│   │   ├── load_to_supabase.py    # Upserts processed data to Cloud PostgreSQL
+│   │   ├── export_queries.py      # Automates pulling Supabase views into static CSVs
+│   │   ├── run_phase1.py          # Phase 1: Fast data fetch & clean for dashboards
+│   │   └── run_phase2.py          # Phase 2: Cloud sync & SQL view exports
 │   └── sql/
 │       ├── schema.sql             # Database schema and table definitions
-│       ├── analysis_queries.sql   # Queries to answer business questions
+│       └── analysis_queries.sql   # Queries to answer business questions
 ├── dashboard/
 │   ├── global_dashboard.html      # Global market interactive dashboard
 │   └── company_dashboard.html     # Deep-dive company interactive dashboard
@@ -52,7 +55,7 @@ financial-analytic/
 │   │   ├── raw_financials.csv
 │   │   └── raw_prices.csv
 │   └── query_data/
-│       ├── result1.csv            # Pre-generated SQL query results for the frontend
+│       ├── result1.csv            # Pre-generated SQL query results from Supabase
 │       └── ...                    # (result1.csv through result8.csv)
 ├── reports/
 │   ├── ml_report.ipynb            # Full Machine Learning forecasting report
@@ -74,15 +77,15 @@ The platform's data architecture is built for resilience and accuracy, dividing 
 
 1.  **Data Extraction (`fetch_data.py`):** Pulls 5 years of historical OHLCV data, financial statements (Income, Balance Sheet, Cash Flow), and company metadata using the yFinance API.
 2.  **Data Transformation (`clean_data.py`):** Cleans the raw data and automatically computes over 15 financial ratios (ROE, ROA, Debt-to-Equity, Current Ratio, etc.).
-3.  **Database Loading (`load_to_mysql.py`):** Safely upserts processed data into a MySQL database via SQLAlchemy using chunked batch processing.
-4.  **Automation (`daily_etl.yml`):** GitHub Actions triggers the pipeline daily, pushing fresh CSV data to the frontend and updating the database.
+3.  **Dual-Database Loading:** Safely upserts processed data into a Local MySQL database (backup) and a Cloud Supabase PostgreSQL database (production) using chunked batch processing and conflict handling.
+4.  **Automation (`daily_etl.yml`):** A two-phase GitHub Actions workflow triggers daily. Phase 1 fetches and pushes fresh CSVs directly to the frontend for instant dashboard updates. Phase 2 pushes the data to Supabase, executes SQL views, and auto-commits the results back to the repository.
 
 ---
 
 ## 💻 Technology Stack
 
 * **Data Engineering & Machine Learning:** Python, Pandas, SQLAlchemy, Scikit-Learn, XGBoost, yFinance API
-* **Database:** MySQL
+* **Database:** MySQL, PostgreSQL
 * **Frontend, Dashboard & UI:** HTML5, CSS3, JavaScript
 * **DevOps & Automation:** GitHub Actions
 

@@ -641,7 +641,7 @@
                 <p>This database, financial_analytics, is designed for comprehensive financial data analysis including company information, stock prices, and financial statements with calculated ratios.</p>
                 <p>The schema consists of 3 main tables that support various analytical queries for fundamental analysis, sector comparison, and market valuation.</p>
                 <div class="data-info">
-                    <strong><i class="fas fa-info-circle"></i> Interactive Features:</strong> Click "Run Query" to view CSV results from the database. All results are pre-generated and stored in the <code>query_data</code> folder.
+                    <strong><i class="fas fa-info-circle"></i> Interactive Features:</strong> Click "Run Query" to view results. All query results are automatically exported from Supabase to CSV files daily via GitHub Actions for lightning-fast performance.
                 </div>
             </div>
             
@@ -979,7 +979,7 @@ CREATE TABLE IF NOT EXISTS financial_statements (
                         <a class="nav-link-small">Market Analysis</a>
                     </div>
                     <div class="data-info" style="margin-top: 20px;">
-                        <i class="fas fa-database"></i> All query results are pre-generated and stored as CSV files. Click "Run Query" to view results.
+                        <i class="fas fa-database"></i> All query results are automatically exported from the live database to static CSV files daily.
                     </div>
                 </div>
                 
@@ -1560,7 +1560,10 @@ LIMIT 100;</code></pre>
                 const bgColor = rowIndex % 2 === 0 ? '#f8f9fa' : '#ffffff';
                 html += `<tr style="background-color: ${bgColor}; transition: background 0.2s;">`;
                 headers.forEach(header => {
-                    const value = row[header] || '';
+                    let value = row[header];
+                    if (value === undefined || value === null || String(value).trim() === '') {
+                        value = 'NULL';
+                    }
                     html += `<td style="padding: 12px; border-bottom: 1px solid #eee; text-align: center; color: #555;">${value}</td>`;
                 });
                 html += '</tr>';
@@ -1629,9 +1632,6 @@ LIMIT 100;</code></pre>
                     
                     const contentDiv = resultContainer.querySelector('.result-content');
                     contentDiv.innerHTML = `
-                        <div class="data-info" style="margin-bottom: 15px;">
-                            <i class="fas fa-info-circle"></i> Source: <code>${queryFiles[queryNumber]}</code>
-                        </div>
                         <div style="overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
                             ${tableHTML}
                         </div>
