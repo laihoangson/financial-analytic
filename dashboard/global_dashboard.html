@@ -730,8 +730,8 @@
         const financialsByTicker = {};
         financials.forEach(f => {
             if (!f.ticker || !f.report_date) return;
-            // Clean up: Ensure revenue is valid number
-            if (f.revenue !== undefined && f.revenue !== null && f.revenue !== 0 && f.revenue !== '0') {
+            // Clean up: Ensure revenue is valid number AND ONLY USE 'FY' FOR GLOBAL DASHBOARD
+            if (f.period === 'FY' && f.revenue !== undefined && f.revenue !== null && f.revenue !== 0 && f.revenue !== '0') {
                  if (!financialsByTicker[f.ticker]) financialsByTicker[f.ticker] = [];
                  financialsByTicker[f.ticker].push({
                     ...f,
@@ -776,6 +776,7 @@
         const resultList = [];
         
         Object.keys(globalData.financialsByTicker).forEach(ticker => {
+            // Đảm bảo chỉ làm việc với mảng đã được lọc 'FY' từ bước processData
             const history = globalData.financialsByTicker[ticker];
             let match = null;
 

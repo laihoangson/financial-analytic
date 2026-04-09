@@ -815,7 +815,7 @@
                                 <tr>
                                     <td>period</td>
                                     <td>VARCHAR(20)</td>
-                                    <td>Reporting period ('12M', 'TTM', '3M')</td>
+                                    <td>Reporting period ('FY' or 'Q')</td>
                                 </tr>
                                 <tr>
                                     <td>revenue</td>
@@ -915,7 +915,7 @@ CREATE TABLE IF NOT EXISTS financial_statements (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ticker VARCHAR(10),
     report_date DATE,
-    period VARCHAR(20), -- '12M' for Yearly, 'TTM' or '3M'
+    period VARCHAR(20), -- 'FY' for Yearly, 'Q' for Quarterly
 
     -- Income Statement
     revenue DECIMAL(20, 2),
@@ -1008,7 +1008,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.revenue IS NOT NULL AND f1.revenue > 0
+    WHERE f1.revenue IS NOT NULL AND f1.revenue > 0 AND f1.period = 'FY'
 )
 SELECT 
     c.name, 
@@ -1055,7 +1055,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.revenue > 0
+    WHERE f1.revenue > 0 AND f1.period = 'FY'
 )
 SELECT 
     c.ticker, 
@@ -1101,7 +1101,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.debt_to_equity IS NOT NULL
+    WHERE f1.debt_to_equity IS NOT NULL AND f1.period = 'FY'
 )
 SELECT 
     c.name, 
@@ -1147,7 +1147,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.roe IS NOT NULL
+    WHERE f1.roe IS NOT NULL AND f1.period = 'FY'
 )
 SELECT 
     c.ticker,
@@ -1197,7 +1197,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.revenue > 0
+    WHERE f1.revenue > 0 AND f1.period = 'FY'
 ),
 LatestCompanyData AS (
     SELECT 
@@ -1258,13 +1258,15 @@ WITH LatestPrice AS (
 ),
 LatestEPS AS (
     -- Get the most recent EPS
-    SELECT ticker, basic_eps, report_date
-    FROM financial_statements
-    WHERE (ticker, report_date) IN (
-        SELECT ticker, MAX(report_date) 
+    SELECT f1.ticker, f1.basic_eps, f1.report_date
+    FROM financial_statements f1
+    INNER JOIN (
+        SELECT ticker, MAX(report_date) as max_date 
         FROM financial_statements 
+        WHERE period = 'FY'
         GROUP BY ticker
-    )
+    ) f2 ON f1.ticker = f2.ticker AND f1.report_date = f2.max_date
+    WHERE f1.period = 'FY'
 )
 SELECT 
     lp.ticker,

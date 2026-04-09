@@ -100,8 +100,9 @@ def load_data():
                 cols = ', '.join(df_fin.columns)
                 vals = ', '.join([f':{c}' for c in df_fin.columns])
 
+                # ĐÃ SỬA: Bỏ qua id, ticker, report_date, và period khỏi lệnh update
                 update_clause = ', '.join(
-                    [f"{c}=VALUES({c})" for c in df_fin.columns if c != 'id']
+                    [f"{c}=VALUES({c})" for c in df_fin.columns if c not in ['id', 'ticker', 'report_date', 'period']]
                 )
 
                 sql = text(f"""
@@ -132,7 +133,6 @@ def main():
     print("--- Starting Database Load ---")
     load_data()
     print("--- Database Load Complete ---")
-
 
 if __name__ == "__main__":
     main()

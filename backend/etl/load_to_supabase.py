@@ -100,14 +100,16 @@ def load_data():
                 vals = ', '.join([f':{c}' for c in df_fin.columns])
 
                 # Tạo chuỗi update tự động cho PostgreSQL (dùng EXCLUDED.)
+                # ĐÃ THÊM 'period' vào danh sách không update
                 update_clause = ', '.join(
-                    [f"{c}=EXCLUDED.{c}" for c in df_fin.columns if c not in ['id', 'ticker', 'report_date']]
+                    [f"{c}=EXCLUDED.{c}" for c in df_fin.columns if c not in ['id', 'ticker', 'report_date', 'period']]
                 )
 
+                # ĐÃ THÊM 'period' VÀO ON CONFLICT ĐỂ TRÁNH LỖI KEY
                 sql = text(f"""
                     INSERT INTO financial_statements ({cols})
                     VALUES ({vals})
-                    ON CONFLICT (ticker, report_date) DO UPDATE SET
+                    ON CONFLICT (ticker, report_date, period) DO UPDATE SET
                         {update_clause};
                 """)
 

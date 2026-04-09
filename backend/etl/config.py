@@ -18,7 +18,7 @@ os.makedirs(DATA_CLEANED_DIR, exist_ok=True)
 # Target Companies 
 TICKERS = [
     'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'TSLA', 'JPM', 'JNJ', 'V', 'WMT',
-    'PG', 'UNH', 'HD', 'MA', 'DIS', 'BAC', 'NVDA', 'PYPL', 'NFLX', 'ADBE', 'KO'
+    'PG', 'HD', 'MA', 'UNH', 'DIS', 'BAC', 'NVDA', 'PYPL', 'NFLX', 'ADBE', 'KO'
 ]
 
 # --- 1. MySQL Configuration (Local) ---

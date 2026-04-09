@@ -365,6 +365,7 @@
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid var(--border);
+            justify-content: center; /* Center align legends */
         }
         
         .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
@@ -441,6 +442,14 @@
             <select id="tickerSelect"></select>
         </div>
 
+        <div class="control-group">
+            <label><i class="fas fa-filter"></i> REPORT TYPE</label>
+            <select id="reportTypeSelect">
+                <option value="FY" selected>Annual (FY)</option>
+                <option value="Q">Quarterly (Q)</option>
+            </select>
+        </div>
+
         <div class="company-profile" id="companyProfile">
             <div class="profile-item">
                 <div class="profile-label">Sector</div>
@@ -489,7 +498,7 @@
             <div class="kpi-card blue">
                 <div class="kpi-title">Total Revenue <i class="kpi-icon fas fa-money-bill-wave"></i></div>
                 <div class="kpi-value" id="kpi-revenue">-</div>
-                <div class="kpi-sub">Latest Annual • <span id="revenue-growth">0% growth</span></div>
+                <div class="kpi-sub"><span id="kpi-period-label">Latest Annual</span> • <span id="revenue-growth">0% growth</span></div>
             </div>
             <div class="kpi-card green">
                 <div class="kpi-title">Net Income <i class="kpi-icon fas fa-coins"></i></div>
@@ -530,7 +539,7 @@
                             <label><input type="checkbox" id="toggleBB"> BB</label>
                         </div>
                         <div class="btn-group">
-                            <button class="time-btn active" onclick="setStockRange('all')">5Y</button>
+                            <button class="time-btn active" onclick="setStockRange('all')">7Y</button>
                             <button class="time-btn" onclick="setStockRange('1y')">1Y</button>
                             <button class="time-btn" onclick="setStockRange('3m')">3M</button>
                         </div>
@@ -555,11 +564,37 @@
                 <div class="chart-legend" id="incomeLegend"></div>
             </div>
 
+            <div class="chart-container" id="marginChartContainer">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title" id="marginChartTitle">Profitability Margins</div>
+                        <div class="chart-subtitle" id="marginChartSub">Gross, Operating & Net Margin Trends</div>
+                    </div>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="marginChart"></canvas>
+                </div>
+                <div class="chart-legend" id="marginLegend"></div>
+            </div>
+            
+            <div class="chart-container" id="roChartContainer">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title" id="roChartTitle">Return Metrics (ROE & ROA)</div>
+                        <div class="chart-subtitle" id="roChartSub">Efficiency in generating returns</div>
+                    </div>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="roChart"></canvas>
+                </div>
+                <div class="chart-legend" id="roLegend"></div>
+            </div>
+
             <div class="chart-container">
                 <div class="chart-header">
                     <div>
-                        <div class="chart-title">Asset Allocation</div>
-                        <div class="chart-subtitle">Current vs Non-Current Assets</div>
+                        <div class="chart-title" id="compositionChartTitle">Asset Allocation</div>
+                        <div class="chart-subtitle" id="compositionChartSub">Current vs Non-Current Assets</div>
                     </div>
                 </div>
                 <div class="canvas-wrapper">
@@ -568,11 +603,11 @@
                 <div class="chart-legend" id="structureLegend"></div>
             </div>
 
-            <div class="chart-container">
+            <div class="chart-container" id="liquidityContainer">
                 <div class="chart-header">
                     <div>
-                        <div class="chart-title">Liquidity Ratios</div>
-                        <div class="chart-subtitle">Current, Quick, and Cash Ratios</div>
+                        <div class="chart-title" id="liquidityChartTitle">Liquidity Ratios</div>
+                        <div class="chart-subtitle" id="liquidityChartSub">Current, Quick, and Cash Ratios</div>
                     </div>
                 </div>
                 <div class="canvas-wrapper">
@@ -594,32 +629,7 @@
                 <div class="chart-legend" id="assetsLegend"></div>
             </div>
 
-            <div class="chart-container">
-                <div class="chart-header">
-                    <div>
-                        <div class="chart-title">Profitability Margins</div>
-                        <div class="chart-subtitle">Gross Margin vs Net Margin Trends</div>
-                    </div>
-                </div>
-                <div class="canvas-wrapper">
-                    <canvas id="marginChart"></canvas>
-                </div>
-                <div class="chart-legend" id="marginLegend"></div>
             </div>
-            
-            <div class="chart-container">
-                <div class="chart-header">
-                    <div>
-                        <div class="chart-title">Return Metrics (ROE & ROA)</div>
-                        <div class="chart-subtitle">Efficiency in generating returns</div>
-                    </div>
-                </div>
-                <div class="canvas-wrapper">
-                    <canvas id="roChart"></canvas>
-                </div>
-                <div class="chart-legend" id="roLegend"></div>
-            </div>
-        </div>
         
         <div class="footer">
             <p>Company DeepDive Dashboard • Data sourced from financial statements • Updated as of <span id="current-date"></span></p>
@@ -633,6 +643,7 @@
         let dataFinancials = [];
         let dataStocks = [];
         let currentTicker = '';
+        let currentReportType = 'FY'; // THÊM BIẾN TRẠNG THÁI NĂM/QUÝ
         
         // Stock Chart State
         let stockRange = 'all';
@@ -657,15 +668,21 @@
                     if (meta.type !== 'bar' || meta.hidden) return;
 
                     meta.data.forEach((element, index) => {
+                        // Skip if element does not have x/y coords
+                        if (element.x === undefined || element.y === undefined) return;
+
                         // Calculate percentage
                         let total = 0;
-                        chart.data.datasets.forEach(d => {
-                             const val = d.data[index];
-                             if (typeof val === 'number') total += val;
+                        chart.data.datasets.forEach((d, idx) => {
+                             const m = chart.getDatasetMeta(idx);
+                             if(m.type === 'bar' && !m.hidden) {
+                                 const val = d.data[index];
+                                 if (typeof val === 'number') total += val;
+                             }
                         });
                         
                         const value = dataset.data[index];
-                        if (!value || value === 0) return;
+                        if (!value || value === 0 || total === 0) return;
                         
                         const percentage = ((value / total) * 100).toFixed(1) + '%';
                         if ((value / total) < 0.05) return; // Hide if less than 5% to avoid clutter
@@ -784,6 +801,14 @@
                     if (window.innerWidth <= 1024) document.getElementById('sidebar').classList.remove('active');
                 }
             });
+
+            // Lắng nghe sự thay đổi Năm/Quý
+            document.getElementById('reportTypeSelect').addEventListener('change', (e) => {
+                currentReportType = e.target.value;
+                if (currentTicker) {
+                    updateDashboard(currentTicker);
+                }
+            });
             
             if(tickers.length > 0) {
                 select.value = tickers[0];
@@ -803,9 +828,12 @@
         function updateDashboard(ticker) {
             // Data Prep
             const companyInfo = dataCompanies.find(c => c.ticker === ticker) || {};
+            
+            // LỌC DỮ LIỆU TÀI CHÍNH DỰA TRÊN LOẠI BÁO CÁO (NĂM HOẶC QUÝ)
             const financials = dataFinancials
-                .filter(d => d.ticker === ticker && d.revenue && d.revenue !== 0)
+                .filter(d => d.ticker === ticker && d.revenue && d.revenue !== 0 && d.period === currentReportType)
                 .sort((a,b) => new Date(a.report_date) - new Date(b.report_date));
+                
             const stocks = dataStocks
                 .filter(d => d.ticker === ticker)
                 .sort((a,b) => new Date(a.date) - new Date(b.date));
@@ -814,6 +842,9 @@
             const previousFin = financials[financials.length - 2] || {};
             const latestStock = stocks[stocks.length - 1] || {};
             const previousStock = stocks.length > 1 ? stocks[stocks.length - 2] : latestStock;
+
+            // KIỂM TRA NGÂN HÀNG (Nếu không có current_assets thì được coi là Bank)
+            const isBank = (ticker === 'JPM' || ticker === 'BAC') || (!latestFin.current_assets || latestFin.current_assets === 0);
 
             // Calculations
             const revenueGrowth = previousFin.revenue ? 
@@ -857,6 +888,13 @@
             document.getElementById('kpi-release-date').innerText = latestFin.report_date ? String(latestFin.report_date).substring(0, 10) : 'N/A';
 
             document.getElementById('kpi-revenue').innerText = formatCompact(latestFin.revenue);
+            
+            // Cập nhật Nhãn KPI thay đổi tuỳ theo Năm/Quý
+            const periodLabelEl = document.getElementById('kpi-period-label');
+            if(periodLabelEl) {
+                periodLabelEl.innerText = currentReportType === 'FY' ? 'Latest Annual' : 'Latest Quarter';
+            }
+            
             document.getElementById('revenue-growth').innerText = revenueGrowth > 0 ? `↑ ${revenueGrowth}%` : 
                 revenueGrowth < 0 ? `↓ ${Math.abs(revenueGrowth)}%` : `0%`;
             document.getElementById('revenue-growth').className = revenueGrowth > 0 ? 'positive' : revenueGrowth < 0 ? 'negative' : '';
@@ -880,24 +918,56 @@
             }
             document.getElementById('pe-status').innerText = peStatus;
 
+            // Xử lý Giao diện Bank Mode
+            if (isBank) {
+                // Bank: Hide margin chart container, rename RO chart container to Profitability & Returns
+                document.getElementById('marginChartContainer').style.display = 'none';
+                document.getElementById('roChartTitle').innerText = 'Profitability & Returns';
+                document.getElementById('roChartSub').innerText = 'Net Margin combined with ROE & ROA Trends';
+            } else {
+                // Normal: Show both
+                document.getElementById('marginChartContainer').style.display = 'flex';
+                document.getElementById('roChartTitle').innerText = 'Return Metrics (ROE & ROA)';
+                document.getElementById('roChartSub').innerText = 'Efficiency in generating returns';
+            }
+
             // Render Charts
             updateStockChart();
             renderIncomeChart(financials);
-            renderStructureChart(financials);
-            renderLiquidityChart(financials);
+            renderStructureChart(financials, isBank);
+            renderLiquidityChart(financials, isBank);
             renderAssetsChart(financials);
-            renderMarginChart(financials);
-            renderROChart(financials);
+            
+            if (isBank) {
+                // Render combined chart into RO Chart Canvas
+                renderBankProfitabilityChart(financials);
+            } else {
+                renderMarginChart(financials);
+                renderROChart(financials);
+            }
         }
 
-        // --- 4. CHART RENDERING FUNCTIONS ---
-
-        function getReportYear(dateString) {
+        // --- CẬP NHẬT: QUY TẮC BÁO CÁO QUÝ ---
+        function getReportLabel(dateString, period) {
             if (!dateString) return "";
             const str = String(dateString);
             const year = parseInt(str.substring(0, 4));
             const month = parseInt(str.substring(5, 7));
-            // Nếu tháng bé hơn hoặc bằng 2 (trước 1/3) thì trả về năm trước
+            
+            if (period === 'Q') {
+                if (month === 1 || month === 2) {
+                    return `${year - 1}-Q4`;
+                } else if (month >= 3 && month <= 5) {
+                    return `${year}-Q1`;
+                } else if (month >= 6 && month <= 8) {
+                    return `${year}-Q2`;
+                } else if (month >= 9 && month <= 11) {
+                    return `${year}-Q3`;
+                } else {
+                    return `${year}-Q4`;
+                }
+            }
+            
             if (month <= 2) {
                 return (year - 1).toString();
             }
@@ -1188,57 +1258,100 @@
             return { upper, lower };
         }
 
-        function renderStructureChart(data) {
+        function renderStructureChart(data, isBank) {
             const ctx = document.getElementById('structureChart').getContext('2d');
             if (charts.structure) charts.structure.destroy();
 
             if (!data.length) return;
-            const years = data.map(d => getReportYear(d.report_date));
+            const years = data.map(d => getReportLabel(d.report_date, d.period));
             
-            const current = data.map(d => d.current_assets || 0);
-            const nonCurrent = data.map(d => d.non_current_assets || (d.total_assets - (d.current_assets || 0)));
+            let datasets = [];
+            if (isBank) {
+                document.getElementById('compositionChartTitle').innerText = 'Asset Composition';
+                document.getElementById('compositionChartSub').innerText = 'Cash & Equivalents vs Other Assets';
+                const cash = data.map(d => d.cash_and_equivalents || 0);
+                const other = data.map(d => (d.total_assets || 0) - (d.cash_and_equivalents || 0));
+                datasets = [
+                    { label: 'Cash & Equivalents', data: cash, backgroundColor: '#34d399' },
+                    { label: 'Other Assets', data: other, backgroundColor: 'orange' }
+                ];
+                document.getElementById('structureLegend').innerHTML = `
+                    <div class="legend-item"><div class="legend-color" style="background: #34d399;"></div> Cash & Equivalents</div>
+                    <div class="legend-item"><div class="legend-color" style="background: #cbd5e1;"></div> Other Assets</div>
+                `;
+            } else {
+                document.getElementById('compositionChartTitle').innerText = 'Asset Allocation';
+                document.getElementById('compositionChartSub').innerText = 'Current vs Non-Current Assets';
+                const current = data.map(d => d.current_assets || 0);
+                const nonCurrent = data.map(d => d.non_current_assets || (d.total_assets - (d.current_assets || 0)));
+                datasets = [
+                    { label: 'Current Assets', data: current, backgroundColor: '#38bdf8' },
+                    { label: 'Non-Current Assets', data: nonCurrent, backgroundColor: '#818cf8' }
+                ];
+                document.getElementById('structureLegend').innerHTML = `
+                    <div class="legend-item"><div class="legend-color" style="background: #38bdf8;"></div> Current Assets</div>
+                    <div class="legend-item"><div class="legend-color" style="background: #818cf8;"></div> Non-Current Assets</div>
+                `;
+            }
 
             charts.structure = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: years,
-                    datasets: [
-                        { label: 'Current Assets', data: current, backgroundColor: 'steelblue' },
-                        { label: 'Non-Current Assets', data: nonCurrent, backgroundColor: 'orange' }
-                    ]
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: { 
-                        x: { stacked: true, grid: { display: false } },
-                        y: { stacked: true, grid: { display: false }, ticks: { callback: v => formatCompact(v), color: '#64748b' } }
+                        x: { stacked: true, grid: { display: false }, ticks: { color: '#64748b' } },
+                        y: { stacked: true, grid: { display: false }, ticks: { callback: v => formatCompact(v), color: '#64748b' }, title: { display: true, text: 'Amount ($)', color: '#64748b' } }
                     }
                 },
                 plugins: [percentagePlugin]
             });
-            
-            document.getElementById('structureLegend').innerHTML = `
-                <div class="legend-item"><div class="legend-color" style="background: steelblue;"></div> Current Assets</div>
-                <div class="legend-item"><div class="legend-color" style="background: orange;"></div> Non-Current Assets</div>
-            `;
         }
 
+        // TỐI ƯU COMBO CHART (Capital Structure + Debt-to-Equity Line)
         function renderAssetsChart(data) {
             const ctx = document.getElementById('assetsChart').getContext('2d');
             if (charts.assets) charts.assets.destroy();
 
             if (!data.length) return;
-            const years = data.map(d => getReportYear(d.report_date));
+            const years = data.map(d => getReportLabel(d.report_date, d.period));
 
             charts.assets = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: years,
                     datasets: [
-                        { label: 'Liabilities', data: data.map(d => d.total_liabilities), backgroundColor: '#ef4444' },
-                        { label: 'Equity', data: data.map(d => d.total_equity), backgroundColor: '#10b981' }
+                        { 
+                            label: 'Debt to Equity (x)', 
+                            data: data.map(d=>d.debt_to_equity), 
+                            type: 'line',
+                            borderColor: '#f59e0b', 
+                            borderWidth: 3,
+                            pointBackgroundColor: '#f59e0b',
+                            pointRadius: 4,
+                            tension: 0.2, 
+                            yAxisID: 'y1',
+                            order: 1 // Line chart ưu tiên hiển thị trước Bar
+                        },
+                        { 
+                            label: 'Liabilities', 
+                            data: data.map(d => d.total_liabilities), 
+                            backgroundColor: '#fb7185',
+                            yAxisID: 'y',
+                            order: 2
+                        },
+                        { 
+                            label: 'Equity', 
+                            data: data.map(d => d.total_equity), 
+                            backgroundColor: '#34d399',
+                            yAxisID: 'y',
+                            order: 2
+                        }
                     ]
                 },
                 options: {
@@ -1246,16 +1359,29 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: { 
-                        x: { stacked: true, grid: { display: false } },
-                        y: { stacked: true, grid: { display: false }, ticks: { callback: v => formatCompact(v), color: '#64748b' } }
+                        x: { stacked: true, grid: { display: false }, ticks: { color: '#64748b' } },
+                        y: { 
+                            stacked: true, 
+                            position: 'left', 
+                            grid: { display: false }, 
+                            title: { display: true, text: 'Amount ($)', color: '#64748b' },
+                            ticks: { callback: v => formatCompact(v), color: '#64748b' } 
+                        },
+                        y1: {
+                            position: 'right',
+                            grid: { display: false },
+                            title: { display: true, text: 'Debt to Equity Ratio (x)', color: '#64748b' },
+                            ticks: { color: '#64748b' }
+                        }
                     }
                 },
                 plugins: [percentagePlugin]
             });
 
             document.getElementById('assetsLegend').innerHTML = `
-                <div class="legend-item"><div class="legend-color" style="background: #ef4444;"></div> Liabilities</div>
-                <div class="legend-item"><div class="legend-color" style="background: #10b981;"></div> Equity</div>
+                <div class="legend-item"><div class="legend-color" style="background: #fb7185;"></div> Liabilities</div>
+                <div class="legend-item"><div class="legend-color" style="background: #34d399;"></div> Equity</div>
+                <div class="legend-item"><div class="legend-color" style="background: #f59e0b;"></div> Debt to Equity</div>
             `;
         }
 
@@ -1266,56 +1392,94 @@
             charts.income = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: data.map(d => getReportYear(d.report_date)),
+                    labels: data.map(d => getReportLabel(d.report_date, d.period)),
                     datasets: [
-                        { label: 'Revenue', data: data.map(d=>d.revenue), backgroundColor: '#3b82f6', order: 2, yAxisID: 'y' },
-                        { label: 'Net Income', data: data.map(d=>d.net_income), borderColor: '#10b981', backgroundColor: '#10b981', type: 'line', borderWidth: 3, pointRadius: 4, order: 1, yAxisID: 'y1' }
+                        { label: 'Revenue', data: data.map(d=>d.revenue), backgroundColor: '#60a5fa', order: 2, yAxisID: 'y' },
+                        { label: 'Net Income', data: data.map(d=>d.net_income), borderColor: '#34d399', backgroundColor: '#34d399', type: 'line', borderWidth: 3, pointRadius: 4, order: 1, yAxisID: 'y1' }
                     ]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-                    scales: { y: { position: 'left', grid: { display: false }, ticks: { callback: v=>formatCompact(v) } }, y1: { position: 'right', grid: { display: false }, ticks: { callback: v=>formatCompact(v) } }, x: { grid: { display: false } } }
+                    scales: { 
+                        y: { position: 'left', grid: { display: false }, title: { display: true, text: 'Revenue ($)', color: '#64748b' }, ticks: { callback: v=>formatCompact(v), color: '#64748b' } }, 
+                        y1: { position: 'right', grid: { display: false }, title: { display: true, text: 'Net Income ($)', color: '#64748b' }, ticks: { callback: v=>formatCompact(v), color: '#64748b' } }, 
+                        x: { grid: { display: false }, ticks: { color: '#64748b' } } 
+                    }
                 }
             });
-            document.getElementById('incomeLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div> Revenue</div><div class="legend-item"><div class="legend-color" style="background: #10b981;"></div> Net Income</div>`;
+            document.getElementById('incomeLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #60a5fa;"></div> Revenue</div><div class="legend-item"><div class="legend-color" style="background: #34d399;"></div> Net Income</div>`;
         }
 
-        function renderLiquidityChart(data) {
+        function renderLiquidityChart(data, isBank) {
+            const container = document.getElementById('liquidityContainer');
             const ctx = document.getElementById('liquidityChart').getContext('2d');
             if (charts.liquidity) charts.liquidity.destroy();
+            
             if (!data.length) return;
+
+            let datasets = [];
+            
+            if (isBank) {
+                // Ẩn chart Asset Utilization của Bank theo yêu cầu
+                container.style.display = 'none';
+                /* Code cũ không xoá bớt:
+                document.getElementById('liquidityChartTitle').innerText = 'Asset Utilization';
+                document.getElementById('liquidityChartSub').innerText = 'Asset Turnover Ratio (Revenue / Total Assets)';
+                datasets = [
+                    { label: 'Asset Turnover (x)', data: data.map(d=>d.asset_turnover), borderColor: '#f59e0b', tension: 0.2, type: 'line' }
+                ];
+                document.getElementById('liquidityLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #f59e0b;"></div> Asset Turnover</div>`;
+                */
+                return; // Dừng việc vẽ
+            } else {
+                container.style.display = 'flex'; // Hiện lại cho công ty thường
+                document.getElementById('liquidityChartTitle').innerText = 'Liquidity Ratios';
+                document.getElementById('liquidityChartSub').innerText = 'Current, Quick, and Cash Ratios';
+                datasets = [
+                    { label: 'Current Ratio', data: data.map(d=>d.current_ratio), borderColor: '#60a5fa', tension: 0.2, type: 'line' },
+                    { label: 'Quick Ratio', data: data.map(d=>d.quick_ratio), borderColor: '#a78bfa', tension: 0.2, type: 'line' },
+                    { label: 'Cash Ratio', data: data.map(d=>d.cash_ratio), borderColor: '#fbbf24', tension: 0.2, type: 'line' }
+                ];
+                document.getElementById('liquidityLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #60a5fa;"></div> Current</div><div class="legend-item"><div class="legend-color" style="background: #a78bfa;"></div> Quick</div><div class="legend-item"><div class="legend-color" style="background: #fbbf24;"></div> Cash</div>`;
+            }
+
             charts.liquidity = new Chart(ctx, {
                 type: 'line',
-                data: {
-                    labels: data.map(d => getReportYear(d.report_date)),
-                    datasets: [
-                        { label: 'Current Ratio', data: data.map(d=>d.current_ratio), borderColor: '#3b82f6', tension: 0.2 },
-                        { label: 'Quick Ratio', data: data.map(d=>d.quick_ratio), borderColor: '#8b5cf6', tension: 0.2 },
-                        { label: 'Cash Ratio', data: data.map(d=>d.cash_ratio), borderColor: '#f59e0b', tension: 0.2 }
-                    ]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { display: false } } } }
+                data: { labels: data.map(d => getReportLabel(d.report_date, d.period)), datasets: datasets },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#64748b' } }, y: { grid: { display: false }, ticks: { color: '#64748b' } } } }
             });
-            document.getElementById('liquidityLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div> Current</div><div class="legend-item"><div class="legend-color" style="background: #8b5cf6;"></div> Quick</div><div class="legend-item"><div class="legend-color" style="background: #f59e0b;"></div> Cash</div>`;
         }
 
+        // MARGIN CHART (Có Operating Margin)
         function renderMarginChart(data) {
             const ctx = document.getElementById('marginChart').getContext('2d');
             if (charts.margin) charts.margin.destroy();
             if (!data.length) return;
 
-            // Check if Gross Margin data exists (not null/undefined/0 for at least one year)
             const hasGrossMargin = data.some(d => d.gross_margin !== null && d.gross_margin !== undefined && d.gross_margin !== 0);
+            const hasOperatingIncome = data.some(d => d.operating_income_ebit !== null && d.operating_income_ebit !== 0);
 
             const datasets = [
-                { label: 'Net Margin %', data: data.map(d=>(d.net_margin||0)*100), borderColor: '#3b82f6', tension: 0.2 }
+                { label: 'Net Margin %', data: data.map(d=>(d.net_margin||0)*100), borderColor: '#60a5fa', tension: 0.2 }
             ];
+
+            if (hasOperatingIncome) {
+                datasets.unshift({ 
+                    label: 'Operating Margin %', 
+                    data: data.map(d => {
+                        if (!d.revenue || d.revenue === 0) return 0;
+                        return (d.operating_income_ebit / d.revenue) * 100;
+                    }), 
+                    borderColor: '#fbbf24', 
+                    tension: 0.2 
+                });
+            }
 
             if (hasGrossMargin) {
                 datasets.unshift({ 
                     label: 'Gross Margin %', 
                     data: data.map(d=>(d.gross_margin||0)*100), 
-                    borderColor: '#10b981', 
+                    borderColor: '#34d399', 
                     tension: 0.2 
                 });
             }
@@ -1323,21 +1487,25 @@
             charts.margin = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: data.map(d => getReportYear(d.report_date)),
+                    labels: data.map(d => getReportLabel(d.report_date, d.period)),
                     datasets: datasets
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%' } }, x: { grid: { display: false } } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%', color: '#64748b' } }, x: { grid: { display: false }, ticks: { color: '#64748b' } } } }
             });
 
             let legendHtml = '';
             if (hasGrossMargin) {
-                legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #10b981;"></div> Gross Margin</div>`;
+                legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #34d399;"></div> Gross Margin</div>`;
             }
-            legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div> Net Margin</div>`;
+            if (hasOperatingIncome) {
+                legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #fbbf24;"></div> Operating Margin</div>`;
+            }
+            legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #60a5fa;"></div> Net Margin</div>`;
             
             document.getElementById('marginLegend').innerHTML = legendHtml;
         }
 
+        // NORMAL: RO CHART (Bar)
         function renderROChart(data) {
             const ctx = document.getElementById('roChart').getContext('2d');
             if (charts.ro) charts.ro.destroy();
@@ -1345,15 +1513,44 @@
             charts.ro = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: data.map(d => getReportYear(d.report_date)),
+                    labels: data.map(d => getReportLabel(d.report_date, d.period)),
                     datasets: [
-                        { label: 'ROE', data: data.map(d=>(d.roe||0)*100), backgroundColor: '#8b5cf6' },
-                        { label: 'ROA', data: data.map(d=>(d.roa||0)*100), backgroundColor: '#ec4899' }
+                        { label: 'ROE', data: data.map(d=>(d.roe||0)*100), backgroundColor: '#a78bfa' },
+                        { label: 'ROA', data: data.map(d=>(d.roa||0)*100), backgroundColor: '#f472b6' }
                     ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%' } }, x: { grid: { display: false } } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%', color: '#64748b' } }, x: { grid: { display: false }, ticks: { color: '#64748b' } } } }
             });
-            document.getElementById('roLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #8b5cf6;"></div> ROE</div><div class="legend-item"><div class="legend-color" style="background: #ec4899;"></div> ROA</div>`;
+            document.getElementById('roLegend').innerHTML = `<div class="legend-item"><div class="legend-color" style="background: #a78bfa;"></div> ROE</div><div class="legend-item"><div class="legend-color" style="background: #f472b6;"></div> ROA</div>`;
+        }
+
+        // BANK: COMBINED PROFITABILITY & RETURNS (Line)
+        function renderBankProfitabilityChart(data) {
+            const ctx = document.getElementById('roChart').getContext('2d'); // Re-using the RO canvas
+            if (charts.ro) charts.ro.destroy();
+            if (!data.length) return;
+
+            const hasGross = data.some(d => d.gross_margin !== null && d.gross_margin !== 0 && d.gross_margin !== undefined);
+            
+            const datasets = [];
+            if (hasGross) datasets.push({ label: 'Gross Margin %', data: data.map(d=>(d.gross_margin||0)*100), type: 'line', borderColor: '#34d399', tension: 0.2 });
+            
+            datasets.push({ label: 'Net Margin %', data: data.map(d=>(d.net_margin||0)*100), type: 'line', borderColor: '#60a5fa', tension: 0.2 });
+            datasets.push({ label: 'ROE %', data: data.map(d=>(d.roe||0)*100), type: 'line', borderColor: '#a78bfa', tension: 0.2 });
+            datasets.push({ label: 'ROA %', data: data.map(d=>(d.roa||0)*100), type: 'line', borderColor: '#f472b6', tension: 0.2 });
+
+            charts.ro = new Chart(ctx, {
+                type: 'line',
+                data: { labels: data.map(d => getReportLabel(d.report_date, d.period)), datasets: datasets },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%', color: '#64748b' } }, x: { grid: { display: false }, ticks: { color: '#64748b' } } } }
+            });
+
+            let legendHtml = '';
+            if (hasGross) legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #34d399;"></div> Gross Margin</div>`;
+            legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #60a5fa;"></div> Net Margin</div>`;
+            legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #a78bfa;"></div> ROE</div>`;
+            legendHtml += `<div class="legend-item"><div class="legend-color" style="background: #f472b6;"></div> ROA</div>`;
+            document.getElementById('roLegend').innerHTML = legendHtml;
         }
 
         // --- 4. CHART RENDERING FUNCTIONS ---

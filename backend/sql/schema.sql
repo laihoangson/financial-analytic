@@ -84,5 +84,5 @@ CREATE TABLE IF NOT EXISTS financial_statements (
     receivables_turnover DECIMAL(10, 4),
 
     FOREIGN KEY (ticker) REFERENCES companies(ticker) ON DELETE CASCADE,
-    UNIQUE KEY unique_financial (ticker, report_date)
+    UNIQUE KEY unique_financial (ticker, report_date, period)
 );

@@ -13,7 +13,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.revenue IS NOT NULL AND f1.revenue > 0
+    WHERE f1.revenue IS NOT NULL AND f1.revenue > 0 AND f1.period = 'FY'
 )
 SELECT 
     c.name, 
@@ -33,7 +33,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.revenue > 0
+    WHERE f1.revenue > 0 AND f1.period = 'FY'
 )
 SELECT 
     c.ticker, 
@@ -53,7 +53,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.debt_to_equity IS NOT NULL
+    WHERE f1.debt_to_equity IS NOT NULL AND f1.period = 'FY'
 )
 SELECT 
     c.name, 
@@ -73,7 +73,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.roe IS NOT NULL
+    WHERE f1.roe IS NOT NULL AND f1.period = 'FY'
 )
 SELECT 
     c.ticker,
@@ -97,7 +97,7 @@ WITH LatestFinancials AS (
         f1.*,
         ROW_NUMBER() OVER (PARTITION BY f1.ticker ORDER BY f1.report_date DESC) as rn
     FROM financial_statements f1
-    WHERE f1.revenue > 0
+    WHERE f1.revenue > 0 AND f1.period = 'FY'
 ),
 LatestCompanyData AS (
     SELECT 
@@ -132,14 +132,16 @@ WITH LatestPrice AS (
     WHERE date = (SELECT MAX(date) FROM stock_prices)
 ),
 LatestEPS AS (
-    -- Get the most recent EPS
-    SELECT ticker, basic_eps, report_date
-    FROM financial_statements
-    WHERE (ticker, report_date) IN (
-        SELECT ticker, MAX(report_date) 
+    -- Get the most recent EPS (ONLY FY)
+    SELECT f1.ticker, f1.basic_eps, f1.report_date
+    FROM financial_statements f1
+    INNER JOIN (
+        SELECT ticker, MAX(report_date) as max_date 
         FROM financial_statements 
+        WHERE period = 'FY'
         GROUP BY ticker
-    )
+    ) f2 ON f1.ticker = f2.ticker AND f1.report_date = f2.max_date
+    WHERE f1.period = 'FY'
 )
 SELECT 
     lp.ticker,

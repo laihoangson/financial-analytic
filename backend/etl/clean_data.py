@@ -41,7 +41,7 @@ def clean_prices():
     if 'adj_close' not in df.columns:
         df['adj_close'] = df['close']
         
-    # --- FIX: Thêm utc=True để xử lý múi giờ ---
+    # --- Xử lý múi giờ chuẩn ---
     df['date'] = pd.to_datetime(df['date'], utc=True).dt.date
     
     # Select only needed columns
@@ -53,13 +53,22 @@ def clean_prices():
     print(f"Saved: {output_path}")
 
 def clean_financials():
-    """Clean financials and calculate metrics."""
-    path = os.path.join(DATA_RAW_DIR, 'raw_financials.csv')
-    if not os.path.exists(path):
-        print(f"Skipping financials: {path} not found.")
+    """Clean financials (Annual & Quarterly) and calculate metrics."""
+    path_ann = os.path.join(DATA_RAW_DIR, 'raw_financials.csv')
+    path_qtr = os.path.join(DATA_RAW_DIR, 'raw_financials_quarterly.csv')
+    
+    dfs = []
+    if os.path.exists(path_ann):
+        dfs.append(pd.read_csv(path_ann))
+    if os.path.exists(path_qtr):
+        dfs.append(pd.read_csv(path_qtr))
+
+    if not dfs:
+        print("Skipping financials: No raw files found.")
         return
 
-    df = pd.read_csv(path)
+    # Gộp chung dữ liệu Năm và Quý để xử lý 1 lần
+    df = pd.concat(dfs, ignore_index=True)
     
     # Helper to safe get column
     def get_col(col_name):
@@ -69,7 +78,19 @@ def clean_financials():
     df['revenue'] = get_col('Total Revenue')
     df['cogs'] = get_col('Cost Of Revenue')
     df['gross_profit'] = get_col('Gross Profit')
-    df['opex'] = get_col('Total Operating Expenses')
+    
+    # SỬA LỖI YFINANCE MỚI NHẤT (OPEX VÀ RECEIVABLES)
+    df['opex'] = get_col('Operating Expense') if 'Operating Expense' in df.columns else get_col('Total Operating Expenses')
+    
+    if 'Accounts Receivable' in df.columns:
+        df['accounts_receivable'] = get_col('Accounts Receivable')
+    elif 'Net Receivables' in df.columns:
+        df['accounts_receivable'] = get_col('Net Receivables')
+    elif 'Receivables' in df.columns:
+        df['accounts_receivable'] = get_col('Receivables')
+    else:
+        df['accounts_receivable'] = 0
+        
     df['operating_income_ebit'] = get_col('Operating Income')
     df['ebt'] = get_col('Pretax Income')
     df['net_income'] = get_col('Net Income')
@@ -80,7 +101,6 @@ def clean_financials():
     df['total_assets'] = get_col('Total Assets')
     df['current_assets'] = get_col('Current Assets')
     df['cash_and_equivalents'] = get_col('Cash And Cash Equivalents')
-    df['accounts_receivable'] = get_col('Net Receivables')
     df['inventory'] = get_col('Inventory')
     df['non_current_assets'] = df['total_assets'] - df['current_assets']
     
@@ -116,10 +136,14 @@ def clean_financials():
     df['receivables_turnover'] = df['revenue'] / df['accounts_receivable'].replace(0, np.nan)
 
     # 3. Formatting
-    # --- FIX: Thêm utc=True ở đây nữa ---
     df['report_date'] = pd.to_datetime(df['Date'], utc=True).dt.date
     
-    df['period'] = '12M'
+    # Đọc biến phân loại kỳ báo cáo (Năm hay Quý)
+    if 'Report_Period' in df.columns:
+        df['period'] = df['Report_Period']
+    else:
+        df['period'] = 'FY'
+        
     df.rename(columns={'Ticker': 'ticker'}, inplace=True)
     
     schema_cols = [
@@ -138,6 +162,9 @@ def clean_financials():
     # Filter columns that actually exist
     existing_cols = [col for col in schema_cols if col in df.columns]
     df_final = df[existing_cols].copy()
+    
+    # Bỏ các dòng rỗng (nếu quá trình merge tạo ra dòng lỗi)
+    df_final.dropna(subset=['ticker', 'report_date'], inplace=True)
     
     output_path = os.path.join(DATA_CLEANED_DIR, 'financial_statements.csv')
     df_final.to_csv(output_path, index=False)
