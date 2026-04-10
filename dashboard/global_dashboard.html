@@ -486,7 +486,7 @@
             <option value="2024">2024</option>
             <option value="2023">2023</option>
             <option value="2022">2022</option>
- 	 	</select>
+        </select>
     </div>
 </div>
 
@@ -789,7 +789,10 @@
                 const targetYear = parseInt(year);
                 match = history.find(f => {
                     const d = new Date(f.report_date);
-                    return d.getFullYear() === targetYear;
+                    const reportYear = d.getFullYear();
+                    const reportMonth = d.getMonth() + 1;
+                    const assignedYear = reportMonth <= 2 ? reportYear - 1 : reportYear;
+                    return assignedYear === targetYear;
                 });
             }
 
