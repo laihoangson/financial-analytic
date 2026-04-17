@@ -58,7 +58,7 @@ financial-analytic/
 │       ├── result1.csv            # Pre-generated SQL query results from Supabase
 │       └── ...                    # (result1.csv through result8.csv)
 ├── reports/
-│   ├── ml_report.ipynb            # Full Machine Learning forecasting report
+│   ├── ml_report.ipynb            # Full stock forecasting report
     ├── ml_report.html             # HTML version rendered by Quarto
 │   └── world.jpg                  # Asset images for the reports section
 ├── about.html                     # Author information
