@@ -2737,7 +2737,7 @@ SAMPLE DATA (First 5 Rows)
 <h2 class="anchored" data-anchor-id="part-1-technical-analysis">Part 1: Technical Analysis</h2>
 <section id="overview" class="level3">
 <h3 class="anchored" data-anchor-id="overview">1.1 Overview</h3>
-<p>In this section, I implement a systematic scoring framework based on classical technical indicators. The goal is to quantify the short-term momentum and structural health of a stock on a scale from <strong>-5 (Strongly Bearish)</strong> to <strong>+5 (Strongly Bullish)</strong> .</p>
+<p>In this section, I implement a systematic scoring framework based on classical technical indicators. The goal is to quantify the short-term momentum and structural health of a stock on a scale from -5 (Strongly Bearish) to +5 (Strongly Bullish) .</p>
 <p><strong>Philosophy:</strong> Rather than using technical indicators as standalone “Buy/Sell” signals, we decompose them into a weighted scoring rubric. This removes subjectivity and allows for backtesting and cross-sectional comparison across the 21 tickers.</p>
 <p><strong>Scoring Components &amp; Weights</strong></p>
 <table class="caption-top table">
@@ -2796,7 +2796,7 @@ SAMPLE DATA (First 5 Rows)
 <td style="text-align: left;"><strong>Total Possible</strong></td>
 <td style="text-align: center;"><strong>±10.0</strong></td>
 <td style="text-align: center;">100%</td>
-<td style="text-align: left;"><strong>Note:</strong> Final score is scaled to <strong>[-5, +5]</strong> by dividing by 2.</td>
+<td style="text-align: left;">Note: Final score is scaled to [-5, +5] by dividing by 2.</td>
 </tr>
 </tbody>
 </table>
@@ -3903,8 +3903,8 @@ white-space: nowrap;
 <h2 class="anchored" data-anchor-id="part-2-quantitative-analysis">Part 2: Quantitative Analysis</h2>
 <section id="overview-1" class="level3">
 <h3 class="anchored" data-anchor-id="overview-1">2.1 Overview</h3>
-<p>In this section, I implement a quantitative scoring framework that evaluates stocks through the lens of <strong>risk-adjusted returns</strong> and <strong>forward-looking risk simulations</strong>. While Part 1 (Technical Analysis) focuses on price action and momentum, this section addresses the critical question: <em>“Is the potential return worth the risk I am taking?”</em></p>
-<p><strong>Philosophy:</strong> A stock with a high Sharpe Ratio and low historical drawdowns is fundamentally more “investable” than a volatile stock with erratic returns—even if both have similar absolute returns. We augment historical metrics with <strong>Monte Carlo simulation</strong> to probabilistically forecast risk over the <strong>63-day horizon</strong>.</p>
+<p>In this section, I implement a quantitative scoring framework that evaluates stocks through the lens of risk-adjusted returns and forward-looking risk simulations. While Part 1 (Technical Analysis) focuses on price action and momentum, this section addresses the critical question: <em>“Is the potential return worth the risk I am taking?”</em></p>
+<p><strong>Philosophy:</strong> A stock with a high Sharpe Ratio and low historical drawdowns is fundamentally more “investable” than a volatile stock with erratic returns—even if both have similar absolute returns. We augment historical metrics with <strong>Monte Carlo simulation</strong> to probabilistically forecast risk over the 63-day horizon.</p>
 <p><strong>Scoring Components &amp; Weights</strong></p>
 <table class="caption-top table">
 <colgroup>
@@ -8182,7 +8182,9 @@ white-space: nowrap;
 </div>
 </div>
 <p><strong>Findings</strong></p>
-<p>The composite scoring framework reveals a clear preference for defensive and value-oriented equities, with JNJ (+9.89), KO (+8.23), and WMT (+8.13) leading the portfolio. Their outperformance is heavily driven by exceptional Quantitative (+4.00 to +5.00) and Technical scores, indicating robust risk-adjusted historical returns and solid short-term momentum. Mega-cap tech leaders like GOOGL and AAPL also maintain strong, well-rounded bullish profiles. Conversely, high-beta growth and payment stocks—such as ADBE (-6.02), TSLA (-4.75), and PYPL (-3.76)—anchor the bottom of the ranking. These laggards are severely penalized by highly negative Quantitative metrics (scoring -2.00 to -5.00) and lack supportive signals from both the Time Series and Machine Learning models. Overall, the current composite scores suggest a distinctly “risk-off” environment, heavily favoring stability over volatile growth.</p>
+<p>The composite scoring framework reveals a clear preference for defensive and value-oriented equities, with JNJ (+9.89), KO (+8.23), and WMT (+8.13) leading the portfolio. Their outperformance is heavily driven by exceptional Quantitative (+4.00 to +5.00) and Technical scores, indicating robust risk-adjusted historical returns and solid short-term momentum. Mega-cap tech leaders like GOOGL and AAPL also maintain strong, well-rounded bullish profiles.</p>
+<p>Conversely, high-beta growth and payment stocks - such as ADBE (-6.02), TSLA (-4.75), and PYPL (-3.76) - anchor the bottom of the ranking. These laggards are severely penalized by highly negative Quantitative metrics (scoring -2.00 to -5.00) and lack supportive signals from both the Time Series and Machine Learning models.</p>
+<p>Overall, the current composite scores suggest a distinctly “risk-off” environment, heavily favoring stability over volatile growth.</p>
 </section>
 </section>
 <section id="part-6-walk-forward-backtest" class="level2">
