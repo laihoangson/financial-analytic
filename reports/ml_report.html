@@ -4786,7 +4786,8 @@ white-space: nowrap;
 <li><p>ARIMA (AutoRegressive Integrated Moving Average): Captures the conditional mean of the series - i.e., the expected price direction and magnitude.</p></li>
 <li><p>GARCH (Generalized AutoRegressive Conditional Heteroskedasticity): Captures the conditional volatility - i.e., the expected risk and uncertainty around the forecast.</p></li>
 </ol>
-<p><strong>Why combine both?</strong> AARIMA alone assumes constant volatility (homoskedasticity), which is unrealistic for financial data. Stock returns exhibit volatility clustering (periods of high volatility tend to be followed by more high volatility). GARCH explicitly models this phenomenon, allowing us to:</p>
+<p><strong>Why combine both?</strong></p>
+<p>ARIMA alone assumes constant volatility (homoskedasticity), which is unrealistic for financial data. Stock returns exhibit volatility clustering (periods of high volatility tend to be followed by more high volatility). GARCH explicitly models this phenomenon, allowing us to:</p>
 <ul>
 <li><p>Adjust forecast confidence intervals based on current market turbulence.</p></li>
 <li><p>Penalize forecasts made during high-volatility regimes (wider confidence bands = less conviction).</p></li>
@@ -9105,7 +9106,7 @@ Equal-Weight Benchmark           $1,712,563       9.85%          19.31%  0.355  
 <ul>
 <li><p>Fixed 63-Day Holding Period and Intra-Quarter Risk: The strategy operates on a strict 63-trading-day rebalancing schedule. While this effectively reduces turnover and transaction costs, it exposes the portfolio to intra-quarter drawdowns. Because the model holds its Top-5 allocations for the entire 63-day horizon, it cannot dynamically liquidate positions mid-cycle in response to sudden, idiosyncratic shocks (e.g., a disastrous earnings report or an unexpected executive departure).</p></li>
 <li><p>Survivorship Bias in the Data Universe: The model was tested on a fixed universe of 21 mega-cap US equities that successfully survived and thrived through 2026. Deploying this framework on a dynamic universe that includes delisted or severely depreciated companies might yield lower absolute returns, though the multi-factor risk-filtering mechanism is designed to naturally weed out failing assets.</p></li>
-<li><p>Exogenous Macroeconomic Shocks (Black Swans): The Monte Carlo simulations (GBM), Time Series algorithms, and Machine Learning models are trained on historical data distributions. They assume future volatility will probabilistically resemble the past. They cannot account for unpredictable “Black Swan” events—such as sudden geopolitical conflicts or global pandemics- that structurally break historical correlations within the 63-day forecast window.</p></li>
+<li><p>Exogenous Macroeconomic Shocks (Black Swans): The Monte Carlo simulations (GBM), Time Series algorithms, and Machine Learning models are trained on historical data distributions. They assume future volatility will probabilistically resemble the past. They cannot account for unpredictable “Black Swan” events - such as sudden geopolitical conflicts or global pandemics - that structurally break historical correlations within the 63-day forecast window.</p></li>
 </ul>
 </section>
 
