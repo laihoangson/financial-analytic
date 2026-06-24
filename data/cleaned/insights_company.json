@@ -1,192 +1,192 @@
 {
   "AAPL": {
-    "stock": "AAPL closed at 294.30 USD, down -0.91% from the previous trading day. This daily decline tempers the stock's strong 3-month performance of +17.06% and 12-month surge of +46.63%. Despite the pullback, AAPL remains a top performer in the long term.",
+    "stock": "AAPL closed at 293.08 USD, down 0.41% from the previous trading day. This daily dip is a minor setback for the stock, which has seen significant growth over the past 3 months (+16.12%) and 12 months (+46.90%). Despite the short-term decline, AAPL's long-term trend remains strong.",
     "FY": {
-      "executive_summary": "AAPL: Apple Inc. reported strong FY growth with revenue up 6.4% to $416.2B, driven by net income increase of 19.5% to $112.0B. Profitability remains high with a net margin of 26.9% and ROE of 151.9%. Liquidity is moderate with a current ratio of 0.89, while financial health is supported by a manageable debt-to-equity ratio of 3.87x. The stock closed at $294.30."
+      "executive_summary": "AAPL's revenue growth accelerates to +6.4% YoY, driven by strong sales in the Technology sector. Net income surged 19.5% YoY, translating to a net margin of 26.9% and an impressive ROE of 151.9%. While liquidity is relatively tight with a current ratio of 0.89, Apple's financial health is strong with a manageable debt-to-equity ratio of 3.87x. The stock closed at $293.08, reflecting investors' confidence in the company's growth prospects."
     },
     "Q": {
-      "executive_summary": "AAPL's latest quarter shows a significant revenue decline of -22.7% to 111.2B USD, while net income plummeted -29.7% to 29.6B USD. Despite this, the company maintains a strong net margin of 26.6% and returns on equity (ROE) of 27.8%. Liquidity remains stable with a current ratio of 1.07, while debt-to-equity stands at 2.48x, indicating manageable leverage. The stock closed at 294.30 USD."
+      "executive_summary": "Apple Inc. (AAPL) reported a challenging quarter with revenue decline of -22.7% to $111.2B and net income drop of -29.7% to $29.6B. Despite this, Apple's net margin remains robust at 26.6%, and return on equity (ROE) stands at 27.8%. The company's financial health appears solid with a debt-to-equity ratio of 2.48x, but liquidity could be a concern with a current ratio of 1.07."
     }
   },
   "MSFT": {
-    "stock": "MSFT closed at 373.94 USD, up 1.80% from the previous trading day. This daily gain contrasts with the 3-month performance of 0.54%, indicating a recent uptick. However, the stock's 12-month performance remains negative at -22.44%, highlighting a broader downward trend.",
+    "stock": "MSFT closed at 365.46 USD, down 2.27% from the previous trading day. This daily decline contributes to a 3-month loss of 1.29% and a more significant 12-month decline of 24.84%. The stock's recent performance suggests a continued downward trend.",
     "FY": {
-      "executive_summary": "Microsoft Corporation (MSFT) delivered strong FY results, with revenue increasing 14.9% to $281.7B and net income rising 15.5% to $101.8B. The company's net margin expanded to 36.1%, driven by efficient operations and pricing power. MSFT's debt-to-equity ratio of 0.80x indicates manageable leverage, while a current ratio of 1.35 suggests solid liquidity. With a stock price of $373.94, investors may view MSFT as a stable growth play."
+      "executive_summary": "Microsoft Corporation (MSFT) posted strong FY results, with revenue growing 14.9% to $281.7B and net income increasing 15.5% to $101.8B. The company's net margin expanded to 36.1%, while ROE reached 29.6%. With a debt-to-equity ratio of 0.80x, MSFT maintains a healthy balance sheet. The stock closed at $365.46, reflecting its robust financial performance."
     },
     "Q": {
-      "executive_summary": "Microsoft Corporation (MSFT) reported a 2.0% revenue growth in the latest quarter, driven by a strong 82.9B USD top-line. However, net income declined by 17.4% to 31.8B USD, resulting in a lower net margin of 38.3%. The company's financial health remains solid with a debt-to-equity ratio of 0.68x and a current ratio of 1.28, indicating manageable debt levels and sufficient liquidity."
+      "executive_summary": "Microsoft Corporation (MSFT) reported a 2.0% revenue growth in the latest quarter, driven by strong demand for its cloud services. Despite a decline in net income, the company maintained a healthy net margin of 38.3% and a return on equity (ROE) of 7.7%. Microsoft's debt-to-equity ratio of 0.68x indicates manageable leverage, while its current ratio of 1.28 suggests adequate liquidity. The stock closed at $365.46."
     }
   },
   "GOOGL": {
-    "stock": "GOOGL closed at 346.13 USD, down 1.02% from the previous trading day. This daily decline is a minor blip in the stock's overall upward trajectory, which has seen a 19.25% increase over the past 3 months and a substantial 110.13% gain over the past 12 months. The stock's long-term growth remains strong despite recent volatility.",
+    "stock": "GOOGL closed at $345.29, down 0.24% from the previous trading day. This daily decline is a minor setback for the stock, which has seen significant gains over the past 3 months (+18.76%) and 12 months (+107.64%). Despite the short-term dip, GOOGL continues to demonstrate strong long-term momentum.",
     "FY": {
-      "executive_summary": "Alphabet Inc. (GOOGL) delivered strong FY performance with 15.1% revenue growth to $402.8B and 32.0% net income increase to $132.2B, expanding net margin to 32.8%. The company's financial health is solid, with a debt-to-equity ratio of 0.43x and a 31.8% return on equity. GOOGL's liquidity position is also favorable, with a current ratio of 2.01. The stock closed at $346.13, reflecting its robust growth and profitability."
+      "executive_summary": "Alphabet Inc. (GOOGL) reports strong FY growth with 15.1% revenue increase to 402.8B USD, accompanied by 32.0% net income surge to 132.2B USD. Profitability metrics also improve, with net margin expanding to 32.8% and ROE reaching 31.8%. Liquidity remains robust, with a current ratio of 2.01. GOOGL's debt-to-equity ratio of 0.43x indicates a relatively conservative financial profile."
     },
     "Q": {
-      "executive_summary": "Alphabet Inc. (GOOGL) reported a mixed Q1, with revenue declining 3.5% to $109.9B, yet net income surged 81.6% to $62.6B. The tech giant's net margin expanded to 56.9%, driven by improved profitability. Alphabet's financial health remains robust, with a debt-to-equity ratio of 0.47x and a current ratio of 1.92. The stock closed at $346.13, reflecting a strong earnings beat."
+      "executive_summary": "Alphabet Inc. (GOOGL) delivered a mixed Q1 report with revenue declining 3.5% to $109.9B, yet net income surged 81.6% to $62.6B, driven by significantly improved profitability. The company's net margin expanded to 56.9%, and return on equity (ROE) reached 13.1%. Alphabet's financial health appears solid with a debt-to-equity ratio of 0.47x and a current ratio of 1.92, indicating manageable leverage and liquidity."
     }
   },
   "AMZN": {
-    "stock": "AMZN closed at 234.11 USD, with a 0.57% daily gain. This daily movement builds on the stock's strong 3-month performance of +12.97% and 12-month performance of +12.30%. The recent uptick suggests continued momentum for the e-commerce leader.",
+    "stock": "Amazon (AMZN) rose 0.07% today, extending its daily winning streak. This daily gain builds on the stock's 10.66% increase over the past 3 months and 10.10% growth over the past 12 months. AMZN continues to show resilience in a volatile market.",
     "FY": {
-      "executive_summary": "Amazon.com, Inc. (AMZN) delivered strong FY results with 12.4% revenue growth to $716.9B and 31.1% net income increase to $77.7B, expanding net margin to 10.8%. The company's return on equity (ROE) of 18.9% indicates robust profitability. AMZN's debt-to-equity ratio of 0.99x suggests manageable leverage. Its liquidity remains solid with a current ratio of 1.05."
+      "executive_summary": "Amazon.com, Inc. (AMZN) delivered strong FY growth with revenue up 12.4% to $716.9B and net income soaring 31.1% to $77.7B. Notably, net margin expanded to 10.8% and ROE reached 18.9%, indicating improved profitability. Liquidity remains solid, with a current ratio of 1.05, supporting the company's financial health."
     },
     "Q": {
-      "executive_summary": "Amazon's revenue declined by 14.9% to $181.5B, yet net income surged 42.8% to $30.3B, driven by improved profitability. Net margin expanded to 16.7% and ROE reached 6.8%, indicating a resilient business. The company's financial health is supported by a manageable debt-to-equity ratio of 1.07x. Amazon's stock closed at $234.11."
+      "executive_summary": "AMZN: Amazon's revenue declined 14.9% QoQ to $181.5B, but net income surged 42.8% to $30.3B, boosting net margin to 16.7%. ROE stands at 6.8%, while debt-to-equity ratio is 1.07x. Liquidity remains strong with a current ratio of 1.18. The stock closed at $234.27."
     }
   },
   "META": {
-    "stock": "META's stock price closed at 562.20 USD, down 0.29% from the previous trading day. This daily decline fits within the broader 3-month trend of a 5.09% decline and the 12-month trend of a 19.25% drop. The stock continues to struggle, with no signs of recovery. Further decline is possible given the current downward trajectory.",
+    "stock": "META's stock price closed at 557.67 USD, down 0.81% from the previous trading day. This daily decline is part of a broader downtrend, with META's stock price falling 6.17% over the past three months and 21.44% over the past year. The stock's recent performance suggests continued volatility in the tech sector.",
     "FY": {
-      "executive_summary": "Meta Platforms, Inc. (META) reported strong revenue growth of 22.2% YoY, driven by 201.0B USD in revenue. However, net income declined 3.1% YoY to 60.5B USD, resulting in a net margin of 30.1%. The company's debt-to-equity ratio stands at 0.68x, indicating manageable leverage. Meta's liquidity position is robust with a current ratio of 2.60."
+      "executive_summary": "Meta Platforms, Inc. (META) reported a 22.2% revenue growth to $201.0B, driven by strong demand for its communication services. However, net income declined 3.1% to $60.5B, resulting in a net margin of 30.1%. The company's financial health appears solid with a ROE of 27.8% and a debt-to-equity ratio of 0.68x. Liquidity is also robust with a current ratio of 2.60."
     },
     "Q": {
-      "executive_summary": "Meta Platforms, Inc. (META) reported a mixed quarter with revenue decline of -6.0% to 56.3B USD, yet net income surged 17.6% to 26.8B USD, driven by improved profitability. Net margin expanded to 47.5% and ROE reached 11.0%, indicating solid financial health. The company's liquidity position is strong with a current ratio of 2.35, while debt-to-equity ratio of 0.62x suggests manageable leverage."
+      "executive_summary": "Meta Platforms, Inc. (META) reported a mixed Q1 performance with revenue declining -6.0% to 56.3B USD, but net income surged 17.6% to 26.8B USD, driven by improved profitability. Net margin expanded to 47.5% and ROE reached 11.0%, indicating strong financial health. Liquidity remains robust with a debt-to-equity ratio of 0.62x. The stock closed at 557.67 USD."
     }
   },
   "TSLA": {
-    "stock": "TSLA closed at 381.61 USD, down 5.79% from the previous trading day. This daily decline reverses a 3-month trend of relatively stable -0.37% performance, but remains within the context of a strong 12-month gain of 9.44%. The stock's short-term volatility may be worth monitoring.",
+    "stock": "TSLA closed at 375.53 USD, marking a 1.59% decline from the previous trading day. This daily drop is part of a broader 2.70% decline over the past 3 months, but contrasts with the stock's 10.30% gain over the past 12 months. The mixed performance suggests ongoing volatility in the electric vehicle sector.",
     "FY": {
-      "executive_summary": "TSLA's revenue declined by 2.9% YoY, while net income plummeted 46.8% due to increased expenses. Despite this, the company maintained a net margin of 4.0% and ROE of 4.6%. TSLA's debt-to-equity ratio stands at 0.67x, indicating manageable leverage. Liquidity remains strong with a current ratio of 2.16."
+      "executive_summary": "TSLA's latest FY report reveals a mixed performance, with revenue declining 2.9% to 94.8B USD. Despite this, net income remains substantial at 3.8B USD, albeit down 46.8% from prior periods. TSLA's net margin stands at 4.0% and ROE at 4.6%, indicating relatively stable profitability. The company's financial health appears solid, with a debt-to-equity ratio of 0.67x, but liquidity metrics are not immediately available."
     },
     "Q": {
-      "executive_summary": "Tesla's revenue declined 10.1% QoQ to $22.4B, while net income plummeted 43.2% to $477M. Despite the decline, net margin remains at 2.1%. The company's debt-to-equity ratio is 0.70x, indicating manageable leverage. Liquidity appears robust with a current ratio of 2.04."
+      "executive_summary": "TSLA QoQ revenue decline at 10.1% raises concerns about growth momentum. Net income fell 43.2% YoY, resulting in a net margin of 2.1%. Despite a strong current ratio of 2.04, TSLA's debt-to-equity ratio of 0.70x indicates manageable leverage. The stock closed at $375.53, with a ROE of 0.6% highlighting profitability challenges."
     }
   },
   "JPM": {
-    "stock": "JPM shares closed at 334.14 USD, up 0.80% from the previous trading day. This daily gain contributes to a 3-month increase of 14.86% and a 12-month gain of 22.41%, solidifying JPM's upward trend. The bank's stock continues to show resilience in a volatile market.",
+    "stock": "JPM closed at 333.45 USD, down 0.21% from the previous trading day. This daily decline is a minor setback for JPM, which has seen significant growth over the past 3 months (+13.45%) and 12 months (+20.86%). The stock's upward momentum remains intact despite today's minor pullback.",
     "FY": {
-      "executive_summary": "JPMorgan Chase & Co. (JPM) reported a 7.3% revenue increase to $181.8B in the latest FY, driven by growth in various business segments. However, net income declined 2.4% to $57.0B, resulting in a net margin of 31.4%. The bank's financial health remains strong with a debt-to-equity ratio of 11.21x and a robust ROE of 15.7%. Liquidity metrics are currently unavailable."
+      "executive_summary": "JPMorgan Chase & Co. reported a 7.3% revenue growth to $181.8B, driven by strong banking and markets performance. However, net income declined 2.4% to $57.0B, resulting in a net margin of 31.4%. The bank's return on equity (ROE) remains at 15.7%, indicating stable profitability. Despite a high debt-to-equity ratio of 11.21x, JPM's financial health remains strong, with a stable stock price at $333.45."
     },
     "Q": {
-      "executive_summary": "JPMorgan Chase & Co. (JPM) delivered strong quarterly results, with revenue increasing 8.8% to $49.8B and net income soaring 26.6% to $16.5B, driving a net margin of 33.1%. Return on Equity (ROE) of 4.5% indicates a stable financial position. However, the company's debt-to-equity ratio of 12.46x highlights a moderate level of leverage. Despite this, the stock closed at $334.14, reflecting its growth and profitability."
+      "executive_summary": "JPMorgan Chase & Co. (JPM) reports strong growth with revenue increasing 8.8% to $49.8B and net income soaring 26.6% to $16.5B, driving net margin to 33.1%. Return on Equity (ROE) stands at 4.5%, indicating a decent return on shareholder capital. Financial health is solid with a debt-to-equity ratio of 12.46x, but liquidity metrics are currently unavailable. The stock price closed at $333.45, reflecting the company's robust performance."
     }
   },
   "JNJ": {
-    "stock": "JNJ surged 3.37% today, its largest daily gain in recent weeks. This uptick comes amidst a 2.20% increase over the past 3 months and a 61.94% rise over the past year, indicating a long-term growth trajectory. The stock's recent momentum suggests investors remain optimistic about Johnson & Johnson's prospects.",
+    "stock": "JNJ closed at 241.00 USD, up 0.80% from the previous trading day. This daily gain builds on the stock's 3-month increase of 1.02%, but trails the 12-month surge of 62.31%. Despite a slight dip in recent days, JNJ's long-term trend remains strong.",
     "FY": {
-      "executive_summary": "Johnson & Johnson (JNJ) reported strong FY growth with revenue up 6.0% to $94.2B and net income soaring 90.6% to $26.8B. Profitability improved with a net margin of 28.5% and ROE of 32.9%. The company's financial health is solid with a debt-to-equity ratio of 1.44x, but liquidity could be a concern with a current ratio of 1.03. The stock closed at $239.08, reflecting the company's resilience in a challenging industry."
+      "executive_summary": "Johnson & Johnson (JNJ) delivered strong FY growth with 6.0% revenue increase to $94.2B, driven by net income surge of 90.6% to $26.8B, expanding net margin to 28.5%. ROE reached 32.9%, indicating efficient capital allocation. Despite moderate debt-to-equity ratio of 1.44x, JNJ's financial health appears stable. The stock closed at $241.0, reflecting the company's solid fundamentals."
     },
     "Q": {
-      "executive_summary": "Johnson & Johnson's latest quarter saw revenue decline by 2.0% to $24.1B, but net income grew 2.3% to $5.2B, indicating stable profitability. The company's net margin expanded to 21.8% and ROE reached 6.4%, showcasing strong financial performance. However, Johnson & Johnson's debt-to-equity ratio of 1.47x and current ratio of 1.03 suggest moderate financial leverage and liquidity. The stock closed at $239.08, reflecting investor confidence in the company's growth prospects."
+      "executive_summary": "Johnson & Johnson's latest quarter shows revenue decline of 2.0% to $24.1B, but net income grew 2.3% to $5.2B, driving a net margin of 21.8%. The company's return on equity (ROE) stands at 6.4%, indicating stable profitability. Johnson & Johnson's debt-to-equity ratio of 1.47x and current ratio of 1.03 suggest moderate financial leverage and adequate liquidity. The stock closed at $241.0, reflecting a stable valuation."
     }
   },
   "V": {
-    "stock": "V shares rose 0.58% today, building on a strong 3-month run of 8.36% gains. However, the stock's 12-month performance remains in the red at -3.69%, indicating a mixed picture for investors. The daily movement suggests a slight rebound from recent losses. Further analysis is needed to determine the sustainability of this trend.",
+    "stock": "V stock rose 1.14% today, extending its recent momentum. This daily gain follows a 9.19% increase over the past three months, but contrasts with the 12-month decline of 4.77%. The stock's short-term performance suggests a possible turnaround, but long-term investors may remain cautious.",
     "FY": {
-      "executive_summary": "Visa Inc. (V) delivered strong FY results with revenue growth of 11.3% to $40.0B, driven by increasing transaction volumes. Net income rose 1.6% to $20.1B, with a net margin of 50.1% and ROE of 52.9%, demonstrating solid profitability. The company maintains a healthy debt-to-equity ratio of 1.63x and liquidity position, with a current ratio of 1.08. Shares closed at $328.48, reflecting the company's consistent financial performance."
+      "executive_summary": "Visa Inc. (V) delivered strong FY growth with 11.3% revenue increase to $40.0B, driven by expanding payment volumes. Despite a slight decline in net income growth, the company maintained a robust net margin of 50.1% and ROE of 52.9%, indicating healthy profitability. Visa's debt-to-equity ratio stands at 1.63x, while its current ratio is 1.08, indicating moderate liquidity. The stock closed at $332.23, reflecting its position as a leader in the Financial Services sector."
     },
     "Q": {
-      "executive_summary": "Visa Inc. (V) delivered strong QoQ growth, with revenue increasing 3.0% to 11.2B USD and net income rising 2.9% to 6.0B USD. The company's net margin of 53.6% and ROE of 16.9% demonstrate high profitability. Visa's financial health is solid, with a debt-to-equity ratio of 1.67x and a current ratio of 1.09. The stock closed at 328.48 USD, reflecting a stable valuation."
+      "executive_summary": "Visa Inc. (V) delivered a solid quarter with revenue growth at 3.0% to $11.2B, driving net income up 2.9% to $6.0B. Net margin expanded to 53.6% and ROE reached 16.9%, indicating strong profitability. With a debt-to-equity ratio of 1.67x, Visa's financial health remains stable. The company's liquidity position is adequate with current assets covering 1.09x of current liabilities."
     }
   },
   "WMT": {
-    "stock": "WMT surged 1.91% today, snapping a brief losing streak. This daily gain is a welcome respite from the 1.97% decline over the past 3 months, but still trails the 23.04% growth seen over the past year. The stock's mixed performance suggests volatility in the retail sector.",
+    "stock": "WMT closed at 119.00 USD, down 0.35% from the previous trading day. This daily decline is a minor setback for the stock, which has seen a significant 12-month gain of 22.44%. However, the 3-month performance has been more subdued, with a loss of 3.11%.",
     "FY": {
-      "executive_summary": "Walmart Inc. (WMT) delivered strong FY results with 4.7% revenue growth and 12.6% net income increase, driving net margin to 3.1%. The company's return on equity (ROE) of 22.0% indicates solid profitability. However, its debt-to-equity ratio of 1.79x and current ratio of 0.79 suggest moderate financial leverage and liquidity concerns."
+      "executive_summary": "Walmart Inc. (WMT) delivered solid FY results with revenue growth of 4.7% and net income expansion of 12.6%. The company's net margin and ROE improved to 3.1% and 22.0%, respectively, indicating enhanced profitability. However, its debt-to-equity ratio of 1.79x and current ratio of 0.79 suggest moderate financial leverage and liquidity concerns. The stock closed at 119.0 USD."
     },
     "Q": {
-      "executive_summary": "Walmart Inc. (WMT) reported a mixed quarter, with revenue declining 6.8% to $177.8B, yet net income surged 25.8% to $5.3B. The company's net margin expanded to 3.0%, while ROE reached 5.7%. Despite a healthy debt-to-equity ratio of 2.00x, liquidity remains a concern with a current ratio of 0.77. The stock closed at $119.42, a potential buying opportunity for investors seeking defensive plays."
+      "executive_summary": "Walmart Inc. (WMT) reports mixed quarterly results with revenue declining -6.8% to 177.8B USD, but net income surging 25.8% to 5.3B USD. Net margin expands to 3.0% and ROE reaches 5.7%, indicating improving profitability. However, liquidity remains a concern with a current ratio of 0.77 and debt-to-equity ratio of 2.00x. Despite these challenges, the stock price holds at 119.0 USD."
     }
   },
   "PG": {
-    "stock": "PG's stock price surged 2.15% today, marking a positive start to the week. This daily gain builds on the 3-month trend, which has seen a 6.17% increase, but contrasts with the 12-month decline of 3.62%. The mixed performance suggests a volatile market for Procter & Gamble.",
+    "stock": "PG shares rose 0.78% today, building on the 6.44% gain over the past three months. However, this momentum contrasts with the 12-month decline of 2.46%, indicating a mixed performance for the company. The recent uptick suggests a potential shift in investor sentiment.",
     "FY": {
-      "executive_summary": "Procter & Gamble's latest FY report shows revenue growth of 0.3% to 84.3B USD, with net income increasing 7.4% to 16.0B USD. The company's net margin expanded to 19.0%, and ROE reached 30.7%. However, liquidity remains a concern with a current ratio of 0.70, indicating limited ability to meet short-term obligations. Despite this, Procter & Gamble's debt-to-equity ratio of 1.40x suggests manageable leverage."
+      "executive_summary": "PG's revenue growth remains stable at +0.3% YoY, while net income surges 7.4% to $16.0B, driven by improved profitability. Net margin expands to 19.0% and ROE reaches 30.7%, indicating strong financial health. However, liquidity remains a concern with a current ratio of 0.70, which may impact the company's ability to meet short-term obligations. Despite this, PG's debt-to-equity ratio of 1.40x is manageable."
     },
     "Q": {
-      "executive_summary": "PG's revenue declined by 4.4% to $21.2B, while net income fell 9.0% to $3.9B, resulting in a lower net margin of 18.5%. Despite this, the company's ROE remains relatively stable at 7.2%. PG's debt-to-equity ratio stands at 1.35x, indicating a moderate level of leverage."
+      "executive_summary": "Procter & Gamble's (PG) latest quarter saw revenue decline 4.4% to $21.2B, with net income plummeting 9.0% to $3.9B. Despite this, the company maintains a robust net margin of 18.5% and return on equity (ROE) of 7.2%. Liquidity remains a concern with a current ratio of 0.73, but debt-to-equity stands at a manageable 1.35x. The stock closed at $152.04, reflecting a mixed performance amidst a challenging market."
     }
   },
   "HD": {
-    "stock": "Home Depot (HD) closed at 324.45 USD, down 0.66% from the previous trading day. This daily decline fits within the stock's broader 3-month slide of 1.22% and 12-month decline of 6.69%. The recent drop continues a downward trend seen over the past year. HD's current performance lags behind its 3-month performance.",
+    "stock": "Housing stock Home Depot (HD) surged 5.67% yesterday, its best daily performance in recent history. This uptick comes on the heels of a 3.89% gain over the past three months, a modest improvement from the 12-month decline of 2.34%. However, the stock still lags behind its 12-month performance.",
     "FY": {
-      "executive_summary": "Home Depot's revenue growth of 3.2% outpaces the industry, driven by 164.7B USD in annual sales. However, net income declined 4.4% to 14.2B USD, resulting in a lower net margin of 8.6%. The company's return on equity (ROE) remains strong at 110.5%, but a debt-to-equity ratio of 7.20x and current ratio of 1.06 indicate moderate financial leverage and liquidity."
+      "executive_summary": "The Home Depot, Inc. (HD) reported a 3.2% revenue growth to $164.7B, driven by a 4.4% decline in net income to $14.2B, resulting in a net margin of 8.6%. Despite the decrease in net income, HD's return on equity (ROE) remains strong at 110.5%. The company's debt-to-equity ratio of 7.20x indicates a relatively high level of leverage, but its current ratio of 1.06 suggests manageable short-term liquidity."
     },
     "Q": {
-      "executive_summary": "The Home Depot, Inc. (HD) reported strong quarterly results with revenue growth of 9.3% and net income increase of 27.9%. Net margin expanded to 7.9% while ROE reached 23.7%, indicating improving profitability. Despite a debt-to-equity ratio of 6.78x, liquidity remains stable with a current ratio of 1.04. The stock price closed at $324.45, reflecting investor confidence in the company's growth prospects."
+      "executive_summary": "The Home Depot, Inc. (HD) delivered strong quarterly results with revenue growth of 9.3% and net income expansion of 27.9%, driven by a 7.9% net margin. The company's return on equity (ROE) of 23.7% indicates efficient capital allocation. However, its debt-to-equity ratio of 6.78x suggests a moderate level of financial leverage. Meanwhile, a current ratio of 1.04 indicates manageable liquidity."
     }
   },
   "MA": {
-    "stock": "MA stock closed at 488.07 USD, up 0.82% from the previous trading day. Despite the daily gain, MA's 3-month performance remains in the red at -2.01%, and its 12-month performance is down 9.48%. The stock's recent uptick may be a sign of stabilization, but the long-term trend remains negative.",
+    "stock": "MA stock closed at 494.41 USD, up 1.30% from the previous trading day. This daily gain contrasts with the 3-month decline of 1.49% and the more significant 12-month drop of 10.80%. The recent uptick suggests a possible short-term rebound, but the long-term trend remains negative. Further monitoring is warranted to assess the sustainability of this move.",
     "FY": {
-      "executive_summary": "Mastercard Incorporated (MA) reported strong FY growth with revenue increasing 16.4% to $32.8B and net income rising 16.3% to $15.0B. The company's net margin expanded to 45.6% and return on equity (ROE) surged to 193.5%, indicating robust profitability. MA's debt-to-equity ratio stands at 6.00x, while its current ratio is 1.03, providing moderate liquidity. The stock closed at $488.07, reflecting investor confidence in the company's financial health."
+      "executive_summary": "Mastercard Incorporated (MA) delivered strong FY results with 16.4% revenue growth to $32.8B, outpacing net income growth of 16.3% to $15.0B. The company's net margin expanded to 45.6% and return on equity (ROE) surged to 193.5%, indicating robust profitability. MA's debt-to-equity ratio stands at 6.00x, while its current ratio is 1.03, demonstrating manageable liquidity. The stock closed at $494.41, reflecting the company's solid financial performance."
     },
     "Q": {
-      "executive_summary": "Mastercard Incorporated (MA) reported a decline in revenue and net income for the latest quarter, with revenue at 8.4B USD (-4.6% vs prior period) and net income at 3.9B USD (-4.4% vs prior period). The company's net margin remains strong at 46.2% and ROE at 57.8%. MA's debt-to-equity ratio is 6.81x, indicating a moderate level of leverage. The stock price closed at 488.070007 USD."
+      "executive_summary": "Mastercard Incorporated (MA) reported a 4.6% decline in revenue to $8.4B, with net income falling 4.4% to $3.9B. Despite this, the company maintained a net margin of 46.2% and a robust return on equity (ROE) of 57.8%. However, MA's debt-to-equity ratio stands at 6.81x, indicating moderate leverage. The stock closed at $494.41, a potential buy for investors seeking stable financials."
     }
   },
   "UNH": {
-    "stock": "UNH closed at 409.25 USD, up 0.63% from the previous trading day. This daily gain contributes to the stock's impressive 51.16% increase over the past three months, and 39.75% growth over the past year, indicating a sustained upward trend.",
+    "stock": "UNH shares fell 0.84% yesterday, snapping a short-term winning streak. This daily dip is a minor correction within the stock's broader 3-month surge of 50.85% and 12-month gain of 36.34%. The stock's resilience is a testament to its stable fundamentals.",
     "FY": {
-      "executive_summary": "UnitedHealth Group Incorporated (UNH) delivered strong revenue growth of 11.8% YoY to $447.6B, driven by expanding healthcare services. However, net income declined 16.3% to $12.1B, resulting in a net margin of 2.7%. The company's financial health is stable, with a debt-to-equity ratio of 2.21x and a return on equity (ROE) of 12.8%. UNH's stock closed at $409.25, indicating a mixed performance in the latest quarter."
+      "executive_summary": "UnitedHealth Group's FY growth accelerates with 11.8% revenue increase to $447.6B, driven by expanding healthcare services. However, net income contraction of 16.3% to $12.1B and declining net margin to 2.7% temper profitability. Liquidity remains a concern with a current ratio of 0.79, while financial health indicators show manageable debt-to-equity of 2.21x and a solid ROE of 12.8%."
     },
     "Q": {
-      "executive_summary": "UNH QoQ growth: Revenue declined -1.3% to 111.7B USD, while net income surged 62700.0% to 6.3B USD, driven by improved profitability. Net margin expanded to 5.6%, while ROE reached 6.4%. However, liquidity remains a concern with a current ratio of 0.80, indicating limited ability to meet short-term obligations."
+      "executive_summary": "UNH QoQ growth is driven by a 1.3% decline in revenue, offset by a 62,700% surge in net income due to one-time items, resulting in a 5.6% net margin. Net income growth is a significant outlier, but profitability remains stable with a 6.4% ROE. Liquidity is moderate with a current ratio of 0.80, and debt-to-equity ratio of 2.12x indicates manageable leverage. The stock closed at $405.80, reflecting a mixed performance amidst strong earnings."
     }
   },
   "DIS": {
-    "stock": "Disney (DIS) closed at 103.53 USD, up 1.05% from the previous trading day. This daily gain follows a 3-month performance of 7.41% but contrasts with the 12-month decline of 11.10%. The mixed trend suggests volatility in the stock. Further analysis is needed to understand the underlying drivers.",
+    "stock": "Disney (DIS) stock closed at 101.12 USD, down 2.33% from the previous trading day. This daily decline comes after a 5.39% gain over the past three months, which suggests a recent reversal in momentum. However, the stock still lags its 12-month performance, down 14.20% over the past year.",
     "FY": {
-      "executive_summary": "The Walt Disney Company (DIS) reported a strong FY with 3.4% revenue growth to 94.4B USD, driven by a 149.5% increase in net income to 12.4B USD. Improved profitability is reflected in a net margin of 13.1% and ROE of 11.3%. However, liquidity remains a concern with a current ratio of 0.71, indicating potential short-term cash flow issues. Despite this, DIS maintains a relatively healthy debt-to-equity ratio of 0.75x."
+      "executive_summary": "Disney (DIS) delivered strong FY growth with revenue up 3.4% to 94.4B USD, driven by a 149.5% surge in net income to 12.4B USD. Profitability remains robust with a 13.1% net margin and 11.3% ROE. However, liquidity is a concern with a current ratio of 0.71, indicating limited ability to meet short-term obligations. Financial health is stable with a manageable debt-to-equity ratio of 0.75x."
     },
     "Q": {
-      "executive_summary": "Disney's revenue declined 3.1% to 25.2B USD, while net income dropped 6.5% to 2.2B USD. Net margin remains stable at 8.9% despite decreased profitability. Liquidity is a concern with a current ratio of 0.68, indicating limited short-term financial flexibility. Disney's debt-to-equity ratio of 0.83x suggests manageable leverage."
+      "executive_summary": "Disney's revenue contracted 3.1% to $25.2B, with net income declining 6.5% to $2.2B. Net margin remains stable at 8.9%, while ROE stands at 2.1%. Liquidity is a concern with a current ratio of 0.68, indicating limited ability to meet short-term obligations. Financial health is also a concern with a debt-to-equity ratio of 0.83x."
     }
   },
   "BAC": {
-    "stock": "BAC's daily performance rose 0.94% yesterday, extending its recent upward momentum. This gain is part of a larger 3-month surge of 20.92% and a 12-month increase of 27.80%. The stock's consistent growth suggests investor confidence in Bank of America's prospects.",
+    "stock": "BAC closed at 57.73 USD, down 0.31% from the previous trading day. This daily decline is a minor setback in the context of the stock's strong 3-month performance, up 19.04%, and 12-month gain of 26.42%. Despite the short-term dip, BAC continues to trend upward.",
     "FY": {
-      "executive_summary": "Bank of America Corporation (BAC) delivered robust growth, with revenue increasing 6.8% to $113.1B and net income soaring 13.1% to $30.5B. This growth translates to a net margin of 27.0% and a return on equity (ROE) of 10.1%. However, BAC's financial health is somewhat tempered by a debt-to-equity ratio of 10.25x."
+      "executive_summary": "Bank of America Corporation (BAC) reported strong FY growth, with revenue increasing 6.8% to $113.1B and net income rising 13.1% to $30.5B. Profitability improved, with net margin expanding to 27.0% and ROE reaching 10.1%. Financial health is a concern due to a high debt-to-equity ratio of 10.25x. Stock price closed at $57.73."
     },
     "Q": {
-      "executive_summary": "Bank of America Corporation (BAC) reports mixed QoQ results. Revenue declined 2.9% to $30.3B, while net income surged 14.0% to $8.6B, driven by improved profitability with a net margin of 28.4%. Despite a debt-to-equity ratio of 10.63x, BAC's return on equity (ROE) stands at 2.9%. The stock closed at $57.91, reflecting a complex financial landscape."
+      "executive_summary": "Bank of America Corporation (BAC) reported a mixed quarter with revenue declining 2.9% to $30.3B, yet net income surged 14.0% to $8.6B, driving net margin to 28.4%. The bank's return on equity (ROE) remains at 2.9%, indicating stable profitability. However, BAC's financial health is a concern due to its high debt-to-equity ratio of 10.63x."
     }
   },
   "NVDA": {
-    "stock": "NVDA's stock price closed at 200.04 USD, down 4.13% from the previous trading day. This daily decline comes after a 14.31% gain over the past 3 months, as investors reevaluate the stock's valuation. The 12-month performance of 38.94% suggests a long-term upward trend, but short-term volatility may be increasing.",
+    "stock": "NVDA closed at 199.00 USD, down 0.52% from the previous trading day. This daily decline is a minor blip in the stock's overall trend, which has seen a 3-month gain of +11.50% and a 12-month increase of +34.73%. Despite the recent drop, NVDA remains in a strong uptrend.",
     "FY": {
-      "executive_summary": "NVIDIA Corporation (NVDA) delivered exceptional FY growth, with revenue soaring 65.5% to $215.9B and net income increasing 64.7% to $120.1B. The company's net margin expanded to 55.6%, and return on equity (ROE) reached 76.3%, indicating strong profitability. NVIDIA's debt-to-equity ratio of 0.31x suggests a healthy balance sheet, and its current liquidity is robust. With a stock price of $200.04, investors may be interested in NVDA's continued momentum."
+      "executive_summary": "NVIDIA Corporation (NVDA) delivered exceptional FY growth, with revenue rising 65.5% to $215.9B and net income increasing 64.7% to $120.1B. The company's net margin expanded to 55.6% and return on equity (ROE) reached 76.3%, indicating strong profitability. NVIDIA's debt-to-equity ratio remains conservative at 0.31x, while its current liquidity position is robust with a current ratio of 3.91."
     },
     "Q": {
-      "executive_summary": "NVIDIA Corporation (NVDA) delivered a strong Q4, with revenue and net income growth of 19.8% and 35.8% respectively. The company's net margin expanded to 71.5%, while return on equity (ROE) reached 29.8%. NVIDIA's financial health is solid, with a debt-to-equity ratio of 0.33x and a current ratio of 3.44. The stock price closed at $200.04, reflecting the company's impressive growth and profitability."
+      "executive_summary": "NVIDIA Corporation (NVDA) delivered strong Q1 results, with revenue growth of 19.8% to $81.6B and net income surge of 35.8% to $58.3B. This translates to a net margin of 71.5% and ROE of 29.8%, indicating robust profitability. With a debt-to-equity ratio of 0.33x, NVIDIA maintains a healthy balance sheet."
     }
   },
   "PYPL": {
-    "stock": "PYPL's stock price declined by -1.51% on the latest trading day, marking a continuation of its downward trend. This daily movement is part of a broader 3-month decline of -5.37% and a significant 12-month drop of -41.59%. The stock's recent performance suggests a prolonged slump, with no signs of recovery in sight.",
+    "stock": "PYPL surged 1.87% today, bucking the 3-month downtrend of -4.97% and the 12-month decline of -41.77%. Despite the daily gain, the stock remains in a longer-term slump. The recent uptick may be a minor correction in the larger trend.",
     "FY": {
-      "executive_summary": "PYPL's FY growth accelerates with 4.3% revenue increase to $33.2B, driven by 26.2% net income surge to $5.2B. Net margin expands to 15.8%, while ROE reaches 25.8%. Strong liquidity supports operations with a current ratio of 1.29. Financial health remains solid with a manageable debt-to-equity ratio of 2.96x."
+      "executive_summary": "PayPal Holdings, Inc. (PYPL) delivered a strong FY report with revenue growth of 4.3% to $33.2B, driven by increasing demand for digital payments. Net income surged 26.2% to $5.2B, resulting in a net margin of 15.8% and ROE of 25.8%. The company's financial health appears solid, with a debt-to-equity ratio of 2.96x and a current ratio of 1.29. However, the stock price of $42.48 may not fully reflect the company's growth prospects."
     },
     "Q": {
-      "executive_summary": "PYPL financials show a decline in revenue (-3.7% QoQ) and net income (-22.5% QoQ), impacting net margin to 13.3%. Despite this, the company maintains a solid liquidity position with a current ratio of 1.26. However, its debt-to-equity ratio of 3.02x indicates a moderate level of leverage. Net income as a percentage of equity (ROE) stands at 5.6%."
+      "executive_summary": "PayPal Holdings, Inc. (PYPL) reported a 3.7% decline in revenue to 8.4B USD, with net income plummeting 22.5% to 1.1B USD. Despite this, the company maintained a net margin of 13.3% and a robust return on equity (ROE) of 5.6%. PayPal's financial health appears stable, with a debt-to-equity ratio of 3.02x and a current ratio of 1.26. The stock closed at 42.48 USD."
     }
   },
   "NFLX": {
-    "stock": "NFLX closed at 72.82 USD, down 0.08% from the previous trading day. This daily decline fits within the broader 3-month and 12-month downtrends, with NFLX experiencing -19.91% and -41.91% losses respectively. The stock's recent performance suggests a continued decline in investor sentiment.",
+    "stock": "NFLX closed at 71.84 USD, down 1.35% from the previous trading day. This daily decline continues the downward trend seen over the past three months (-22.15%) and 12 months (-43.84%). The stock's recent performance suggests a prolonged period of volatility.",
     "FY": {
-      "executive_summary": "NFLX: Strong growth with 15.9% revenue increase to 45.2B USD, driving 26.1% net income growth to 11.0B USD. Net margin expanded to 24.3% and ROE reached 41.3%, indicating improved profitability. Liquidity remains solid with a current ratio of 1.19. Financial health is stable with debt-to-equity at 1.09x."
+      "executive_summary": "NFLX: Netflix's FY revenue growth accelerates to 15.9% YoY, driven by strong content offerings. Net income soars 26.1% YoY, boosting net margin to 24.3% and ROE to 41.3%. Financial health remains stable with a debt-to-equity ratio of 1.09x. Strong liquidity supports growth initiatives."
     },
     "Q": {
-      "executive_summary": "NFLX reported a strong quarter with 1.7% revenue growth to $12.2B and a significant 118.4% increase in net income to $5.3B, driven by improved net margin of 43.1%. The company's return on equity (ROE) stands at 17.0%, indicating efficient use of shareholder capital. NFLX exhibits solid liquidity with a current ratio of 1.41, supporting its financial flexibility."
+      "executive_summary": "NFLX reported a strong quarter with revenue growth of 1.7% and a significant 118.4% increase in net income to $5.3B. Net margin expanded to 43.1%, while ROE reached 17.0%, indicating improving profitability. NFLX maintains a healthy liquidity position with a current ratio of 1.41, supporting its financial flexibility. Debt-to-equity ratio of 0.96x suggests manageable leverage."
     }
   },
   "ADBE": {
-    "stock": "ADBE shares rose 1.30% today, marking a brief reprieve from the stock's downward trajectory. This daily gain contrasts with the 3-month decline of 17.35% and the 12-month loss of 48.06%, indicating a mixed performance for the company.",
+    "stock": "ADBE closed at 196.57 USD, down 0.44% from the previous trading day. This daily decline follows a broader downward trend, as the stock has fallen 17.15% over the past three months and 48.59% over the past year. The 12-month decline is particularly notable, indicating a sustained period of weakness.",
     "FY": {
-      "executive_summary": "Adobe Inc. (ADBE) delivered strong FY results, with revenue growth accelerating to +10.5% and net income soaring by +28.2%. The company's net margin expanded to 30.0% and return on equity (ROE) reached 61.3%, indicating robust profitability. Adobe's debt-to-equity ratio stands at 1.54x, while its current ratio is 1.00, indicating manageable liquidity levels. The stock closed at 197.43 USD, reflecting its growth trajectory."
+      "executive_summary": "Adobe Inc. (ADBE) delivered strong FY results with 10.5% revenue growth to $23.8B and 28.2% net income increase to $7.1B, driven by expanding net margin to 30.0%. The company's return on equity (ROE) reached 61.3%, indicating robust profitability. However, Adobe's debt-to-equity ratio of 1.54x suggests some leverage, and its current ratio of 1.00 indicates relatively tight liquidity. The stock closed at $196.57, reflecting investor confidence in the company's growth prospects."
     },
     "Q": {
-      "executive_summary": "Adobe Inc. (ADBE) reported a 3.4% revenue increase to 6.6B USD, however net income declined 9.4% to 1.7B USD. Net margin remains strong at 25.9%, while ROE stands at 14.9%. Debt-to-equity ratio is 1.60x, indicating moderate leverage. Liquidity is a concern with a current ratio of 0.75."
+      "executive_summary": "Adobe Inc. (ADBE) reported a 3.4% revenue growth to $6.6B in the latest quarter, however, net income declined by 9.4% to $1.7B. The company's net margin remains stable at 25.9% and ROE stands at 14.9%, indicating a relatively healthy financial position. A debt-to-equity ratio of 1.60x and a current ratio of 0.75 suggest moderate financial leverage and liquidity. The stock closed at $196.57, reflecting the company's stable profitability amidst a growth slowdown."
     }
   },
   "KO": {
-    "stock": "KO's stock price closed at 80.31 USD, up 0.98% from the previous trading day. This daily gain contributes to the stock's 3-month surge of 8.25%, and its 12-month rise of 18.42%. The recent uptick is consistent with the overall upward trend.",
+    "stock": "KO closed at 80.60 USD, with a daily gain of +0.36% compared to the previous trading day. This daily movement is a slight uptick from the 3-month trend of +7.80% and the 12-month trend of +18.05%, indicating a continued upward trajectory for the stock.",
     "FY": {
-      "executive_summary": "Coca-Cola (KO) delivered strong FY results, with revenue growth of 1.9% and net income surge of 23.3%. Profitability improved with a net margin of 27.3% and ROE of 40.7%. Liquidity remains solid with a current ratio of 1.46, supporting operational flexibility. Financial health appears stable with a manageable debt-to-equity ratio of 2.19x."
+      "executive_summary": "KO delivered strong FY results with 1.9% revenue growth and 23.3% net income increase, driven by a 27.3% net margin. ROE of 40.7% indicates robust profitability. Liquidity remains solid with a current ratio of 1.46. Financial health is sound with a manageable debt-to-equity ratio of 2.19x."
     },
     "Q": {
-      "executive_summary": "Coca-Cola (KO) reports strong growth with 5.5% revenue increase to $12.5B, and impressive profitability with 72.8% net income growth to $3.9B, driven by a 31.5% net margin. ROE of 11.7% and debt-to-equity of 2.04x indicate moderate leverage. Liquidity is solid with a current ratio of 1.36. Earnings growth has lifted the stock price to $80.31."
+      "executive_summary": "KO: Coca-Cola delivered a strong quarter with 5.5% revenue growth and a 72.8% surge in net income, driven by improved profitability and a 31.5% net margin. Liquidity remains stable with a current ratio of 1.36. Financial health is solid, with a manageable debt-to-equity ratio of 2.04x and a respectable ROE of 11.7%. The stock closed at 80.60."
     }
   },
-  "_generated_at": "2026-06-24T05:21:36.432364+00:00"
+  "_generated_at": "2026-06-24T23:18:47.268446+00:00"
 }
