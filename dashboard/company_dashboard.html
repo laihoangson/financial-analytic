@@ -515,8 +515,8 @@
         <div class="control-group">
             <label><i class="fas fa-filter"></i> REPORT TYPE</label>
             <select id="reportTypeSelect">
-                <option value="FY" selected>Annual (FY)</option>
-                <option value="Q">Quarterly (Q)</option>
+                <option value="Q" selected>Quarterly (Q)</option>
+                <option value="FY">Annual (FY)</option>
             </select>
         </div>
 
@@ -728,7 +728,7 @@
         let dataFinancials = [];
         let dataStocks = [];
         let currentTicker = '';
-        let currentReportType = 'FY'; // THÊM BIẾN TRẠNG THÁI NĂM/QUÝ
+        let currentReportType = 'Q'; // THÊM BIẾN TRẠNG THÁI NĂM/QUÝ
         let aiInsights = null; // Pre-generated insights JSON (insights_company.json)
         
         // Stock Chart State
