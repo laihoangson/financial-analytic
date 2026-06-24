@@ -26,6 +26,9 @@ jobs:
       # PHASE 1
       # ==========================================
       - name: Run Phase 1 (Fetch & Clean)
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: llama-3.1-8b-instant
         run: python backend/etl/run_phase1.py
 
       - name: Commit & push Phase 1
