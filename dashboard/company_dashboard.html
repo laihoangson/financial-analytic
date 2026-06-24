@@ -620,8 +620,9 @@
                             <button class="time-btn" onclick="setStockRange('7y')">7Y</button>
                             <button class="time-btn" onclick="setStockRange('5y')">5Y</button>
                             <button class="time-btn" onclick="setStockRange('3y')">3Y</button>
-                            <button class="time-btn" onclick="setStockRange('1y')">1Y</button>
-                            <button class="time-btn active" onclick="setStockRange('3m')">3M</button>
+                            <button class="time-btn active" onclick="setStockRange('1y')">1Y</button>
+                            <button class="time-btn" onclick="setStockRange('3m')">3M</button>
+                            
                         </div>
                     </div>
                 </div>
@@ -731,7 +732,7 @@
         let aiInsights = null; // Pre-generated insights JSON (insights_company.json)
         
         // Stock Chart State
-        let stockRange = '3m';
+        let stockRange = '1y';
         let showMA20 = false;
         let showMA50 = false;
         let showMA200 = false;

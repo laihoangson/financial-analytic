@@ -894,16 +894,21 @@
     function setInsightText(elId, text) {
         const el = document.getElementById(elId);
         if (!el) return;
+        el.style.display = 'flex';
         el.classList.remove('loading');
         el.querySelector('.ai-insight-text').textContent = text || 'No insight available.';
     }
 
-    const NOT_LATEST_NOTE = "AI insight is only generated for the latest fiscal year. Switch the Fiscal Year filter to \"Latest Available\" to see it.";
+    function hideInsight(elId) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        el.style.display = 'none';
+    }
 
     function renderRow1Insight() {
         if (!globalData.aiInsights) return; // Not loaded yet
         if (globalData.currentYear !== 'latest') {
-            setInsightText('insight-row1', NOT_LATEST_NOTE);
+            hideInsight('insight-row1');
             return;
         }
         const metric = document.getElementById('row1-metric')?.value || 'revenue';
@@ -914,7 +919,7 @@
     function renderRow2SectorInsight() {
         if (!globalData.aiInsights) return;
         if (globalData.currentYear !== 'latest') {
-            setInsightText('insight-row2-sector', NOT_LATEST_NOTE);
+            hideInsight('insight-row2-sector');
             return;
         }
         const metric = document.getElementById('row2-sector-metric')?.value || 'revenue';
@@ -925,7 +930,7 @@
     function renderRow2BubbleInsight() {
         if (!globalData.aiInsights) return;
         if (globalData.currentYear !== 'latest') {
-            setInsightText('insight-row2-bubble', NOT_LATEST_NOTE);
+            hideInsight('insight-row2-bubble');
             return;
         }
         setInsightText('insight-row2-bubble', globalData.aiInsights.row2_bubble || "AI insight is not available yet.");
@@ -934,7 +939,7 @@
     function renderRow3Insight() {
         if (!globalData.aiInsights) return;
         if (globalData.currentYear !== 'latest') {
-            setInsightText('insight-row3-heatmap', NOT_LATEST_NOTE);
+            hideInsight('insight-row3-heatmap');
             return;
         }
         setInsightText('insight-row3-heatmap', globalData.aiInsights.row3_heatmap || "AI insight is not available yet.");
