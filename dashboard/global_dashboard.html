@@ -1131,8 +1131,8 @@
         const datasets = sectors.map(sec => ({
             label: sec,
             data: bubbleData.filter(d => d.sector === sec).map(d => ({
-                x: d.revenue,
-                y: d.net_income,
+                y: d.revenue,
+                x: d.net_income,
                 r: Math.sqrt(d.total_assets) / 80000, 
                 _raw: d
             })),
@@ -1152,12 +1152,12 @@
                 maintainAspectRatio: false,
                 scales: {
                     x: { 
-                        title: { display: true, text: 'Revenue ($)', color: '#334155', font: {weight: '700'} },
+                        title: { display: true, text: 'Net Income ($)', color: '#334155', font: {weight: '700'} },
                         ticks: { callback: (val) => '$' + formatCompactNumber(val), color: '#334155', font: {weight: '600'} },
                         grid: { color: '#e2e8f0' } 
                     },
                     y: { 
-                        title: { display: true, text: 'Net Income ($)', color: '#334155', font: {weight: '700'} },
+                        title: { display: true, text: 'Revenue ($)', color: '#334155', font: {weight: '700'} },
                         ticks: { callback: formatCompactNumber, color: '#334155', font: {weight: '600'} },
                         grid: { color: '#e2e8f0' }
                     }
