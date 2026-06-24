@@ -482,7 +482,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 f"current ratio {safe_num(latest.get('current_ratio'), 0):.2f}. "
                 f"Latest stock close: {latest_stock['close'] if latest_stock is not None else 'N/A'} USD. "
                 "Write a 3-4 sentence executive summary covering growth, profitability, liquidity, and financial "
-                "health, in a tone suitable for an investor dashboard. Note that for only BAC and JPM, don't mention current ratio."
+                "health, in a tone suitable for an investor dashboard. Note that for BAC and JPM, don't say anything about current ratio because they are banks"
             )
             exec_summary = call_groq(prompt, max_tokens=160)
 
