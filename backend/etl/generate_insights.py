@@ -273,27 +273,77 @@ def build_global_insights(companies, financials, stocks, companies_map):
 
     # --- Row 4: Market Trends (always latest, independent of any filter) ---
     print("-- Row4 market trends")
-    top_tickers = latest.sort_values("revenue", ascending=False)["ticker"].head(10).tolist()
+
+    top_tickers = (
+        latest
+        .sort_values("revenue", ascending=False)["ticker"]
+        .dropna()
+        .tolist()
+    )
+
     returns = []
+
     max_date = stocks["date"].max()
+
     if pd.notna(max_date):
         min_date = max_date - pd.DateOffset(months=12)
-        for t in top_tickers:
-            s = stocks[(stocks["ticker"] == t) & (stocks["date"] >= min_date)].sort_values("date")
-            if len(s) > 1:
-                start_p, end_p = s.iloc[0]["close"], s.iloc[-1]["close"]
-                if start_p:
-                    returns.append((t, (end_p - start_p) / start_p * 100))
 
+        for t in top_tickers:
+            s = (
+                stocks[
+                    (stocks["ticker"] == t)
+                    & (stocks["date"] >= min_date)
+                ]
+                .sort_values("date")
+            )
+
+            if len(s) > 1:
+                start_p = s.iloc[0]["close"]
+                end_p = s.iloc[-1]["close"]
+
+                if pd.notna(start_p) and start_p > 0 and pd.notna(end_p):
+                    ret = (end_p - start_p) / start_p * 100
+                    returns.append((t, ret))
+
+    # Sort from best to worst
     returns.sort(key=lambda x: x[1], reverse=True)
+
+    # Debug (optional)
+    print("\nTop revenue companies - 12M returns")
+    for t, r in returns:
+        print(f"{t}: {r:+.2f}%")
+
     if returns:
-        lines = "; ".join(f"{t}: {r:+.1f}%" for t, r in returns[:10])
-        prompt = (
-            f"12-month cumulative stock returns for top revenue-leading companies: {lines}. "
-            "Write a 1-2 sentence insight naming the best and worst performer."
+
+        best_ticker, best_return = returns[0]
+        worst_ticker, worst_return = returns[-1]
+
+        lines = "; ".join(
+            f"{t}: {r:+.1f}%"
+            for t, r in returns
         )
+
+        prompt = f"""
+        The following are 12-month cumulative stock returns for the highest-revenue companies:
+
+        {lines}
+
+        Verified facts:
+        - Best performer: {best_ticker} ({best_return:+.1f}%)
+        - Worst performer: {worst_ticker} ({worst_return:+.1f}%)
+
+        Write a concise 2-3 sentence market insight.
+        You MUST mention the verified best and worst performers above.
+        Do not identify any other company as the best or worst performer.
+        """
+
     else:
-        prompt = "No 12-month stock return data is currently available. State this briefly."
+
+        prompt = (
+            "No 12-month stock return data is currently available. "
+            "State this briefly."
+        )
+
     result["row4_market_trends"] = call_groq(prompt)
 
     result["_generated_at"] = datetime.now(timezone.utc).isoformat()
@@ -320,19 +370,70 @@ def build_company_insights(companies, financials, stocks, companies_map):
 
         # --- Stock insight: shared across FY and Q tabs (identical price chart) ---
         print(f"-- {ticker} [stock]")
+
         if not stk.empty and len(stk) > 5:
+
+            stk = stk.sort_values("date").reset_index(drop=True)
+
             latest_stock = stk.iloc[-1]
-            start_p = stk.iloc[max(0, len(stk) - 252)]["close"]
-            end_p = latest_stock["close"]
-            pct = (end_p - start_p) / start_p * 100 if start_p else None
-            prompt = (
-                f"{ticker} stock price moved from {start_p:.2f} to {end_p:.2f} USD "
-                f"over roughly the last year"
-                f"{f' ({pct:+.1f}%)' if pct is not None else ''}. "
-                "Write a 1-2 sentence insight on the stock price trend."
-            )
+            latest_price = latest_stock["close"]
+
+            # ===== 1 DAY =====
+            day_change = None
+            if len(stk) >= 2:
+                prev_price = stk.iloc[-2]["close"]
+
+                if pd.notna(prev_price) and prev_price > 0:
+                    day_change = (latest_price - prev_price) / prev_price * 100
+
+            # ===== 3 MONTH =====
+            three_month_change = None
+            idx_3m = max(0, len(stk) - 63)   # ~63 trading days
+
+            start_3m = stk.iloc[idx_3m]["close"]
+
+            if pd.notna(start_3m) and start_3m > 0:
+                three_month_change = (
+                    (latest_price - start_3m) / start_3m * 100
+                )
+
+            # ===== 12 MONTH =====
+            one_year_change = None
+            idx_1y = max(0, len(stk) - 252)  # ~252 trading days
+
+            start_1y = stk.iloc[idx_1y]["close"]
+
+            if pd.notna(start_1y) and start_1y > 0:
+                one_year_change = (
+                    (latest_price - start_1y) / start_1y * 100
+                )
+
+            prompt = f"""
+            Stock performance for {ticker}:
+
+            Current close price: {latest_price:.2f} USD
+
+            Daily performance:
+            {'N/A' if day_change is None else f'{day_change:+.2f}% vs previous trading day'}
+
+            3-month performance:
+            {'N/A' if three_month_change is None else f'{three_month_change:+.2f}%'}
+
+            12-month performance:
+            {'N/A' if one_year_change is None else f'{one_year_change:+.2f}%'}
+
+            Write a concise 3-4 sentence insight.
+            First mention the latest daily movement.
+            Then briefly place it in the context of the 3-month and 12-month trend.
+            """
+
         else:
-            prompt = f"Limited stock price history is available for {ticker}. State this briefly."
+
+            prompt = (
+                f"Limited stock price history is available for {ticker}. "
+                "State this briefly."
+            )
+
         stock_insight = call_groq(prompt)
         result[ticker]["stock"] = stock_insight
 
@@ -378,9 +479,10 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 f"net margin {safe_num(latest.get('net_margin'), 0)*100:.1f}%; "
                 f"ROE {safe_num(latest.get('roe'), 0)*100:.1f}%; "
                 f"debt-to-equity {safe_num(latest.get('debt_to_equity'), 0):.2f}x. "
+                f"current ratio {safe_num(latest.get('current_ratio'), 0):.2f}. "
                 f"Latest stock close: {latest_stock['close'] if latest_stock is not None else 'N/A'} USD. "
-                "Write a 2-3 sentence executive summary covering growth, profitability, and financial "
-                "health, in a tone suitable for an investor dashboard."
+                "Write a 3-4 sentence executive summary covering growth, profitability, liquidity, and financial "
+                "health, in a tone suitable for an investor dashboard. Note that for only BAC and JPM, don't mention current ratio."
             )
             exec_summary = call_groq(prompt, max_tokens=160)
 
