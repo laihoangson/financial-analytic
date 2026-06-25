@@ -1641,8 +1641,27 @@
                 data: {
                     labels: data.map(d => getReportLabel(d.report_date, d.period)),
                     datasets: [
-                        { label: 'ROE', data: data.map(d=>(d.roe||0)*100), backgroundColor: '#a78bfa' },
-                        { label: 'ROA', data: data.map(d=>(d.roa||0)*100), backgroundColor: '#f472b6' }
+                        { 
+                            label: 'ROE', 
+                            data: data.map(d=>(d.roe||0)*100), 
+                            backgroundColor: '#a78bfa',
+                            yAxisID: 'y',
+                            order: 2
+                        },
+                        { 
+                            label: 'ROA', 
+                            data: data.map(d=>(d.roa||0)*100), 
+                            type: 'line',
+                            borderColor: '#f472b6',
+                            backgroundColor: '#f472b6',
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#f472b6',
+                            tension: 0.2,
+                            fill: false,
+                            yAxisID: 'y',
+                            order: 1
+                        }
                     ]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { display: false }, ticks: { callback: v=>v+'%', color: '#64748b' } }, x: { grid: { display: false }, ticks: { color: '#64748b' } } } }
