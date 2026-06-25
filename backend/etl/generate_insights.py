@@ -393,6 +393,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
 
             latest_stock = stk.iloc[-1]
             latest_price = latest_stock["close"]
+            closes = stk["close"].tolist()
 
             # ===== 1 DAY =====
             day_change = None
@@ -424,6 +425,78 @@ def build_company_insights(companies, financials, stocks, companies_map):
                     (latest_price - start_1y) / start_1y * 100
                 )
 
+            # ===== MA20 / MA50 / BOLLINGER BANDS (latest day) =====
+            # Mirrors the frontend's calculateMA/calculateBB exactly:
+            # SMA over the last N closes, stdDev = population std (divide by period, not period-1).
+            def calc_ma(data, period):
+                if len(data) < period:
+                    return None
+                window = data[-period:]
+                return sum(window) / period
+
+            def calc_bb(data, period=20, std_mult=2):
+                ma = calc_ma(data, period)
+                if ma is None:
+                    return None, None
+                window = data[-period:]
+                variance = sum((x - ma) ** 2 for x in window) / period
+                std_dev = variance ** 0.5
+                return ma + std_dev * std_mult, ma - std_dev * std_mult
+
+            ma20 = calc_ma(closes, 20)
+            ma50 = calc_ma(closes, 50)
+            bb_upper, bb_lower = calc_bb(closes, 20, 2)
+
+            ma20_line = "N/A (fewer than 20 trading days of history)"
+            ma50_line = "N/A (fewer than 50 trading days of history)"
+            cross_line = ""
+            bb_line = "N/A (fewer than 20 trading days of history)"
+
+            if ma20 is not None:
+                vs_ma20_pct = (latest_price - ma20) / ma20 * 100
+                ma20_line = (
+                    f"{ma20:.2f} USD (price is {vs_ma20_pct:+.2f}% "
+                    f"{'above' if vs_ma20_pct >= 0 else 'below'} MA20)"
+                )
+
+            if ma50 is not None:
+                vs_ma50_pct = (latest_price - ma50) / ma50 * 100
+                ma50_line = (
+                    f"{ma50:.2f} USD (price is {vs_ma50_pct:+.2f}% "
+                    f"{'above' if vs_ma50_pct >= 0 else 'below'} MA50)"
+                )
+
+            if ma20 is not None and ma50 is not None:
+                if ma20 > ma50:
+                    cross_line = (
+                        "MA20 is currently above MA50 (a 'golden cross' style setup, "
+                        "often read as a short-term bullish bias)."
+                    )
+                elif ma20 < ma50:
+                    cross_line = (
+                        "MA20 is currently below MA50 (a 'death cross' style setup, "
+                        "often read as a short-term bearish bias)."
+                    )
+                else:
+                    cross_line = "MA20 and MA50 are roughly equal right now."
+
+            position_line = ""
+            if bb_upper is not None and bb_lower is not None:
+                band_width = bb_upper - bb_lower
+                if latest_price >= bb_upper:
+                    position_line = "price is at/above the upper Bollinger Band (potentially overbought/stretched)"
+                elif latest_price <= bb_lower:
+                    position_line = "price is at/below the lower Bollinger Band (potentially oversold/stretched)"
+                else:
+                    pct_in_band = (
+                        (latest_price - bb_lower) / band_width * 100 if band_width > 0 else 50
+                    )
+                    position_line = (
+                        f"price sits within the bands, about {pct_in_band:.0f}% of the way "
+                        f"from the lower to the upper band"
+                    )
+                bb_line = f"Upper {bb_upper:.2f} USD / Lower {bb_lower:.2f} USD ({position_line})"
+
             prompt = f"""
             Stock performance for {ticker}:
 
@@ -438,9 +511,20 @@ def build_company_insights(companies, financials, stocks, companies_map):
             12-month performance:
             {'N/A' if one_year_change is None else f'{one_year_change:+.2f}%'}
 
-            Write a concise 3-4 sentence insight.
-            First mention the latest daily movement.
-            Then briefly place it in the context of the 3-month and 12-month trend.
+            20-day moving average (MA20): {ma20_line}
+            50-day moving average (MA50): {ma50_line}
+            {cross_line}
+
+            Bollinger Bands (20-day, 2 std dev): {bb_line}
+
+            Write a concise 5-6 sentence insight for a beginner/retail investor who may not know
+            technical analysis. Rules for clarity:
+            - First mention the latest daily movement, then place it in the 3-month/12-month trend context.
+            - Describe whether price is above or below MA20 and MA50 in plain terms, then interpret rather than just stating numbers.
+            - Also mention the golden/death cross signal in plain language
+            - Before interpreting Bollinger Bands, briefly explain in plain words what they represent
+              (e.g. "a band showing the normal trading range based on recent volatility") in one short clause.
+            - Then state simply whether the price is near the top, near the bottom, or comfortably in the middle then interpret.
             """
 
         else:
@@ -450,7 +534,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "State this briefly."
             )
 
-        stock_insight = call_groq(prompt)
+        stock_insight = call_groq(prompt, max_tokens=180)
         result[ticker]["stock"] = stock_insight
 
         # --- Executive Summary: separate for FY and Q ---
