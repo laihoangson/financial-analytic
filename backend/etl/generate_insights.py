@@ -147,6 +147,22 @@ def metric_label(metric):
     return metric.replace("_", " ").title()
 
 
+def pct_change(current, previous):
+    """Safe percentage change between two values. Returns None if not computable."""
+    current = safe_num(current, None)
+    previous = safe_num(previous, None)
+    if current is None or previous is None or previous == 0:
+        return None
+    return (current - previous) / abs(previous) * 100
+
+
+def fmt_change(value, suffix="% vs prior period"):
+    """Formats a pct_change() result as a +/- string, or '' if unavailable."""
+    if value is None:
+        return ""
+    return f" ({value:+.1f}{suffix})"
+
+
 # ----------------------------------------------------------------------
 # Data loading helpers
 # ----------------------------------------------------------------------
@@ -459,32 +475,70 @@ def build_company_insights(companies, financials, stocks, companies_map):
 
             latest = fin.iloc[-1]
             prev = fin.iloc[-2] if len(fin) > 1 else None
-            latest_stock = stk.iloc[-1] if not stk.empty else None
 
-            rev_growth = None
-            if prev is not None and prev["revenue"]:
-                rev_growth = (latest["revenue"] - prev["revenue"]) / abs(prev["revenue"]) * 100
-            inc_growth = None
-            if prev is not None and prev.get("net_income"):
-                inc_growth = (latest["net_income"] - prev["net_income"]) / abs(prev["net_income"]) * 100
+            # --- Latest stock close + change vs ~3 months ago (not the prior report period) ---
+            latest_stock = stk.iloc[-1] if not stk.empty else None
+            stock_3m_ago = stk.iloc[max(0, len(stk) - 63)] if not stk.empty else None  # ~63 trading days
+            stock_price_change = (
+                pct_change(latest_stock["close"], stock_3m_ago["close"])
+                if latest_stock is not None and stock_3m_ago is not None
+                else None
+            )
 
             label = "FY" if period == "FY" else "quarter"
 
+            # --- Period-over-period growth for every metric mentioned in the prompt ---
+            rev_growth = pct_change(latest["revenue"], prev["revenue"]) if prev is not None else None
+            inc_growth = (
+                pct_change(latest.get("net_income"), prev.get("net_income")) if prev is not None else None
+            )
+            margin_growth = (
+                pct_change(latest.get("net_margin"), prev.get("net_margin")) if prev is not None else None
+            )
+            roe_growth = pct_change(latest.get("roe"), prev.get("roe")) if prev is not None else None
+            de_growth = (
+                pct_change(latest.get("debt_to_equity"), prev.get("debt_to_equity"))
+                if prev is not None
+                else None
+            )
+            cr_growth = (
+                pct_change(latest.get("current_ratio"), prev.get("current_ratio"))
+                if prev is not None
+                else None
+            )
+
+            is_bank = ticker in ("JPM", "BAC")
+            current_ratio_line = (
+                "" if is_bank else
+                f"current ratio {safe_num(latest.get('current_ratio'), 0):.2f}"
+                f"{fmt_change(cr_growth)}. "
+            )
+
+            stock_close_str = (
+                f"{latest_stock['close']:.2f} USD" if latest_stock is not None else "N/A"
+            )
+
             prompt = (
                 f"Company: {name} ({ticker}), sector {sector}. Latest {label} report: "
-                f"revenue {fmt_compact(latest['revenue'])} USD"
-                f"{f', {rev_growth:+.1f}% vs prior period' if rev_growth is not None else ''}; "
-                f"net income {fmt_compact(latest.get('net_income'))} USD"
-                f"{f', {inc_growth:+.1f}% vs prior period' if inc_growth is not None else ''}; "
-                f"net margin {safe_num(latest.get('net_margin'), 0)*100:.1f}%; "
-                f"ROE {safe_num(latest.get('roe'), 0)*100:.1f}%; "
+                f"revenue {fmt_compact(latest['revenue'])} USD{fmt_change(rev_growth)}; "
+                f"net income {fmt_compact(latest.get('net_income'))} USD{fmt_change(inc_growth)}; "
+                f"net margin {safe_num(latest.get('net_margin'), 0)*100:.1f}%{fmt_change(margin_growth)}; "
+                f"ROE {safe_num(latest.get('roe'), 0)*100:.1f}%{fmt_change(roe_growth)}; "
                 f"debt-to-equity {safe_num(latest.get('debt_to_equity'), 0):.2f}x. "
-                f"current ratio {safe_num(latest.get('current_ratio'), 0):.2f}. "
-                f"Latest stock close: {latest_stock['close'] if latest_stock is not None else 'N/A'} USD. "
-                "Write a 3-4 sentence executive summary covering growth, profitability, liquidity, and financial "
-                "health, in a tone suitable for an investor dashboard. Note that for BAC and JPM, don't say anything about current ratio because they are banks"
+                f"{current_ratio_line}"
+                f"Latest stock close: {stock_close_str}"
+                f"{fmt_change(stock_price_change, suffix='% vs 3 months ago')}. "
+                "Note: the figures in parentheses are the RELATIVE percentage change of that ratio versus the "
+                "prior period (e.g. margin going from 20% to 22% is reported as +10%, not +2 points) — describe "
+                "them as relative changes, not percentage-point changes. Do not use the term 'YoY' since this "
+                "may be comparing quarter to quarter, not year over year. "
+                "Write a 5-6 sentence executive summary as flowing, well-connected prose — like a human analyst "
+                "would write in a report, not a list of 'Metric: value, change' statements."
+                "Cover growth, profitability, liquidity, and overall financial health, in a "
+                "tone suitable for an investor dashboard. Note that for BAC and JPM, don't say anything about "
+                "current ratio because they are banks."
             )
-            exec_summary = call_groq(prompt, max_tokens=160)
+            exec_summary = call_groq(prompt, max_tokens=220)
 
             result[ticker][period] = {"executive_summary": exec_summary}
 

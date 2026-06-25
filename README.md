@@ -14,7 +14,7 @@ On mobile devices, switch your browser to **Desktop Mode** or **Request Desktop 
 ## 🌟 Key Features
 
 * **Automated ETL Pipeline:** Daily data extraction and transformation using Python and the `yfinance` API, orchestrated by GitHub Actions.
-* **Interactive Dashboards:** Daily-updated visualizations powered by Javascript, allowing users to filter by metrics like Revenue, Net Income, and compare global market performance or dive deep into individual company fundamentals.
+* **Interactive Dashboards:** Daily-updated visualizations powered by Javascript, allowing users to filter by metrics like Revenue, Net Income, and compare global market performance or dive deep into individual company fundamentals, with AI-generated insights (via Groq) that automatically update.
 * **Predictive Analytics & Reports:** In-depth stock price trend forecasting integrating Technical Analysis, Quantitative Analysis, and Machine Learning models (XGBoost, Scikit-Learn).
 * **Advanced SQL Analytics:** A robust MySQL database schema supporting complex financial queries, including fundamental analysis, sector comparisons, and market valuation metrics (e.g., P/E ratios, Volatility, Moving Averages).
 
@@ -37,7 +37,8 @@ financial-analytic/
 │   │   ├── load_to_mysql.py       # Safely upserts processed data to MySQL
 │   │   ├── load_to_supabase.py    # Upserts processed data to Cloud PostgreSQL
 │   │   ├── export_queries.py      # Automates pulling Supabase views into static CSVs
-│   │   ├── run_phase1.py          # Phase 1: Fast data fetch & clean for dashboards
+|   |   ├── generate_insight.py    # Create insights using Grok AI
+│   │   ├── run_phase1.py          # Phase 1: Data fetch & clean and generate AI insights for dashboards
 │   │   └── run_phase2.py          # Phase 2: Cloud sync & SQL view exports
 │   └── sql/
 │       ├── schema.sql             # Database schema and table definitions
@@ -46,10 +47,12 @@ financial-analytic/
 │   ├── global_dashboard.html      # Global market interactive dashboard
 │   └── company_dashboard.html     # Deep-dive company interactive dashboard
 ├── data/
-│   ├── cleaned/                   # Final datasets powering daily dashboard updates
+│   ├── cleaned/                   # Final datasets and AI insights powering daily dashboard updates
 │   │   ├── companies.csv
 │   │   ├── financial_statements.csv
-│   │   └── stock_prices.csv
+│   │   |── stock_prices.csv
+│   │   |── insights_company.json
+│   │   └── insights_global.json
 │   ├── raw/                       # Raw, unprocessed data straight from the API
 │   │   ├── raw_companies.csv
 │   │   ├── raw_financials.csv
