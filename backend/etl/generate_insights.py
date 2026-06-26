@@ -574,9 +574,12 @@ def build_company_insights(companies, financials, stocks, companies_map):
                         )
  
             # --- Contradiction check: do the MA, cross, and BB signals actually agree? ---
-            # Each signal is normalized to "bullish" / "bearish" / "mixed" / "neutral" / None
-            # so we can detect disagreement instead of letting the model silently pick one
-            # signal and ignore the others (or invent a false consensus).
+            # Each signal is normalized to "bullish" / "bearish" / "mixed" / "neutral" / None.
+            # A real contradiction only exists when a clearly bullish signal and a clearly
+            # bearish signal are both present at the same time. "neutral" (no clear BB
+            # direction) and "mixed" (MA above one average, below the other) are NOT treated
+            # as directional opposites — they simply mean "no strong signal here", so they
+            # must not by themselves trigger a false disagreement.
             directional_signals = {
                 "Combined MA signal": ma_signal,
                 "Cross signal": "bullish" if cross_signal == "golden" else (
@@ -585,12 +588,15 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "BB signal": bb_signal,
             }
             present_signals = {k: v for k, v in directional_signals.items() if v is not None}
-            distinct_directions = set(present_signals.values())
+            has_bullish = "bullish" in present_signals.values()
+            has_bearish = "bearish" in present_signals.values()
+            is_real_contradiction = has_bullish and has_bearish
  
-            if len(distinct_directions) <= 1:
+            if not is_real_contradiction:
                 contradiction_line = (
-                    "Signal agreement check: all available technical signals point in the same "
-                    "direction (or are neutral/mixed on their own) — no contradiction to flag."
+                    "Signal agreement check: there is no real contradiction. Any 'neutral' or "
+                    "'mixed' reading just means that particular indicator has no strong "
+                    "direction right now — do not describe this as signals disagreeing."
                 )
             else:
                 conflict_desc = "; ".join(f"{k} = {v}" for k, v in present_signals.items())
@@ -632,16 +638,14 @@ def build_company_insights(companies, financials, stocks, companies_map):
             Write a concise 5-6 sentence insight for a beginner/retail investor who may not know
             technical analysis. Rules for clarity:
             - First mention the latest daily movement, then place it in the 3-month/12-month trend context.
-            - Describe whether price is above or below MA20 and MA50 in plain terms, then interpret using
-              the verified combined MA signal and cross signal above (translate labels like "strong bullish",
+            - Describe whether price is above or below MA20 and MA50 in plain terms, then interpret using them and
+              the cross signal (translate labels like "strong bullish",
               "strong bearish", "mixed", "golden cross", "death cross" into plain language - don't just repeat
               the jargon term on its own without explaining what it means for the reader).
-            - Also mention the golden/death cross signal in plain language.
             - Before interpreting Bollinger Bands, briefly explain in plain words what they represent
               (e.g. "a band showing the normal trading range based on recent volatility") in one short clause.
             - Then interpret it in plain language.
             - If the signal agreement check above reports a disagreement, you must say so plainly
-              (e.g. "short-term momentum looks strong while the longer-term trend still looks weak")
               rather than picking only the most bullish or most bearish signal and ignoring the rest.
             """
  
