@@ -398,6 +398,14 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 prev_price = stk.iloc[-2]["close"]
                 if pd.notna(prev_price) and prev_price > 0:
                     day_change = (latest_price - prev_price) / prev_price * 100
+
+
+            # ===== 1 MONTH =====
+            one_month_change = None
+            idx_1m = max(0, len(stk) - 21)
+            start_1m = stk.iloc[idx_1m]["close"]
+            if pd.notna(start_1m) and start_1m > 0:
+                one_month_change = (latest_price - start_1m) / start_1m * 100
  
             # ===== 3 MONTH =====
             three_month_change = None
@@ -580,6 +588,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
  
             Recent performance:
             - Daily: {'N/A' if day_change is None else f'{day_change:+.2f}% vs the previous trading day'}
+            - 1-month: {'N/A' if one_month_change is None else f'{one_month_change:+.2f}%'}
             - 3-month: {'N/A' if three_month_change is None else f'{three_month_change:+.2f}%'}
             - 12-month: {'N/A' if one_year_change is None else f'{one_year_change:+.2f}%'}
  
@@ -598,7 +607,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
             {contradiction_line}
  
             Write a 5-6 sentence insight for a beginner investor. Follow these rules exactly:
-            1. Start with the daily movement, then put it in context of the 3-month and 12-month trend.
+            1. Start with the daily movement, then put it in context of the 1-month, 3-month and 12-month trend.
             2. State clearly whether the price is above or below MA20 and MA50, then explain what
                the MA cross signal means in plain everyday language (e.g. if Golden Cross, say something
                like "the short-term average has climbed above the longer-term average, which many see
