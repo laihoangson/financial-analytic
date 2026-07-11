@@ -707,8 +707,9 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "3. REQUIRED STRUCTURE (Write as flowing prose, not bullet points):\n"
                 "   - Sentence 1: Connect Revenue and Net Income performance.\n"
                 "   - Sentence 2: Discuss Profitability (Net Margin and ROE) accurately based on whether the relative change is positive or negative.\n"
-                "   - Sentence 3: Assess Balance Sheet health (Leverage/Debt-to-Equity and liquidity).\n"
-                "   - Sentence 4/5: Mention recent stock performance in one month and provide a brief concluding thought on overall financial health.\n"
+                "   - Sentence 3: Assess Leverage using Debt-to-Equity ratio.\n"
+                "   - Sentence 4: Assess Liquidity using current ratio.\n"
+                "   - Sentence 5/6: Mention recent stock performance in one month and provide a brief concluding thought on overall profitability and financial health.\n"
                 "Tone: suitable for an investor dashboard. "
                 "Note: for BAC and JPM, do not mention current ratio because they are banks."
             )
