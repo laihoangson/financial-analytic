@@ -647,10 +647,10 @@ def build_company_insights(companies, financials, stocks, companies_map):
             prev = fin.iloc[-2] if len(fin) > 1 else None
  
             latest_stock = stk.iloc[-1] if not stk.empty else None
-            stock_3m_ago = stk.iloc[max(0, len(stk) - 63)] if not stk.empty else None
+            stock_1m_ago = stk.iloc[max(0, len(stk) - 21)] if not stk.empty else None
             stock_price_change = (
-                pct_change(latest_stock["close"], stock_3m_ago["close"])
-                if latest_stock is not None and stock_3m_ago is not None
+                pct_change(latest_stock["close"], stock_1m_ago["close"])
+                if latest_stock is not None and stock_1m_ago is not None
                 else None
             )
  
@@ -683,7 +683,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 f"debt-to-equity {safe_num(latest.get('debt_to_equity'), 0):.2f}x{fmt_change(de_growth)}. "
                 f"{current_ratio_line}"
                 f"Latest stock close: {stock_close_str}"
-                f"{fmt_change(stock_price_change, suffix='% vs 3 months ago')}. "
+                f"{fmt_change(stock_price_change, suffix='% vs 1 months ago')}. "
                 "Note: the figures in parentheses are the RELATIVE percentage change of that ratio versus the "
                 "prior period (e.g. margin going from 20% to 22% is reported as +10%, not +2 points) — describe "
                 "them as relative changes, not percentage-point changes." 
