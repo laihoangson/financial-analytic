@@ -703,7 +703,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "would write in a report, not a list of 'Metric: value, change' statements. "
                 "Do not restate every figure mechanically one after another; instead, weave related numbers "
                 "together (e.g. connect margin and ROE into one sentence about profitability). "
-                "Avoid repeating the same point in different sentences. "
+                "Avoid repeating the same point in different sentences. AVOID using linking word between sentences to mimimize mistakes "
                 "3. REQUIRED STRUCTURE (Write as flowing prose, not bullet points):\n"
                 "   - Sentence 1: Connect Revenue and Net Income performance.\n"
                 "   - Sentence 2: Discuss Profitability (Net Margin and ROE) accurately based on whether the relative change is positive or negative.\n"
@@ -713,7 +713,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "Tone: suitable for an investor dashboard. "
                 "Note: for BAC and JPM, do not mention current ratio because they are banks."
             )
-            exec_summary = call_groq(prompt, max_tokens=220)
+            exec_summary = call_groq(prompt, max_tokens=300)
             result[ticker][period] = {"executive_summary": exec_summary}
  
     result["_generated_at"] = datetime.now(timezone.utc).isoformat()

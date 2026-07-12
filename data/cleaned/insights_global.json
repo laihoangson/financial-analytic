@@ -1,21 +1,21 @@
 {
   "row1": {
-    "revenue": "Amazon.com, Inc. (AMZN) leads the pack with $716.9B in revenue, narrowly surpassing Walmart Inc. (WMT) by $3.7B. The top companies' revenues are clustered closely together, with a mere $313.7B separating the top two from the fifth-ranked Alphabet Inc. (GOOGL).",
-    "net_income": "Alphabet Inc. (GOOGL) leads the pack with a net income of $132.2B, a significant gap of $30.1B over NVIDIA Corporation (NVDA) in second place. This substantial lead highlights GOOGL's dominance in the tech industry.",
-    "total_assets": "JPMorgan Chase & Co. (JPM) leads the pack with Total Assets of 4.4T USD in the latest fiscal year, showcasing a significant gap of over 1T USD from the second-ranked Bank of America Corporation (BAC). This substantial gap underscores JPM's dominant position in the banking sector.",
-    "total_equity": "Alphabet Inc. (GOOGL) leads the pack with $415.3B in Total Equity, a significant gap of over $63B from Amazon.com, Inc. (AMZN) in second place.",
-    "total_liabilities": "JPMorgan Chase & Co. leads the pack with $4.1T in Total Liabilities, a significant gap of over $900B from the second-ranked Bank of America Corporation. This substantial difference underscores JPM's substantial balance sheet.",
-    "cash_and_equivalents": "JPMorgan Chase & Co. (JPM) leads the pack with $343.3B in Cash And Equivalents, a significant gap of over $100B from Bank of America Corporation (BAC) in second place. This substantial lead underscores JPM's strong liquidity position.",
-    "gross_profit": "Amazon.com, Inc. (AMZN) leads the pack with a Gross Profit of $360.5B USD, a significant gap of over $120B USD ahead of Alphabet Inc. (GOOGL) in second place. This substantial lead underscores AMZN's dominance in the e-commerce and cloud computing space.",
-    "operating_income_ebit": "Apple Inc. (AAPL) leads the pack with Operating Income Ebit of $133.1B, a significant gap of $2.7B-$3.8B from the next closest competitors NVDA and GOOGL. This substantial lead highlights AAPL's strong profitability in the latest fiscal year."
+    "revenue": "Amazon.com, Inc. (AMZN) leads the pack with a revenue of 716.9B USD, narrowly surpassing Walmart Inc. (WMT) by 3.7B USD. The top two companies hold a significant revenue gap of 303.7B USD over the next closest competitor, UnitedHealth Group Incorporated (UNH).",
+    "net_income": "Alphabet Inc. (GOOGL) leads the pack with a net income of $132.2B, a significant gap of $30.1B from NVIDIA Corporation (NVDA) in second place. The top two companies account for nearly 60% of the combined net income of the top five.",
+    "total_assets": "JPMorgan Chase & Co. (JPM) leads the pack with Total Assets of 4.4T USD, a significant gap from second-place Bank of America Corporation (BAC) with 3.4T USD. This 1T USD difference highlights the substantial size disparity among these top companies.",
+    "total_equity": "Alphabet Inc. (GOOGL) leads the top companies with a Total Equity of 415.3B USD, a significant 2.1% gap above Amazon.com, Inc. (AMZN) which ranks second with 411.1B USD.",
+    "total_liabilities": "JPMorgan Chase & Co. (JPM) leads the pack with $4.1T in Total Liabilities, a significant gap of $0.9T from Bank of America Corporation (BAC) in second place. This substantial difference highlights JPM's substantial balance sheet.",
+    "cash_and_equivalents": "JPMorgan Chase & Co. (JPM) leads the pack with a substantial $343.3B in Cash And Equivalents, a significant gap of over $100B from the second-place Bank of America Corporation (BAC).",
+    "gross_profit": "Amazon.com, Inc. (AMZN) leads the pack with a gross profit of $360.5B USD, significantly outpacing Alphabet Inc. (GOOGL) by $120.2B USD. This substantial gap highlights AMZN's dominance in the e-commerce and cloud computing spaces.",
+    "operating_income_ebit": "Apple Inc. (AAPL) leads the pack with an Operating Income Ebit of $133.1B USD, a significant margin above NVIDIA Corporation (NVDA) at $130.4B USD, indicating a notable gap between the top two companies."
   },
   "row2_sector": {
-    "revenue": "Consumer Cyclical and Technology sectors drive 43.1% of overall revenue, with Consumer Cyclical alone accounting for 22.0%. This concentration suggests a significant reliance on these sectors for revenue growth.",
-    "total_assets": "Financial Services sector dominates the sector distribution by Total Assets with 64.1% market share, nearly 7 times the next closest sector, Technology. This significant concentration may pose risks to investors and regulators.",
-    "net_income": "Technology sector dominates the net income landscape, accounting for 39.2% of the total with $341.0B in net income, a significant lead over the next closest sector. This concentration of net income in Technology suggests a high level of profitability within the sector."
+    "revenue": "Consumer Cyclical and Technology sectors dominate the revenue landscape with combined share of 43.1%, indicating significant concentration in these industries. Consumer Cyclical leads with 22.0% share, closely followed by Technology at 21.1%.",
+    "total_assets": "Financial Services sector dominates the landscape with 64.1% of total assets, dwarfing its closest competitors by a significant margin. The sector's massive size highlights its critical role in the global economy.",
+    "net_income": "Technology sector dominates the net income landscape, accounting for 39.2% of the total with $341.0B in earnings, nearly 1.5 times the earnings of its closest competitor. Communication Services is the second largest contributor at 24.8%."
   },
-  "row2_bubble": "NVDA's 55.6% net margin is significantly higher than UNH's 2.7%, indicating a substantial difference in profitability efficiency between the two companies. This disparity is likely driven by NVDA's strong product pricing power and UNH's high operating costs.",
-  "row3_heatmap": "MA's 193.5% ROE stands out among peers, but its leverage risk is relatively low at 2.33x Debt/Equity. In contrast, JPM's high ROE (17.2%) is offset by its high leverage (11.21x Debt/Equity).",
-  "row4_market_trends": "Google's 101.7% return makes it the top performer among high-revenue companies, while Netflix's 41.3% decline is the largest among the group. This significant disparity in performance may indicate varying market sentiments towards growth and stability.",
-  "_generated_at": "2026-07-11T22:58:42.183693+00:00"
+  "row2_bubble": "NVDA's 55.6% net margin outpaces UNH's 2.7% margin by a significant 52.9% point, highlighting the stark contrast in profitability efficiency between the two companies. This disparity underscores the importance of operational efficiency in driving net income growth.",
+  "row3_heatmap": "Morgan Stanley (MA) stands out for exceptional returns with a 193.5% ROE, while JPMorgan Chase (JPM) takes on significant leverage risk with a debt-to-equity ratio of 11.21x.",
+  "row4_market_trends": "Google's impressive 101.7% return cements its position as the top performer, while Netflix's 41.3% decline underscores significant market volatility. The stark contrast highlights the varying fortunes of high-revenue companies. Market sentiment remains uncertain amidst these divergent results.",
+  "_generated_at": "2026-07-12T01:46:11.275718+00:00"
 }
