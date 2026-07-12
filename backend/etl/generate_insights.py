@@ -703,7 +703,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "would write in a report, not a list of 'Metric: value, change' statements. "
                 "Do not restate every figure mechanically one after another; instead, weave related numbers "
                 "together (e.g. connect margin and ROE into one sentence about profitability). "
-                "Avoid repeating the same point in different sentences. AVOID using linking word between sentences to mimimize mistakes "
+                "Avoid repeating the same point in different sentences. AVOID USING LINKING WORDS (linking expressions) between sentences to mimimize mistakes "
                 "3. REQUIRED STRUCTURE (Write as flowing prose, not bullet points):\n"
                 "   - Sentence 1: Connect Revenue and Net Income performance.\n"
                 "   - Sentence 2: Discuss Profitability (Net Margin and ROE) accurately based on whether the relative change is positive or negative.\n"
