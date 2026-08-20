@@ -3,7 +3,7 @@
 #
 # Generates short, data-grounded narrative insights for both dashboards
 # (global_dashboard.html and company_dashboard.html) using Groq's
-# llama-3.1-8b-instant model. Runs server-side as part of the daily ETL
+# openai/gpt-oss-20b model. Runs server-side as part of the daily ETL
 # (Phase 1), so the GROQ_API_KEY never reaches the browser.
 #
 # Output:
@@ -37,7 +37,7 @@ from datetime import datetime, timezone
 from config import DATA_CLEANED_DIR, TICKERS
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 # Metric options exposed by each selector in global_dashboard.html
@@ -59,7 +59,8 @@ SYSTEM_PROMPT = (
     "live dashboard. Rules: 1-2 sentences max. Be specific and reference "
     "actual numbers/tickers given to you. No generic filler, no disclaimers, "
     "no markdown, no headers. Plain text only. If data is missing or empty, "
-    "say so briefly instead of guessing."
+    "say so briefly instead of guessing. Never use an em dash (—) or en "
+    "dash (–); use a plain hyphen (-) instead."
 )
 
 
@@ -83,6 +84,10 @@ def call_groq(user_prompt, max_tokens=120, retries=4):
         "max_tokens": max_tokens,
         "temperature": 0.4,
     }
+    # gpt-oss models reason before answering; without capping effort, reasoning
+    # tokens can eat the whole max_tokens budget and leave content empty.
+    if "gpt-oss" in GROQ_MODEL:
+        payload["reasoning_effort"] = "low"
 
     result = "Insight temporarily unavailable."
     for attempt in range(retries):
@@ -91,6 +96,7 @@ def call_groq(user_prompt, max_tokens=120, retries=4):
             if resp.status_code == 200:
                 data = resp.json()
                 result = data["choices"][0]["message"]["content"].strip()
+                result = result.replace("—", "-").replace("–", "-")
                 break
             elif resp.status_code == 429:
                 # Honor Retry-After if Groq sends it, otherwise back off gradually.

@@ -1,21 +1,21 @@
 {
   "row1": {
-    "revenue": "Insight temporarily unavailable.",
-    "net_income": "Insight temporarily unavailable.",
-    "total_assets": "Insight temporarily unavailable.",
-    "total_equity": "Insight temporarily unavailable.",
-    "total_liabilities": "Insight temporarily unavailable.",
-    "cash_and_equivalents": "Insight temporarily unavailable.",
-    "gross_profit": "Insight temporarily unavailable.",
-    "operating_income_ebit": "Insight temporarily unavailable."
+    "revenue": "Amazon leads the revenue rankings with $716.9 B, outpacing Walmart by just $3.7 B, but both far exceed the next tier, where UnitedHealth’s $447.6 B is $269 B behind Amazon.",
+    "net_income": "Microsoft leads with $133.7 B in net income, outpacing Alphabet by just $1.5 B and NVIDIA by $13.6 B, showing a clear but not massive gap among the top three. Apple’s $112 B falls 21.6 B behind Microsoft, while Amazon trails far behind at $77.7 B.",
+    "total_assets": "JPMorgan Chase leads Total Assets at $4.4 trillion, far outpacing Bank of America’s $3.4 trillion and creating a $1.0 trillion gap to the next largest bank. The tech sector follows, with Amazon at $818 billion, Microsoft at $758.4 billion, and Alphabet at $595.3 billion.",
+    "total_equity": "Microsoft leads with $442.4 B in total equity, outpacing Alphabet by $27.1 B and Amazon by $31.3 B, a clear 6–7% advantage over the next two tech giants. The gap to JPMorgan Chase’s $362.4 B is even wider, underscoring Microsoft’s dominant balance‑sheet position.",
+    "total_liabilities": "JPMorgan Chase leads Total Liabilities at $4.1 trillion, dwarfing the next bank, Bank of America, which sits at $3.1 trillion—a $0.9 trillion gap. Among tech giants, Amazon tops the list with $407 billion, far ahead of Microsoft’s $316 billion and Apple’s $285.5 billion.",
+    "cash_and_equivalents": "JPMorgan Chase leads cash and equivalents with $343.3 B, far ahead of Bank of America’s $239.3 B—a $104 B gap. Amazon follows at $86.8 B, while Apple and Meta both sit at $35.9 B, showing a steep drop from the top tier.",
+    "gross_profit": "Amazon leads with a $360.5 B gross profit, outpacing Alphabet by $120.2 B and Microsoft by $135 B, highlighting a significant margin advantage over the next tier of tech giants.",
+    "operating_income_ebit": "Microsoft leads with $155.2 B operating income, outpacing Apple by $22.1 B and NVIDIA by $24.8 B, creating a sizable gap at the top of the list. The top four firms collectively generate over $600 B, while Meta lags behind with $83.3 B."
   },
   "row2_sector": {
-    "revenue": "Insight temporarily unavailable.",
-    "total_assets": "Insight temporarily unavailable.",
-    "net_income": "Insight temporarily unavailable."
+    "revenue": "Technology leads with $987.7 B, 22.0% of total revenue, followed closely by Consumer Cyclical at $976.4 B (21.7%). The top two sectors together account for 43.7% of the market, underscoring a high concentration in high-growth industries.",
+    "total_assets": "Financial Services dominate the asset base with 8.1 trillion USD, representing 63.4% of total assets, far outpacing the next largest sector, Technology, at 1.4 trillion USD (10.6%). This concentration indicates a heavy reliance on banking and insurance holdings within the portfolio.",
+    "net_income": "Technology dominates the net‑income landscape, delivering $373 B (41.3%) of total earnings, while Communication Services follows at $216 B (23.9%). The remaining sectors contribute less than 15% each, underscoring a concentrated profit distribution."
   },
-  "row2_bubble": "Insight temporarily unavailable.",
-  "row3_heatmap": "Insight temporarily unavailable.",
-  "row4_market_trends": "Insight temporarily unavailable.",
-  "_generated_at": "2026-08-19T22:35:00.906155+00:00"
+  "row2_bubble": "NVDA leads with a 55.6% net margin on $215.9 B revenue, far outpacing UNH’s 2.7% margin, showing a dramatic difference in profitability efficiency across the sector.",
+  "row3_heatmap": "MA delivers the highest returns with a 193.5% ROE, while JPM shows the greatest leverage at 11.21x debt-to-equity, highlighting a stark contrast between aggressive profitability and high financial risk.",
+  "row4_market_trends": "GOOGL leads the pack with a 71.5% 12‑month gain, the highest return among the top‑revenue firms. In stark contrast, NFLX lags behind with a 33.9% decline, the worst performance in the group. This divergence highlights the volatility within the high‑revenue sector, where tech giants can swing from double‑digit gains to steep losses.",
+  "_generated_at": "2026-08-20T04:10:57.135198+00:00"
 }
