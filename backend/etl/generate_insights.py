@@ -635,7 +635,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "State this briefly."
             )
  
-        stock_insight = call_groq(prompt, max_tokens=200)
+        stock_insight = call_groq(prompt, max_tokens=400)
         result[ticker]["stock"] = stock_insight
  
         # --- Executive Summary ---
@@ -719,7 +719,7 @@ def build_company_insights(companies, financials, stocks, companies_map):
                 "Tone: suitable for an investor dashboard. "
                 "Note: for BAC and JPM, do not mention current ratio because they are banks."
             )
-            exec_summary = call_groq(prompt, max_tokens=300)
+            exec_summary = call_groq(prompt, max_tokens=350)
             result[ticker][period] = {"executive_summary": exec_summary}
  
     result["_generated_at"] = datetime.now(timezone.utc).isoformat()
