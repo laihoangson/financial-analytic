@@ -1,21 +1,21 @@
 {
   "row1": {
-    "revenue": "Amazon leads revenue with $716.9B, outpacing Walmart by $3.7B and UNH by $269.3B. The top two are separated by a 5.2% margin, while the gap to the third drops to 62.5%.",
-    "net_income": "Microsoft leads with a net income of $133.7B, outpacing Google by $1.5B and NVIDIA by $13.6B, showing a clear top‑tier advantage in profitability. The gap between the top two firms is modest, but the drop to Apple ($112B) and Amazon ($77.7B) highlights a widening earnings disparity among the leaders.",
-    "total_assets": "JPM dominates total assets with $4.4 trillion, far ahead of BAC’s $3.4 trillion-a $1.0 trillion gap. The tech leaders trail behind, with AMZN at $818 billion and MSFT at $758.4 billion, both well below the banking giants.",
-    "total_equity": "Microsoft leads Total Equity with $442.4B, outpacing Google by $27.1B and Amazon by $31.3B, creating a sizable gap among the top three tech giants. The gap between Microsoft and the next two companies is the largest, while the difference between Google and Amazon is relatively narrow.",
-    "total_liabilities": "JPM leads Total Liabilities at $4.1T, far ahead of the next highest, BAC at $3.1T, a $0.9T gap. The gap widens further when compared to tech giants, with AMZN at $407B, MSFT at $316B, and AAPL at $285.5B.",
-    "cash_and_equivalents": "JPM leads Cash And Equivalents with $343.3B, outpacing BAC by $104B and AMZN by $256.5B, showing a substantial liquidity advantage over the next tier of banks and tech firms.",
-    "gross_profit": "Amazon leads gross profit at $360.5B, outpacing Google by $120.2B and Microsoft by $135.0B, highlighting a substantial gap in profitability among the top five.",
-    "operating_income_ebit": "Microsoft leads with $155.2B operating income, outpacing Apple by $22.1B and NVIDIA by $24.8B, highlighting a significant gap in EBIT among the top five tech firms."
+    "revenue": "Amazon (AMZN) tops the revenue list with $716.9 B, outpacing Walmart (WMT) by roughly $3.7 B. The gap between the top two is the largest, while the rest of the group falls 150 B+ below Amazon.",
+    "net_income": "Microsoft leads net income with $133.7B, outpacing Alphabet by $1.5B and NVIDIA by $13.6B, highlighting a clear top‑tier gap in profitability. Apple follows at $112.0B, while Amazon trails at $77.7B, underscoring the steep decline beyond the top four.",
+    "total_assets": "JPMorgan Chase leads total assets with $4.4 trillion, far ahead of Bank of America’s $3.4 trillion. The gap between the top two banks is $1.0 trillion, while the next tier of tech giants trails by more than $1.5 trillion.",
+    "total_equity": "Microsoft (MSFT) leads Total Equity at $442.4 B, outpacing Alphabet (GOOGL) by roughly $27 B. The gap narrows further to Amazon (AMZN) at $411.1 B, leaving JPMorgan Chase (JPM) and Bank of America (BAC) well behind the top tier.",
+    "total_liabilities": "JPMorgan Chase leads Total Liabilities at $4.1 trillion, far ahead of Bank of America’s $3.1 trillion and a steep drop to Amazon’s $407 billion, showing a $3.0 trillion gap between the top two banks and the tech sector.",
+    "cash_and_equivalents": "JPMorgan Chase leads the pack with $343.3 B in cash and equivalents, a full $104 B more than Bank of America’s $239.3 B, underscoring its dominant liquidity position. Amazon, Apple, and Meta trail far behind, each holding less than $90 B.",
+    "gross_profit": "Amazon leads gross profit with $360.5B, outpacing Alphabet by $120.2B and Microsoft by $135.0B, highlighting a significant gap at the top of the list. The next tier-Apple, Walmart, and Microsoft-clusters within $30B of each other, showing tighter competition below Amazon.",
+    "operating_income_ebit": "Microsoft leads with an operating income of $155.2 B, outpacing Apple by $22.1 B and NVIDIA by $24.8 B, while Alphabet trails just $1.4 B behind NVIDIA. The gap between the top two is the largest, underscoring Microsoft’s dominant profitability in the tech sector."
   },
   "row2_sector": {
-    "revenue": "Sector data for Revenue is currently unavailable.",
-    "total_assets": "No sector data is currently available for the metric 'Total Assets'.",
-    "net_income": "No sector data is currently available for the metric 'Net Income'."
+    "revenue": "Technology leads with $987.7B, 22.0% of total revenue, followed closely by Consumer Cyclical at $976.4B, 21.7%. The top two sectors together account for 43.7% of overall revenue, indicating a strong concentration in high-growth industries.",
+    "total_assets": "Financial Services dominate the portfolio, holding 63.4% of total assets at $8.1T, while Technology and Communication Services trail at 10.6% ($1.4T) and 9.5% ($1.2T) respectively. The remaining sectors contribute under 10% each, indicating a highly concentrated asset allocation.",
+    "net_income": "Technology dominates the portfolio, contributing $373.0B or 41.3% of net income, while Communication Services follows at $216.0B (23.9%). The remaining sectors collectively account for less than 35% of total earnings."
   },
-  "row2_bubble": "NVDA leads with a 55.6% net margin on $215.9B revenue, far outpacing UNH’s 2.7% margin, indicating NVDA’s superior profitability efficiency despite UNH’s larger asset base.",
-  "row3_heatmap": "MA delivers the highest return on equity at 193.5%, far outpacing peers, while JPM shows the greatest leverage with a debt-to-equity ratio of 11.21x, indicating higher risk. Companies with strong ROE but lower leverage, such as those not mentioned, would balance returns and risk more effectively.",
-  "row4_market_trends": "JNJ leads the cohort with a 40.8% 12‑month return, the best performer among the highest‑revenue names. In contrast, NFLX lags behind with a 42.3% decline, the worst performer in the group. The spread between the top and bottom highlights a sharp divergence in recent equity performance.",
-  "_generated_at": "2026-10-04T00:28:55.578802+00:00"
+  "row2_bubble": "NVDA’s net margin of 55.6% on $215.9 B revenue far outpaces UNH’s 2.7% margin, showing NVDA is far more efficient at converting sales into profit. The stark 52.9‑percentage‑point gap highlights NVDA’s superior profitability efficiency relative to UNH.",
+  "row3_heatmap": "MA’s 193.5% ROE shows exceptional returns, while JPM’s 11.21x debt-to-equity highlights extreme leverage risk. Companies with high ROE but lower debt ratios balance profitability with safer capital structure.",
+  "row4_market_trends": "JNJ leads the group with a 40.8% cumulative return over the past 12 months, topping the list of high‑revenue firms. In stark contrast, NFLX lags behind with a 42.3% decline, making it the worst performer. The gap between the best and worst highlights the volatility within the sector.",
+  "_generated_at": "2026-10-05T00:42:06.440713+00:00"
 }
